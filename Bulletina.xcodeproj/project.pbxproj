@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4F79B91F1C43DC2D0082740E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F79B9121C43DC2D0082740E /* AppDelegate.m */; };
-		4F79B9201C43DC2D0082740E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F79B9131C43DC2D0082740E /* Info.plist */; };
 		4F79B9211C43DC2D0082740E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F79B9141C43DC2D0082740E /* main.m */; };
 		4F79B9221C43DC2D0082740E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F79B9181C43DC2D0082740E /* LoginViewController.m */; };
 		4F79B9231C43DC2D0082740E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F79B91B1C43DC2D0082740E /* Assets.xcassets */; };
@@ -209,7 +208,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F79B9231C43DC2D0082740E /* Assets.xcassets in Resources */,
-				4F79B9201C43DC2D0082740E /* Info.plist in Resources */,
 				4F79B9261C43DD130082740E /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
