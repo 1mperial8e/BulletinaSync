@@ -14,28 +14,39 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="243"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oQk-bF-ugb">
-                        <rect key="frame" x="100" y="35" width="120" height="120"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="oQk-bF-ugb">
+                        <rect key="frame" x="100" y="43" width="120" height="120"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="ZqU-hZ-nvt"/>
                             <constraint firstAttribute="height" constant="120" id="qdb-CX-iD1"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The mobile bulletin board" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5a-8Y-2yu">
-                        <rect key="frame" x="0.0" y="173" width="320" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5a-8Y-2yu">
+                        <rect key="frame" x="17" y="181" width="286" height="21"/>
+                        <attributedString key="attributedText">
+                            <fragment content="The mobile bulletin board">
+                                <attributes>
+                                    <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <font key="NSFont" size="17" name="HelveticaNeue-Light"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="z5a-8Y-2yu" firstAttribute="top" secondItem="oQk-bF-ugb" secondAttribute="bottom" constant="18" id="1DX-fZ-9cA"/>
                     <constraint firstItem="oQk-bF-ugb" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Nfx-qV-NHx"/>
-                    <constraint firstItem="oQk-bF-ugb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="35" id="cfL-Zm-T0C"/>
-                    <constraint firstItem="z5a-8Y-2yu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fBj-nf-ugt"/>
-                    <constraint firstAttribute="trailing" secondItem="z5a-8Y-2yu" secondAttribute="trailing" id="mBM-0z-Kpf"/>
+                    <constraint firstItem="oQk-bF-ugb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="43" id="cfL-Zm-T0C"/>
+                    <constraint firstItem="z5a-8Y-2yu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="fBj-nf-ugt"/>
+                    <constraint firstAttribute="trailing" secondItem="z5a-8Y-2yu" secondAttribute="trailing" constant="17" id="mBM-0z-Kpf"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="1" green="0.91021817579999997" blue="0.4162654046" alpha="1" colorSpace="calibratedRGB"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Logo" width="114" height="119"/>
+    </resources>
 </document>
