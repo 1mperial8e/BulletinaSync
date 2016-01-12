@@ -58,7 +58,7 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	
 	UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
 	refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-	[self.tableView addSubview:refreshControl];
+	[self.tableView insertSubview:refreshControl atIndex:0];
 	[refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
 }
 
