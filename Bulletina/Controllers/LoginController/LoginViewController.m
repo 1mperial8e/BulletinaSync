@@ -7,11 +7,14 @@
 //
 
 #import "LoginViewController.h"
+#import "MainPageController.h"
+#import "AppDelegate.h"
 
 #import "LogoTableViewCell.h"
 #import "TextFieldTableViewCell.h"
 #import "LoginButtonTableViewCell.h"
 #import "TryBeforeTableViewCell.h"
+
 
 static CGFloat const LogoTableViewCellHeigth = 252.0f;
 static CGFloat const TextfieldTableViewCellHeigth = 48.0f;
@@ -41,6 +44,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexPaths) {
 - (void)viewDidLoad
 {
 	self.title = @"Login";
+	[[self navigationController] setNavigationBarHidden:YES animated:NO];
+	[self setNeedsStatusBarAppearanceUpdate];
+//	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 	[self tableViewSetup];
 }
 
@@ -137,7 +143,26 @@ typedef NS_ENUM(NSUInteger, CellsIndexPaths) {
 	TryBeforeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:TryBeforeTableViewCell.ID forIndexPath:indexPath];
 	[cell.button.layer setCornerRadius:6.0f];
 	cell.backgroundColor = [UIColor clearColor];
+	[cell.button addTarget:self action:@selector(tryBeforeSignupButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+	
 	return cell;
+}
+
+#pragma mark - StatusBar setup
+
+- (UIStatusBarStyle) preferredStatusBarStyle
+{
+	return UIStatusBarStyleLightContent;
+}
+
+#pragma mark - Actions
+
+- (void)tryBeforeSignupButtonTap:(id)sender
+{
+	MainPageController *mainPageController = [MainPageController new];
+	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
+	[self.navigationController presentViewController:mainPageNavigationController animated:YES completion:nil];
+//	[((AppDelegate*)[UIApplication sharedApplication].delegate) setRootViewController:mainPageController];
 }
 
 @end

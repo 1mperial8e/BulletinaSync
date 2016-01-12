@@ -10,5 +10,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+- (void)setRootViewController:(UIViewController *)viewController;
+
 @end
 

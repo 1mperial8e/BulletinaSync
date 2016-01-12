@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		307DD9131C44F68A00F59857 /* MainPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 307DD9111C44F68A00F59857 /* MainPageController.m */; };
+		307DD9141C44F68A00F59857 /* MainPageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307DD9121C44F68A00F59857 /* MainPageController.xib */; };
+		307DD91F1C44F93200F59857 /* ItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 307DD91D1C44F93200F59857 /* ItemTableViewCell.m */; };
+		307DD9201C44F93200F59857 /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307DD91E1C44F93200F59857 /* ItemTableViewCell.xib */; };
 		30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */; };
 		30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */; };
 		30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */; };
@@ -24,6 +28,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		307DD9101C44F68A00F59857 /* MainPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageController.h; sourceTree = "<group>"; };
+		307DD9111C44F68A00F59857 /* MainPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageController.m; sourceTree = "<group>"; };
+		307DD9121C44F68A00F59857 /* MainPageController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainPageController.xib; sourceTree = "<group>"; };
+		307DD91C1C44F93200F59857 /* ItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemTableViewCell.h; sourceTree = "<group>"; };
+		307DD91D1C44F93200F59857 /* ItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemTableViewCell.m; sourceTree = "<group>"; };
+		307DD91E1C44F93200F59857 /* ItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
 		30BBACE21C43EB4D004F22D2 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		30BBACE71C43EDD4004F22D2 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
@@ -61,6 +71,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		307DD90F1C44F65400F59857 /* MainPageController */ = {
+			isa = PBXGroup;
+			children = (
+				307DD9151C44F75E00F59857 /* MainPageCells */,
+				307DD9101C44F68A00F59857 /* MainPageController.h */,
+				307DD9111C44F68A00F59857 /* MainPageController.m */,
+				307DD9121C44F68A00F59857 /* MainPageController.xib */,
+			);
+			path = MainPageController;
+			sourceTree = "<group>";
+		};
+		307DD9151C44F75E00F59857 /* MainPageCells */ = {
+			isa = PBXGroup;
+			children = (
+				307DD91B1C44F93200F59857 /* ItemCell */,
+			);
+			path = MainPageCells;
+			sourceTree = "<group>";
+		};
+		307DD91B1C44F93200F59857 /* ItemCell */ = {
+			isa = PBXGroup;
+			children = (
+				307DD91C1C44F93200F59857 /* ItemTableViewCell.h */,
+				307DD91D1C44F93200F59857 /* ItemTableViewCell.m */,
+				307DD91E1C44F93200F59857 /* ItemTableViewCell.xib */,
+			);
+			path = ItemCell;
+			sourceTree = "<group>";
+		};
 		30BBACDC1C43EA64004F22D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				4F79B9161C43DC2D0082740E /* LoginController */,
+				307DD90F1C44F65400F59857 /* MainPageController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -262,6 +302,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				307DD9201C44F93200F59857 /* ItemTableViewCell.xib in Resources */,
+				307DD9141C44F68A00F59857 /* MainPageController.xib in Resources */,
 				4F79B9231C43DC2D0082740E /* Assets.xcassets in Resources */,
 				30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */,
 				30BBACF11C43EE24004F22D2 /* TextFieldTableViewCell.xib in Resources */,
@@ -280,6 +322,8 @@
 			files = (
 				30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */,
 				30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */,
+				307DD91F1C44F93200F59857 /* ItemTableViewCell.m in Sources */,
+				307DD9131C44F68A00F59857 /* MainPageController.m in Sources */,
 				4F79B9211C43DC2D0082740E /* main.m in Sources */,
 				30BBACF01C43EE24004F22D2 /* TextFieldTableViewCell.m in Sources */,
 				4F79B91F1C43DC2D0082740E /* AppDelegate.m in Sources */,
