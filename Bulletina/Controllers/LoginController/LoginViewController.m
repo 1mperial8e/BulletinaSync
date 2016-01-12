@@ -16,10 +16,10 @@
 #import "TryBeforeTableViewCell.h"
 
 
-static CGFloat const LogoTableViewCellHeigth = 252.0f;
+static CGFloat const LogoTableViewCellHeigth = 248.0f;
 static CGFloat const TextfieldTableViewCellHeigth = 48.0f;
 static CGFloat const LoginButtonTableViewCellHeigth = 118.0f;
-static CGFloat const TryBeforeTableViewCellHeigth = 197.0f;
+static CGFloat const TryBeforeTableViewCellHeigth = 196.0f;
 static CGFloat const IPhone6ScreenHeigth = 667.0f;
 
 
@@ -46,8 +46,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexPaths) {
 	self.title = @"Login";
 	[[self navigationController] setNavigationBarHidden:YES animated:NO];
 	[self setNeedsStatusBarAppearanceUpdate];
-//	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 	[self tableViewSetup];
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 #pragma mark - UITableViewDataSource
@@ -75,10 +76,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexPaths) {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	CGFloat height = TextfieldTableViewCellHeigth;
+	CGFloat height = [self heigthForCell:TextfieldTableViewCellHeigth];
 	if (indexPath.row == LogoCellIndexPath) {
 		return [self heigthForCell:LogoTableViewCellHeigth];
-	}  else if (indexPath.row == LoginButtonCellIndexPath) {
+	} else if (indexPath.row == LoginButtonCellIndexPath) {
 		return [self heigthForCell:LoginButtonTableViewCellHeigth];
 	} else if (indexPath.row == TryBeforeCellIndexPath) {
 		return [self heigthForCell:TryBeforeTableViewCellHeigth];
@@ -107,7 +108,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexPaths) {
 
 - (CGFloat)heigthForCell:(CGFloat)cellHeigth
 {
-	return (cellHeigth * MAX(CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds))) / IPhone6ScreenHeigth;
+    CGFloat height = (cellHeigth * MAX(CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds))) / IPhone6ScreenHeigth;
+	return height;
 }
 
 - (LogoTableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath
@@ -123,7 +125,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexPaths) {
 	cell.textField.placeholder = @"Username:";
 	if (indexPath.row == PasswordTextfieldIndexPath) {
 		cell.textField.placeholder = @"Password:";
-	}
+        cell.textField.secureTextEntry = YES;
+    } else {
+        cell.textField.keyboardType = UIKeyboardTypeASCIICapable;
+    }
 	cell.backgroundColor = [UIColor clearColor];
 	return cell;
 }
