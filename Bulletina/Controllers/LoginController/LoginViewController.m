@@ -8,27 +8,23 @@
 
 #import "LoginViewController.h"
 #import "MainPageController.h"
-#import "AppDelegate.h"
 
 #import "LogoTableViewCell.h"
 #import "TextFieldTableViewCell.h"
 #import "LoginButtonTableViewCell.h"
 #import "TryBeforeTableViewCell.h"
 
+static CGFloat const LogoTableViewCellHeigthCoeff = 0.372;				//248.0f / 667.0f;
+static CGFloat const TextfieldTableViewCellHeigthCoeff = 0.072;			//48.0f / 667.0f;
+static CGFloat const LoginButtonTableViewCellHeigthCoeff = 0.177;	//118.0f / 667.0f;
+static CGFloat const TryBeforeTableViewCellHeigthCoeff = 0.294;		//196.0f / 667.0f;
 
-static CGFloat const LogoTableViewCellHeigth = 248.0f;
-static CGFloat const TextfieldTableViewCellHeigth = 48.0f;
-static CGFloat const LoginButtonTableViewCellHeigth = 118.0f;
-static CGFloat const TryBeforeTableViewCellHeigth = 196.0f;
-static CGFloat const IPhone6ScreenHeigth = 667.0f;
-
-
-typedef NS_ENUM(NSUInteger, CellsIndexPaths) {
-	LogoCellIndexPath,
-	UsernameTextfieldIndexPath,
-	PasswordTextfieldIndexPath,
-	LoginButtonCellIndexPath,
-	TryBeforeCellIndexPath
+typedef NS_ENUM(NSUInteger, CellsIndexes) {
+	LogoCellIndex,
+	UsernameTextfieldIndex,
+	PasswordTextfieldIndex,
+	LoginButtonCellIndex,
+	TryBeforeCellIndex
 };
 
 @interface LoginViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -60,13 +56,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexPaths) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.row == LogoCellIndexPath) {
+	if (indexPath.row == LogoCellIndex) {
 		return [self logoCellForIndexPath:indexPath];
-	} else if (indexPath.row == UsernameTextfieldIndexPath || indexPath.row == PasswordTextfieldIndexPath) {
+	} else if (indexPath.row == UsernameTextfieldIndex || indexPath.row == PasswordTextfieldIndex) {
 		return [self textFieldCellForIndexPath:indexPath];
-	} else if (indexPath.row == LoginButtonCellIndexPath) {
+	} else if (indexPath.row == LoginButtonCellIndex) {
 		return [self loginButtonCellForIndexPath:indexPath];
-	} else if (indexPath.row == TryBeforeCellIndexPath) {
+	} else if (indexPath.row == TryBeforeCellIndex) {
 		return [self TryBeforeCellForIndexPath:indexPath];
 	}
 	return [UITableViewCell new];
@@ -76,13 +72,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexPaths) {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	CGFloat height = [self heigthForCell:TextfieldTableViewCellHeigth];
-	if (indexPath.row == LogoCellIndexPath) {
-		return [self heigthForCell:LogoTableViewCellHeigth];
-	} else if (indexPath.row == LoginButtonCellIndexPath) {
-		return [self heigthForCell:LoginButtonTableViewCellHeigth];
-	} else if (indexPath.row == TryBeforeCellIndexPath) {
-		return [self heigthForCell:TryBeforeTableViewCellHeigth];
+	CGFloat height = [self heigthForCell:TextfieldTableViewCellHeigthCoeff];
+	if (indexPath.row == LogoCellIndex) {
+		return [self heigthForCell:LogoTableViewCellHeigthCoeff];
+	} else if (indexPath.row == LoginButtonCellIndex) {
+		return [self heigthForCell:LoginButtonTableViewCellHeigthCoeff];
+	} else if (indexPath.row == TryBeforeCellIndex) {
+		return [self heigthForCell:TryBeforeTableViewCellHeigthCoeff];
 	}
 	return height;
 }
@@ -106,9 +102,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexPaths) {
 	[self.tableView registerNib:TryBeforeTableViewCell.nib forCellReuseIdentifier:TryBeforeTableViewCell.ID];
 }
 
-- (CGFloat)heigthForCell:(CGFloat)cellHeigth
+- (CGFloat)heigthForCell:(CGFloat)cellHeigthCoeff
 {
-    CGFloat height = (cellHeigth * MAX(CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds))) / IPhone6ScreenHeigth;
+    CGFloat height = cellHeigthCoeff * CGRectGetHeight([UIScreen mainScreen].bounds);
 	return height;
 }
 
@@ -123,7 +119,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexPaths) {
 {
 	TextFieldTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:TextFieldTableViewCell.ID forIndexPath:indexPath];
 	cell.textField.placeholder = @"Username:";
-	if (indexPath.row == PasswordTextfieldIndexPath) {
+	if (indexPath.row == PasswordTextfieldIndex) {
 		cell.textField.placeholder = @"Password:";
         cell.textField.secureTextEntry = YES;
     } else {
@@ -136,19 +132,23 @@ typedef NS_ENUM(NSUInteger, CellsIndexPaths) {
 - (LoginButtonTableViewCell *)loginButtonCellForIndexPath:(NSIndexPath *)indexPath
 {
 	LoginButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:LoginButtonTableViewCell.ID forIndexPath:indexPath];
-	cell.button.layer.borderColor = [UIColor whiteColor].CGColor;
-	cell.button.layer.borderWidth = 1.0f;
-	[cell.button.layer setCornerRadius:6.0f];
+	cell.loginButton.layer.borderColor = [UIColor whiteColor].CGColor;
+	cell.loginButton.layer.borderWidth = 1.0f;
+	[cell.loginButton.layer setCornerRadius:6.0f];
 	cell.backgroundColor = [UIColor clearColor];
+	[cell.loginButton addTarget:self action:@selector(loginButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+	[cell.forgotButton addTarget:self action:@selector(forgotButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+	
 	return cell;
 }
 
 - (TryBeforeTableViewCell *)TryBeforeCellForIndexPath:(NSIndexPath *)indexPath
 {
 	TryBeforeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:TryBeforeTableViewCell.ID forIndexPath:indexPath];
-	[cell.button.layer setCornerRadius:6.0f];
+	[cell.tryButton.layer setCornerRadius:6.0f];
 	cell.backgroundColor = [UIColor clearColor];
-	[cell.button addTarget:self action:@selector(tryBeforeSignupButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+	[cell.tryButton addTarget:self action:@selector(tryBeforeSignupButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+	[cell.signupButton addTarget:self action:@selector(signupButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	
 	return cell;
 }
@@ -167,7 +167,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexPaths) {
 	MainPageController *mainPageController = [MainPageController new];
 	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
 	[self.navigationController presentViewController:mainPageNavigationController animated:YES completion:nil];
-//	[((AppDelegate*)[UIApplication sharedApplication].delegate) setRootViewController:mainPageController];
+}
+
+- (void)signupButtonTap:(id)sender
+{
+}
+
+- (void)loginButtonTap:(id)sender
+{
+}
+
+- (void)forgotButtonTap:(id)sender
+{
 }
 
 @end

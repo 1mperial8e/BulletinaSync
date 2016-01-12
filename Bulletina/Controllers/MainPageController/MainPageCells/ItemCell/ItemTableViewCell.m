@@ -8,6 +8,10 @@
 
 #import "ItemTableViewCell.h"
 
+@interface ItemTableViewCell () <UICollectionViewDataSource, UICollectionViewDelegate>
+
+@end
+
 @implementation ItemTableViewCell
 
 @end

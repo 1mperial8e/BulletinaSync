@@ -28,9 +28,4 @@
     return YES;
 }
 
-- (void)setRootViewController:(UIViewController *)viewController
-{
-	[((UINavigationController*)self.window.rootViewController) setViewControllers:@[viewController]];
-}
-
 @end

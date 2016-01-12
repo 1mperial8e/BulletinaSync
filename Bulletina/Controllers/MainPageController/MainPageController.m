@@ -25,10 +25,6 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	[self tableViewSetup];
 	[self setupNavigationBar];
 	[self addSearchBar];
-	
-	UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
-	[self.tableView addSubview:refreshControl];
-	[refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
 }
 
 #pragma mark - Table view data source
@@ -59,6 +55,11 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
 	[self.tableView registerNib:ItemTableViewCell.nib forCellReuseIdentifier:ItemTableViewCell.ID];
 	self.tableView.backgroundColor = [UIColor colorWithRed:248 / 255.0f green:247 / 255.0f blue:241 / 255.0f alpha:1.0];
+	
+	UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
+	refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+	[self.tableView addSubview:refreshControl];
+	[refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
 }
 
 
@@ -105,8 +106,7 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 #pragma mark - Utils
 
 - (void)refreshTable:(id)sender
-{
-	NSLog(@"Refreshing");
+{	
 	[(UIRefreshControl *)sender endRefreshing];
 }
 

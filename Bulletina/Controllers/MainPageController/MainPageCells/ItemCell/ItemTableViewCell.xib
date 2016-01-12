@@ -125,7 +125,7 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ngT-i0-Znh">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ngT-i0-Znh">
                         <rect key="frame" x="16" y="365" width="296" height="20"/>
                         <color key="backgroundColor" red="0.7843137255" green="0.7843137255" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -163,6 +163,9 @@
                     <constraint firstItem="uOd-cE-2gI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="xbh-m3-NNj"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="iconsCollectionView" destination="ngT-i0-Znh" id="QNt-1G-NNS"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

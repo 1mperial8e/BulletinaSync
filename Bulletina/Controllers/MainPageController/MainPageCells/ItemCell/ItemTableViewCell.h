@@ -10,4 +10,6 @@
 
 @interface ItemTableViewCell : BaseTableViewCell
 
+@property (weak, nonatomic) IBOutlet UICollectionView *iconsCollectionView;
+
 @end

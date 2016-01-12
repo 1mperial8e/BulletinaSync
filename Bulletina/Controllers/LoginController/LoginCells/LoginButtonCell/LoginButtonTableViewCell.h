@@ -10,7 +10,7 @@
 
 @interface LoginButtonTableViewCell : BaseTableViewCell
 
-@property (weak, nonatomic) IBOutlet UIButton *button;
-@property (weak, nonatomic) IBOutlet UILabel *forgotLabel;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *forgotButton;
 
 @end
