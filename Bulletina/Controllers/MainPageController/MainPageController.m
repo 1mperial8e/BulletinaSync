@@ -13,6 +13,7 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 
 @interface MainPageController () <UISearchBarDelegate>
 
+@property (strong, nonatomic) UISearchController *searchController;
 
 @end
 
@@ -83,10 +84,10 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 
 -(void)addSearchBar
 {
-	UISearchController *searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-	searchController.searchBar.delegate = self;
-	searchController.searchBar.barTintColor =  [UIColor colorWithRed:248 / 255.0f green:247 / 255.0f blue:241 / 255.0f alpha:1.0];
-	self.tableView.tableHeaderView = searchController.searchBar;
+	self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+	self.searchController.searchBar.delegate = self;
+	self.searchController.searchBar.barTintColor =  [UIColor colorWithRed:248 / 255.0f green:247 / 255.0f blue:241 / 255.0f alpha:1.0];
+	self.tableView.tableHeaderView = self.searchController.searchBar;
 }
 
 #pragma mark - Actions
