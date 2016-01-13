@@ -24,7 +24,7 @@
 {
     [super viewDidLoad];
 	
-	[[self navigationController] setNavigationBarHidden:NO animated:NO];
+	[[self navigationController] setNavigationBarHidden:NO animated:YES];
 	self.title = @"Register account";
 	self.navigationController.navigationBar.backItem.title = @"Cancel";
 	self.view.backgroundColor = [UIColor mainPageBGColor];

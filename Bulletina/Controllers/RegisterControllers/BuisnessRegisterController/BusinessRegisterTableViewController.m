@@ -21,6 +21,9 @@ static CGFloat const LogoCellHeigth = 178;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
 
+static NSInteger const CellsCount = 10;
+static CGFloat const AdditionalBottomInset = 36;
+
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex,
 	UsernameCellIndex,
@@ -29,8 +32,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	FacebookCellIndex,
 	LinkedInCellIndex,
 	TwitterCellIndex,
-	NewPasswordCellIndex,
-	RetypeNewPasswordCellIndex,
+	PasswordCellIndex,
+	RetypePasswordCellIndex,
 	SaveButtonCellIndex
 };
 
@@ -72,7 +75,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return CellsCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -94,7 +97,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (indexPath.row == LogoCellIndex) {
 		return LogoCellHeigth * [self heightCoefficient];
 	} else if (indexPath.row == TwitterCellIndex) {
-		return (InputCellHeigth + 36) * [self heightCoefficient];
+		return (InputCellHeigth + AdditionalBottomInset) * [self heightCoefficient];
 	} else if (indexPath.row == SaveButtonCellIndex) {
 		return ButtonCellHeigth * [self heightCoefficient];
 	}
@@ -134,12 +137,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == TwitterCellIndex) {
 		cell.inputTextField.placeholder = @"Twitter:";
 		self.twitterTextfield = cell.inputTextField;
-		cell.bottomInsetConstraint.constant = 36 * [self heightCoefficient];
-	} else if (indexPath.item == NewPasswordCellIndex) {
+		cell.bottomInsetConstraint.constant = AdditionalBottomInset * [self heightCoefficient];
+	} else if (indexPath.item == PasswordCellIndex) {
 		cell.inputTextField.placeholder = @"Password:";
 		cell.inputTextField.secureTextEntry = YES;
 		self.passwordTextfield = cell.inputTextField;
-	} else if (indexPath.item == RetypeNewPasswordCellIndex) {
+	} else if (indexPath.item == RetypePasswordCellIndex) {
 		cell.inputTextField.placeholder = @"Retype Password:";
 		cell.inputTextField.secureTextEntry = YES;
 		cell.inputTextField.returnKeyType = UIReturnKeyDone;
@@ -167,6 +170,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.tableView registerNib:BusinessLogoTableViewCell.nib forCellReuseIdentifier:BusinessLogoTableViewCell.ID];
 	[self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
 	[self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
+	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
 }
 
 - (void)setupDefaults

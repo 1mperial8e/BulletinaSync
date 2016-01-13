@@ -115,7 +115,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.title = @"Login";
-    [[self navigationController] setNavigationBarHidden:YES animated:NO];	
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
 	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
     [self setNeedsStatusBarAppearanceUpdate];
