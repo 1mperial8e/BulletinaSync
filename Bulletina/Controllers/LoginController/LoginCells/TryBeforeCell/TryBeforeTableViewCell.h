@@ -10,4 +10,7 @@
 
 @interface TryBeforeTableViewCell : BaseTableViewCell
 
+@property (weak, nonatomic) IBOutlet UIButton *tryButton;
+@property (weak, nonatomic) IBOutlet UIButton *signupButton;
+
 @end

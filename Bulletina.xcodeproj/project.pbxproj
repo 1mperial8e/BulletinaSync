@@ -7,19 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		307DD9131C44F68A00F59857 /* MainPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 307DD9111C44F68A00F59857 /* MainPageController.m */; };
+		307DD9141C44F68A00F59857 /* MainPageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307DD9121C44F68A00F59857 /* MainPageController.xib */; };
+		307DD91F1C44F93200F59857 /* ItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 307DD91D1C44F93200F59857 /* ItemTableViewCell.m */; };
+		307DD9201C44F93200F59857 /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307DD91E1C44F93200F59857 /* ItemTableViewCell.xib */; };
+		30928DCD1C463B2400041847 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928DCC1C463B2400041847 /* BaseView.m */; };
+		30928DD01C463C9000041847 /* CustomRefreshControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928DCF1C463C9000041847 /* CustomRefreshControlView.m */; };
+		30928DD21C463CA100041847 /* CustomRefreshControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DD11C463CA100041847 /* CustomRefreshControlView.xib */; };
+		30928DDC1C464F7200041847 /* IconCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928DDA1C464F7200041847 /* IconCollectionViewCell.m */; };
+		30928DDD1C464F7200041847 /* IconCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DDB1C464F7200041847 /* IconCollectionViewCell.xib */; };
 		30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */; };
 		30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */; };
-		30BBACEB1C43EDD4004F22D2 /* LogoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACE91C43EDD4004F22D2 /* LogoCell.xib */; };
+		30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */; };
 		30BBACF01C43EE24004F22D2 /* TextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACEE1C43EE24004F22D2 /* TextFieldTableViewCell.m */; };
-		30BBACF11C43EE24004F22D2 /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACEF1C43EE24004F22D2 /* TextFieldCell.xib */; };
+		30BBACF11C43EE24004F22D2 /* TextFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACEF1C43EE24004F22D2 /* TextFieldTableViewCell.xib */; };
 		30BBACF91C43EEF9004F22D2 /* TryBeforeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACF71C43EEF9004F22D2 /* TryBeforeTableViewCell.m */; };
-		30BBACFA1C43EEF9004F22D2 /* TryBeforeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACF81C43EEF9004F22D2 /* TryBeforeCell.xib */; };
-		30BBACFE1C43EF0F004F22D2 /* SignupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACFC1C43EF0F004F22D2 /* SignupTableViewCell.m */; };
-		30BBACFF1C43EF0F004F22D2 /* SignupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACFD1C43EF0F004F22D2 /* SignupCell.xib */; };
+		30BBACFA1C43EEF9004F22D2 /* TryBeforeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACF81C43EEF9004F22D2 /* TryBeforeTableViewCell.xib */; };
 		30BBAD031C43EF24004F22D2 /* LoginButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBAD011C43EF24004F22D2 /* LoginButtonTableViewCell.m */; };
-		30BBAD041C43EF24004F22D2 /* LoginButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBAD021C43EF24004F22D2 /* LoginButtonCell.xib */; };
-		30BBAD081C43EF3C004F22D2 /* ForgotPasswordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBAD061C43EF3C004F22D2 /* ForgotPasswordTableViewCell.m */; };
-		30BBAD091C43EF3C004F22D2 /* ForgotPasswordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBAD071C43EF3C004F22D2 /* ForgotPasswordCell.xib */; };
+		30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBAD021C43EF24004F22D2 /* LoginButtonTableViewCell.xib */; };
+		4F637BF61C464E2200DE7CCA /* TextInputNavigationCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F637BF51C464E2200DE7CCA /* TextInputNavigationCollection.m */; };
 		4F79B91F1C43DC2D0082740E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F79B9121C43DC2D0082740E /* AppDelegate.m */; };
 		4F79B9211C43DC2D0082740E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F79B9141C43DC2D0082740E /* main.m */; };
 		4F79B9221C43DC2D0082740E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F79B9181C43DC2D0082740E /* LoginViewController.m */; };
@@ -28,26 +34,36 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		307DD9101C44F68A00F59857 /* MainPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageController.h; sourceTree = "<group>"; };
+		307DD9111C44F68A00F59857 /* MainPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageController.m; sourceTree = "<group>"; };
+		307DD9121C44F68A00F59857 /* MainPageController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainPageController.xib; sourceTree = "<group>"; };
+		307DD91C1C44F93200F59857 /* ItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemTableViewCell.h; sourceTree = "<group>"; };
+		307DD91D1C44F93200F59857 /* ItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemTableViewCell.m; sourceTree = "<group>"; };
+		307DD91E1C44F93200F59857 /* ItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
+		30928DCB1C463B2400041847 /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseView.h; sourceTree = "<group>"; };
+		30928DCC1C463B2400041847 /* BaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
+		30928DCE1C463C9000041847 /* CustomRefreshControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomRefreshControlView.h; sourceTree = "<group>"; };
+		30928DCF1C463C9000041847 /* CustomRefreshControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomRefreshControlView.m; sourceTree = "<group>"; };
+		30928DD11C463CA100041847 /* CustomRefreshControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomRefreshControlView.xib; sourceTree = "<group>"; };
+		30928DD91C464F7200041847 /* IconCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconCollectionViewCell.h; sourceTree = "<group>"; };
+		30928DDA1C464F7200041847 /* IconCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconCollectionViewCell.m; sourceTree = "<group>"; };
+		30928DDB1C464F7200041847 /* IconCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IconCollectionViewCell.xib; sourceTree = "<group>"; };
 		30BBACE21C43EB4D004F22D2 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		30BBACE71C43EDD4004F22D2 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
 		30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoTableViewCell.m; sourceTree = "<group>"; };
-		30BBACE91C43EDD4004F22D2 /* LogoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoCell.xib; sourceTree = "<group>"; };
+		30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoTableViewCell.xib; sourceTree = "<group>"; };
 		30BBACED1C43EE24004F22D2 /* TextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldTableViewCell.h; sourceTree = "<group>"; };
 		30BBACEE1C43EE24004F22D2 /* TextFieldTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldTableViewCell.m; sourceTree = "<group>"; };
-		30BBACEF1C43EE24004F22D2 /* TextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
+		30BBACEF1C43EE24004F22D2 /* TextFieldTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldTableViewCell.xib; sourceTree = "<group>"; };
 		30BBACF61C43EEF9004F22D2 /* TryBeforeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TryBeforeTableViewCell.h; sourceTree = "<group>"; };
 		30BBACF71C43EEF9004F22D2 /* TryBeforeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TryBeforeTableViewCell.m; sourceTree = "<group>"; };
-		30BBACF81C43EEF9004F22D2 /* TryBeforeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TryBeforeCell.xib; sourceTree = "<group>"; };
-		30BBACFB1C43EF0F004F22D2 /* SignupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupTableViewCell.h; sourceTree = "<group>"; };
-		30BBACFC1C43EF0F004F22D2 /* SignupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupTableViewCell.m; sourceTree = "<group>"; };
-		30BBACFD1C43EF0F004F22D2 /* SignupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignupCell.xib; sourceTree = "<group>"; };
+		30BBACF81C43EEF9004F22D2 /* TryBeforeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TryBeforeTableViewCell.xib; sourceTree = "<group>"; };
 		30BBAD001C43EF24004F22D2 /* LoginButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginButtonTableViewCell.h; sourceTree = "<group>"; };
 		30BBAD011C43EF24004F22D2 /* LoginButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginButtonTableViewCell.m; sourceTree = "<group>"; };
-		30BBAD021C43EF24004F22D2 /* LoginButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginButtonCell.xib; sourceTree = "<group>"; };
-		30BBAD051C43EF3C004F22D2 /* ForgotPasswordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordTableViewCell.h; sourceTree = "<group>"; };
-		30BBAD061C43EF3C004F22D2 /* ForgotPasswordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordTableViewCell.m; sourceTree = "<group>"; };
-		30BBAD071C43EF3C004F22D2 /* ForgotPasswordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordCell.xib; sourceTree = "<group>"; };
+		30BBAD021C43EF24004F22D2 /* LoginButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginButtonTableViewCell.xib; sourceTree = "<group>"; };
+		4F637BF41C464E2200DE7CCA /* TextInputNavigationCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextInputNavigationCollection.h; sourceTree = "<group>"; };
+		4F637BF51C464E2200DE7CCA /* TextInputNavigationCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextInputNavigationCollection.m; sourceTree = "<group>"; };
 		4F79B8F41C43DA2A0082740E /* Bulletina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bulletina.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F79B9111C43DC2D0082740E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4F79B9121C43DC2D0082740E /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -71,9 +87,77 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		307DD90F1C44F65400F59857 /* MainPageController */ = {
+			isa = PBXGroup;
+			children = (
+				307DD9151C44F75E00F59857 /* MainPageCells */,
+				307DD9101C44F68A00F59857 /* MainPageController.h */,
+				307DD9111C44F68A00F59857 /* MainPageController.m */,
+				307DD9121C44F68A00F59857 /* MainPageController.xib */,
+			);
+			path = MainPageController;
+			sourceTree = "<group>";
+		};
+		307DD9151C44F75E00F59857 /* MainPageCells */ = {
+			isa = PBXGroup;
+			children = (
+				307DD91B1C44F93200F59857 /* ItemCell */,
+			);
+			path = MainPageCells;
+			sourceTree = "<group>";
+		};
+		307DD91B1C44F93200F59857 /* ItemCell */ = {
+			isa = PBXGroup;
+			children = (
+				30928DD81C464F0100041847 /* IconCell */,
+				307DD91C1C44F93200F59857 /* ItemTableViewCell.h */,
+				307DD91D1C44F93200F59857 /* ItemTableViewCell.m */,
+				307DD91E1C44F93200F59857 /* ItemTableViewCell.xib */,
+			);
+			path = ItemCell;
+			sourceTree = "<group>";
+		};
+		30928DC91C463AEA00041847 /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+				30928DCB1C463B2400041847 /* BaseView.h */,
+				30928DCC1C463B2400041847 /* BaseView.m */,
+			);
+			path = BaseView;
+			sourceTree = "<group>";
+		};
+		30928DCA1C463AEA00041847 /* RefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				30928DCE1C463C9000041847 /* CustomRefreshControlView.h */,
+				30928DCF1C463C9000041847 /* CustomRefreshControlView.m */,
+				30928DD11C463CA100041847 /* CustomRefreshControlView.xib */,
+			);
+			path = RefreshControl;
+			sourceTree = "<group>";
+		};
+		30928DD31C4642E000041847 /* SupportingClasses */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SupportingClasses;
+			sourceTree = "<group>";
+		};
+		30928DD81C464F0100041847 /* IconCell */ = {
+			isa = PBXGroup;
+			children = (
+				30928DD91C464F7200041847 /* IconCollectionViewCell.h */,
+				30928DDA1C464F7200041847 /* IconCollectionViewCell.m */,
+				30928DDB1C464F7200041847 /* IconCollectionViewCell.xib */,
+			);
+			path = IconCell;
+			sourceTree = "<group>";
+		};
 		30BBACDC1C43EA64004F22D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				30928DC91C463AEA00041847 /* BaseView */,
+				30928DCA1C463AEA00041847 /* RefreshControl */,
 				30BBACE11C43EB4D004F22D2 /* BaseCell */,
 			);
 			name = Views;
@@ -93,9 +177,7 @@
 		30BBACE51C43ED14004F22D2 /* LoginCells */ = {
 			isa = PBXGroup;
 			children = (
-				30BBACF21C43EECF004F22D2 /* ForgotPasswordCell */,
 				30BBACF31C43EECF004F22D2 /* LoginButtonCell */,
-				30BBACF41C43EECF004F22D2 /* SignupCell */,
 				30BBACF51C43EECF004F22D2 /* TryBeforeCell */,
 				30BBACEC1C43EE04004F22D2 /* TextFieldCell */,
 				30BBACE61C43EDC0004F22D2 /* LogoCell */,
@@ -108,7 +190,7 @@
 			children = (
 				30BBACE71C43EDD4004F22D2 /* LogoTableViewCell.h */,
 				30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */,
-				30BBACE91C43EDD4004F22D2 /* LogoCell.xib */,
+				30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */,
 			);
 			path = LogoCell;
 			sourceTree = "<group>";
@@ -118,19 +200,9 @@
 			children = (
 				30BBACED1C43EE24004F22D2 /* TextFieldTableViewCell.h */,
 				30BBACEE1C43EE24004F22D2 /* TextFieldTableViewCell.m */,
-				30BBACEF1C43EE24004F22D2 /* TextFieldCell.xib */,
+				30BBACEF1C43EE24004F22D2 /* TextFieldTableViewCell.xib */,
 			);
 			path = TextFieldCell;
-			sourceTree = "<group>";
-		};
-		30BBACF21C43EECF004F22D2 /* ForgotPasswordCell */ = {
-			isa = PBXGroup;
-			children = (
-				30BBAD051C43EF3C004F22D2 /* ForgotPasswordTableViewCell.h */,
-				30BBAD061C43EF3C004F22D2 /* ForgotPasswordTableViewCell.m */,
-				30BBAD071C43EF3C004F22D2 /* ForgotPasswordCell.xib */,
-			);
-			path = ForgotPasswordCell;
 			sourceTree = "<group>";
 		};
 		30BBACF31C43EECF004F22D2 /* LoginButtonCell */ = {
@@ -138,19 +210,9 @@
 			children = (
 				30BBAD001C43EF24004F22D2 /* LoginButtonTableViewCell.h */,
 				30BBAD011C43EF24004F22D2 /* LoginButtonTableViewCell.m */,
-				30BBAD021C43EF24004F22D2 /* LoginButtonCell.xib */,
+				30BBAD021C43EF24004F22D2 /* LoginButtonTableViewCell.xib */,
 			);
 			path = LoginButtonCell;
-			sourceTree = "<group>";
-		};
-		30BBACF41C43EECF004F22D2 /* SignupCell */ = {
-			isa = PBXGroup;
-			children = (
-				30BBACFB1C43EF0F004F22D2 /* SignupTableViewCell.h */,
-				30BBACFC1C43EF0F004F22D2 /* SignupTableViewCell.m */,
-				30BBACFD1C43EF0F004F22D2 /* SignupCell.xib */,
-			);
-			path = SignupCell;
 			sourceTree = "<group>";
 		};
 		30BBACF51C43EECF004F22D2 /* TryBeforeCell */ = {
@@ -158,9 +220,26 @@
 			children = (
 				30BBACF61C43EEF9004F22D2 /* TryBeforeTableViewCell.h */,
 				30BBACF71C43EEF9004F22D2 /* TryBeforeTableViewCell.m */,
-				30BBACF81C43EEF9004F22D2 /* TryBeforeCell.xib */,
+				30BBACF81C43EEF9004F22D2 /* TryBeforeTableViewCell.xib */,
 			);
 			path = TryBeforeCell;
+			sourceTree = "<group>";
+		};
+		4F637BF21C464DDE00DE7CCA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4F637BF31C464E0C00DE7CCA /* TextInputNavigationCollection */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4F637BF31C464E0C00DE7CCA /* TextInputNavigationCollection */ = {
+			isa = PBXGroup;
+			children = (
+				4F637BF41C464E2200DE7CCA /* TextInputNavigationCollection.h */,
+				4F637BF51C464E2200DE7CCA /* TextInputNavigationCollection.m */,
+			);
+			path = TextInputNavigationCollection;
 			sourceTree = "<group>";
 		};
 		4F79B8EB1C43DA2A0082740E = {
@@ -182,9 +261,11 @@
 		4F79B8F61C43DA2A0082740E /* Bulletina */ = {
 			isa = PBXGroup;
 			children = (
+				30928DD31C4642E000041847 /* SupportingClasses */,
 				30BBACDC1C43EA64004F22D2 /* Views */,
 				4F79B90F1C43DC2D0082740E /* Application */,
 				4F79B9151C43DC2D0082740E /* Controllers */,
+				4F637BF21C464DDE00DE7CCA /* Models */,
 				4F79B91A1C43DC2D0082740E /* Resources */,
 			);
 			path = Bulletina;
@@ -214,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				4F79B9161C43DC2D0082740E /* LoginController */,
+				307DD90F1C44F65400F59857 /* MainPageController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -294,14 +376,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				307DD9201C44F93200F59857 /* ItemTableViewCell.xib in Resources */,
+				307DD9141C44F68A00F59857 /* MainPageController.xib in Resources */,
 				4F79B9231C43DC2D0082740E /* Assets.xcassets in Resources */,
-				30BBAD041C43EF24004F22D2 /* LoginButtonCell.xib in Resources */,
-				30BBACF11C43EE24004F22D2 /* TextFieldCell.xib in Resources */,
-				30BBACEB1C43EDD4004F22D2 /* LogoCell.xib in Resources */,
-				30BBAD091C43EF3C004F22D2 /* ForgotPasswordCell.xib in Resources */,
-				30BBACFA1C43EEF9004F22D2 /* TryBeforeCell.xib in Resources */,
+				30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */,
+				30BBACF11C43EE24004F22D2 /* TextFieldTableViewCell.xib in Resources */,
+				30928DDD1C464F7200041847 /* IconCollectionViewCell.xib in Resources */,
+				30928DD21C463CA100041847 /* CustomRefreshControlView.xib in Resources */,
+				30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */,
+				30BBACFA1C43EEF9004F22D2 /* TryBeforeTableViewCell.xib in Resources */,
 				4F79B9261C43DD130082740E /* LoginViewController.xib in Resources */,
-				30BBACFF1C43EF0F004F22D2 /* SignupCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,16 +396,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30928DCD1C463B2400041847 /* BaseView.m in Sources */,
+				30928DDC1C464F7200041847 /* IconCollectionViewCell.m in Sources */,
 				30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */,
 				30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */,
+				307DD91F1C44F93200F59857 /* ItemTableViewCell.m in Sources */,
+				307DD9131C44F68A00F59857 /* MainPageController.m in Sources */,
 				4F79B9211C43DC2D0082740E /* main.m in Sources */,
 				30BBACF01C43EE24004F22D2 /* TextFieldTableViewCell.m in Sources */,
+				4F637BF61C464E2200DE7CCA /* TextInputNavigationCollection.m in Sources */,
 				4F79B91F1C43DC2D0082740E /* AppDelegate.m in Sources */,
-				30BBACFE1C43EF0F004F22D2 /* SignupTableViewCell.m in Sources */,
 				30BBACF91C43EEF9004F22D2 /* TryBeforeTableViewCell.m in Sources */,
 				30BBAD031C43EF24004F22D2 /* LoginButtonTableViewCell.m in Sources */,
 				4F79B9221C43DC2D0082740E /* LoginViewController.m in Sources */,
-				30BBAD081C43EF3C004F22D2 /* ForgotPasswordTableViewCell.m in Sources */,
+				30928DD01C463C9000041847 /* CustomRefreshControlView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,6 +508,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AppMedia.Bulletina;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -435,6 +524,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AppMedia.Bulletina;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
