@@ -28,6 +28,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="bottomInsetConstraint" destination="WPe-vJ-UeW" id="1yn-Sc-6my"/>
                 <outlet property="inputTextField" destination="sit-8b-xrS" id="2yf-zH-JRw"/>
             </connections>
         </tableViewCell>

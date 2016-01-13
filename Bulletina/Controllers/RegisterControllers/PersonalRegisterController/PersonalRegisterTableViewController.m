@@ -17,7 +17,7 @@
 // Helpers
 #import "TextInputNavigationCollection.h"
 
-static CGFloat const AvatarCellHeigth = 252;
+static CGFloat const AvatarCellHeigth = 218;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
 
@@ -89,12 +89,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.row == SaveButtonCellIndex) {
 		return ButtonCellHeigth * [self heightCoefficient];
 	}
-	return height;
-}
-
-- (CGFloat)heigthForCell:(CGFloat)cellHeigthCoeff
-{
-	CGFloat height = cellHeigthCoeff * CGRectGetHeight([UIScreen mainScreen].bounds);
 	return height;
 }
 

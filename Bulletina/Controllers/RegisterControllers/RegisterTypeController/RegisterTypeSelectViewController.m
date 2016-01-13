@@ -8,6 +8,7 @@
 
 #import "RegisterTypeSelectViewController.h"
 #import "PersonalRegisterTableViewController.h"
+#import "BusinessRegisterTableViewController.h"
 
 @interface RegisterTypeSelectViewController ()
 
@@ -42,7 +43,8 @@
 
 - (IBAction)businessAccountSelectButtonTap:(id)sender
 {
-	
+	BusinessRegisterTableViewController *businessRegisterTableViewController = [BusinessRegisterTableViewController new];
+	[self.navigationController pushViewController:businessRegisterTableViewController animated:YES];
 }
 
 - (IBAction)moreInfoButtonTap:(id)sender
