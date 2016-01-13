@@ -38,7 +38,7 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
-	cell.backgroundColor = [UIColor colorWithRed:248 / 255.0f green:247 / 255.0f blue:241 / 255.0f alpha:1.0];
+	cell.backgroundColor = [UIColor mainPageBGColor];
 	return cell;
 }
 
@@ -55,9 +55,9 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 {
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
 	[self.tableView registerNib:ItemTableViewCell.nib forCellReuseIdentifier:ItemTableViewCell.ID];
-	self.tableView.backgroundColor = [UIColor colorWithRed:248 / 255.0f green:247 / 255.0f blue:241 / 255.0f alpha:1.0];
+	self.tableView.backgroundColor = [UIColor mainPageBGColor];
 	
-	UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
+	UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
 	CGRect customRefreshFrame = refreshControl.frame;
 	customRefreshFrame.size.height = CGRectGetHeight([UIScreen mainScreen].bounds);
 	CustomRefreshControlView *customView =	[[CustomRefreshControlView alloc] initWithFrame:customRefreshFrame];
@@ -77,7 +77,7 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	[self setNeedsStatusBarAppearanceUpdate];
 	
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-	[[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:245 / 255.0f green:168 / 255.0f blue:67 / 255.0f alpha:1.0f]];
+	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddNew_navbarIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewButtonAction:)];
 	
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Profile_navbarIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(profileButtonAction:)];
@@ -91,19 +91,19 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 {
 	self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 	self.searchController.searchBar.delegate = self;
-	self.searchController.searchBar.barTintColor =  [UIColor colorWithRed:248 / 255.0f green:247 / 255.0f blue:241 / 255.0f alpha:1.0];
+	self.searchController.searchBar.barTintColor =  [UIColor mainPageBGColor];
 	
 	UITextField *searchField;
 	NSUInteger numViews = [self.searchController.searchBar.subviews count];
-	for(int i = 0; i < numViews; i++) {
+	for (int i = 0; i < numViews; i++) {
 		NSUInteger numSubViews = [[self.searchController.searchBar.subviews objectAtIndex:i].subviews count];
-		for(int j = 0; j < numSubViews; j++) {
-			if([[[self.searchController.searchBar.subviews objectAtIndex:i].subviews objectAtIndex:j] isKindOfClass:[UITextField class]]) {
+		for (int j = 0; j < numSubViews; j++) {
+			if ([[[self.searchController.searchBar.subviews objectAtIndex:i].subviews objectAtIndex:j] isKindOfClass:[UITextField class]]) {
 				searchField = [[self.searchController.searchBar.subviews objectAtIndex:i].subviews objectAtIndex:j];
 			}
 		}
 	}
-	if(!(searchField == nil)) {
+	if (searchField) {
 		[searchField setBackgroundColor:[UIColor colorWithRed:221 / 255.0f green:221 / 255.0f blue:219 / 255.0f alpha:1.0]];
 		[searchField setBorderStyle:UITextBorderStyleNone];
 		[searchField.layer setCornerRadius:5];
