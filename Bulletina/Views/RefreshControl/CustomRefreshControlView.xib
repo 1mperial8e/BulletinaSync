@@ -43,7 +43,7 @@
             <color key="backgroundColor" red="0.97254901960784312" green="0.96862745098039216" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="caj-PE-kfC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4QK-3F-enQ"/>
-                <constraint firstItem="caj-PE-kfC" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="BDu-7b-KnC"/>
+                <constraint firstItem="caj-PE-kfC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="uMN-lC-ycw"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="274.5" y="339"/>

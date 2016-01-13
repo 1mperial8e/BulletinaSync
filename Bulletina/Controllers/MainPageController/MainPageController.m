@@ -58,7 +58,9 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	self.tableView.backgroundColor = [UIColor colorWithRed:248 / 255.0f green:247 / 255.0f blue:241 / 255.0f alpha:1.0];
 	
 	UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
-	CustomRefreshControlView *customView =	[[CustomRefreshControlView alloc] initWithFrame:refreshControl.frame];
+	CGRect customRefreshFrame = refreshControl.frame;
+	customRefreshFrame.size.height = CGRectGetHeight([UIScreen mainScreen].bounds);
+	CustomRefreshControlView *customView =	[[CustomRefreshControlView alloc] initWithFrame:customRefreshFrame];
 	[refreshControl insertSubview:customView atIndex:0];
 	[self.tableView insertSubview:refreshControl atIndex:0];
 	[refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
