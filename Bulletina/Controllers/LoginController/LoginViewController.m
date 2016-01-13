@@ -9,6 +9,7 @@
 // Controllers
 #import "LoginViewController.h"
 #import "MainPageController.h"
+#import "RegisterTypeSelectViewController.h"
 
 // Cells
 #import "LogoTableViewCell.h"
@@ -52,8 +53,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [super viewDidLoad];
     
 	[self tableViewSetup];
-    [self setupUI];
     [self setupDefaults];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[self setupUI];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -110,7 +115,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.title = @"Login";
-    [[self navigationController] setNavigationBarHidden:YES animated:NO];
+    [[self navigationController] setNavigationBarHidden:YES animated:NO];	
+	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
+	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
@@ -206,6 +213,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)signupButtonTap:(id)sender
 {
+	RegisterTypeSelectViewController *registerTypeSelectController = [RegisterTypeSelectViewController new];
+	[self.navigationController pushViewController:registerTypeSelectController animated:YES];
 }
 
 - (void)loginButtonTap:(id)sender

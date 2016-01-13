@@ -28,6 +28,8 @@
 		30928DFF1C465CCC00041847 /* AvatarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DFD1C465CCC00041847 /* AvatarTableViewCell.xib */; };
 		30928E031C465CDE00041847 /* BusinessLogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928E011C465CDE00041847 /* BusinessLogoTableViewCell.m */; };
 		30928E041C465CDE00041847 /* BusinessLogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928E021C465CDE00041847 /* BusinessLogoTableViewCell.xib */; };
+		30928E0E1C46683E00041847 /* RegisterTypeSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928E0C1C46683E00041847 /* RegisterTypeSelectViewController.m */; };
+		30928E0F1C46683E00041847 /* RegisterTypeSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928E0D1C46683E00041847 /* RegisterTypeSelectViewController.xib */; };
 		30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */; };
 		30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */; };
 		30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */; };
@@ -96,6 +98,9 @@
 		30928E001C465CDE00041847 /* BusinessLogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessLogoTableViewCell.h; sourceTree = "<group>"; };
 		30928E011C465CDE00041847 /* BusinessLogoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessLogoTableViewCell.m; sourceTree = "<group>"; };
 		30928E021C465CDE00041847 /* BusinessLogoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessLogoTableViewCell.xib; sourceTree = "<group>"; };
+		30928E0B1C46683E00041847 /* RegisterTypeSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterTypeSelectViewController.h; sourceTree = "<group>"; };
+		30928E0C1C46683E00041847 /* RegisterTypeSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterTypeSelectViewController.m; sourceTree = "<group>"; };
+		30928E0D1C46683E00041847 /* RegisterTypeSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterTypeSelectViewController.xib; sourceTree = "<group>"; };
 		30BBACE21C43EB4D004F22D2 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		30BBACE71C43EDD4004F22D2 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
@@ -238,6 +243,7 @@
 		30928DDF1C465B8000041847 /* RegisterControllers */ = {
 			isa = PBXGroup;
 			children = (
+				30928E051C4667D600041847 /* RegisterTypeSelectController */,
 				30928DE01C465B8000041847 /* BuisnessRegisterController */,
 				30928DE11C465B8000041847 /* PersonalRegisterController */,
 				30928DE21C465B8000041847 /* RegisterCells */,
@@ -315,6 +321,17 @@
 				30928DFD1C465CCC00041847 /* AvatarTableViewCell.xib */,
 			);
 			path = AvatarCell;
+			sourceTree = "<group>";
+		};
+		30928E051C4667D600041847 /* RegisterTypeSelectController */ = {
+			isa = PBXGroup;
+			children = (
+				30928E0B1C46683E00041847 /* RegisterTypeSelectViewController.h */,
+				30928E0C1C46683E00041847 /* RegisterTypeSelectViewController.m */,
+				30928E0D1C46683E00041847 /* RegisterTypeSelectViewController.xib */,
+			);
+			name = RegisterTypeSelectController;
+			path = RegisterTypeController;
 			sourceTree = "<group>";
 		};
 		30BBACDC1C43EA64004F22D2 /* Views */ = {
@@ -647,6 +664,7 @@
 			files = (
 				30928DEC1C465BD600041847 /* BusinessRegisterTableViewController.xib in Resources */,
 				307DD9201C44F93200F59857 /* ItemTableViewCell.xib in Resources */,
+				30928E0F1C46683E00041847 /* RegisterTypeSelectViewController.xib in Resources */,
 				307DD9141C44F68A00F59857 /* MainPageController.xib in Resources */,
 				30928DFA1C465CBA00041847 /* ButtonTableViewCell.xib in Resources */,
 				4F79B9231C43DC2D0082740E /* Assets.xcassets in Resources */,
