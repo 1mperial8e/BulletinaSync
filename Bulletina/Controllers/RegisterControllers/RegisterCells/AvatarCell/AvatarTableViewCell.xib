@@ -15,9 +15,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dp8-Lt-x7Q">
-                        <rect key="frame" x="135" y="36" width="105" height="145"/>
+                        <rect key="frame" x="135" y="23" width="105" height="171"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="MPr-yJ-QkL">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PersonalAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="MPr-yJ-QkL">
                                 <rect key="frame" x="0.0" y="0.0" width="105" height="105"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -26,7 +26,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add/edit image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ub7-sO-tez">
-                                <rect key="frame" x="0.0" y="124" width="105" height="21"/>
+                                <rect key="frame" x="0.0" y="127" width="105" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="RPx-kC-MWf"/>
                                 </constraints>
@@ -38,12 +38,12 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="MPr-yJ-QkL" firstAttribute="top" secondItem="Dp8-Lt-x7Q" secondAttribute="top" id="3Pa-f4-g7M"/>
-                            <constraint firstAttribute="bottom" secondItem="ub7-sO-tez" secondAttribute="bottom" id="G0k-MV-gsg"/>
                             <constraint firstAttribute="trailing" secondItem="ub7-sO-tez" secondAttribute="trailing" id="H69-ho-sBp"/>
                             <constraint firstItem="ub7-sO-tez" firstAttribute="leading" secondItem="Dp8-Lt-x7Q" secondAttribute="leading" id="JfK-6D-Xhc"/>
                             <constraint firstAttribute="width" constant="105" id="UTi-Y4-dES"/>
+                            <constraint firstItem="ub7-sO-tez" firstAttribute="top" secondItem="MPr-yJ-QkL" secondAttribute="bottom" constant="22" id="WD4-hm-gf8"/>
                             <constraint firstItem="MPr-yJ-QkL" firstAttribute="leading" secondItem="Dp8-Lt-x7Q" secondAttribute="leading" id="ZXU-Wl-ucK"/>
-                            <constraint firstAttribute="height" constant="145" id="ffk-hS-6E1"/>
+                            <constraint firstAttribute="height" constant="171" id="ffk-hS-6E1"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -57,6 +57,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Logo" width="114" height="119"/>
+        <image name="PersonalAvatar" width="94" height="94"/>
     </resources>
 </document>
