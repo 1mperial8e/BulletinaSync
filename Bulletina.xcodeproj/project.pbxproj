@@ -191,7 +191,7 @@
 		30928DDF1C465B8000041847 /* RegisterControllers */ = {
 			isa = PBXGroup;
 			children = (
-				30928E051C4667D600041847 /* RegisterTypeController */,
+				30928E051C4667D600041847 /* RegisterTypeSelectController */,
 				30928DE01C465B8000041847 /* BuisnessRegisterController */,
 				30928DE11C465B8000041847 /* PersonalRegisterController */,
 				30928DE21C465B8000041847 /* RegisterCells */,
@@ -271,13 +271,14 @@
 			path = AvatarCell;
 			sourceTree = "<group>";
 		};
-		30928E051C4667D600041847 /* RegisterTypeController */ = {
+		30928E051C4667D600041847 /* RegisterTypeSelectController */ = {
 			isa = PBXGroup;
 			children = (
 				30928E0B1C46683E00041847 /* RegisterTypeSelectViewController.h */,
 				30928E0C1C46683E00041847 /* RegisterTypeSelectViewController.m */,
 				30928E0D1C46683E00041847 /* RegisterTypeSelectViewController.xib */,
 			);
+			name = RegisterTypeSelectController;
 			path = RegisterTypeController;
 			sourceTree = "<group>";
 		};

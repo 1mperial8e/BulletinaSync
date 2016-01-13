@@ -10,4 +10,6 @@
 
 @interface InputTableViewCell : BaseTableViewCell
 
+@property (weak, nonatomic) IBOutlet UITextField *inputTextField;
+
 @end

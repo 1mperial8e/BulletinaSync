@@ -10,4 +10,6 @@
 
 @interface ButtonTableViewCell : BaseTableViewCell
 
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+
 @end
