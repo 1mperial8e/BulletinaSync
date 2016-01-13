@@ -6,8 +6,6 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface PersonalRegisterTableViewController : UITableViewController
 
 @end
