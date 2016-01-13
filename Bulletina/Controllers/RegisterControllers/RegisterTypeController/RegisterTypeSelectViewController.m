@@ -30,7 +30,6 @@
 	self.view.backgroundColor = [UIColor mainPageBGColor];
 	
 	self.topInsetConstraint.constant = ([self topBarHeight] + self.topInsetConstraint.constant) * [self heightCoefficient];
-	[self.view layoutIfNeeded];
 }
 
 #pragma mark - Actions

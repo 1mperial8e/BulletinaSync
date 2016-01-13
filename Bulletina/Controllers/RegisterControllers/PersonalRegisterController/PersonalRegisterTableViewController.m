@@ -21,7 +21,6 @@ static CGFloat const AvatarCellHeigth = 218;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
 
-
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	AvatarCellIndex,
 	UsernameCellIndex,
@@ -29,7 +28,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	RetypePasswordCellIndex,
 	SaveButtonCellIndex
 };
-
 
 @interface PersonalRegisterTableViewController () <UITextFieldDelegate>
 
@@ -66,7 +64,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
     return 5;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -105,15 +102,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
+    cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == UsernameCellIndex) {
 		cell.inputTextField.placeholder = @"Username:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
-		cell.inputTextField.returnKeyType = UIReturnKeyNext;
 		self.usernameTextfield = cell.inputTextField;
 	} else if (indexPath.item == PasswordCellIndex) {
 		cell.inputTextField.placeholder = @"Password:";
 		cell.inputTextField.secureTextEntry = YES;
-		cell.inputTextField.returnKeyType = UIReturnKeyNext;
 		self.passwordTextfield = cell.inputTextField;
 	} else if (indexPath.item == RetypePasswordCellIndex) {
 		cell.inputTextField.placeholder = @"Retype password:";
@@ -143,7 +139,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.tableView registerNib:AvatarTableViewCell.nib forCellReuseIdentifier:AvatarTableViewCell.ID];
 	[self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
 	[self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
-	
 }
 
 - (void)setupDefaults

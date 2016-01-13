@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -18,13 +18,13 @@
                         <rect key="frame" x="17" y="12" width="341" height="154"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BusinessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="9vA-bO-hhW">
-                                <rect key="frame" x="0.0" y="0.0" width="341" height="100"/>
+                                <rect key="frame" x="0.0" y="5" width="341" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="R8s-74-umE"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add/edit logo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fEW-Zv-zfB">
-                                <rect key="frame" x="0.0" y="110" width="341" height="15"/>
+                                <rect key="frame" x="0.0" y="115" width="341" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="C4K-1S-ZMb"/>
                                 </constraints>
@@ -36,7 +36,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9vA-bO-hhW" firstAttribute="leading" secondItem="4ln-3T-F5d" secondAttribute="leading" id="0za-bS-jUs"/>
-                            <constraint firstItem="9vA-bO-hhW" firstAttribute="top" secondItem="4ln-3T-F5d" secondAttribute="top" id="2JG-fp-hqf"/>
+                            <constraint firstItem="9vA-bO-hhW" firstAttribute="top" secondItem="4ln-3T-F5d" secondAttribute="top" constant="5" id="2JG-fp-hqf"/>
                             <constraint firstAttribute="trailing" secondItem="fEW-Zv-zfB" secondAttribute="trailing" id="G2b-8V-gn7"/>
                             <constraint firstAttribute="height" constant="154" id="Iqx-tD-oHw"/>
                             <constraint firstItem="fEW-Zv-zfB" firstAttribute="top" secondItem="9vA-bO-hhW" secondAttribute="bottom" constant="10" id="NQU-qW-fFc"/>

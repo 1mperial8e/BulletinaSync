@@ -6,7 +6,6 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-
 @interface RegisterTypeSelectViewController : UIViewController
 
 @end

@@ -21,7 +21,6 @@ static CGFloat const LogoCellHeigth = 178;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
 
-
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex,
 	UsernameCellIndex,
@@ -76,7 +75,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     return 10;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.item == LogoCellIndex) {
@@ -116,39 +114,33 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
+    cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == UsernameCellIndex) {
 		cell.inputTextField.placeholder = @"Username:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
-		cell.inputTextField.returnKeyType = UIReturnKeyNext;
 		self.usernameTextfield = cell.inputTextField;
 	} else if (indexPath.item == CompanyNameCellIndex) {
 		cell.inputTextField.placeholder = @"Company Name:";
-		cell.inputTextField.returnKeyType = UIReturnKeyNext;
 		self.companyNameTextfield = cell.inputTextField;
 	} else if (indexPath.item == WebsiteCellIndex) {
 		cell.inputTextField.placeholder = @"Website:";
-		cell.inputTextField.returnKeyType = UIReturnKeyNext;
 		self.websiteTextfield = cell.inputTextField;
 	} else if (indexPath.item == FacebookCellIndex) {
 		cell.inputTextField.placeholder = @"Facebook:";
-		cell.inputTextField.returnKeyType = UIReturnKeyNext;
 		self.facebookTextfield = cell.inputTextField;
 	} else if (indexPath.item == LinkedInCellIndex) {
 		cell.inputTextField.placeholder = @"LinkedIn:";
-		cell.inputTextField.returnKeyType = UIReturnKeyNext;
 		self.linkedInTextfield = cell.inputTextField;
 	} else if (indexPath.item == TwitterCellIndex) {
 		cell.inputTextField.placeholder = @"Twitter:";
-		cell.inputTextField.returnKeyType = UIReturnKeyNext;
 		self.twitterTextfield = cell.inputTextField;
 		cell.bottomInsetConstraint.constant = 36 * [self heightCoefficient];
 	} else if (indexPath.item == NewPasswordCellIndex) {
 		cell.inputTextField.placeholder = @"Password:";
 		cell.inputTextField.secureTextEntry = YES;
-		cell.inputTextField.returnKeyType = UIReturnKeyNext;
 		self.passwordTextfield = cell.inputTextField;
 	} else if (indexPath.item == RetypeNewPasswordCellIndex) {
-		cell.inputTextField.placeholder = @"Retype password:";
+		cell.inputTextField.placeholder = @"Retype Password:";
 		cell.inputTextField.secureTextEntry = YES;
 		cell.inputTextField.returnKeyType = UIReturnKeyDone;
 		self.retypePasswordTextfield = cell.inputTextField;
@@ -165,7 +157,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return cell;
 }
 
-
 #pragma mark - Setup
 
 - (void)tableViewSetup
@@ -176,7 +167,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.tableView registerNib:BusinessLogoTableViewCell.nib forCellReuseIdentifier:BusinessLogoTableViewCell.ID];
 	[self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
 	[self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
-	
 }
 
 - (void)setupDefaults
