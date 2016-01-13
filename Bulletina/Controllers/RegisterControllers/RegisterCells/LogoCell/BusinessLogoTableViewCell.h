@@ -1,5 +1,5 @@
 //
-//  LogoTableViewCell.h
+//  BusinessLogoTableViewCell.h
 //  Bulletina
 //
 //  Created by Stas Volskyi on 1/11/16.
@@ -8,6 +8,6 @@
 
 #import "BaseTableViewCell.h"
 
-@interface LogoTableViewCell : BaseTableViewCell
+@interface BusinessLogoTableViewCell : BaseTableViewCell
 
 @end
