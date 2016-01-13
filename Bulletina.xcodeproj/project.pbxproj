@@ -26,8 +26,8 @@
 		30928DFA1C465CBA00041847 /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DF81C465CBA00041847 /* ButtonTableViewCell.xib */; };
 		30928DFE1C465CCC00041847 /* AvatarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928DFC1C465CCC00041847 /* AvatarTableViewCell.m */; };
 		30928DFF1C465CCC00041847 /* AvatarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DFD1C465CCC00041847 /* AvatarTableViewCell.xib */; };
-		30928E031C465CDE00041847 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928E011C465CDE00041847 /* LogoTableViewCell.m */; };
-		30928E041C465CDE00041847 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928E021C465CDE00041847 /* LogoTableViewCell.xib */; };
+		30928E031C465CDE00041847 /* BusinessLogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928E011C465CDE00041847 /* BusinessLogoTableViewCell.m */; };
+		30928E041C465CDE00041847 /* BusinessLogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928E021C465CDE00041847 /* BusinessLogoTableViewCell.xib */; };
 		30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */; };
 		30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */; };
 		30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */; };
@@ -77,9 +77,9 @@
 		30928DFB1C465CCC00041847 /* AvatarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvatarTableViewCell.h; sourceTree = "<group>"; };
 		30928DFC1C465CCC00041847 /* AvatarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvatarTableViewCell.m; sourceTree = "<group>"; };
 		30928DFD1C465CCC00041847 /* AvatarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AvatarTableViewCell.xib; sourceTree = "<group>"; };
-		30928E001C465CDE00041847 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
-		30928E011C465CDE00041847 /* LogoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoTableViewCell.m; sourceTree = "<group>"; };
-		30928E021C465CDE00041847 /* LogoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoTableViewCell.xib; sourceTree = "<group>"; };
+		30928E001C465CDE00041847 /* BusinessLogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessLogoTableViewCell.h; sourceTree = "<group>"; };
+		30928E011C465CDE00041847 /* BusinessLogoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessLogoTableViewCell.m; sourceTree = "<group>"; };
+		30928E021C465CDE00041847 /* BusinessLogoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessLogoTableViewCell.xib; sourceTree = "<group>"; };
 		30BBACE21C43EB4D004F22D2 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		30BBACE71C43EDD4004F22D2 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
@@ -219,18 +219,19 @@
 				30928DF01C465C6E00041847 /* AvatarCell */,
 				30928DEF1C465C3E00041847 /* ButtonCell */,
 				30928DEE1C465C1200041847 /* InputCell */,
-				30928DED1C465BFD00041847 /* LogoCell */,
+				30928DED1C465BFD00041847 /* BusinessLogoCell */,
 			);
 			path = RegisterCells;
 			sourceTree = "<group>";
 		};
-		30928DED1C465BFD00041847 /* LogoCell */ = {
+		30928DED1C465BFD00041847 /* BusinessLogoCell */ = {
 			isa = PBXGroup;
 			children = (
-				30928E001C465CDE00041847 /* LogoTableViewCell.h */,
-				30928E011C465CDE00041847 /* LogoTableViewCell.m */,
-				30928E021C465CDE00041847 /* LogoTableViewCell.xib */,
+				30928E001C465CDE00041847 /* BusinessLogoTableViewCell.h */,
+				30928E011C465CDE00041847 /* BusinessLogoTableViewCell.m */,
+				30928E021C465CDE00041847 /* BusinessLogoTableViewCell.xib */,
 			);
+			name = BusinessLogoCell;
 			path = LogoCell;
 			sourceTree = "<group>";
 		};
@@ -534,7 +535,7 @@
 				30BBACF11C43EE24004F22D2 /* TextFieldTableViewCell.xib in Resources */,
 				30928DDD1C464F7200041847 /* IconCollectionViewCell.xib in Resources */,
 				30928DD21C463CA100041847 /* CustomRefreshControlView.xib in Resources */,
-				30928E041C465CDE00041847 /* LogoTableViewCell.xib in Resources */,
+				30928E041C465CDE00041847 /* BusinessLogoTableViewCell.xib in Resources */,
 				30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */,
 				30928DE71C465BBC00041847 /* PersonalRegisterTableViewController.xib in Resources */,
 				30928DF51C465CA700041847 /* InputTableViewCell.xib in Resources */,
@@ -552,7 +553,7 @@
 			files = (
 				30928DCD1C463B2400041847 /* BaseView.m in Sources */,
 				30928DFE1C465CCC00041847 /* AvatarTableViewCell.m in Sources */,
-				30928E031C465CDE00041847 /* LogoTableViewCell.m in Sources */,
+				30928E031C465CDE00041847 /* BusinessLogoTableViewCell.m in Sources */,
 				30928DDC1C464F7200041847 /* IconCollectionViewCell.m in Sources */,
 				30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */,
 				4F637BFC1C46596F00DE7CCA /* Utils.m in Sources */,
