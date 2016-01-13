@@ -16,6 +16,18 @@
 		30928DD21C463CA100041847 /* CustomRefreshControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DD11C463CA100041847 /* CustomRefreshControlView.xib */; };
 		30928DDC1C464F7200041847 /* IconCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928DDA1C464F7200041847 /* IconCollectionViewCell.m */; };
 		30928DDD1C464F7200041847 /* IconCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DDB1C464F7200041847 /* IconCollectionViewCell.xib */; };
+		30928DE61C465BBC00041847 /* PersonalRegisterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928DE41C465BBC00041847 /* PersonalRegisterTableViewController.m */; };
+		30928DE71C465BBC00041847 /* PersonalRegisterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DE51C465BBC00041847 /* PersonalRegisterTableViewController.xib */; };
+		30928DEB1C465BD600041847 /* BusinessRegisterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928DE91C465BD600041847 /* BusinessRegisterTableViewController.m */; };
+		30928DEC1C465BD600041847 /* BusinessRegisterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DEA1C465BD600041847 /* BusinessRegisterTableViewController.xib */; };
+		30928DF41C465CA700041847 /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928DF21C465CA700041847 /* InputTableViewCell.m */; };
+		30928DF51C465CA700041847 /* InputTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DF31C465CA700041847 /* InputTableViewCell.xib */; };
+		30928DF91C465CBA00041847 /* ButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928DF71C465CBA00041847 /* ButtonTableViewCell.m */; };
+		30928DFA1C465CBA00041847 /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DF81C465CBA00041847 /* ButtonTableViewCell.xib */; };
+		30928DFE1C465CCC00041847 /* AvatarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928DFC1C465CCC00041847 /* AvatarTableViewCell.m */; };
+		30928DFF1C465CCC00041847 /* AvatarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DFD1C465CCC00041847 /* AvatarTableViewCell.xib */; };
+		30928E031C465CDE00041847 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928E011C465CDE00041847 /* LogoTableViewCell.m */; };
+		30928E041C465CDE00041847 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928E021C465CDE00041847 /* LogoTableViewCell.xib */; };
 		30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */; };
 		30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */; };
 		30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */; };
@@ -48,6 +60,24 @@
 		30928DD91C464F7200041847 /* IconCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconCollectionViewCell.h; sourceTree = "<group>"; };
 		30928DDA1C464F7200041847 /* IconCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconCollectionViewCell.m; sourceTree = "<group>"; };
 		30928DDB1C464F7200041847 /* IconCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IconCollectionViewCell.xib; sourceTree = "<group>"; };
+		30928DE31C465BBC00041847 /* PersonalRegisterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalRegisterTableViewController.h; sourceTree = "<group>"; };
+		30928DE41C465BBC00041847 /* PersonalRegisterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalRegisterTableViewController.m; sourceTree = "<group>"; };
+		30928DE51C465BBC00041847 /* PersonalRegisterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalRegisterTableViewController.xib; sourceTree = "<group>"; };
+		30928DE81C465BD600041847 /* BusinessRegisterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessRegisterTableViewController.h; sourceTree = "<group>"; };
+		30928DE91C465BD600041847 /* BusinessRegisterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessRegisterTableViewController.m; sourceTree = "<group>"; };
+		30928DEA1C465BD600041847 /* BusinessRegisterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessRegisterTableViewController.xib; sourceTree = "<group>"; };
+		30928DF11C465CA700041847 /* InputTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTableViewCell.h; sourceTree = "<group>"; };
+		30928DF21C465CA700041847 /* InputTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTableViewCell.m; sourceTree = "<group>"; };
+		30928DF31C465CA700041847 /* InputTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InputTableViewCell.xib; sourceTree = "<group>"; };
+		30928DF61C465CBA00041847 /* ButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonTableViewCell.h; sourceTree = "<group>"; };
+		30928DF71C465CBA00041847 /* ButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonTableViewCell.m; sourceTree = "<group>"; };
+		30928DF81C465CBA00041847 /* ButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonTableViewCell.xib; sourceTree = "<group>"; };
+		30928DFB1C465CCC00041847 /* AvatarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvatarTableViewCell.h; sourceTree = "<group>"; };
+		30928DFC1C465CCC00041847 /* AvatarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvatarTableViewCell.m; sourceTree = "<group>"; };
+		30928DFD1C465CCC00041847 /* AvatarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AvatarTableViewCell.xib; sourceTree = "<group>"; };
+		30928E001C465CDE00041847 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
+		30928E011C465CDE00041847 /* LogoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoTableViewCell.m; sourceTree = "<group>"; };
+		30928E021C465CDE00041847 /* LogoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoTableViewCell.xib; sourceTree = "<group>"; };
 		30BBACE21C43EB4D004F22D2 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		30BBACE71C43EDD4004F22D2 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
@@ -151,6 +181,87 @@
 				30928DDB1C464F7200041847 /* IconCollectionViewCell.xib */,
 			);
 			path = IconCell;
+			sourceTree = "<group>";
+		};
+		30928DDF1C465B8000041847 /* RegisterControllers */ = {
+			isa = PBXGroup;
+			children = (
+				30928DE01C465B8000041847 /* BuisnessRegisterController */,
+				30928DE11C465B8000041847 /* PersonalRegisterController */,
+				30928DE21C465B8000041847 /* RegisterCells */,
+			);
+			path = RegisterControllers;
+			sourceTree = "<group>";
+		};
+		30928DE01C465B8000041847 /* BuisnessRegisterController */ = {
+			isa = PBXGroup;
+			children = (
+				30928DE81C465BD600041847 /* BusinessRegisterTableViewController.h */,
+				30928DE91C465BD600041847 /* BusinessRegisterTableViewController.m */,
+				30928DEA1C465BD600041847 /* BusinessRegisterTableViewController.xib */,
+			);
+			path = BuisnessRegisterController;
+			sourceTree = "<group>";
+		};
+		30928DE11C465B8000041847 /* PersonalRegisterController */ = {
+			isa = PBXGroup;
+			children = (
+				30928DE31C465BBC00041847 /* PersonalRegisterTableViewController.h */,
+				30928DE41C465BBC00041847 /* PersonalRegisterTableViewController.m */,
+				30928DE51C465BBC00041847 /* PersonalRegisterTableViewController.xib */,
+			);
+			path = PersonalRegisterController;
+			sourceTree = "<group>";
+		};
+		30928DE21C465B8000041847 /* RegisterCells */ = {
+			isa = PBXGroup;
+			children = (
+				30928DF01C465C6E00041847 /* AvatarCell */,
+				30928DEF1C465C3E00041847 /* ButtonCell */,
+				30928DEE1C465C1200041847 /* InputCell */,
+				30928DED1C465BFD00041847 /* LogoCell */,
+			);
+			path = RegisterCells;
+			sourceTree = "<group>";
+		};
+		30928DED1C465BFD00041847 /* LogoCell */ = {
+			isa = PBXGroup;
+			children = (
+				30928E001C465CDE00041847 /* LogoTableViewCell.h */,
+				30928E011C465CDE00041847 /* LogoTableViewCell.m */,
+				30928E021C465CDE00041847 /* LogoTableViewCell.xib */,
+			);
+			path = LogoCell;
+			sourceTree = "<group>";
+		};
+		30928DEE1C465C1200041847 /* InputCell */ = {
+			isa = PBXGroup;
+			children = (
+				30928DF11C465CA700041847 /* InputTableViewCell.h */,
+				30928DF21C465CA700041847 /* InputTableViewCell.m */,
+				30928DF31C465CA700041847 /* InputTableViewCell.xib */,
+			);
+			path = InputCell;
+			sourceTree = "<group>";
+		};
+		30928DEF1C465C3E00041847 /* ButtonCell */ = {
+			isa = PBXGroup;
+			children = (
+				30928DF61C465CBA00041847 /* ButtonTableViewCell.h */,
+				30928DF71C465CBA00041847 /* ButtonTableViewCell.m */,
+				30928DF81C465CBA00041847 /* ButtonTableViewCell.xib */,
+			);
+			path = ButtonCell;
+			sourceTree = "<group>";
+		};
+		30928DF01C465C6E00041847 /* AvatarCell */ = {
+			isa = PBXGroup;
+			children = (
+				30928DFB1C465CCC00041847 /* AvatarTableViewCell.h */,
+				30928DFC1C465CCC00041847 /* AvatarTableViewCell.m */,
+				30928DFD1C465CCC00041847 /* AvatarTableViewCell.xib */,
+			);
+			path = AvatarCell;
 			sourceTree = "<group>";
 		};
 		30BBACDC1C43EA64004F22D2 /* Views */ = {
@@ -294,6 +405,7 @@
 		4F79B9151C43DC2D0082740E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				30928DDF1C465B8000041847 /* RegisterControllers */,
 				4F79B9161C43DC2D0082740E /* LoginController */,
 				307DD90F1C44F65400F59857 /* MainPageController */,
 			);
@@ -376,14 +488,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30928DEC1C465BD600041847 /* BusinessRegisterTableViewController.xib in Resources */,
 				307DD9201C44F93200F59857 /* ItemTableViewCell.xib in Resources */,
 				307DD9141C44F68A00F59857 /* MainPageController.xib in Resources */,
+				30928DFA1C465CBA00041847 /* ButtonTableViewCell.xib in Resources */,
 				4F79B9231C43DC2D0082740E /* Assets.xcassets in Resources */,
 				30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */,
+				30928DFF1C465CCC00041847 /* AvatarTableViewCell.xib in Resources */,
 				30BBACF11C43EE24004F22D2 /* TextFieldTableViewCell.xib in Resources */,
 				30928DDD1C464F7200041847 /* IconCollectionViewCell.xib in Resources */,
 				30928DD21C463CA100041847 /* CustomRefreshControlView.xib in Resources */,
+				30928E041C465CDE00041847 /* LogoTableViewCell.xib in Resources */,
 				30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */,
+				30928DE71C465BBC00041847 /* PersonalRegisterTableViewController.xib in Resources */,
+				30928DF51C465CA700041847 /* InputTableViewCell.xib in Resources */,
 				30BBACFA1C43EEF9004F22D2 /* TryBeforeTableViewCell.xib in Resources */,
 				4F79B9261C43DD130082740E /* LoginViewController.xib in Resources */,
 			);
@@ -397,19 +515,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				30928DCD1C463B2400041847 /* BaseView.m in Sources */,
+				30928DFE1C465CCC00041847 /* AvatarTableViewCell.m in Sources */,
+				30928E031C465CDE00041847 /* LogoTableViewCell.m in Sources */,
 				30928DDC1C464F7200041847 /* IconCollectionViewCell.m in Sources */,
 				30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */,
 				30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */,
 				307DD91F1C44F93200F59857 /* ItemTableViewCell.m in Sources */,
+				30928DF91C465CBA00041847 /* ButtonTableViewCell.m in Sources */,
 				307DD9131C44F68A00F59857 /* MainPageController.m in Sources */,
 				4F79B9211C43DC2D0082740E /* main.m in Sources */,
 				30BBACF01C43EE24004F22D2 /* TextFieldTableViewCell.m in Sources */,
+				30928DEB1C465BD600041847 /* BusinessRegisterTableViewController.m in Sources */,
 				4F637BF61C464E2200DE7CCA /* TextInputNavigationCollection.m in Sources */,
+				30928DF41C465CA700041847 /* InputTableViewCell.m in Sources */,
 				4F79B91F1C43DC2D0082740E /* AppDelegate.m in Sources */,
 				30BBACF91C43EEF9004F22D2 /* TryBeforeTableViewCell.m in Sources */,
 				30BBAD031C43EF24004F22D2 /* LoginButtonTableViewCell.m in Sources */,
 				4F79B9221C43DC2D0082740E /* LoginViewController.m in Sources */,
 				30928DD01C463C9000041847 /* CustomRefreshControlView.m in Sources */,
+				30928DE61C465BBC00041847 /* PersonalRegisterTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
