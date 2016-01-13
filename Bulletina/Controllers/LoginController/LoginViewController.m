@@ -6,16 +6,21 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
+// Controllers
 #import "LoginViewController.h"
 #import "MainPageController.h"
 
+// Cells
 #import "LogoTableViewCell.h"
 #import "TextFieldTableViewCell.h"
 #import "LoginButtonTableViewCell.h"
 #import "TryBeforeTableViewCell.h"
 
-static CGFloat const LogoTableViewCellHeigthCoeff = 0.372;				//248.0f / 667.0f;
-static CGFloat const TextfieldTableViewCellHeigthCoeff = 0.072;			//48.0f / 667.0f;
+// Helpers
+#import "TextInputNavigationCollection.h"
+
+static CGFloat const LogoTableViewCellHeigthCoeff = 0.372;			//248.0f / 667.0f;
+static CGFloat const TextfieldTableViewCellHeigthCoeff = 0.072;		//48.0f / 667.0f;
 static CGFloat const LoginButtonTableViewCellHeigthCoeff = 0.177;	//118.0f / 667.0f;
 static CGFloat const TryBeforeTableViewCellHeigthCoeff = 0.294;		//196.0f / 667.0f;
 
@@ -27,9 +32,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	TryBeforeCellIndex
 };
 
-@interface LoginViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface LoginViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (weak, nonatomic) UITextField *usernameTextfield;
+@property (weak, nonatomic) UITextField *passwordTextfield;
+
+@property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 
 @end
 
@@ -39,12 +49,17 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)viewDidLoad
 {
-	self.title = @"Login";
-	[[self navigationController] setNavigationBarHidden:YES animated:NO];
-	[self setNeedsStatusBarAppearanceUpdate];
-	[self tableViewSetup];
+    [super viewDidLoad];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
+	[self tableViewSetup];
+    [self setupUI];
+    [self setupDefaults];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.inputViewsCollection.textInputViews = @[self.usernameTextfield, self.passwordTextfield];
 }
 
 #pragma mark - UITableViewDataSource
@@ -83,7 +98,21 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return height;
 }
 
-#pragma mark - Setup Cells
+- (CGFloat)heigthForCell:(CGFloat)cellHeigthCoeff
+{
+    CGFloat height = cellHeigthCoeff * CGRectGetHeight([UIScreen mainScreen].bounds);
+    return height;
+}
+
+#pragma mark - Setup
+
+- (void)setupUI
+{
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.title = @"Login";
+    [[self navigationController] setNavigationBarHidden:YES animated:NO];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
 
 - (void)tableViewSetup
 {
@@ -102,11 +131,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.tableView registerNib:TryBeforeTableViewCell.nib forCellReuseIdentifier:TryBeforeTableViewCell.ID];
 }
 
-- (CGFloat)heigthForCell:(CGFloat)cellHeigthCoeff
+- (void)setupDefaults
 {
-    CGFloat height = cellHeigthCoeff * CGRectGetHeight([UIScreen mainScreen].bounds);
-	return height;
+    self.inputViewsCollection = [TextInputNavigationCollection new];
 }
+
+#pragma mark - Cells
 
 - (LogoTableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath
 {
@@ -122,9 +152,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (indexPath.row == PasswordTextfieldIndex) {
 		cell.textField.placeholder = @"Password:";
         cell.textField.secureTextEntry = YES;
+        cell.textField.returnKeyType = UIReturnKeyDone;
+        self.passwordTextfield = cell.textField;
     } else {
         cell.textField.keyboardType = UIKeyboardTypeASCIICapable;
+        cell.textField.returnKeyType = UIReturnKeyNext;
+        self.usernameTextfield = cell.textField;
     }
+    cell.textField.delegate = self;
 	cell.backgroundColor = [UIColor clearColor];
 	return cell;
 }
@@ -155,7 +190,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 #pragma mark - StatusBar setup
 
-- (UIStatusBarStyle) preferredStatusBarStyle
+- (UIStatusBarStyle)preferredStatusBarStyle
 {
 	return UIStatusBarStyleLightContent;
 }
@@ -179,6 +214,21 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)forgotButtonTap:(id)sender
 {
+    
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    [self.inputViewsCollection inputViewWillBecomeFirstResponder:textField];
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.inputViewsCollection next];
+    return YES;
 }
 
 @end
