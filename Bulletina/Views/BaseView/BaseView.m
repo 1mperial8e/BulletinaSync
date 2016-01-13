@@ -14,6 +14,8 @@
 
 @implementation BaseView
 
+#pragma mark - Lifecycle
+
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
 	self = [super initWithCoder:coder];

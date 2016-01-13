@@ -26,6 +26,8 @@
 		30BBAD031C43EF24004F22D2 /* LoginButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBAD011C43EF24004F22D2 /* LoginButtonTableViewCell.m */; };
 		30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBAD021C43EF24004F22D2 /* LoginButtonTableViewCell.xib */; };
 		4F637BF61C464E2200DE7CCA /* TextInputNavigationCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F637BF51C464E2200DE7CCA /* TextInputNavigationCollection.m */; };
+		4F637BFC1C46596F00DE7CCA /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F637BFB1C46596F00DE7CCA /* Utils.m */; };
+		4F637C001C4659A200DE7CCA /* UIColor+AppColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F637BFF1C4659A200DE7CCA /* UIColor+AppColor.m */; };
 		4F79B91F1C43DC2D0082740E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F79B9121C43DC2D0082740E /* AppDelegate.m */; };
 		4F79B9211C43DC2D0082740E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F79B9141C43DC2D0082740E /* main.m */; };
 		4F79B9221C43DC2D0082740E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F79B9181C43DC2D0082740E /* LoginViewController.m */; };
@@ -64,6 +66,11 @@
 		30BBAD021C43EF24004F22D2 /* LoginButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginButtonTableViewCell.xib; sourceTree = "<group>"; };
 		4F637BF41C464E2200DE7CCA /* TextInputNavigationCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextInputNavigationCollection.h; sourceTree = "<group>"; };
 		4F637BF51C464E2200DE7CCA /* TextInputNavigationCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextInputNavigationCollection.m; sourceTree = "<group>"; };
+		4F637BFA1C46596F00DE7CCA /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		4F637BFB1C46596F00DE7CCA /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		4F637BFE1C4659A200DE7CCA /* UIColor+AppColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AppColor.h"; sourceTree = "<group>"; };
+		4F637BFF1C4659A200DE7CCA /* UIColor+AppColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AppColor.m"; sourceTree = "<group>"; };
+		4F637C011C46602C00DE7CCA /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		4F79B8F41C43DA2A0082740E /* Bulletina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bulletina.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F79B9111C43DC2D0082740E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4F79B9121C43DC2D0082740E /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -134,13 +141,6 @@
 				30928DD11C463CA100041847 /* CustomRefreshControlView.xib */,
 			);
 			path = RefreshControl;
-			sourceTree = "<group>";
-		};
-		30928DD31C4642E000041847 /* SupportingClasses */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SupportingClasses;
 			sourceTree = "<group>";
 		};
 		30928DD81C464F0100041847 /* IconCell */ = {
@@ -242,6 +242,42 @@
 			path = TextInputNavigationCollection;
 			sourceTree = "<group>";
 		};
+		4F637BF71C46594E00DE7CCA /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				4F637BF91C46596000DE7CCA /* Utils */,
+				4F637BF81C46594E00DE7CCA /* Categories */,
+				4F637C011C46602C00DE7CCA /* Constants.h */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		4F637BF81C46594E00DE7CCA /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				4F637BFD1C46598E00DE7CCA /* UIColor+AppColor */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		4F637BF91C46596000DE7CCA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4F637BFA1C46596F00DE7CCA /* Utils.h */,
+				4F637BFB1C46596F00DE7CCA /* Utils.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		4F637BFD1C46598E00DE7CCA /* UIColor+AppColor */ = {
+			isa = PBXGroup;
+			children = (
+				4F637BFE1C4659A200DE7CCA /* UIColor+AppColor.h */,
+				4F637BFF1C4659A200DE7CCA /* UIColor+AppColor.m */,
+			);
+			path = "UIColor+AppColor";
+			sourceTree = "<group>";
+		};
 		4F79B8EB1C43DA2A0082740E = {
 			isa = PBXGroup;
 			children = (
@@ -261,7 +297,7 @@
 		4F79B8F61C43DA2A0082740E /* Bulletina */ = {
 			isa = PBXGroup;
 			children = (
-				30928DD31C4642E000041847 /* SupportingClasses */,
+				4F637BF71C46594E00DE7CCA /* SupportingFiles */,
 				30BBACDC1C43EA64004F22D2 /* Views */,
 				4F79B90F1C43DC2D0082740E /* Application */,
 				4F79B9151C43DC2D0082740E /* Controllers */,
@@ -399,7 +435,9 @@
 				30928DCD1C463B2400041847 /* BaseView.m in Sources */,
 				30928DDC1C464F7200041847 /* IconCollectionViewCell.m in Sources */,
 				30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */,
+				4F637BFC1C46596F00DE7CCA /* Utils.m in Sources */,
 				30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */,
+				4F637C001C4659A200DE7CCA /* UIColor+AppColor.m in Sources */,
 				307DD91F1C44F93200F59857 /* ItemTableViewCell.m in Sources */,
 				307DD9131C44F68A00F59857 /* MainPageController.m in Sources */,
 				4F79B9211C43DC2D0082740E /* main.m in Sources */,
