@@ -60,6 +60,7 @@
 		4FA19C261C46829000140343 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C1B1C46829000140343 /* UIProgressView+AFNetworking.m */; };
 		4FA19C271C46829000140343 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C1D1C46829000140343 /* UIRefreshControl+AFNetworking.m */; };
 		4FA19C281C46829000140343 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C1F1C46829000140343 /* UIWebView+AFNetworking.m */; };
+		4FA19C2C1C46831C00140343 /* APIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C2B1C46831C00140343 /* APIClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +160,9 @@
 		4FA19C1D1C46829000140343 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		4FA19C1E1C46829000140343 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		4FA19C1F1C46829000140343 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		4FA19C2A1C46831C00140343 /* APIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIClient.h; sourceTree = "<group>"; };
+		4FA19C2B1C46831C00140343 /* APIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIClient.m; sourceTree = "<group>"; };
+		4FA19C2D1C46838800140343 /* APIClientConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIClientConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -388,6 +392,7 @@
 		4F637BF21C464DDE00DE7CCA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4FA19C291C46830600140343 /* APIClient */,
 				4F637BF31C464E0C00DE7CCA /* TextInputNavigationCollection */,
 			);
 			path = Models;
@@ -458,11 +463,11 @@
 			isa = PBXGroup;
 			children = (
 				4FA19BF61C46823C00140343 /* 3dPart */,
-				4F637BF71C46594E00DE7CCA /* SupportingFiles */,
 				30BBACDC1C43EA64004F22D2 /* Views */,
 				4F79B90F1C43DC2D0082740E /* Application */,
 				4F79B9151C43DC2D0082740E /* Controllers */,
 				4F637BF21C464DDE00DE7CCA /* Models */,
+				4F637BF71C46594E00DE7CCA /* SupportingFiles */,
 				4F79B91A1C43DC2D0082740E /* Resources */,
 			);
 			path = Bulletina;
@@ -573,6 +578,16 @@
 			path = "UIKit+AFNetworking";
 			sourceTree = "<group>";
 		};
+		4FA19C291C46830600140343 /* APIClient */ = {
+			isa = PBXGroup;
+			children = (
+				4FA19C2A1C46831C00140343 /* APIClient.h */,
+				4FA19C2B1C46831C00140343 /* APIClient.m */,
+				4FA19C2D1C46838800140343 /* APIClientConstants.h */,
+			);
+			path = APIClient;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -665,6 +680,7 @@
 				4FA19C241C46829000140343 /* UIButton+AFNetworking.m in Sources */,
 				4F637BFC1C46596F00DE7CCA /* Utils.m in Sources */,
 				4FA19C071C46828600140343 /* AFSecurityPolicy.m in Sources */,
+				4FA19C2C1C46831C00140343 /* APIClient.m in Sources */,
 				30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */,
 				4F637C001C4659A200DE7CCA /* UIColor+AppColor.m in Sources */,
 				307DD91F1C44F93200F59857 /* ItemTableViewCell.m in Sources */,

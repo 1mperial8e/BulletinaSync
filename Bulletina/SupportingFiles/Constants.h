@@ -24,4 +24,7 @@
 #define DLog(...)
 #endif
 
+//MARK: UserDefaults
+static NSString *const CurrentUserKey = @"CurrentUserKey";
+
 #endif /* Constants_h */
