@@ -21,9 +21,13 @@ static CGFloat const AvatarCellHeigth = 218;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
 
+static NSInteger const CellsCount = 6;
+static CGFloat const AdditionalBottomInset = 36;
+
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	AvatarCellIndex,
 	UsernameCellIndex,
+	EmailCellIndex,
 	PasswordCellIndex,
 	RetypePasswordCellIndex,
 	SaveButtonCellIndex
@@ -32,6 +36,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @interface PersonalRegisterTableViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) UITextField *usernameTextfield;
+@property (weak, nonatomic) UITextField *emailTextfield;
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
@@ -55,14 +60,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-	self.inputViewsCollection.textInputViews = @[self.usernameTextfield, self.passwordTextfield , self.retypePasswordTextfield];
+	self.inputViewsCollection.textInputViews = @[self.usernameTextfield, self.emailTextfield, self.passwordTextfield , self.retypePasswordTextfield];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return CellsCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -80,11 +85,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	CGFloat height = InputCellHeigth * [self heightCoefficient];
+	CGFloat height = InputCellHeigth * HeigthCoefficient;
 	if (indexPath.row == AvatarCellIndex) {
-		return AvatarCellHeigth * [self heightCoefficient];
+		return AvatarCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == SaveButtonCellIndex) {
-		return ButtonCellHeigth * [self heightCoefficient];
+		return ButtonCellHeigth * HeigthCoefficient;
+	} else if (indexPath.row == EmailCellIndex) {
+		return (InputCellHeigth + AdditionalBottomInset) * HeigthCoefficient;
 	}
 	return height;
 }
@@ -95,6 +102,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	AvatarTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:AvatarTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
+	cell.avatarImageView.layer.borderColor = [UIColor grayColor].CGColor;
+	cell.avatarImageView.layer.borderWidth = 5.0f;
+	cell.avatarImageView.layer.cornerRadius = CGRectGetHeight(cell.avatarImageView.frame) / 2;
 	return cell;
 }
 
@@ -107,6 +117,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.inputTextField.placeholder = @"Username:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
+	} else if (indexPath.item == EmailCellIndex) {
+		cell.inputTextField.placeholder = @"Email:";
+		cell.inputTextField.keyboardType = UIKeyboardTypeEmailAddress;
+		self.emailTextfield = cell.inputTextField;
+		cell.bottomInsetConstraint.constant = AdditionalBottomInset;
 	} else if (indexPath.item == PasswordCellIndex) {
 		cell.inputTextField.placeholder = @"Password:";
 		cell.inputTextField.secureTextEntry = YES;
@@ -125,7 +140,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	ButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ButtonTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
-	[cell.saveButton.layer setCornerRadius:5];
+	cell.saveButton.layer.cornerRadius = 5;
+
 	return cell;
 }
 
@@ -144,13 +160,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)setupDefaults
 {
 	self.inputViewsCollection = [TextInputNavigationCollection new];
-}
-
-#pragma mark - Utils
-
-- (CGFloat)heightCoefficient
-{
-	return ScreenHeight / 667;
 }
 
 #pragma mark - UITextFieldDelegate

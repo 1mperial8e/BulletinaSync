@@ -93,13 +93,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	CGFloat height = InputCellHeigth * [self heightCoefficient];
+	CGFloat height = InputCellHeigth * HeigthCoefficient;
 	if (indexPath.row == LogoCellIndex) {
-		return LogoCellHeigth * [self heightCoefficient];
+		return LogoCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == TwitterCellIndex) {
-		return (InputCellHeigth + AdditionalBottomInset) * [self heightCoefficient];
+		return (InputCellHeigth + AdditionalBottomInset) * HeigthCoefficient;
 	} else if (indexPath.row == SaveButtonCellIndex) {
-		return ButtonCellHeigth * [self heightCoefficient];
+		return ButtonCellHeigth * HeigthCoefficient;
 	}
 	return height;
 }
@@ -137,7 +137,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == TwitterCellIndex) {
 		cell.inputTextField.placeholder = @"Twitter:";
 		self.twitterTextfield = cell.inputTextField;
-		cell.bottomInsetConstraint.constant = AdditionalBottomInset * [self heightCoefficient];
+		cell.bottomInsetConstraint.constant = AdditionalBottomInset * HeigthCoefficient;
 	} else if (indexPath.item == PasswordCellIndex) {
 		cell.inputTextField.placeholder = @"Password:";
 		cell.inputTextField.secureTextEntry = YES;
@@ -176,13 +176,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)setupDefaults
 {
 	self.inputViewsCollection = [TextInputNavigationCollection new];
-}
-
-#pragma mark - Utils
-
-- (CGFloat)heightCoefficient
-{
-	return ScreenHeight / 667;
 }
 
 #pragma mark - UITextFieldDelegate

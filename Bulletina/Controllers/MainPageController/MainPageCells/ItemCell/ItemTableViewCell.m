@@ -38,6 +38,11 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 													bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([IconCollectionViewCell class])];
 	}
 
+- (void)prepareForReuse
+{	
+	self.itemStateButton.backgroundColor = [UIColor clearColor];
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -56,8 +61,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 		cell.iconImageView.image = [UIImage imageNamed:@"Share"];
 	} else if (indexPath.item == MoreCellIndex) {
 		cell.iconImageView.image = [UIImage imageNamed:@"More"];
-	}
-	
+	}	
 	return cell;
 }
 

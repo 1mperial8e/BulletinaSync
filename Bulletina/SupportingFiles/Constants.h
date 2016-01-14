@@ -17,6 +17,7 @@
 #define ScreenSize [UIScreen mainScreen].bounds
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
+#define HeigthCoefficient ScreenHeight / 667
 
 #ifdef DEBUG
 #define DLog(format, ...) NSLog(format, ##__VA_ARGS__)

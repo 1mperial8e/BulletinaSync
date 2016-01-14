@@ -29,7 +29,7 @@
 	self.navigationController.navigationBar.backItem.title = @"Cancel";
 	self.view.backgroundColor = [UIColor mainPageBGColor];
 	
-	self.topInsetConstraint.constant = ([self topBarHeight] + self.topInsetConstraint.constant) * [self heightCoefficient];
+	self.topInsetConstraint.constant = ([self topBarHeight] + self.topInsetConstraint.constant) * HeigthCoefficient;
 }
 
 #pragma mark - Actions
@@ -52,11 +52,6 @@
 }
 
 #pragma mark - Utils
-
-- (CGFloat)heightCoefficient
-{
-	return ScreenHeight / 667;
-}
 
 - (CGFloat)topBarHeight
 {

@@ -11,5 +11,6 @@
 @interface ItemTableViewCell : BaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UICollectionView *iconsCollectionView;
+@property (weak, nonatomic) IBOutlet UIButton *itemStateButton;
 
 @end

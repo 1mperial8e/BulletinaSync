@@ -39,6 +39,15 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 {
     ItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
+	
+	if (indexPath.item % 2) {
+		[cell.itemStateButton setTitle:@"  LAST CHANCE  " forState:UIControlStateNormal];
+		cell.itemStateButton.backgroundColor = [UIColor redColor];
+	} else {
+		[cell.itemStateButton setTitle:@"  NEW  " forState:UIControlStateNormal];
+		cell.itemStateButton.backgroundColor = [UIColor greenColor];
+	}
+	cell.itemStateButton.layer.cornerRadius = 7;
 	return cell;
 }
 
@@ -92,6 +101,11 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 	self.searchController.searchBar.delegate = self;
 	self.searchController.searchBar.barTintColor =  [UIColor mainPageBGColor];
+	
+	CALayer *bottomBorder = [CALayer layer];
+	bottomBorder.backgroundColor = [[UIColor lightGrayColor] CGColor];
+	bottomBorder.frame = CGRectMake(0, CGRectGetHeight(self.searchController.searchBar.frame), CGRectGetWidth(self.searchController.searchBar.frame), 1.0f);
+	[self.searchController.searchBar.layer addSublayer:bottomBorder];
 	
 	UITextField *searchField;
 	NSUInteger numViews = [self.searchController.searchBar.subviews count];

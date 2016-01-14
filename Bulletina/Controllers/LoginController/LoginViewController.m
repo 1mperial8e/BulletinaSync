@@ -20,10 +20,12 @@
 // Helpers
 #import "TextInputNavigationCollection.h"
 
-static CGFloat const LogoTableViewCellHeigthCoeff = 0.372;			//248.0f / 667.0f;
-static CGFloat const TextfieldTableViewCellHeigthCoeff = 0.072;		//48.0f / 667.0f;
-static CGFloat const LoginButtonTableViewCellHeigthCoeff = 0.177;	//118.0f / 667.0f;
-static CGFloat const TryBeforeTableViewCellHeigthCoeff = 0.294;		//196.0f / 667.0f;
+static CGFloat const LogoTableViewCellHeigth = 248.0f;
+static CGFloat const TextfieldTableViewCellHeigth = 48.0f;
+static CGFloat const LoginButtonTableViewCellHeigth = 118.0f;
+static CGFloat const TryBeforeTableViewCellHeigth = 196.0f;
+
+static NSInteger const CellsCount = 5;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex,
@@ -71,7 +73,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return 5;
+	return CellsCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -92,21 +94,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	CGFloat height = [self heigthForCell:TextfieldTableViewCellHeigthCoeff];
+	CGFloat height = TextfieldTableViewCellHeigth * HeigthCoefficient;
 	if (indexPath.row == LogoCellIndex) {
-		return [self heigthForCell:LogoTableViewCellHeigthCoeff];
+		return LogoTableViewCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == LoginButtonCellIndex) {
-		return [self heigthForCell:LoginButtonTableViewCellHeigthCoeff];
+		return LoginButtonTableViewCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == TryBeforeCellIndex) {
-		return [self heigthForCell:TryBeforeTableViewCellHeigthCoeff];
+		return TryBeforeTableViewCellHeigth * HeigthCoefficient;
 	}
 	return height;
-}
-
-- (CGFloat)heigthForCell:(CGFloat)cellHeigthCoeff
-{
-    CGFloat height = cellHeigthCoeff * CGRectGetHeight([UIScreen mainScreen].bounds);
-    return height;
 }
 
 #pragma mark - Setup

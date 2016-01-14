@@ -10,4 +10,6 @@
 
 @interface AvatarTableViewCell : BaseTableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+
 @end
