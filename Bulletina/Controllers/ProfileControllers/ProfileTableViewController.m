@@ -10,10 +10,12 @@
 #import "ProfileDefaultTableViewCell.h"
 #import "IndividualProfileLogoTableViewCell.h"
 #import "BusinessProfileLogoTableViewCell.h"
+#import "ProfileButtonTableViewCell.h"
 
 static CGFloat const PersonalLogoCellHeigth = 220;
-static CGFloat const BusinessLogoCellHeigth = 252;
+static CGFloat const BusinessLogoCellHeigth = 236;
 static CGFloat const DefaultCellHeigth = 44;
+static CGFloat const ButtonCellHeigth = 52;
 
 static NSInteger const CellsCount = 8;
 
@@ -59,6 +61,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	if (indexPath.item == LogoCellIndex) {
 		return [self logoCellForIndexPath:indexPath];
+	} else if (indexPath.item == LogOutCellIndex) {
+		return [self buttonCellForIndexPath:indexPath];
 	}
 	return [self defaultCellForIndexPath:indexPath];
 }
@@ -73,7 +77,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.logoImageView.layer.borderColor = [UIColor whiteColor].CGColor;
 		cell.logoImageView.layer.borderWidth = 2.0f;
 		cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
-		cell.separatorInset = UIEdgeInsetsMake(0, 320, 0, 0);
+		cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
 		return cell;
 	}
 	BusinessProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessProfileLogoTableViewCell.ID forIndexPath:indexPath];
@@ -81,7 +85,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self addCustomBorderToButton:cell.facebookButton];
 	[self addCustomBorderToButton:cell.twitterButton];
 	[self addCustomBorderToButton:cell.linkedInButton];
-	cell.separatorInset = UIEdgeInsetsMake(0, 320, 0, 0);
+	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
 	return cell;
 }
 
@@ -115,11 +119,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == AboutCellIndex) {
 		cell.label.text = @"About bulletina";
 		cell.iconImageView.image = [UIImage imageNamed:@"AboutBulletina"];
-	} else if (indexPath.item == LogOutCellIndex) {
-		cell.label.text = @"Log out";
-		cell.iconImageView.image = [UIImage imageNamed:@"LogOut"];
 	}
 	
+	return cell;
+}
+
+- (ProfileButtonTableViewCell *)buttonCellForIndexPath:(NSIndexPath *)indexPath
+{
+	ProfileButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ProfileButtonTableViewCell.ID forIndexPath:indexPath];
+	cell.backgroundColor = [UIColor whiteColor];
+	cell.logoutButton.layer.cornerRadius = 5;
+	cell.logoutButton.backgroundColor = [UIColor appOrangeColor];
+	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
 	return cell;
 }
 
@@ -130,13 +141,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	CGFloat height = DefaultCellHeigth * HeigthCoefficient;
 	if (indexPath.row == LogoCellIndex) {
 		return [self heightForTopCell];
+	} else if (indexPath.item == LogOutCellIndex) {
+		return ButtonCellHeigth * HeigthCoefficient;
 	}
 	return height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	
+	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Actions
@@ -154,10 +167,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:IndividualProfileLogoTableViewCell.ID owner:self options:nil];
 	IndividualProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
 	CGSize size = CGSizeZero;
-	size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 110, MAXFLOAT)];	
+	size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
 		return (size.height + PersonalLogoCellHeigth);
 	}
-	return BusinessLogoCellHeigth;
+	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
+	BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
+	CGSize size = CGSizeZero;
+	size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
+	return (size.height + BusinessLogoCellHeigth);
 }
 
 #pragma mark - Setup
@@ -167,10 +184,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.tableView registerNib:ProfileDefaultTableViewCell.nib forCellReuseIdentifier:ProfileDefaultTableViewCell.ID];
 	[self.tableView registerNib:IndividualProfileLogoTableViewCell.nib forCellReuseIdentifier:IndividualProfileLogoTableViewCell.ID];
 	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];
+	[self.tableView registerNib:ProfileButtonTableViewCell.nib forCellReuseIdentifier:ProfileButtonTableViewCell.ID];
 	
-	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
+	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
 	UIView *backgroundView = [[UIView alloc] init];
-	UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 65, ScreenWidth, 122)];
+	UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 65, ScreenWidth, 230)];
 	[backgroundView addSubview:backgroundImageView];
 	
 	backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];
@@ -179,13 +197,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.tableView.backgroundColor = [UIColor whiteColor];
 	
 	self.topBackgroundImageView = backgroundImageView;
+	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	CGFloat percent =  1 + (scrollView.contentOffset.y < -64 ? (fabs(scrollView.contentOffset.y + 64.0) / 100) : 0);
+	CGFloat percent =  1 + (scrollView.contentOffset.y < -64 ? (fabs(scrollView.contentOffset.y + 64.0) / 150) : 0);
 	self.topBackgroundImageView.transform = CGAffineTransformMakeScale(percent, percent);
 }
 

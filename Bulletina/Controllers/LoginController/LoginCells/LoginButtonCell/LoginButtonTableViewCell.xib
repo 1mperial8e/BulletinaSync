@@ -15,25 +15,19 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="117"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZHf-l4-zL1">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZHf-l4-zL1">
                         <rect key="frame" x="17" y="0.0" width="286" height="39"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.6588235294117647" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="ZHf-l4-zL1" secondAttribute="height" multiplier="143:21" constant="20.428571428571445" id="36q-Fo-ubG"/>
                         </constraints>
-                        <state key="normal">
-                            <attributedString key="attributedTitle">
-                                <fragment content="LOGIN">
-                                    <attributes>
-                                        <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <font key="NSFont" size="16" name="HelveticaNeue-Medium"/>
-                                    </attributes>
-                                </fragment>
-                            </attributedString>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                        <state key="normal" title="LOGIN">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVc-a2-jOx">
-                        <rect key="frame" x="17" y="57" width="286" height="29"/>
+                        <rect key="frame" x="17" y="54" width="286" height="29"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                         <state key="normal" title="Forgot password?">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -42,7 +36,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="ZHf-l4-zL1" secondAttribute="trailing" constant="17" id="0Mj-GS-lZe"/>
-                    <constraint firstItem="rVc-a2-jOx" firstAttribute="top" secondItem="ZHf-l4-zL1" secondAttribute="bottom" constant="18" id="9aO-bl-kyJ"/>
+                    <constraint firstItem="rVc-a2-jOx" firstAttribute="top" secondItem="ZHf-l4-zL1" secondAttribute="bottom" constant="15" id="9aO-bl-kyJ"/>
                     <constraint firstAttribute="trailing" secondItem="rVc-a2-jOx" secondAttribute="trailing" constant="17" id="NlU-yz-1j4"/>
                     <constraint firstItem="ZHf-l4-zL1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Yba-Od-sWi"/>
                     <constraint firstItem="rVc-a2-jOx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="mHi-yD-xaP"/>

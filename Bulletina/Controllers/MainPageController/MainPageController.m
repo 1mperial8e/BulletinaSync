@@ -102,6 +102,7 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 	self.searchController.searchBar.delegate = self;
 	self.searchController.searchBar.barTintColor =  [UIColor mainPageBGColor];
+	self.searchController.searchBar.tintColor =  [UIColor appOrangeColor];
 	
 	CALayer *bottomBorder = [CALayer layer];
 	bottomBorder.backgroundColor = [[UIColor lightGrayColor] CGColor];

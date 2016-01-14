@@ -21,13 +21,13 @@ static CGFloat const AvatarCellHeigth = 218;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
 
-static NSInteger const CellsCount = 6;
+static NSInteger const CellsCount = 5;
 static CGFloat const AdditionalBottomInset = 36;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	AvatarCellIndex,
 	UsernameCellIndex,
-	EmailCellIndex,
+//	EmailCellIndex,
 	PasswordCellIndex,
 	RetypePasswordCellIndex,
 	SaveButtonCellIndex
@@ -60,7 +60,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-	self.inputViewsCollection.textInputViews = @[self.usernameTextfield, self.emailTextfield, self.passwordTextfield , self.retypePasswordTextfield];
+	self.inputViewsCollection.textInputViews = @[self.usernameTextfield, /* self.emailTextfield, */ self.passwordTextfield , self.retypePasswordTextfield];
 }
 
 #pragma mark - Table view data source
@@ -90,9 +90,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		return AvatarCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == SaveButtonCellIndex) {
 		return ButtonCellHeigth * HeigthCoefficient;
-	} else if (indexPath.row == EmailCellIndex) {
-		return (InputCellHeigth + AdditionalBottomInset) * HeigthCoefficient;
 	}
+// else if (indexPath.row == EmailCellIndex) {
+//		return (InputCellHeigth + AdditionalBottomInset) * HeigthCoefficient;
+//	}
 	return height;
 }
 
@@ -117,12 +118,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.inputTextField.placeholder = @"Username:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
-	} else if (indexPath.item == EmailCellIndex) {
-		cell.inputTextField.placeholder = @"Email:";
-		cell.inputTextField.keyboardType = UIKeyboardTypeEmailAddress;
-		self.emailTextfield = cell.inputTextField;
-		cell.bottomInsetConstraint.constant = AdditionalBottomInset;
-	} else if (indexPath.item == PasswordCellIndex) {
+	}
+//	else if (indexPath.item == EmailCellIndex) {
+//		cell.inputTextField.placeholder = @"Email:";
+//		cell.inputTextField.keyboardType = UIKeyboardTypeEmailAddress;
+//		self.emailTextfield = cell.inputTextField;
+//		cell.bottomInsetConstraint.constant = AdditionalBottomInset;
+//	}
+	else if (indexPath.item == PasswordCellIndex) {
 		cell.inputTextField.placeholder = @"Password:";
 		cell.inputTextField.secureTextEntry = YES;
 		self.passwordTextfield = cell.inputTextField;

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		300CA1CC1C484D5700DA85CE /* ProfileButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 300CA1CA1C484D5700DA85CE /* ProfileButtonTableViewCell.m */; };
+		300CA1CD1C484D5700DA85CE /* ProfileButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 300CA1CB1C484D5700DA85CE /* ProfileButtonTableViewCell.xib */; };
 		3043590D1C479F51007B6959 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3043590B1C479F51007B6959 /* ProfileTableViewController.m */; };
 		3043590E1C479F51007B6959 /* ProfileTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3043590C1C479F51007B6959 /* ProfileTableViewController.xib */; };
 		304359121C479F6F007B6959 /* ProfileDefaultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 304359101C479F6F007B6959 /* ProfileDefaultTableViewCell.m */; };
@@ -74,6 +76,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		300CA1C91C484D5700DA85CE /* ProfileButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileButtonTableViewCell.h; sourceTree = "<group>"; };
+		300CA1CA1C484D5700DA85CE /* ProfileButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileButtonTableViewCell.m; sourceTree = "<group>"; };
+		300CA1CB1C484D5700DA85CE /* ProfileButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileButtonTableViewCell.xib; sourceTree = "<group>"; };
 		3043590A1C479F51007B6959 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
 		3043590B1C479F51007B6959 /* ProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewController.m; sourceTree = "<group>"; };
 		3043590C1C479F51007B6959 /* ProfileTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileTableViewController.xib; sourceTree = "<group>"; };
@@ -201,6 +206,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		300CA1C81C484D3B00DA85CE /* ProfileButtonCell */ = {
+			isa = PBXGroup;
+			children = (
+				300CA1C91C484D5700DA85CE /* ProfileButtonTableViewCell.h */,
+				300CA1CA1C484D5700DA85CE /* ProfileButtonTableViewCell.m */,
+				300CA1CB1C484D5700DA85CE /* ProfileButtonTableViewCell.xib */,
+			);
+			path = ProfileButtonCell;
+			sourceTree = "<group>";
+		};
 		304359051C479B2D007B6959 /* ProfileControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +230,7 @@
 		304359061C479E32007B6959 /* ProfileCells */ = {
 			isa = PBXGroup;
 			children = (
+				300CA1C81C484D3B00DA85CE /* ProfileButtonCell */,
 				304359091C479F15007B6959 /* ProfileDefaultCell */,
 				304359081C479E8E007B6959 /* IndividualProfileLogoCell */,
 				304359071C479E6F007B6959 /* BusinesProfileLogoCell */,
@@ -739,6 +755,7 @@
 				3043591D1C479FBC007B6959 /* BusinessProfileLogoTableViewCell.xib in Resources */,
 				30928E0F1C46683E00041847 /* RegisterTypeSelectViewController.xib in Resources */,
 				3043590E1C479F51007B6959 /* ProfileTableViewController.xib in Resources */,
+				300CA1CD1C484D5700DA85CE /* ProfileButtonTableViewCell.xib in Resources */,
 				307DD9141C44F68A00F59857 /* MainPageController.xib in Resources */,
 				30928DFA1C465CBA00041847 /* ButtonTableViewCell.xib in Resources */,
 				4F79B9231C43DC2D0082740E /* Assets.xcassets in Resources */,
@@ -808,6 +825,7 @@
 				4FA19C061C46828600140343 /* AFNetworkReachabilityManager.m in Sources */,
 				4FA19C231C46829000140343 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				30928DE61C465BBC00041847 /* PersonalRegisterTableViewController.m in Sources */,
+				300CA1CC1C484D5700DA85CE /* ProfileButtonTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
