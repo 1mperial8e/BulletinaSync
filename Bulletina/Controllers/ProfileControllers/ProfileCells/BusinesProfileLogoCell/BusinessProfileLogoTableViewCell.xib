@@ -14,8 +14,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="251"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TopBackground" translatesAutoresizingMaskIntoConstraints="NO" id="ygn-N2-DQV">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ygn-N2-DQV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="202"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="202" id="EdG-NF-0CE"/>
                         </constraints>
@@ -125,6 +126,7 @@
                         </constraints>
                     </imageView>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="TlN-oR-IhT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="D7V-ar-Wmf"/>
                     <constraint firstAttribute="trailing" secondItem="TlN-oR-IhT" secondAttribute="trailing" constant="17" id="GQd-f1-5MC"/>
@@ -138,6 +140,7 @@
                     <constraint firstAttribute="trailing" secondItem="aOb-SS-Fta" secondAttribute="trailing" id="zCA-7K-IhP"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="companyDescriptionLabel" destination="h0S-0b-NAe" id="FY3-my-kOO"/>
                 <outlet property="companyNameLabel" destination="k2f-QB-yi5" id="IHH-Ge-ad1"/>
@@ -151,6 +154,5 @@
     </objects>
     <resources>
         <image name="BusinessLogo" width="339" height="100"/>
-        <image name="TopBackground" width="375" height="239"/>
     </resources>
 </document>

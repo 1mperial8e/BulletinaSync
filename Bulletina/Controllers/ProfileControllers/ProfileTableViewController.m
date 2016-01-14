@@ -28,7 +28,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogOutCellIndex
 };
 
-@interface ProfileTableViewController ()
+@interface ProfileTableViewController () <UIScrollViewDelegate>
+
+@property (weak, nonatomic) UIImageView *topBackgroundImageView;
 
 @end
 
@@ -165,6 +167,26 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.tableView registerNib:ProfileDefaultTableViewCell.nib forCellReuseIdentifier:ProfileDefaultTableViewCell.ID];
 	[self.tableView registerNib:IndividualProfileLogoTableViewCell.nib forCellReuseIdentifier:IndividualProfileLogoTableViewCell.ID];
 	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];
+	
+	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
+	UIView *backgroundView = [[UIView alloc] init];
+	UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 65, ScreenWidth, 122)];
+	[backgroundView addSubview:backgroundImageView];
+	
+	backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];
+	backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+	self.tableView.backgroundView = backgroundView;
+	self.tableView.backgroundColor = [UIColor whiteColor];
+	
+	self.topBackgroundImageView = backgroundImageView;
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+	CGFloat percent =  1 + (scrollView.contentOffset.y < -64 ? (fabs(scrollView.contentOffset.y + 64.0) / 100) : 0);
+	self.topBackgroundImageView.transform = CGAffineTransformMakeScale(percent, percent);
 }
 
 @end
