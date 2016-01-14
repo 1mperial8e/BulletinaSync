@@ -7,6 +7,7 @@
 //
 
 #import "ProfileTableViewController.h"
+#import "ProfileDefaultTableViewCell.h"
 
 @interface ProfileTableViewController ()
 
@@ -16,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	[self tableViewSetup];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -26,25 +28,20 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+
+    return 8;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    ProfileDefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ProfileDefaultTableViewCell.ID forIndexPath:indexPath];
     
     // Configure the cell...
     
     return cell;
 }
-*/
+
 
 
 /*
@@ -62,5 +59,18 @@
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 */
+
+#pragma mark - Setup
+
+- (void)tableViewSetup
+{
+	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+//	self.tableView.separatorColor = [UIColor clearColor];
+	
+	[self.tableView registerNib:ProfileDefaultTableViewCell.nib forCellReuseIdentifier:ProfileDefaultTableViewCell.ID];
+//	[self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
+//	[self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
+//	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
+}
 
 @end

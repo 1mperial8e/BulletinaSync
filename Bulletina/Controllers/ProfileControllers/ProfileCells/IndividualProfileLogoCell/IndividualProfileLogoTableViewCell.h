@@ -8,6 +8,6 @@
 
 #import "BaseTableViewCell.h"
 
-@interface IndividualProfileLogoTableViewCell : UITableViewCell
+@interface IndividualProfileLogoTableViewCell : BaseTableViewCell
 
 @end

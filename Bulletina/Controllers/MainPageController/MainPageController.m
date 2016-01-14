@@ -9,6 +9,7 @@
 #import "MainPageController.h"
 #import "ItemTableViewCell.h"
 #import "CustomRefreshControlView.h"
+#import "ProfileTableViewController.h"
 
 static CGFloat const ItemTableViewCellHeigth = 510.0f;
 
@@ -135,7 +136,8 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 
 - (void)profileButtonAction:(id)sender
 {
-	
+	ProfileTableViewController *profileTableViewController = [ProfileTableViewController new];
+	[self.navigationController pushViewController:profileTableViewController animated:YES];
 }
 
 #pragma mark - Utils
