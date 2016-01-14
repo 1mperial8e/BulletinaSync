@@ -131,13 +131,17 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 
 - (void)addNewButtonAction:(id)sender
 {
-	
+	ProfileTableViewController *profileTableViewController = [ProfileTableViewController new];
+	profileTableViewController.profileType = BusinessProfile;
+	UINavigationController *profileNavigationController = [[UINavigationController alloc] initWithRootViewController:profileTableViewController];
+	[self.navigationController presentViewController:profileNavigationController animated:YES completion:nil];
 }
 
 - (void)profileButtonAction:(id)sender
 {
 	ProfileTableViewController *profileTableViewController = [ProfileTableViewController new];
-	[self.navigationController pushViewController:profileTableViewController animated:YES];
+	UINavigationController *profileNavigationController = [[UINavigationController alloc] initWithRootViewController:profileTableViewController];
+	[self.navigationController presentViewController:profileNavigationController animated:YES completion:nil];
 }
 
 #pragma mark - Utils

@@ -10,4 +10,12 @@
 
 @interface BusinessProfileLogoTableViewCell : BaseTableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
+@property (weak, nonatomic) IBOutlet UILabel *companyNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *companyDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UIButton *websiteButton;
+@property (weak, nonatomic) IBOutlet UIButton *facebookButton;
+@property (weak, nonatomic) IBOutlet UIButton *twitterButton;
+@property (weak, nonatomic) IBOutlet UIButton *linkedInButton;
+
 @end
