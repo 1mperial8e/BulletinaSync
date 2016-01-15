@@ -10,12 +10,16 @@
 #import "ItemTableViewCell.h"
 #import "CustomRefreshControlView.h"
 #import "ProfileTableViewController.h"
+#import "SelectNewItemCategoryTableViewController.h"
+
 
 static CGFloat const ItemTableViewCellHeigth = 510.0f;
 
 @interface MainPageController () <UISearchBarDelegate>
 
 @property (strong, nonatomic) UISearchController *searchController;
+
+@property (assign, nonatomic) ProfileType profileType;
 
 @end
 
@@ -66,6 +70,9 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
 	[self.tableView registerNib:ItemTableViewCell.nib forCellReuseIdentifier:ItemTableViewCell.ID];
 	self.tableView.backgroundColor = [UIColor mainPageBGColor];
+	UIView *backView = [UIView new];
+	backView.backgroundColor = [UIColor mainPageBGColor];
+	self.tableView.backgroundView = backView;
 	
 	UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
 	CGRect customRefreshFrame = refreshControl.frame;
@@ -101,6 +108,8 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	
 	UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"Nearby",@"Favorites"]];
 	segment.selectedSegmentIndex = 0;
+	[segment addTarget:self action:@selector(segmentedControlSwitch:) forControlEvents:UIControlEventValueChanged];
+	self.profileType = IndividualProfile;
 	self.navigationItem.titleView = segment;
 }
 
@@ -139,17 +148,25 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 
 - (void)addNewButtonAction:(id)sender
 {
-	ProfileTableViewController *profileTableViewController = [ProfileTableViewController new];
-	profileTableViewController.profileType = BusinessProfile;
-	UINavigationController *profileNavigationController = [[UINavigationController alloc] initWithRootViewController:profileTableViewController];
-	[self.navigationController presentViewController:profileNavigationController animated:YES completion:nil];
+	SelectNewItemCategoryTableViewController *selectCategoryTableViewController = [SelectNewItemCategoryTableViewController new];
+	[self.navigationController pushViewController:selectCategoryTableViewController animated:YES];
 }
 
 - (void)profileButtonAction:(id)sender
 {
 	ProfileTableViewController *profileTableViewController = [ProfileTableViewController new];
+	profileTableViewController.profileType = self.profileType;
 	UINavigationController *profileNavigationController = [[UINavigationController alloc] initWithRootViewController:profileTableViewController];
 	[self.navigationController presentViewController:profileNavigationController animated:YES completion:nil];
+}
+
+- (void)segmentedControlSwitch:(UISegmentedControl *)sender
+{
+	if (sender.selectedSegmentIndex == 0) {
+		self.profileType = IndividualProfile;
+	} else {
+		self.profileType = BusinessProfile;
+	}
 }
 
 #pragma mark - Utils
