@@ -6,7 +6,12 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
+//Controllers
 #import "ProfileTableViewController.h"
+#import "IndividualProfileEditTableViewController.h"
+#import "BusinessProfileEditTableViewController.h"
+
+//Cells
 #import "ProfileDefaultTableViewCell.h"
 #import "IndividualProfileLogoTableViewCell.h"
 #import "BusinessProfileLogoTableViewCell.h"
@@ -61,8 +66,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	if (indexPath.item == LogoCellIndex) {
 		return [self logoCellForIndexPath:indexPath];
-	} else if (indexPath.item == LogOutCellIndex) {
-		return [self buttonCellForIndexPath:indexPath];
 	}
 	return [self defaultCellForIndexPath:indexPath];
 }
@@ -119,8 +122,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == AboutCellIndex) {
 		cell.label.text = @"About bulletina";
 		cell.iconImageView.image = [UIImage imageNamed:@"AboutBulletina"];
+	} else if (indexPath.item == LogOutCellIndex) {
+		cell.label.text = @"Log out";
+		cell.iconImageView.image = [UIImage imageNamed:@"LogOut"];
+		[cell setAccessoryType:UITableViewCellAccessoryNone];
 	}
-	
 	return cell;
 }
 
@@ -141,8 +147,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	CGFloat height = DefaultCellHeigth * HeigthCoefficient;
 	if (indexPath.row == LogoCellIndex) {
 		return [self heightForTopCell];
-	} else if (indexPath.item == LogOutCellIndex) {
-		return ButtonCellHeigth * HeigthCoefficient;
 	}
 	return height;
 }
@@ -150,6 +154,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+	if (indexPath.item == EditProfileCellIndex) {
+		if (self.profileType == IndividualProfile) {
+			IndividualProfileEditTableViewController *individualProfileEditTableViewController = [IndividualProfileEditTableViewController new];
+			[self.navigationController pushViewController:individualProfileEditTableViewController animated:YES];
+		} else {
+			BusinessProfileEditTableViewController *businessProfileEditTableViewController = [BusinessProfileEditTableViewController new];
+			[self.navigationController pushViewController:businessProfileEditTableViewController animated:YES];
+		}		
+	}
 }
 
 #pragma mark - Actions
@@ -183,8 +196,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {	
 	[self.tableView registerNib:ProfileDefaultTableViewCell.nib forCellReuseIdentifier:ProfileDefaultTableViewCell.ID];
 	[self.tableView registerNib:IndividualProfileLogoTableViewCell.nib forCellReuseIdentifier:IndividualProfileLogoTableViewCell.ID];
-	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];
-	[self.tableView registerNib:ProfileButtonTableViewCell.nib forCellReuseIdentifier:ProfileButtonTableViewCell.ID];
+	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];	
 	
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
 	UIView *backgroundView = [[UIView alloc] init];

@@ -21,6 +21,12 @@
 		307DD9141C44F68A00F59857 /* MainPageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307DD9121C44F68A00F59857 /* MainPageController.xib */; };
 		307DD91F1C44F93200F59857 /* ItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 307DD91D1C44F93200F59857 /* ItemTableViewCell.m */; };
 		307DD9201C44F93200F59857 /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307DD91E1C44F93200F59857 /* ItemTableViewCell.xib */; };
+		3082B9A91C48F00A00C4925D /* EditProfileAboutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082B9A71C48F00A00C4925D /* EditProfileAboutTableViewCell.m */; };
+		3082B9AA1C48F00A00C4925D /* EditProfileAboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3082B9A81C48F00A00C4925D /* EditProfileAboutTableViewCell.xib */; };
+		3082B9B01C48F1B200C4925D /* IndividualProfileEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082B9AE1C48F1B200C4925D /* IndividualProfileEditTableViewController.m */; };
+		3082B9B11C48F1B200C4925D /* IndividualProfileEditTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3082B9AF1C48F1B200C4925D /* IndividualProfileEditTableViewController.xib */; };
+		3082B9B51C48F1DE00C4925D /* BusinessProfileEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082B9B31C48F1DE00C4925D /* BusinessProfileEditTableViewController.m */; };
+		3082B9B61C48F1DE00C4925D /* BusinessProfileEditTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3082B9B41C48F1DE00C4925D /* BusinessProfileEditTableViewController.xib */; };
 		30928DCD1C463B2400041847 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928DCC1C463B2400041847 /* BaseView.m */; };
 		30928DD01C463C9000041847 /* CustomRefreshControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928DCF1C463C9000041847 /* CustomRefreshControlView.m */; };
 		30928DD21C463CA100041847 /* CustomRefreshControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DD11C463CA100041847 /* CustomRefreshControlView.xib */; };
@@ -97,6 +103,15 @@
 		307DD91C1C44F93200F59857 /* ItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemTableViewCell.h; sourceTree = "<group>"; };
 		307DD91D1C44F93200F59857 /* ItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemTableViewCell.m; sourceTree = "<group>"; };
 		307DD91E1C44F93200F59857 /* ItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
+		3082B9A61C48F00A00C4925D /* EditProfileAboutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileAboutTableViewCell.h; sourceTree = "<group>"; };
+		3082B9A71C48F00A00C4925D /* EditProfileAboutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileAboutTableViewCell.m; sourceTree = "<group>"; };
+		3082B9A81C48F00A00C4925D /* EditProfileAboutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileAboutTableViewCell.xib; sourceTree = "<group>"; };
+		3082B9AD1C48F1B200C4925D /* IndividualProfileEditTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndividualProfileEditTableViewController.h; sourceTree = "<group>"; };
+		3082B9AE1C48F1B200C4925D /* IndividualProfileEditTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndividualProfileEditTableViewController.m; sourceTree = "<group>"; };
+		3082B9AF1C48F1B200C4925D /* IndividualProfileEditTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IndividualProfileEditTableViewController.xib; sourceTree = "<group>"; };
+		3082B9B21C48F1DE00C4925D /* BusinessProfileEditTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessProfileEditTableViewController.h; sourceTree = "<group>"; };
+		3082B9B31C48F1DE00C4925D /* BusinessProfileEditTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessProfileEditTableViewController.m; sourceTree = "<group>"; };
+		3082B9B41C48F1DE00C4925D /* BusinessProfileEditTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessProfileEditTableViewController.xib; sourceTree = "<group>"; };
 		30928DCB1C463B2400041847 /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseView.h; sourceTree = "<group>"; };
 		30928DCC1C463B2400041847 /* BaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
 		30928DCE1C463C9000041847 /* CustomRefreshControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomRefreshControlView.h; sourceTree = "<group>"; };
@@ -296,6 +311,54 @@
 				307DD91E1C44F93200F59857 /* ItemTableViewCell.xib */,
 			);
 			path = ItemCell;
+			sourceTree = "<group>";
+		};
+		3082B99E1C48E37400C4925D /* EditProfileControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3082B9AC1C48F0F900C4925D /* BusinessEditController */,
+				3082B9AB1C48F0DD00C4925D /* IndividualEditController */,
+				3082B9A41C48EA5300C4925D /* EditProfileCells */,
+			);
+			path = EditProfileControllers;
+			sourceTree = "<group>";
+		};
+		3082B9A41C48EA5300C4925D /* EditProfileCells */ = {
+			isa = PBXGroup;
+			children = (
+				3082B9A51C48EFE200C4925D /* AboutCell */,
+			);
+			path = EditProfileCells;
+			sourceTree = "<group>";
+		};
+		3082B9A51C48EFE200C4925D /* AboutCell */ = {
+			isa = PBXGroup;
+			children = (
+				3082B9A61C48F00A00C4925D /* EditProfileAboutTableViewCell.h */,
+				3082B9A71C48F00A00C4925D /* EditProfileAboutTableViewCell.m */,
+				3082B9A81C48F00A00C4925D /* EditProfileAboutTableViewCell.xib */,
+			);
+			path = AboutCell;
+			sourceTree = "<group>";
+		};
+		3082B9AB1C48F0DD00C4925D /* IndividualEditController */ = {
+			isa = PBXGroup;
+			children = (
+				3082B9AD1C48F1B200C4925D /* IndividualProfileEditTableViewController.h */,
+				3082B9AE1C48F1B200C4925D /* IndividualProfileEditTableViewController.m */,
+				3082B9AF1C48F1B200C4925D /* IndividualProfileEditTableViewController.xib */,
+			);
+			path = IndividualEditController;
+			sourceTree = "<group>";
+		};
+		3082B9AC1C48F0F900C4925D /* BusinessEditController */ = {
+			isa = PBXGroup;
+			children = (
+				3082B9B21C48F1DE00C4925D /* BusinessProfileEditTableViewController.h */,
+				3082B9B31C48F1DE00C4925D /* BusinessProfileEditTableViewController.m */,
+				3082B9B41C48F1DE00C4925D /* BusinessProfileEditTableViewController.xib */,
+			);
+			path = BusinessEditController;
 			sourceTree = "<group>";
 		};
 		30928DC91C463AEA00041847 /* BaseView */ = {
@@ -600,6 +663,7 @@
 		4F79B9151C43DC2D0082740E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3082B99E1C48E37400C4925D /* EditProfileControllers */,
 				304359051C479B2D007B6959 /* ProfileControllers */,
 				30928DDF1C465B8000041847 /* RegisterControllers */,
 				4F79B9161C43DC2D0082740E /* LoginController */,
@@ -754,11 +818,13 @@
 				307DD9201C44F93200F59857 /* ItemTableViewCell.xib in Resources */,
 				3043591D1C479FBC007B6959 /* BusinessProfileLogoTableViewCell.xib in Resources */,
 				30928E0F1C46683E00041847 /* RegisterTypeSelectViewController.xib in Resources */,
+				3082B9B11C48F1B200C4925D /* IndividualProfileEditTableViewController.xib in Resources */,
 				3043590E1C479F51007B6959 /* ProfileTableViewController.xib in Resources */,
 				300CA1CD1C484D5700DA85CE /* ProfileButtonTableViewCell.xib in Resources */,
 				307DD9141C44F68A00F59857 /* MainPageController.xib in Resources */,
 				30928DFA1C465CBA00041847 /* ButtonTableViewCell.xib in Resources */,
 				4F79B9231C43DC2D0082740E /* Assets.xcassets in Resources */,
+				3082B9B61C48F1DE00C4925D /* BusinessProfileEditTableViewController.xib in Resources */,
 				30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */,
 				30928DFF1C465CCC00041847 /* AvatarTableViewCell.xib in Resources */,
 				304359131C479F6F007B6959 /* ProfileDefaultTableViewCell.xib in Resources */,
@@ -770,6 +836,7 @@
 				30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */,
 				30928DE71C465BBC00041847 /* PersonalRegisterTableViewController.xib in Resources */,
 				30928DF51C465CA700041847 /* InputTableViewCell.xib in Resources */,
+				3082B9AA1C48F00A00C4925D /* EditProfileAboutTableViewCell.xib in Resources */,
 				30BBACFA1C43EEF9004F22D2 /* TryBeforeTableViewCell.xib in Resources */,
 				4F79B9261C43DD130082740E /* LoginViewController.xib in Resources */,
 			);
@@ -799,6 +866,7 @@
 				30928DF91C465CBA00041847 /* ButtonTableViewCell.m in Sources */,
 				4FA19C221C46829000140343 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				4FA19C271C46829000140343 /* UIRefreshControl+AFNetworking.m in Sources */,
+				3082B9A91C48F00A00C4925D /* EditProfileAboutTableViewCell.m in Sources */,
 				4FA19C261C46829000140343 /* UIProgressView+AFNetworking.m in Sources */,
 				307DD9131C44F68A00F59857 /* MainPageController.m in Sources */,
 				4F79B9211C43DC2D0082740E /* main.m in Sources */,
@@ -811,6 +879,7 @@
 				4FA19C281C46829000140343 /* UIWebView+AFNetworking.m in Sources */,
 				304359171C479F9C007B6959 /* IndividualProfileLogoTableViewCell.m in Sources */,
 				4FA19C0A1C46828600140343 /* AFURLSessionManager.m in Sources */,
+				3082B9B51C48F1DE00C4925D /* BusinessProfileEditTableViewController.m in Sources */,
 				30928DF41C465CA700041847 /* InputTableViewCell.m in Sources */,
 				4F79B91F1C43DC2D0082740E /* AppDelegate.m in Sources */,
 				4FA19C201C46829000140343 /* AFAutoPurgingImageCache.m in Sources */,
@@ -825,6 +894,7 @@
 				4FA19C061C46828600140343 /* AFNetworkReachabilityManager.m in Sources */,
 				4FA19C231C46829000140343 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				30928DE61C465BBC00041847 /* PersonalRegisterTableViewController.m in Sources */,
+				3082B9B01C48F1B200C4925D /* IndividualProfileEditTableViewController.m in Sources */,
 				300CA1CC1C484D5700DA85CE /* ProfileButtonTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

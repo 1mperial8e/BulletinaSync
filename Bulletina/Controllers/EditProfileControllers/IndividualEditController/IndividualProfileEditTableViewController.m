@@ -1,5 +1,5 @@
 //
-//  PersonalRegisterTableViewController.m
+//  IndividualProfileEditTableViewController.m
 //  Bulletina
 //
 //  Created by Stas Volskyi on 1/11/16.
@@ -7,12 +7,13 @@
 //
 
 //Controllers
-#import "PersonalRegisterTableViewController.h"
+#import "IndividualProfileEditTableViewController.h"
 
 //Cells
 #import "AvatarTableViewCell.h"
 #import "InputTableViewCell.h"
 #import "ButtonTableViewCell.h"
+#import "EditProfileAboutTableViewCell.h"
 
 // Helpers
 #import "TextInputNavigationCollection.h"
@@ -22,29 +23,30 @@ static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
 
 static NSInteger const CellsCount = 6;
-static CGFloat const AdditionalBottomInset = 36;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	AvatarCellIndex,
 	UsernameCellIndex,
-	EmailCellIndex,
+	AbuotMeCellIndex,
 	PasswordCellIndex,
 	RetypePasswordCellIndex,
 	SaveButtonCellIndex
 };
 
-@interface PersonalRegisterTableViewController () <UITextFieldDelegate>
+@interface IndividualProfileEditTableViewController () <UITextFieldDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) UITextField *usernameTextfield;
-@property (weak, nonatomic) UITextField *emailTextfield;
+@property (weak, nonatomic) UITextView *aboutMeTextView;
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 
+@property (strong, nonatomic) EditProfileAboutTableViewCell *aboutCell;
+
 @end
 
-@implementation PersonalRegisterTableViewController
+@implementation IndividualProfileEditTableViewController
 
 - (void)viewDidLoad
 {
@@ -52,7 +54,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self tableViewSetup];
 	[self setupDefaults];
 	
-	self.title = @"Individual account";
+	self.title = @"Edit profile";
 	self.navigationController.navigationBar.topItem.title = @"Cancel";
 	self.view.backgroundColor = [UIColor mainPageBGColor];
 }
@@ -60,7 +62,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-	self.inputViewsCollection.textInputViews = @[self.usernameTextfield, self.emailTextfield, self.passwordTextfield , self.retypePasswordTextfield];
+	[self refreshInputViews];
 }
 
 #pragma mark - Table view data source
@@ -72,8 +74,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	[self refreshInputViews];
+	
 	if (indexPath.item == AvatarCellIndex) {
-		 return [self avatarCellForIndexPath:indexPath];
+		return [self avatarCellForIndexPath:indexPath];
+	} else if (indexPath.item == AbuotMeCellIndex) {
+		return [self aboutCellForIndexPath:indexPath];
 	} else if (indexPath.item == SaveButtonCellIndex) {
 		return [self buttonCellForIndexPath:indexPath];
 	} else {
@@ -90,8 +96,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		return AvatarCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == SaveButtonCellIndex) {
 		return ButtonCellHeigth * HeigthCoefficient;
-	} else if (indexPath.row == EmailCellIndex) {
-		return (InputCellHeigth + AdditionalBottomInset) * HeigthCoefficient;
+	} else if (indexPath.row == AbuotMeCellIndex) {
+		return [self heightForAboutCell];
 	}
 	return height;
 }
@@ -112,16 +118,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
-    cell.inputTextField.returnKeyType = UIReturnKeyNext;
+	cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == UsernameCellIndex) {
 		cell.inputTextField.placeholder = @"Username:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
-	} else if (indexPath.item == EmailCellIndex) {
-		cell.inputTextField.placeholder = @"Email:";
-		cell.inputTextField.keyboardType = UIKeyboardTypeEmailAddress;
-		self.emailTextfield = cell.inputTextField;
-		cell.bottomInsetConstraint.constant = AdditionalBottomInset;
 	} else if (indexPath.item == PasswordCellIndex) {
 		cell.inputTextField.placeholder = @"Password:";
 		cell.inputTextField.secureTextEntry = YES;
@@ -136,12 +137,23 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return cell;
 }
 
+- (EditProfileAboutTableViewCell *)aboutCellForIndexPath:(NSIndexPath *)indexPath
+{
+	self.aboutCell = [self.tableView dequeueReusableCellWithIdentifier:EditProfileAboutTableViewCell.ID forIndexPath:indexPath];
+	self.aboutCell .backgroundColor = [UIColor mainPageBGColor];
+	self.aboutMeTextView = self.aboutCell .aboutTextView;
+	self.aboutCell .aboutTextView.returnKeyType = UIReturnKeyNext;
+	self.aboutCell .aboutTextView.delegate = self;
+	self.aboutCell .aboutTextView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+	[self.aboutCell  setClipsToBounds:YES];
+	return self.aboutCell ;
+}
+
 - (ButtonTableViewCell *)buttonCellForIndexPath:(NSIndexPath *)indexPath
 {
 	ButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ButtonTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.saveButton.layer.cornerRadius = 5;
-
 	return cell;
 }
 
@@ -151,10 +163,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
 	self.tableView.separatorColor = [UIColor clearColor];
-	
 	[self.tableView registerNib:AvatarTableViewCell.nib forCellReuseIdentifier:AvatarTableViewCell.ID];
 	[self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
 	[self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
+	[self.tableView registerNib:EditProfileAboutTableViewCell.nib forCellReuseIdentifier:EditProfileAboutTableViewCell.ID];
 }
 
 - (void)setupDefaults
@@ -174,6 +186,71 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	[self.inputViewsCollection next];
 	return YES;
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
+{
+	if ([string isEqualToString:@"\n"]) {
+		[self.inputViewsCollection next];
+		return  NO;
+	}
+	return YES;
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+	[self.inputViewsCollection inputViewWillBecomeFirstResponder:textView];
+	return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+	CGFloat height = ceil([textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+	if (textView.contentSize.height > height + 1 || textView.contentSize.height < height - 1) {
+		[self.tableView beginUpdates];
+		[self.tableView endUpdates];
+		
+		CGRect textViewRect = [self.tableView convertRect:textView.frame fromView:textView.superview];
+		textViewRect.origin.y += 5;
+		[self.tableView scrollRectToVisible:textViewRect animated:YES];
+	}	
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+	self.tableView.contentInset = UIEdgeInsetsZero;
+}
+
+#pragma mark - Utils
+
+- (CGFloat)heightForAboutCell
+{
+	if (!self.aboutCell) {
+		self.aboutCell = [[NSBundle mainBundle] loadNibNamed:EditProfileAboutTableViewCell.ID owner:nil options:nil].firstObject;
+	}
+	CGFloat height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+	return height + 5.f;
+}
+
+
+- (void)refreshInputViews
+{
+	NSMutableArray *views = [[NSMutableArray alloc] init];
+	if (self.usernameTextfield) {
+		[views addObject:self.usernameTextfield];
+	}
+	if (self.aboutMeTextView) {
+		[views addObject:self.aboutMeTextView];
+	}
+	if (self.passwordTextfield) {
+		[views addObject:self.passwordTextfield];
+	}
+	if (self.retypePasswordTextfield) {
+		[views addObject:self.retypePasswordTextfield];
+	}
+	self.inputViewsCollection.textInputViews =  views;
 }
 
 @end

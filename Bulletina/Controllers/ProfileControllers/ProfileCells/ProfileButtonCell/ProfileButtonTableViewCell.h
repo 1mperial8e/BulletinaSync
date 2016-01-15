@@ -7,7 +7,7 @@
 //
 
 #import "BaseTableViewCell.h"
-
+#warning unused Cell
 @interface ProfileButtonTableViewCell : BaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;

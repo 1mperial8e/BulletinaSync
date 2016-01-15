@@ -151,7 +151,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (TextFieldTableViewCell *)textFieldCellForIndexPath:(NSIndexPath *)indexPath
 {
 	TextFieldTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:TextFieldTableViewCell.ID forIndexPath:indexPath];
-	cell.textField.placeholder = @"Username:";
+	cell.textField.placeholder = @"Nickname / email:";
 	if (indexPath.row == PasswordTextfieldIndex) {
 		cell.textField.placeholder = @"Password:";
         cell.textField.secureTextEntry = YES;
