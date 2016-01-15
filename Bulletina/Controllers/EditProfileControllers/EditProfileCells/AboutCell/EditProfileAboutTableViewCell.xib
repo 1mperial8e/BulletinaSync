@@ -31,6 +31,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="aboutTextView" destination="5Ek-qO-CjH" id="5K9-Qq-kRu"/>
+                <outlet property="bottomInsetConstraint" destination="51J-4v-Kt2" id="aBv-WU-pjX"/>
             </connections>
             <point key="canvasLocation" x="281.5" y="277"/>
         </tableViewCell>

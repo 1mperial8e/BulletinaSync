@@ -27,7 +27,7 @@ static NSInteger const CellsCount = 6;
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	AvatarCellIndex,
 	UsernameCellIndex,
-	AbuotMeCellIndex,
+	AboutMeCellIndex,
 	PasswordCellIndex,
 	RetypePasswordCellIndex,
 	SaveButtonCellIndex
@@ -78,7 +78,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
 	if (indexPath.item == AvatarCellIndex) {
 		return [self avatarCellForIndexPath:indexPath];
-	} else if (indexPath.item == AbuotMeCellIndex) {
+	} else if (indexPath.item == AboutMeCellIndex) {
 		return [self aboutCellForIndexPath:indexPath];
 	} else if (indexPath.item == SaveButtonCellIndex) {
 		return [self buttonCellForIndexPath:indexPath];
@@ -96,7 +96,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		return AvatarCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == SaveButtonCellIndex) {
 		return ButtonCellHeigth * HeigthCoefficient;
-	} else if (indexPath.row == AbuotMeCellIndex) {
+	} else if (indexPath.row == AboutMeCellIndex) {
 		return [self heightForAboutCell];
 	}
 	return height;
@@ -142,9 +142,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.aboutCell = [self.tableView dequeueReusableCellWithIdentifier:EditProfileAboutTableViewCell.ID forIndexPath:indexPath];
 	self.aboutCell .backgroundColor = [UIColor mainPageBGColor];
 	self.aboutMeTextView = self.aboutCell .aboutTextView;
-	self.aboutCell .aboutTextView.returnKeyType = UIReturnKeyNext;
-	self.aboutCell .aboutTextView.delegate = self;
-	self.aboutCell .aboutTextView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyNext;
+	self.aboutCell.aboutTextView.delegate = self;
+	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(5, 7, 5, 7)];
+	self.aboutCell.aboutTextView.layer.borderColor = [UIColor colorWithRed:225 / 255.0f green:225 / 255.0f  blue:225 / 255.0f  alpha:1].CGColor;
+	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
+	self.aboutCell.aboutTextView.layer.cornerRadius = 5;
 	[self.aboutCell  setClipsToBounds:YES];
 	return self.aboutCell ;
 }
@@ -167,6 +170,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
 	[self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
 	[self.tableView registerNib:EditProfileAboutTableViewCell.nib forCellReuseIdentifier:EditProfileAboutTableViewCell.ID];
+	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
 }
 
 - (void)setupDefaults
