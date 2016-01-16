@@ -19,23 +19,37 @@
 
 @implementation SelectNewItemCategoryTableViewController
 
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.title = @"Select Category";
-	
-	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
-	
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelNavBarAction:)];
-	
-	self.view.backgroundColor = [UIColor mainPageBGColor];
-	
-	self.tableView.tableHeaderView = [[SelectCategoryHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 39)];
-	
-	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+	[self setupUI];
+	[self setupNavBar];
+	[self setupTableView];
 	
 	self.categoriesArray = @[@"For sale", @"For rent", @"Give away", @"Job request", @"Services", @"Annoucement", @"Lost & found", @"Other"];
+}
+
+#pragma mark - Setup
+
+- (void)setupUI
+{
+	self.title = @"Select Category";
+	self.view.backgroundColor = [UIColor mainPageBGColor];
+}
+
+- (void)setupNavBar
+{
+	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
+	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelNavBarAction:)];
+}
+
+- (void)setupTableView
+{
+	self.tableView.tableHeaderView = [[SelectCategoryHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 39)];
+	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 #pragma mark - Table view data source
