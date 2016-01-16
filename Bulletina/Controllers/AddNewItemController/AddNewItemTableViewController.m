@@ -16,6 +16,8 @@ static NSInteger const CellsCount = 3;
 
 @implementation AddNewItemTableViewController
 
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -26,8 +28,6 @@ static NSInteger const CellsCount = 3;
 	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStylePlain target:self action:nil];
 }
-
-
 
 #pragma mark - Table view data source
 

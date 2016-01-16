@@ -48,15 +48,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @implementation IndividualProfileEditTableViewController
 
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	[self tableViewSetup];
 	[self setupDefaults];
-	
-	self.title = @"Edit profile";
-	self.navigationController.navigationBar.topItem.title = @"Cancel";
-	self.view.backgroundColor = [UIColor mainPageBGColor];
+	[self setupUI];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -148,7 +147,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.aboutCell.aboutTextView.layer.borderColor = [UIColor colorWithRed:225 / 255.0f green:225 / 255.0f  blue:225 / 255.0f  alpha:1].CGColor;
 	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
 	self.aboutCell.aboutTextView.layer.cornerRadius = 5;
-	[self.aboutCell  setClipsToBounds:YES];
 	return self.aboutCell ;
 }
 
@@ -161,6 +159,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 }
 
 #pragma mark - Setup
+
+- (void)setupUI
+{
+	self.title = @"Edit profile";
+	self.navigationController.navigationBar.topItem.title = @"Cancel";
+	self.view.backgroundColor = [UIColor mainPageBGColor];
+}
 
 - (void)tableViewSetup
 {
@@ -222,11 +227,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	}	
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification
-{
-	self.tableView.contentInset = UIEdgeInsetsZero;
-}
-
 #pragma mark - Utils
 
 - (CGFloat)heightForAboutCell
@@ -237,7 +237,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	CGFloat height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
 	return height + 5.f;
 }
-
 
 - (void)refreshInputViews
 {
