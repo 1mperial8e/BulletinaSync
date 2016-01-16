@@ -8,9 +8,25 @@
 
 #import "AddNewItemTableViewController.h"
 
+//Cells
+#import "NewItemTextTableViewCell.h"
+#import "NewItemPriceTableViewCell.h"
+#import "NewItemImageTableViewCell.h"
+
+static CGFloat const ImageCellHeigth = 197;
+static CGFloat const PriceCellHeigth = 44;
+
 static NSInteger const CellsCount = 3;
 
-@interface AddNewItemTableViewController ()
+typedef NS_ENUM(NSUInteger, CellsIndexes) {
+	ImageCellIndex,
+	PriceCellIndex,
+	TextCellIndex
+};
+
+@interface AddNewItemTableViewController () <UITextViewDelegate>
+
+@property (strong, nonatomic) NewItemTextTableViewCell *textCell;
 
 @end
 
@@ -21,12 +37,8 @@ static NSInteger const CellsCount = 3;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-	self.title = self.category;
-	
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelNavBarAction:)];
-	
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStylePlain target:self action:nil];
+	[self tableViewSetup];
+	[self setupUI];
 }
 
 #pragma mark - Table view data source
@@ -38,19 +50,72 @@ static NSInteger const CellsCount = 3;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-	if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+	if (indexPath.item == ImageCellIndex) {
+		return [self imageCellForIndexPath:indexPath];
+	} else if (indexPath.item == PriceCellIndex) {
+		return [self priceCellForIndexPath:indexPath];
+	} else if (indexPath.item == TextCellIndex) {
+		return [self textCellForIndexPath:indexPath];
 	}
-	cell.textLabel.text = @"OK";
-	return cell;
+	return nil;
 }
 
 #pragma mark - Table view delegate
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	CGFloat height = PriceCellHeigth * HeigthCoefficient;
+	if (indexPath.row == ImageCellIndex) {
+		return ImageCellHeigth * HeigthCoefficient;
+	} else if (indexPath.row == PriceCellIndex) {
+		return PriceCellHeigth * HeigthCoefficient;
+	} else if (indexPath.row == TextCellIndex) {
+		return [self heightForTextCell];
+	}
+	return height;
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - Utils
+
+- (CGFloat)heightForTextCell
+{
+	if (!self.textCell) {
+		self.textCell = [[NSBundle mainBundle] loadNibNamed:NewItemTextTableViewCell.ID owner:nil options:nil].firstObject;
+	}
+	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+	return height + 50.f;
+}
+
+#pragma mark - Cells
+
+- (NewItemImageTableViewCell *)imageCellForIndexPath:(NSIndexPath *)indexPath
+{
+	NewItemImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NewItemImageTableViewCell.ID forIndexPath:indexPath];
+	cell.borderView.layer.borderColor = [UIColor appOrangeColor].CGColor;
+	cell.borderView.layer.borderWidth = 1.0f;
+	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+	return cell;
+}
+
+- (NewItemPriceTableViewCell *)priceCellForIndexPath:(NSIndexPath *)indexPath
+{
+	NewItemPriceTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NewItemPriceTableViewCell.ID forIndexPath:indexPath];
+	return cell;
+}
+
+- (NewItemTextTableViewCell *)textCellForIndexPath:(NSIndexPath *)indexPath
+{
+	self.textCell = [self.tableView dequeueReusableCellWithIdentifier:NewItemTextTableViewCell.ID forIndexPath:indexPath];
+	self.textCell.textView.delegate = self;
+	self.textCell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+	self.textCell.textView.returnKeyType = UIReturnKeyDone;
+	return self.textCell;
 }
 
 #pragma mark - Actions
@@ -58,6 +123,52 @@ static NSInteger const CellsCount = 3;
 - (void)cancelNavBarAction:(id)sender
 {
 	[self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - Setup
+
+- (void)setupUI
+{
+	self.title = self.category;
+	
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelNavBarAction:)];
+	
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStylePlain target:self action:nil];
+}
+
+- (void)tableViewSetup
+{
+	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 5, 0)];
+	
+	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+	[self.tableView registerNib:NewItemImageTableViewCell.nib forCellReuseIdentifier:NewItemImageTableViewCell.ID];
+	[self.tableView registerNib:NewItemPriceTableViewCell.nib forCellReuseIdentifier:NewItemPriceTableViewCell.ID];
+	[self.tableView registerNib:NewItemTextTableViewCell.nib forCellReuseIdentifier:NewItemTextTableViewCell.ID];
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
+{
+	if ([string isEqualToString:@"\n"]) {
+		[self.view endEditing:YES];
+		return  NO;
+	}
+	return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+	CGFloat height = ceil([textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+	if (textView.contentSize.height > height + 1 || textView.contentSize.height < height - 1) {
+		[self.tableView beginUpdates];
+		[self.tableView endUpdates];
+		
+		CGRect textViewRect = [self.tableView convertRect:textView.frame fromView:textView.superview];
+		textViewRect.origin.y += 5;
+		[self.tableView scrollRectToVisible:textViewRect animated:YES];
+	}
 }
 
 @end

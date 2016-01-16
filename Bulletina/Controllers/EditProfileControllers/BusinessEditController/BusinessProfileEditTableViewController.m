@@ -164,7 +164,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	self.aboutCell = [self.tableView dequeueReusableCellWithIdentifier:EditProfileAboutTableViewCell.ID forIndexPath:indexPath];
 	self.aboutCell.backgroundColor = [UIColor mainPageBGColor];
-	self.aboutTextView = self.aboutCell .aboutTextView;
+	self.aboutTextView = self.aboutCell.aboutTextView;
 	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyNext;
 	self.aboutCell.aboutTextView.delegate = self;
 	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(5, 7, 5, 7)];
