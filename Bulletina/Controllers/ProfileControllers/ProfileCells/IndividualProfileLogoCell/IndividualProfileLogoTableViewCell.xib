@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -87,10 +87,10 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="UserFullNameLabel" destination="l9d-N3-qH3" id="cB0-fW-TcE"/>
-                <outlet property="UserNicknameLabel" destination="oKf-6s-Aj4" id="64k-jZ-pax"/>
                 <outlet property="aboutMeTextView" destination="mOl-1S-C93" id="zLv-tz-8tt"/>
                 <outlet property="logoImageView" destination="PKy-kc-odS" id="hde-rw-sds"/>
+                <outlet property="userFullNameLabel" destination="l9d-N3-qH3" id="cU3-0F-Bja"/>
+                <outlet property="userNicknameLabel" destination="oKf-6s-Aj4" id="UKU-Kx-5Bb"/>
             </connections>
             <point key="canvasLocation" x="277.5" y="386"/>
         </tableViewCell>

@@ -61,7 +61,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     return CellsCount;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.item == LogoCellIndex) {
@@ -200,7 +199,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
 	UIView *backgroundView = [[UIView alloc] init];
-	UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 65, ScreenWidth, 230)];
+	UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, 230)];
 	[backgroundView addSubview:backgroundImageView];
 	
 	backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];
@@ -216,8 +215,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	CGFloat percent =  1 + (scrollView.contentOffset.y < -64 ? (fabs(scrollView.contentOffset.y + 64.0) / 150) : 0);
-	self.topBackgroundImageView.transform = CGAffineTransformMakeScale(percent, percent);
+	CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -64 ? (fabs(scrollView.contentOffset.y + 64.0) / 150) : 0);
+	self.topBackgroundImageView.transform = CGAffineTransformMakeScale(scaleCoef, scaleCoef);
 }
 
 @end
