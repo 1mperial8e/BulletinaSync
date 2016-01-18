@@ -20,6 +20,16 @@
     return ColorWithReal(248.0, 247.0, 241.0, 1.0);
 }
 
++ (UIColor *)mainPageGreenColor
+{
+    return ColorWithReal(87.0, 149.0, 19.0, 1.0);
+}
+
++ (UIColor *)mainPageRedColor
+{
+    return ColorWithReal(255.0, 0.0, 0.0, 1.0);
+}
+
 #pragma mark - Private
 
 UIColor *ColorWithReal(float red, float green, float blue, float alpha)

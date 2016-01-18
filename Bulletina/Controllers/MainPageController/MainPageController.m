@@ -47,10 +47,10 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	
 	if (indexPath.item % 2) {
 		[cell.itemStateButton setTitle:@"  LAST CHANCE  " forState:UIControlStateNormal];
-		cell.itemStateButton.backgroundColor = [UIColor redColor];
+		cell.itemStateButton.backgroundColor = [UIColor mainPageRedColor];
 	} else {
 		[cell.itemStateButton setTitle:@"  NEW  " forState:UIControlStateNormal];
-		cell.itemStateButton.backgroundColor = [UIColor greenColor];
+		cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
 	}
 	
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];

@@ -10,5 +10,7 @@
 
 + (UIColor *)appOrangeColor;
 + (UIColor *)mainPageBGColor;
++ (UIColor *)mainPageGreenColor;
++ (UIColor *)mainPageRedColor;
 
 @end
