@@ -11,7 +11,7 @@
 #import "CustomRefreshControlView.h"
 #import "ProfileTableViewController.h"
 #import "SelectNewItemCategoryTableViewController.h"
-
+#import "FullScreenImageViewController.h"
 
 static CGFloat const ItemTableViewCellHeigth = 510.0f;
 
@@ -176,7 +176,16 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 
 - (void)itemImageTap:(UITapGestureRecognizer *)sender
 {
-
+	if (((UIImageView *)sender.view).image) {
+		CGRect imageViewRect = sender.view.frame;
+		imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
+		imageViewRect.origin.y += -self.tableView.contentOffset.y + imageViewRect.origin.x;
+		FullScreenImageViewController *imageController = [FullScreenImageViewController new];
+		imageController.image = ((UIImageView *)sender.view).image;
+		imageController.presentationRect = imageViewRect;
+		imageController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+		[self.navigationController presentViewController:imageController animated:NO completion:nil];
+	}
 }
 
 #pragma mark - Utils
