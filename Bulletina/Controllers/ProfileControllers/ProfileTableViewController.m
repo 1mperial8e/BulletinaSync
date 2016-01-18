@@ -160,7 +160,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		} else {
 			BusinessProfileEditTableViewController *businessProfileEditTableViewController = [BusinessProfileEditTableViewController new];
 			[self.navigationController pushViewController:businessProfileEditTableViewController animated:YES];
-		}		
+		}
+	} else if (indexPath.item == LogOutCellIndex) {
+		[self.navigationController dismissViewControllerAnimated:NO completion:nil];
+		[self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];		
 	}
 }
 

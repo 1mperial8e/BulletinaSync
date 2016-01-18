@@ -11,5 +11,7 @@
 @interface NewItemImageTableViewCell : BaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *borderView;
+@property (weak, nonatomic) IBOutlet UIButton *selectImageButton;
+@property (weak, nonatomic) IBOutlet UIImageView *itemImageView;
 
 @end

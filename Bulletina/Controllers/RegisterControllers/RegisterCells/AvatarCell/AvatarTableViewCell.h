@@ -11,5 +11,6 @@
 @interface AvatarTableViewCell : BaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (weak, nonatomic) IBOutlet UIButton *selectImageButton;
 
 @end

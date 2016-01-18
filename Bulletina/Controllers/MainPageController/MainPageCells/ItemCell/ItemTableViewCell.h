@@ -12,5 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *iconsCollectionView;
 @property (weak, nonatomic) IBOutlet UIButton *itemStateButton;
+@property (weak, nonatomic) IBOutlet UIImageView *itemImageView;
 
 @end

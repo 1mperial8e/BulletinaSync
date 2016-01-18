@@ -8,6 +8,7 @@
 
 //Controllers
 #import "BusinessProfileEditTableViewController.h"
+#import "ImageActionSheetController.h"
 
 //Cells
 #import "BusinessLogoTableViewCell.h"
@@ -39,7 +40,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	SaveButtonCellIndex
 };
 
-@interface BusinessProfileEditTableViewController () <UITextFieldDelegate, UITextViewDelegate>
+@interface BusinessProfileEditTableViewController () <UITextFieldDelegate, UITextViewDelegate, ImageActionSheetControllerDelegate>
 
 @property (weak, nonatomic) UITextField *usernameTextfield;
 @property (weak, nonatomic) UITextField *companyNameTextfield;
@@ -52,8 +53,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
-
 @property (strong, nonatomic) EditProfileAboutTableViewCell *aboutCell;
+@property (strong,nonatomic) UIImage *logoImage;
 
 @end
 
@@ -118,6 +119,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	BusinessLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessLogoTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
+	if (self.logoImage) {
+		cell.logoImageView.image = self.logoImage;
+	}
+	cell.logoImageView.layer.borderColor = [UIColor grayColor].CGColor;
+	cell.logoImageView.layer.borderWidth = 2.0f;
+	cell.logoImageView.layer.cornerRadius = 10;
+	
+	[cell.selectImageButton addTarget:self action:@selector(selectImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	return cell;
 }
 
@@ -180,6 +189,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	ButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ButtonTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.saveButton.layer.cornerRadius = 5;
+	[cell.saveButton addTarget:self action:@selector(saveButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	return cell;
 }
 
@@ -295,6 +305,32 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[views addObject:self.retypePasswordTextfield];
 	}
 	self.inputViewsCollection.textInputViews =  views;
+}
+
+- (void)updateImage:(UIImage *)image;
+{
+	self.logoImage = image;
+	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:LogoCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark - Actions
+
+- (void)selectImageButtonTap:(id)sender
+{
+	ImageActionSheetController *imageController = [ImageActionSheetController new];
+	imageController.delegate = self;
+	imageController.cancelButtonTintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
+	imageController.tintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
+	__weak typeof(self) weakSelf = self;
+	imageController.photoDidSelectImageInPreview = ^(UIImage *image) {
+		__strong typeof(weakSelf) strongSelf = weakSelf;
+		[strongSelf updateImage:image];
+	};
+	[self presentViewController:imageController animated:YES completion:nil];
+}
+
+- (void)saveButtonTap:(id)sender
+{	
 }
 
 @end

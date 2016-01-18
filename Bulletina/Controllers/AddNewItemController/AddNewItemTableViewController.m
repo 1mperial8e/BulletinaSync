@@ -12,6 +12,7 @@
 #import "NewItemTextTableViewCell.h"
 #import "NewItemPriceTableViewCell.h"
 #import "NewItemImageTableViewCell.h"
+#import "ImageActionSheetController.h"
 
 static CGFloat const ImageCellHeigth = 197;
 static CGFloat const PriceCellHeigth = 44;
@@ -24,9 +25,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	TextCellIndex
 };
 
-@interface AddNewItemTableViewController () <UITextViewDelegate>
+@interface AddNewItemTableViewController () <UITextViewDelegate, ImageActionSheetControllerDelegate>
 
 @property (strong, nonatomic) NewItemTextTableViewCell *textCell;
+@property (strong,nonatomic) UIImage *itemImage;
 
 @end
 
@@ -92,6 +94,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return height + 50.f;
 }
 
+- (void)updateImage:(UIImage *)image;
+{
+	self.itemImage = image;
+	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:ImageCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 #pragma mark - Cells
 
 - (NewItemImageTableViewCell *)imageCellForIndexPath:(NSIndexPath *)indexPath
@@ -99,6 +107,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	NewItemImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NewItemImageTableViewCell.ID forIndexPath:indexPath];
 	cell.borderView.layer.borderColor = [UIColor appOrangeColor].CGColor;
 	cell.borderView.layer.borderWidth = 1.0f;
+	if (self.itemImage) {
+		cell.itemImageView.image = self.itemImage;
+	} else {
+		cell.itemImageView.image = nil;
+	}
+	[cell.selectImageButton addTarget:self action:@selector(selectImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
 	return cell;
 }
@@ -123,6 +137,20 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)cancelNavBarAction:(id)sender
 {
 	[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)selectImageButtonTap:(id)sender
+{
+	ImageActionSheetController *imageController = [ImageActionSheetController new];
+	imageController.delegate = self;
+	imageController.cancelButtonTintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
+	imageController.tintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
+	__weak typeof(self) weakSelf = self;
+	imageController.photoDidSelectImageInPreview = ^(UIImage *image) {
+		__strong typeof(weakSelf) strongSelf = weakSelf;
+		[strongSelf updateImage:image];
+	};
+	[self presentViewController:imageController animated:YES completion:nil];
 }
 
 #pragma mark - Setup
@@ -169,6 +197,23 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		textViewRect.origin.y += 5;
 		[self.tableView scrollRectToVisible:textViewRect animated:YES];
 	}
+}
+
+#pragma mark - ImageActionSheetControllerDelegate
+
+- (void)imageActionSheetControllerDidReceiveError:(NSError *)error
+{
+	NSLog(@"%@", error);
+}
+
+- (void)imageActionSheetControllerDidSelectImageWithPicker:(UIImage *)image
+{
+	[self updateImage:image];
+}
+
+- (void)imageActionSheetControllerDidTakeImageWithPicker:(UIImage *)image
+{
+	[self updateImage:image];
 }
 
 @end

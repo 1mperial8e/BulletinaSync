@@ -17,7 +17,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dp8-Lt-x7Q">
                         <rect key="frame" x="135" y="23" width="105" height="171"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PersonalAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="MPr-yJ-QkL">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PersonalAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="MPr-yJ-QkL">
                                 <rect key="frame" x="0.0" y="0.0" width="105" height="105"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -63,6 +63,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="avatarImageView" destination="MPr-yJ-QkL" id="8X3-Zs-7is"/>
+                <outlet property="selectImageButton" destination="Nv0-Ug-x3I" id="cRT-xD-AlC"/>
             </connections>
         </tableViewCell>
     </objects>

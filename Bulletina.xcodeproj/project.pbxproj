@@ -58,6 +58,9 @@
 		30928E041C465CDE00041847 /* BusinessLogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928E021C465CDE00041847 /* BusinessLogoTableViewCell.xib */; };
 		30928E0E1C46683E00041847 /* RegisterTypeSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928E0C1C46683E00041847 /* RegisterTypeSelectViewController.m */; };
 		30928E0F1C46683E00041847 /* RegisterTypeSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928E0D1C46683E00041847 /* RegisterTypeSelectViewController.xib */; };
+		3099D47B1C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3099D4771C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.m */; };
+		3099D47C1C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3099D4781C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.xib */; };
+		3099D47D1C4CFDFE0080C05B /* ImageActionSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3099D47A1C4CFDFE0080C05B /* ImageActionSheetController.m */; };
 		30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */; };
 		30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */; };
 		30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */; };
@@ -171,6 +174,11 @@
 		30928E0B1C46683E00041847 /* RegisterTypeSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterTypeSelectViewController.h; sourceTree = "<group>"; };
 		30928E0C1C46683E00041847 /* RegisterTypeSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterTypeSelectViewController.m; sourceTree = "<group>"; };
 		30928E0D1C46683E00041847 /* RegisterTypeSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterTypeSelectViewController.xib; sourceTree = "<group>"; };
+		3099D4761C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageActionSheetCollectionViewCell.h; sourceTree = "<group>"; };
+		3099D4771C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageActionSheetCollectionViewCell.m; sourceTree = "<group>"; };
+		3099D4781C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageActionSheetCollectionViewCell.xib; sourceTree = "<group>"; };
+		3099D4791C4CFDFE0080C05B /* ImageActionSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageActionSheetController.h; sourceTree = "<group>"; };
+		3099D47A1C4CFDFE0080C05B /* ImageActionSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageActionSheetController.m; sourceTree = "<group>"; };
 		30BBACE21C43EB4D004F22D2 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		30BBACE71C43EDD4004F22D2 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
@@ -594,6 +602,33 @@
 			path = RegisterTypeController;
 			sourceTree = "<group>";
 		};
+		3099D4741C4CFDFE0080C05B /* ImageActionSheetController */ = {
+			isa = PBXGroup;
+			children = (
+				3099D4751C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell */,
+				3099D4791C4CFDFE0080C05B /* ImageActionSheetController.h */,
+				3099D47A1C4CFDFE0080C05B /* ImageActionSheetController.m */,
+			);
+			path = ImageActionSheetController;
+			sourceTree = "<group>";
+		};
+		3099D4751C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3099D4761C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.h */,
+				3099D4771C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.m */,
+				3099D4781C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.xib */,
+			);
+			path = ImageActionSheetCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		3099D47E1C4D2BE10080C05B /* FullScreenImageController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FullScreenImageController;
+			sourceTree = "<group>";
+		};
 		30BBACDC1C43EA64004F22D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -773,6 +808,8 @@
 		4F79B9151C43DC2D0082740E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3099D47E1C4D2BE10080C05B /* FullScreenImageController */,
+				3099D4741C4CFDFE0080C05B /* ImageActionSheetController */,
 				30802F0F1C495DD1008D97EC /* SelectNewItemCategoryController */,
 				30802F081C495BE3008D97EC /* AddNewItemController */,
 				3082B99E1C48E37400C4925D /* EditProfileControllers */,
@@ -950,6 +987,7 @@
 				304359181C479F9C007B6959 /* IndividualProfileLogoTableViewCell.xib in Resources */,
 				30928E041C465CDE00041847 /* BusinessLogoTableViewCell.xib in Resources */,
 				30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */,
+				3099D47C1C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.xib in Resources */,
 				30928DE71C465BBC00041847 /* PersonalRegisterTableViewController.xib in Resources */,
 				30928DF51C465CA700041847 /* InputTableViewCell.xib in Resources */,
 				307E2EDD1C4A59950007A7CC /* NewItemPriceTableViewCell.xib in Resources */,
@@ -999,8 +1037,10 @@
 				3043590D1C479F51007B6959 /* ProfileTableViewController.m in Sources */,
 				4F637BF61C464E2200DE7CCA /* TextInputNavigationCollection.m in Sources */,
 				4FA19C211C46829000140343 /* AFImageDownloader.m in Sources */,
+				3099D47B1C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.m in Sources */,
 				4FA19C281C46829000140343 /* UIWebView+AFNetworking.m in Sources */,
 				304359171C479F9C007B6959 /* IndividualProfileLogoTableViewCell.m in Sources */,
+				3099D47D1C4CFDFE0080C05B /* ImageActionSheetController.m in Sources */,
 				4FA19C0A1C46828600140343 /* AFURLSessionManager.m in Sources */,
 				3082B9B51C48F1DE00C4925D /* BusinessProfileEditTableViewController.m in Sources */,
 				30928DF41C465CA700041847 /* InputTableViewCell.m in Sources */,

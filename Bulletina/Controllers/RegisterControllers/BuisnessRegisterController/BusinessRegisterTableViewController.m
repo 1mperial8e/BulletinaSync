@@ -8,6 +8,7 @@
 
 //Controllers
 #import "BusinessRegisterTableViewController.h"
+#import "ImageActionSheetController.h"
 
 //Cells
 #import "BusinessLogoTableViewCell.h"
@@ -26,7 +27,7 @@ static CGFloat const AdditionalBottomInset = 36;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex,
-	UsernameCellIndex,
+	EmailCellIndex,
 	CompanyNameCellIndex,
 	WebsiteCellIndex,
 	FacebookCellIndex,
@@ -37,9 +38,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	SaveButtonCellIndex
 };
 
-@interface BusinessRegisterTableViewController () <UITextFieldDelegate>
+@interface BusinessRegisterTableViewController () <UITextFieldDelegate, ImageActionSheetControllerDelegate>
 
-@property (weak, nonatomic) UITextField *usernameTextfield;
+//@property (weak, nonatomic) UITextField *usernameTextfield;
+@property (weak, nonatomic) UITextField *emailTextfield;
 @property (weak, nonatomic) UITextField *companyNameTextfield;
 @property (weak, nonatomic) UITextField *websiteTextfield;
 @property (weak, nonatomic) UITextField *facebookTextfield;
@@ -47,6 +49,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UITextField *twitterTextfield;
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
+
+@property (strong,nonatomic) UIImage *logoImage;
 
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 
@@ -68,7 +72,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-	self.inputViewsCollection.textInputViews = @[self.usernameTextfield, self.companyNameTextfield, self.websiteTextfield, self.facebookTextfield, self.linkedInTextfield, self.twitterTextfield, self.passwordTextfield , self.retypePasswordTextfield];
+	self.inputViewsCollection.textInputViews = @[self.emailTextfield, self.companyNameTextfield, self.websiteTextfield, self.facebookTextfield, self.linkedInTextfield, self.twitterTextfield, self.passwordTextfield , self.retypePasswordTextfield];
 }
 
 #pragma mark - Table view data source
@@ -110,6 +114,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	BusinessLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessLogoTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
+	
+	if (self.logoImage) {
+		cell.logoImageView.image = self.logoImage;
+	}
+	cell.logoImageView.layer.borderColor = [UIColor grayColor].CGColor;
+	cell.logoImageView.layer.borderWidth = 2.0f;
+	cell.logoImageView.layer.cornerRadius = 10;
+
+	[cell.selectImageButton addTarget:self action:@selector(selectImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	return cell;
 }
 
@@ -118,10 +131,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
     cell.inputTextField.returnKeyType = UIReturnKeyNext;
-	if (indexPath.item == UsernameCellIndex) {
-		cell.inputTextField.placeholder = @"Username:";
+	if (indexPath.item == EmailCellIndex) {
+		cell.inputTextField.placeholder = @"Email:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
-		self.usernameTextfield = cell.inputTextField;
+		self.emailTextfield = cell.inputTextField;
 	} else if (indexPath.item == CompanyNameCellIndex) {
 		cell.inputTextField.placeholder = @"Company Name:";
 		self.companyNameTextfield = cell.inputTextField;
@@ -157,6 +170,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	ButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ButtonTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	[cell.saveButton.layer setCornerRadius:5];
+	[cell.saveButton addTarget:self action:@selector(saveButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	return cell;
 }
 
@@ -191,5 +205,77 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.inputViewsCollection next];
 	return YES;
 }
+
+#pragma mark - Actions
+
+- (void)selectImageButtonTap:(id)sender
+{
+	ImageActionSheetController *imageController = [ImageActionSheetController new];
+	imageController.delegate = self;
+	imageController.cancelButtonTintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
+	imageController.tintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
+	__weak typeof(self) weakSelf = self;
+	imageController.photoDidSelectImageInPreview = ^(UIImage *image) {
+		__strong typeof(weakSelf) strongSelf = weakSelf;
+		[strongSelf updateImage:image];
+	};
+	[self presentViewController:imageController animated:YES completion:nil];
+}
+
+- (void)saveButtonTap:(id)sender
+{
+	NSString *emptyFields = @"";
+	if (self.emailTextfield.text.length == 0) {
+		emptyFields = [emptyFields stringByAppendingString:@"email"];
+	}
+	if (self.companyNameTextfield.text.length == 0) {
+		if (emptyFields.length > 0) {
+			emptyFields = [emptyFields stringByAppendingString:@", "];
+		}
+		emptyFields = [emptyFields stringByAppendingString:@"company name"];
+	}
+	if (self.passwordTextfield.text.length == 0 || self.retypePasswordTextfield.text.length == 0) {
+		if (emptyFields.length > 0) {
+			emptyFields = [emptyFields stringByAppendingString:@", "];
+		}
+		emptyFields = [emptyFields stringByAppendingString:@"password"];
+	}
+	if (emptyFields.length > 0) {
+		[Utils showWarningWithMessage:[@"Fields required: " stringByAppendingString:emptyFields]];
+	} else {
+		if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
+			[Utils showWarningWithMessage:@"Passwords are not equal"];
+		} else {
+			NSString *wrongFields = @"";
+			if (![Utils isValidEmail:self.emailTextfield.text UseHardFilter:YES] ) {
+				wrongFields = [wrongFields stringByAppendingString:@"email"];
+			}
+			if (![Utils isValidName:self.passwordTextfield.text]) {
+				if (wrongFields.length > 0) {
+					wrongFields = [wrongFields stringByAppendingString:@", "];
+				}
+				wrongFields = [wrongFields stringByAppendingString:@"company name"];
+			}
+			if (![Utils isValidPassword:self.passwordTextfield.text]) {
+				if (wrongFields.length > 0) {
+					wrongFields = [wrongFields stringByAppendingString:@", "];
+				}
+				wrongFields = [wrongFields stringByAppendingString:@"password"];
+			}
+			if (wrongFields.length > 0) {
+				[Utils showWarningWithMessage:[@"Incorrect data in field: " stringByAppendingString:wrongFields]];
+			}
+		}
+	}
+}
+
+#pragma mark - Utils
+
+- (void)updateImage:(UIImage *)image;
+{
+	self.logoImage = image;
+	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:LogoCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 
 @end

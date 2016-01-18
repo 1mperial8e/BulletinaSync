@@ -52,6 +52,10 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 		[cell.itemStateButton setTitle:@"  NEW  " forState:UIControlStateNormal];
 		cell.itemStateButton.backgroundColor = [UIColor greenColor];
 	}
+	
+	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
+	[cell.itemImageView addGestureRecognizer:imageTapGesture];
+	
 	cell.itemStateButton.layer.cornerRadius = 7;
 	return cell;
 }
@@ -113,7 +117,7 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	self.navigationItem.titleView = segment;
 }
 
--(void)addSearchBar
+- (void)addSearchBar
 {
 	self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 	self.searchController.searchBar.delegate = self;
@@ -149,7 +153,8 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 - (void)addNewButtonAction:(id)sender
 {
 	SelectNewItemCategoryTableViewController *selectCategoryTableViewController = [SelectNewItemCategoryTableViewController new];
-	[self.navigationController pushViewController:selectCategoryTableViewController animated:YES];
+	UINavigationController *selectCategoryNavigationController = [[UINavigationController alloc] initWithRootViewController:selectCategoryTableViewController];
+	[self.navigationController presentViewController:selectCategoryNavigationController animated:YES completion:nil];
 }
 
 - (void)profileButtonAction:(id)sender
@@ -167,6 +172,11 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	} else {
 		self.profileType = BusinessProfile;
 	}
+}
+
+- (void)itemImageTap:(UITapGestureRecognizer *)sender
+{
+
 }
 
 #pragma mark - Utils

@@ -20,7 +20,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CEk-5C-H1N">
                                 <rect key="frame" x="66" y="33" width="240" height="128"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="shq-pg-jXG">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="shq-pg-jXG">
                                         <rect key="frame" x="67" y="0.0" width="105" height="81"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="81" id="ECz-U5-ySu"/>
@@ -48,23 +48,39 @@
                                     <constraint firstAttribute="width" constant="240" id="ald-XT-i2M"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0t-6R-twW">
+                                <rect key="frame" x="0.0" y="0.0" width="373" height="194"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="CEk-5C-H1N" firstAttribute="centerX" secondItem="Req-kd-Wcw" secondAttribute="centerX" id="HSK-hd-Ovh"/>
+                            <constraint firstItem="C0t-6R-twW" firstAttribute="leading" secondItem="Req-kd-Wcw" secondAttribute="leading" id="JZV-bn-em3"/>
+                            <constraint firstAttribute="trailing" secondItem="C0t-6R-twW" secondAttribute="trailing" id="RkS-dL-mFV"/>
                             <constraint firstItem="CEk-5C-H1N" firstAttribute="centerY" secondItem="Req-kd-Wcw" secondAttribute="centerY" id="TK6-yE-B3h"/>
+                            <constraint firstAttribute="bottom" secondItem="C0t-6R-twW" secondAttribute="bottom" id="W2L-Vv-Xcs"/>
+                            <constraint firstItem="C0t-6R-twW" firstAttribute="top" secondItem="Req-kd-Wcw" secondAttribute="top" id="ynY-W9-ktr"/>
                         </constraints>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NvT-aP-XVy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="196"/>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="NvT-aP-XVy" secondAttribute="bottom" id="9VH-gi-1xM"/>
                     <constraint firstAttribute="trailing" secondItem="Req-kd-Wcw" secondAttribute="trailing" constant="1" id="Hmk-DT-t7q"/>
                     <constraint firstItem="Req-kd-Wcw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="1" id="LMI-X3-qPB"/>
+                    <constraint firstItem="NvT-aP-XVy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Yce-zj-URn"/>
+                    <constraint firstItem="NvT-aP-XVy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="b2K-m1-zR1"/>
                     <constraint firstItem="Req-kd-Wcw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="1" id="kV6-Lq-FfP"/>
+                    <constraint firstAttribute="trailing" secondItem="NvT-aP-XVy" secondAttribute="trailing" id="oeo-qF-A6T"/>
                     <constraint firstAttribute="bottom" secondItem="Req-kd-Wcw" secondAttribute="bottom" constant="1" id="qQz-JL-9pl"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="borderView" destination="Req-kd-Wcw" id="dEE-Ap-bmd"/>
+                <outlet property="itemImageView" destination="NvT-aP-XVy" id="IoT-SN-tLX"/>
+                <outlet property="selectImageButton" destination="C0t-6R-twW" id="4aO-2h-as2"/>
             </connections>
         </tableViewCell>
     </objects>

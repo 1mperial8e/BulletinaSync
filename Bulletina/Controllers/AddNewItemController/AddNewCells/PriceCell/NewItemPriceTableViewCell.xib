@@ -15,23 +15,24 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5B7-dh-R2S">
-                        <rect key="frame" x="17" y="11" width="299" height="21"/>
+                        <rect key="frame" x="17" y="11" width="39" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="$300" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQV-8Y-m93">
-                        <rect key="frame" x="316" y="11" width="42" height="21"/>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="$300" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wxn-up-yqP">
+                        <rect key="frame" x="261" y="11" width="97" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="97" id="4VY-j4-7fc"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.72941176470588232" green="0.73725490196078436" blue="0.75686274509803919" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="BQV-8Y-m93" secondAttribute="trailing" constant="17" id="K3j-aa-2pR"/>
+                    <constraint firstAttribute="trailing" secondItem="wxn-up-yqP" secondAttribute="trailing" constant="17" id="FJ8-rj-B40"/>
+                    <constraint firstItem="wxn-up-yqP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="VFV-nL-EH2"/>
                     <constraint firstItem="5B7-dh-R2S" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cVz-D6-5KA"/>
-                    <constraint firstItem="BQV-8Y-m93" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eDh-Ug-6xg"/>
-                    <constraint firstItem="BQV-8Y-m93" firstAttribute="leading" secondItem="5B7-dh-R2S" secondAttribute="trailing" id="fuy-rd-Wrd"/>
                     <constraint firstItem="5B7-dh-R2S" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="rZI-bm-cpN"/>
                 </constraints>
             </tableViewCellContentView>

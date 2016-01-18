@@ -94,7 +94,7 @@
                             <constraint firstAttribute="bottom" secondItem="CwU-ki-wm3" secondAttribute="bottom" id="zve-nd-zF4"/>
                         </constraints>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ItemExample" translatesAutoresizingMaskIntoConstraints="NO" id="Kci-hm-SRD">
+                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ItemExample" translatesAutoresizingMaskIntoConstraints="NO" id="Kci-hm-SRD">
                         <rect key="frame" x="16" y="52" width="343" height="257"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="257" id="ngC-Rc-Fvw"/>
@@ -178,6 +178,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="iconsCollectionView" destination="ngT-i0-Znh" id="QNt-1G-NNS"/>
+                <outlet property="itemImageView" destination="Kci-hm-SRD" id="P7c-qn-nCj"/>
                 <outlet property="itemStateButton" destination="JUU-Wx-9pn" id="v1f-l8-sZ6"/>
             </connections>
             <point key="canvasLocation" x="281.5" y="339"/>

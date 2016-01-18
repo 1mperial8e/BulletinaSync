@@ -8,6 +8,7 @@
 
 //Controllers
 #import "PersonalRegisterTableViewController.h"
+#import "ImageActionSheetController.h"
 
 //Cells
 #import "AvatarTableViewCell.h"
@@ -33,12 +34,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	SaveButtonCellIndex
 };
 
-@interface PersonalRegisterTableViewController () <UITextFieldDelegate>
+@interface PersonalRegisterTableViewController () <UITextFieldDelegate, ImageActionSheetControllerDelegate>
 
 @property (weak, nonatomic) UITextField *usernameTextfield;
 @property (weak, nonatomic) UITextField *emailTextfield;
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
+
+@property (strong,nonatomic) UIImage *logoImage;
 
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 
@@ -105,6 +108,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.avatarImageView.layer.borderColor = [UIColor grayColor].CGColor;
 	cell.avatarImageView.layer.borderWidth = 5.0f;
 	cell.avatarImageView.layer.cornerRadius = CGRectGetHeight(cell.avatarImageView.frame) / 2;
+	if (self.logoImage) {
+		cell.avatarImageView.image = self.logoImage;
+	}
+	[cell.selectImageButton addTarget:self action:@selector(selectImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	return cell;
 }
 
@@ -141,6 +148,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	ButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ButtonTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.saveButton.layer.cornerRadius = 5;
+	[cell.saveButton addTarget:self action:@selector(saveButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 
 	return cell;
 }
@@ -174,6 +182,77 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	[self.inputViewsCollection next];
 	return YES;
+}
+
+#pragma mark - Actions
+
+- (void)selectImageButtonTap:(id)sender
+{
+	ImageActionSheetController *imageController = [ImageActionSheetController new];
+	imageController.delegate = self;
+	imageController.cancelButtonTintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
+	imageController.tintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
+	__weak typeof(self) weakSelf = self;
+	imageController.photoDidSelectImageInPreview = ^(UIImage *image) {
+		__strong typeof(weakSelf) strongSelf = weakSelf;
+		[strongSelf updateImage:image];
+	};
+	[self presentViewController:imageController animated:YES completion:nil];
+}
+
+- (void)saveButtonTap:(id)sender
+{
+	NSString *emptyFields = @"";
+	if (self.usernameTextfield.text.length == 0) {
+		emptyFields = [emptyFields stringByAppendingString:@"username"];
+	}
+	if (self.emailTextfield.text.length == 0) {
+		if (emptyFields.length > 0) {
+			emptyFields = [emptyFields stringByAppendingString:@", "];
+		}
+		emptyFields = [emptyFields stringByAppendingString:@"email"];
+	}
+	if (self.passwordTextfield.text.length == 0 || self.retypePasswordTextfield.text.length == 0) {
+		if (emptyFields.length > 0) {
+			emptyFields = [emptyFields stringByAppendingString:@", "];
+		}
+		emptyFields = [emptyFields stringByAppendingString:@"password"];
+	}
+	if (emptyFields.length > 0) {
+		[Utils showWarningWithMessage:[@"Fields required: " stringByAppendingString:emptyFields]];
+	} else {
+		if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
+			[Utils showWarningWithMessage:@"Passwords are not equal"];
+		} else {
+			NSString *wrongFields = @"";
+			if (![Utils isValidName:self.usernameTextfield.text] ) {
+				wrongFields = [wrongFields stringByAppendingString:@"username"];
+			}
+			if (![Utils isValidEmail:self.passwordTextfield.text UseHardFilter:YES]) {
+				if (wrongFields.length > 0) {
+					wrongFields = [wrongFields stringByAppendingString:@", "];
+				}
+				wrongFields = [wrongFields stringByAppendingString:@"email"];
+			}
+			if (![Utils isValidPassword:self.passwordTextfield.text]) {
+				if (wrongFields.length > 0) {
+					wrongFields = [wrongFields stringByAppendingString:@", "];
+				}
+				wrongFields = [wrongFields stringByAppendingString:@"password"];
+			}
+			if (wrongFields.length > 0) {
+				[Utils showWarningWithMessage:[@"Incorrect data in field: " stringByAppendingString:wrongFields]];
+			}
+		}
+	}
+}
+
+#pragma mark - Utils
+
+- (void)updateImage:(UIImage *)image;
+{
+	self.logoImage = image;
+	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:AvatarCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end
