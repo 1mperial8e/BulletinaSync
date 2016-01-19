@@ -36,6 +36,9 @@
                     <constraint firstItem="5B7-dh-R2S" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="rZI-bm-cpN"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="priceTextField" destination="wxn-up-yqP" id="rn5-Ri-Y31"/>
+            </connections>
             <point key="canvasLocation" x="283.5" y="339"/>
         </tableViewCell>
     </objects>

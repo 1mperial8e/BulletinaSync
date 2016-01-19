@@ -202,48 +202,20 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)saveButtonTap:(id)sender
 {
-	NSString *emptyFields = @"";
-	if (self.usernameTextfield.text.length == 0) {
-		emptyFields = [emptyFields stringByAppendingString:@"username"];
-	}
-	if (self.emailTextfield.text.length == 0) {
-		if (emptyFields.length > 0) {
-			emptyFields = [emptyFields stringByAppendingString:@", "];
-		}
-		emptyFields = [emptyFields stringByAppendingString:@"email"];
-	}
-	if (self.passwordTextfield.text.length == 0 || self.retypePasswordTextfield.text.length == 0) {
-		if (emptyFields.length > 0) {
-			emptyFields = [emptyFields stringByAppendingString:@", "];
-		}
-		emptyFields = [emptyFields stringByAppendingString:@"password"];
-	}
-	if (emptyFields.length > 0) {
-		[Utils showWarningWithMessage:[@"Fields required: " stringByAppendingString:emptyFields]];
-	} else {
-		if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
-			[Utils showWarningWithMessage:@"Passwords are not equal"];
-		} else {
-			NSString *wrongFields = @"";
-			if (![Utils isValidName:self.usernameTextfield.text] ) {
-				wrongFields = [wrongFields stringByAppendingString:@"username"];
-			}
-			if (![Utils isValidEmail:self.passwordTextfield.text UseHardFilter:YES]) {
-				if (wrongFields.length > 0) {
-					wrongFields = [wrongFields stringByAppendingString:@", "];
-				}
-				wrongFields = [wrongFields stringByAppendingString:@"email"];
-			}
-			if (![Utils isValidPassword:self.passwordTextfield.text]) {
-				if (wrongFields.length > 0) {
-					wrongFields = [wrongFields stringByAppendingString:@", "];
-				}
-				wrongFields = [wrongFields stringByAppendingString:@"password"];
-			}
-			if (wrongFields.length > 0) {
-				[Utils showWarningWithMessage:[@"Incorrect data in field: " stringByAppendingString:wrongFields]];
-			}
-		}
+	if (!self.usernameTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Username is required."];
+	} else if (![Utils isValidName:self.usernameTextfield.text] ) {
+		[Utils showErrorWithMessage:@"Username is not valid."];
+	} else if (!self.emailTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Email is required."];
+	} else if (![Utils isValidEmail:self.emailTextfield.text UseHardFilter:NO]) {
+		[Utils showErrorWithMessage:@"Email is not valid."];
+	} else if (!self.passwordTextfield.text.length || !self.retypePasswordTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Password and repassword are required."];
+	} else if (![Utils isValidPassword:self.passwordTextfield.text]) {
+		[Utils showErrorWithMessage:@"Password is not valid."];
+	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
+			[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	}
 }
 

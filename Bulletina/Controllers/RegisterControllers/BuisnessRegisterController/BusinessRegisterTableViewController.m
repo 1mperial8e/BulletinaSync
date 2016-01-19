@@ -224,48 +224,20 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)saveButtonTap:(id)sender
 {
-	NSString *emptyFields = @"";
-	if (self.emailTextfield.text.length == 0) {
-		emptyFields = [emptyFields stringByAppendingString:@"email"];
-	}
-	if (self.companyNameTextfield.text.length == 0) {
-		if (emptyFields.length > 0) {
-			emptyFields = [emptyFields stringByAppendingString:@", "];
-		}
-		emptyFields = [emptyFields stringByAppendingString:@"company name"];
-	}
-	if (self.passwordTextfield.text.length == 0 || self.retypePasswordTextfield.text.length == 0) {
-		if (emptyFields.length > 0) {
-			emptyFields = [emptyFields stringByAppendingString:@", "];
-		}
-		emptyFields = [emptyFields stringByAppendingString:@"password"];
-	}
-	if (emptyFields.length > 0) {
-		[Utils showWarningWithMessage:[@"Fields required: " stringByAppendingString:emptyFields]];
-	} else {
-		if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
-			[Utils showWarningWithMessage:@"Passwords are not equal"];
-		} else {
-			NSString *wrongFields = @"";
-			if (![Utils isValidEmail:self.emailTextfield.text UseHardFilter:YES] ) {
-				wrongFields = [wrongFields stringByAppendingString:@"email"];
-			}
-			if (![Utils isValidName:self.passwordTextfield.text]) {
-				if (wrongFields.length > 0) {
-					wrongFields = [wrongFields stringByAppendingString:@", "];
-				}
-				wrongFields = [wrongFields stringByAppendingString:@"company name"];
-			}
-			if (![Utils isValidPassword:self.passwordTextfield.text]) {
-				if (wrongFields.length > 0) {
-					wrongFields = [wrongFields stringByAppendingString:@", "];
-				}
-				wrongFields = [wrongFields stringByAppendingString:@"password"];
-			}
-			if (wrongFields.length > 0) {
-				[Utils showWarningWithMessage:[@"Incorrect data in field: " stringByAppendingString:wrongFields]];
-			}
-		}
+	if (!self.companyNameTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Company name is required."];
+	} else if (![Utils isValidName:self.companyNameTextfield.text] ) {
+		[Utils showErrorWithMessage:@"Company name is not valid."];
+	} else if (!self.emailTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Email is required."];
+	} else if (![Utils isValidEmail:self.emailTextfield.text UseHardFilter:NO]) {
+		[Utils showErrorWithMessage:@"Email is not valid."];
+	} else if (!self.passwordTextfield.text.length || !self.retypePasswordTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Password and repassword are required."];
+	} else if (![Utils isValidPassword:self.passwordTextfield.text]) {
+		[Utils showErrorWithMessage:@"Password is not valid."];
+	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
+		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	}
 }
 

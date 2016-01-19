@@ -10,4 +10,6 @@
 
 @interface NewItemPriceTableViewCell : BaseTableViewCell
 
+@property (weak, nonatomic) IBOutlet UITextField *priceTextField;
+
 @end

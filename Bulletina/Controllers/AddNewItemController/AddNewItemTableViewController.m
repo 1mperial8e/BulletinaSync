@@ -120,6 +120,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (NewItemPriceTableViewCell *)priceCellForIndexPath:(NSIndexPath *)indexPath
 {
 	NewItemPriceTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NewItemPriceTableViewCell.ID forIndexPath:indexPath];
+	cell.priceTextField.keyboardType = UIKeyboardTypeDecimalPad;
 	return cell;
 }
 

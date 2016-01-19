@@ -330,7 +330,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 }
 
 - (void)saveButtonTap:(id)sender
-{	
+{
+	if (!self.companyNameTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Company name is required."];
+	} else if (![Utils isValidName:self.companyNameTextfield.text] ) {
+		[Utils showErrorWithMessage:@"Company name is not valid."];
+	}	else if (self.passwordTextfield.text.length || self.retypePasswordTextfield.text.length) {
+		if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
+			[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
+		} else if (![Utils isValidPassword:self.passwordTextfield.text]) {
+			[Utils showErrorWithMessage:@"Password is not valid."];
+		}
+	}
 }
 
 @end

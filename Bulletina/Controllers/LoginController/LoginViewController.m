@@ -215,34 +215,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 }
 
 - (void)loginButtonTap:(id)sender
-{
-	NSString *emptyFields = @"";
-	if (self.usernameTextfield.text.length == 0) {
-		emptyFields = [emptyFields stringByAppendingString:@"username/email"];
+{	
+	if (!self.usernameTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Username / email is required."];
+	} else if (!self.passwordTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Password is required."];
 	}
-	if (self.passwordTextfield.text.length == 0) {
-		if (emptyFields.length > 0) {
-			emptyFields = [emptyFields stringByAppendingString:@", "];
-		}
-		emptyFields = [emptyFields stringByAppendingString:@"password"];
-	}
-	if (emptyFields.length > 0) {
-		[Utils showWarningWithMessage:[@"Fields required: " stringByAppendingString:emptyFields]];
-	} else {
-		NSString *wrongFields = @"";
-		if (![Utils isValidName:self.usernameTextfield.text] ) {
-			wrongFields = [wrongFields stringByAppendingString:@"username/email"];
-		}
-		if (![Utils isValidPassword:self.passwordTextfield.text]) {
-			if (wrongFields.length > 0) {
-				wrongFields = [wrongFields stringByAppendingString:@", "];
-			}
-			wrongFields = [wrongFields stringByAppendingString:@"password"];
-		}
-		if (wrongFields.length > 0) {
-			[Utils showWarningWithMessage:[@"Incorrect data in field: " stringByAppendingString:wrongFields]];
-		}
-	}	
 }
 
 - (void)forgotButtonTap:(id)sender
