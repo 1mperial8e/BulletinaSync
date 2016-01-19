@@ -23,17 +23,18 @@ static CGFloat const LogoCellHeigth = 178;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
 
-static NSInteger const CellsCount = 11;
+static NSInteger const CellsCount = 12;
 static CGFloat const AdditionalBottomInset = 36;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex,
 	UsernameCellIndex,
 	CompanyNameCellIndex,
+	PhoneCellIndex,
 	WebsiteCellIndex,
 	FacebookCellIndex,
+	InstagramCellIndex,
 	LinkedInCellIndex,
-	TwitterCellIndex,
 	AboutCellIndex,
 	PasswordCellIndex,
 	RetypePasswordCellIndex,
@@ -44,10 +45,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @property (weak, nonatomic) UITextField *usernameTextfield;
 @property (weak, nonatomic) UITextField *companyNameTextfield;
+@property (weak, nonatomic) UITextField *phoneTextfield;
 @property (weak, nonatomic) UITextField *websiteTextfield;
 @property (weak, nonatomic) UITextField *facebookTextfield;
 @property (weak, nonatomic) UITextField *linkedInTextfield;
-@property (weak, nonatomic) UITextField *twitterTextfield;
+@property (weak, nonatomic) UITextField *instagramTextfield;
 @property (weak, nonatomic) UITextView *aboutTextView;
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
@@ -142,6 +144,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == CompanyNameCellIndex) {
 		cell.inputTextField.placeholder = @"Company Name:";
 		self.companyNameTextfield = cell.inputTextField;
+	} else if (indexPath.item == PhoneCellIndex) {
+		cell.inputTextField.placeholder = @"Phone:";
+		self.phoneTextfield = cell.inputTextField;
+		cell.inputTextField.keyboardType = UIKeyboardTypePhonePad;
 	} else if (indexPath.item == WebsiteCellIndex) {
 		cell.inputTextField.placeholder = @"Website:";
 		self.websiteTextfield = cell.inputTextField;
@@ -151,9 +157,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == LinkedInCellIndex) {
 		cell.inputTextField.placeholder = @"LinkedIn:";
 		self.linkedInTextfield = cell.inputTextField;
-	} else if (indexPath.item == TwitterCellIndex) {
-		cell.inputTextField.placeholder = @"Twitter:";
-		self.twitterTextfield = cell.inputTextField;
+	} else if (indexPath.item == InstagramCellIndex) {
+		cell.inputTextField.placeholder = @"Insagram:";
+		self.instagramTextfield = cell.inputTextField;
 	} else if (indexPath.item == PasswordCellIndex) {
 		cell.inputTextField.placeholder = @"New password:";
 		cell.inputTextField.secureTextEntry = YES;
@@ -283,17 +289,20 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (self.companyNameTextfield) {
 		[views addObject:self.companyNameTextfield];
 	}
+	if (self.phoneTextfield) {
+		[views addObject:self.phoneTextfield];
+	}
 	if (self.websiteTextfield) {
 		[views addObject:self.websiteTextfield];
 	}
 	if (self.facebookTextfield) {
 		[views addObject:self.facebookTextfield];
 	}
+	if (self.instagramTextfield) {
+		[views addObject:self.instagramTextfield];
+	}
 	if (self.linkedInTextfield) {
 		[views addObject:self.linkedInTextfield];
-	}
-	if (self.twitterTextfield) {
-		[views addObject:self.twitterTextfield];
 	}
 	if (self.aboutTextView) {
 		[views addObject:self.aboutTextView];

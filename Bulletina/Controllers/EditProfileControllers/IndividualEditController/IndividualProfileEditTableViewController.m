@@ -128,11 +128,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
 	} else if (indexPath.item == PasswordCellIndex) {
-		cell.inputTextField.placeholder = @"Password:";
+		cell.inputTextField.placeholder = @"New password:";
 		cell.inputTextField.secureTextEntry = YES;
 		self.passwordTextfield = cell.inputTextField;
 	} else if (indexPath.item == RetypePasswordCellIndex) {
-		cell.inputTextField.placeholder = @"Retype password:";
+		cell.inputTextField.placeholder = @"Retype new password:";
 		cell.inputTextField.secureTextEntry = YES;
 		cell.inputTextField.returnKeyType = UIReturnKeyDone;
 		self.retypePasswordTextfield = cell.inputTextField;
