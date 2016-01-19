@@ -46,7 +46,7 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	
 	if (indexPath.item % 2) {
-        [cell.itemStateButton setTitle:@"  NEW  " forState:UIControlStateNormal];
+        [cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
         cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
         cell.itemStateButton.hidden = NO;
 	}

@@ -19,7 +19,7 @@
 #import "SearchSettingsTableViewController.h"
 
 static CGFloat const PersonalLogoCellHeigth = 220;
-static CGFloat const BusinessLogoCellHeigth = 236;
+static CGFloat const BusinessLogoCellHeigth = 252;
 static CGFloat const DefaultCellHeigth = 44;
 
 static NSInteger const CellsCount = 8;
@@ -85,7 +85,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	BusinessProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessProfileLogoTableViewCell.ID forIndexPath:indexPath];
 	[self addCustomBorderToButton:cell.websiteButton];
 	[self addCustomBorderToButton:cell.facebookButton];
-	[self addCustomBorderToButton:cell.twitterButton];
+	[self addCustomBorderToButton:cell.instagramButton];
 	[self addCustomBorderToButton:cell.linkedInButton];
 	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
 	return cell;

@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *companyDescriptionTextView;
 @property (weak, nonatomic) IBOutlet UIButton *websiteButton;
 @property (weak, nonatomic) IBOutlet UIButton *facebookButton;
-@property (weak, nonatomic) IBOutlet UIButton *twitterButton;
+@property (weak, nonatomic) IBOutlet UIButton *instagramButton;
 @property (weak, nonatomic) IBOutlet UIButton *linkedInButton;
 
 @end
