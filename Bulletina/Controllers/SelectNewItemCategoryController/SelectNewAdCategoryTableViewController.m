@@ -1,23 +1,26 @@
 //
-//  SelectNewItemCategoryTableViewController.m
+//  SelectNewAdCategoryTableViewController.m
 //  Bulletina
 //
 //  Created by Stas Volskyi on 1/11/16.
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-#import "SelectNewItemCategoryTableViewController.h"
+//Controllers
+#import "SelectNewAdCategoryTableViewController.h"
 #import "AddNewItemTableViewController.h"
+#import "APIClient.h"
 
-#import "SelectCategoryHeaderView.h"
+//View
+#import "CategoryHeaderView.h"
 
-@interface SelectNewItemCategoryTableViewController ()
+@interface SelectNewAdCategoryTableViewController ()
 
 @property (strong, nonatomic) NSArray *categoriesArray;
 
 @end
 
-@implementation SelectNewItemCategoryTableViewController
+@implementation SelectNewAdCategoryTableViewController
 
 #pragma mark - Lifecycle
 
@@ -28,7 +31,7 @@
 	[self setupNavBar];
 	[self setupTableView];
 	
-	self.categoriesArray = @[@"For sale", @"For rent", @"Give away", @"Job request", @"Services", @"Annoucement", @"Lost & found", @"Other"];
+	self.categoriesArray = [APIClient tempCategoriesList];
 }
 
 #pragma mark - Setup
@@ -43,12 +46,15 @@
 {
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
 	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
+	[self.navigationController.navigationBar
+	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelNavBarAction:)];
 }
 
 - (void)setupTableView
 {
-	self.tableView.tableHeaderView = [[SelectCategoryHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 39)];
+	self.tableView.tableHeaderView = [[CategoryHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 39)];
+	self.tableView.tableHeaderView.backgroundColor = [UIColor mainPageBGColor];
 	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
@@ -69,6 +75,7 @@
 	cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
 	cell.textLabel.textColor = [UIColor appOrangeColor];
 	cell.textLabel.font = [UIFont systemFontOfSize:17];
+	cell.selectionStyle =  UITableViewCellSelectionStyleNone;
 	
 	cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureIndicator"]];
 	return cell;

@@ -3,7 +3,7 @@
 //  MyDrive
 //
 //  Created by Stas Volskyi on 11/25/15.
-//  Copyright © 2015 Goran Vuksic. All rights reserved.
+//  Copyright © 2016 AppMedia. All rights reserved.
 //
 
 @interface FullScreenImageViewController : UIViewController

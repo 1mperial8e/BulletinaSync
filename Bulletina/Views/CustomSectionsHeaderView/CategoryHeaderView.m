@@ -1,13 +1,13 @@
 //
-//  SelectCategoryHeaderView.h
+//  CategoryHeaderView.m
 //  Bulletina
 //
 //  Created by Stas Volskyi on 1/11/16.
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-#import "BaseView.h"
+#import "CategoryHeaderView.h"
 
-@interface SelectCategoryHeaderView : BaseView
+@implementation CategoryHeaderView
 
 @end

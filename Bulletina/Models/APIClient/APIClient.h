@@ -19,6 +19,9 @@
 
 + (instancetype)sharedInstance;
 
+//temporary
++ (NSArray *)tempCategoriesList;
+
 - (void)cancelAllOperations;
 - (BOOL)hasActiveRequest;
 

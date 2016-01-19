@@ -10,7 +10,7 @@
 #import "ItemTableViewCell.h"
 #import "CustomRefreshControlView.h"
 #import "ProfileTableViewController.h"
-#import "SelectNewItemCategoryTableViewController.h"
+#import "SelectNewAdCategoryTableViewController.h"
 #import "FullScreenImageViewController.h"
 
 static CGFloat const ItemTableViewCellHeigth = 510.0f;
@@ -106,6 +106,9 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
 	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
+	[self.navigationController.navigationBar
+	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
+	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddNew_navbarIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewButtonAction:)];
 	
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Profile_navbarIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(profileButtonAction:)];
@@ -152,7 +155,7 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 
 - (void)addNewButtonAction:(id)sender
 {
-	SelectNewItemCategoryTableViewController *selectCategoryTableViewController = [SelectNewItemCategoryTableViewController new];
+	SelectNewAdCategoryTableViewController *selectCategoryTableViewController = [SelectNewAdCategoryTableViewController new];
 	UINavigationController *selectCategoryNavigationController = [[UINavigationController alloc] initWithRootViewController:selectCategoryTableViewController];
 	[self.navigationController presentViewController:selectCategoryNavigationController animated:YES completion:nil];
 }

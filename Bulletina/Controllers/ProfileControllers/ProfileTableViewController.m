@@ -16,11 +16,11 @@
 #import "IndividualProfileLogoTableViewCell.h"
 #import "BusinessProfileLogoTableViewCell.h"
 #import "ProfileButtonTableViewCell.h"
+#import "SearchSettingsTableViewController.h"
 
 static CGFloat const PersonalLogoCellHeigth = 220;
 static CGFloat const BusinessLogoCellHeigth = 236;
 static CGFloat const DefaultCellHeigth = 44;
-static CGFloat const ButtonCellHeigth = 52;
 
 static NSInteger const CellsCount = 8;
 
@@ -43,15 +43,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @implementation ProfileTableViewController
 
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	[self tableViewSetup];
-	self.title = @"My Bulletina";
+	[self setupNavBar];
 	
-	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTap:)];
+	self.title = @"My Bulletina";
 }
 
 #pragma mark - Table view data source
@@ -164,7 +164,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == LogOutCellIndex) {
 		[self.navigationController dismissViewControllerAnimated:NO completion:nil];
 		[self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];		
-	}
+	} else if (indexPath.item == SearchSettingsCellIndex) {
+		SearchSettingsTableViewController *searchSettingsTableViewController = [SearchSettingsTableViewController new];
+		[self.navigationController pushViewController:searchSettingsTableViewController animated:YES];
+	}	
 }
 
 #pragma mark - Actions
@@ -193,6 +196,16 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 }
 
 #pragma mark - Setup
+
+- (void)setupNavBar
+{
+	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
+	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
+	[self.navigationController.navigationBar
+	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
+	
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTap:)];
+}
 
 - (void)tableViewSetup
 {	

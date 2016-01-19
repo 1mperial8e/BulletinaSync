@@ -41,6 +41,12 @@
     return sharedClient;
 }
 
+//temporary
++ (NSArray *)tempCategoriesList
+{
+	return  @[@"For sale", @"For rent", @"Give away", @"Job request", @"Services", @"Annoucement", @"Lost & found", @"Other"];
+}
+
 - (void)cancelAllOperations
 {
     [self.manager.operationQueue cancelAllOperations];
