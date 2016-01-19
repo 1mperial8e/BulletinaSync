@@ -73,11 +73,9 @@
 	}
 	cell.textLabel.text = self.categoriesArray[indexPath.item];
 	cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
-	cell.textLabel.textColor = [UIColor appOrangeColor];
 	cell.textLabel.font = [UIFont systemFontOfSize:17];
 	cell.selectionStyle =  UITableViewCellSelectionStyleNone;
-	
-	cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureIndicator"]];
+
 	return cell;
 }
 

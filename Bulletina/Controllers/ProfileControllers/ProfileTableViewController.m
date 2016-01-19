@@ -215,7 +215,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
 	UIView *backgroundView = [[UIView alloc] init];
-	UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, 230)];
+	UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, [self heightForTopCell])];
 	[backgroundView addSubview:backgroundImageView];
 	
 	backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];

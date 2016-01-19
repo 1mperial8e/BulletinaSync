@@ -711,7 +711,7 @@
 			isa = PBXGroup;
 			children = (
 				30BBACF31C43EECF004F22D2 /* LoginButtonCell */,
-				30BBACF51C43EECF004F22D2 /* TryBeforeCell */,
+				30BBACF51C43EECF004F22D2 /* RegisterLaterCell */,
 				30BBACEC1C43EE04004F22D2 /* TextFieldCell */,
 				30BBACE61C43EDC0004F22D2 /* LogoCell */,
 			);
@@ -748,13 +748,14 @@
 			path = LoginButtonCell;
 			sourceTree = "<group>";
 		};
-		30BBACF51C43EECF004F22D2 /* TryBeforeCell */ = {
+		30BBACF51C43EECF004F22D2 /* RegisterLaterCell */ = {
 			isa = PBXGroup;
 			children = (
 				30BBACF61C43EEF9004F22D2 /* TryBeforeTableViewCell.h */,
 				30BBACF71C43EEF9004F22D2 /* TryBeforeTableViewCell.m */,
 				30BBACF81C43EEF9004F22D2 /* TryBeforeTableViewCell.xib */,
 			);
+			name = RegisterLaterCell;
 			path = TryBeforeCell;
 			sourceTree = "<group>";
 		};
