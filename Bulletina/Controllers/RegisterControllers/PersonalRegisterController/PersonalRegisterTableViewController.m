@@ -121,7 +121,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.backgroundColor = [UIColor mainPageBGColor];
     cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == UsernameCellIndex) {
-		cell.inputTextField.placeholder = @"Username:";
+		cell.inputTextField.placeholder = @"Nickname:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
 	} else if (indexPath.item == EmailCellIndex) {
@@ -203,9 +203,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)saveButtonTap:(id)sender
 {
 	if (!self.usernameTextfield.text.length) {
-		[Utils showErrorWithMessage:@"Username is required."];
+		[Utils showErrorWithMessage:@"Nickname is required."];
 	} else if (![Utils isValidName:self.usernameTextfield.text] ) {
-		[Utils showErrorWithMessage:@"Username is not valid."];
+		[Utils showErrorWithMessage:@"Nickname is not valid."];
 	} else if (!self.emailTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Email is required."];
 	} else if (![Utils isValidEmail:self.emailTextfield.text UseHardFilter:NO]) {

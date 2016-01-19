@@ -22,8 +22,7 @@ static CGFloat const LogoCellHeigth = 178;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
 
-static NSInteger const CellsCount = 10;
-static CGFloat const AdditionalBottomInset = 36;
+static NSInteger const CellsCount = 11;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex,
@@ -33,6 +32,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	FacebookCellIndex,
 	LinkedInCellIndex,
 	TwitterCellIndex,
+	PhoneCellIndex,
 	PasswordCellIndex,
 	RetypePasswordCellIndex,
 	SaveButtonCellIndex
@@ -40,13 +40,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @interface BusinessRegisterTableViewController () <UITextFieldDelegate, ImageActionSheetControllerDelegate>
 
-//@property (weak, nonatomic) UITextField *usernameTextfield;
 @property (weak, nonatomic) UITextField *emailTextfield;
 @property (weak, nonatomic) UITextField *companyNameTextfield;
 @property (weak, nonatomic) UITextField *websiteTextfield;
 @property (weak, nonatomic) UITextField *facebookTextfield;
 @property (weak, nonatomic) UITextField *linkedInTextfield;
 @property (weak, nonatomic) UITextField *twitterTextfield;
+@property (weak, nonatomic) UITextField *phoneTextfield;
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
@@ -72,7 +72,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-	self.inputViewsCollection.textInputViews = @[self.emailTextfield, self.companyNameTextfield, self.websiteTextfield, self.facebookTextfield, self.linkedInTextfield, self.twitterTextfield, self.passwordTextfield , self.retypePasswordTextfield];
+	self.inputViewsCollection.textInputViews = @[self.emailTextfield, self.companyNameTextfield, self.websiteTextfield, self.facebookTextfield, self.linkedInTextfield, self.twitterTextfield,  self.emailTextfield, self.passwordTextfield , self.retypePasswordTextfield];
 }
 
 #pragma mark - Table view data source
@@ -100,8 +100,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	CGFloat height = InputCellHeigth * HeigthCoefficient;
 	if (indexPath.row == LogoCellIndex) {
 		return LogoCellHeigth * HeigthCoefficient;
-	} else if (indexPath.row == TwitterCellIndex) {
-		return (InputCellHeigth + AdditionalBottomInset) * HeigthCoefficient;
 	} else if (indexPath.row == SaveButtonCellIndex) {
 		return ButtonCellHeigth * HeigthCoefficient;
 	}
@@ -150,7 +148,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == TwitterCellIndex) {
 		cell.inputTextField.placeholder = @"Twitter:";
 		self.twitterTextfield = cell.inputTextField;
-		cell.bottomInsetConstraint.constant = AdditionalBottomInset * HeigthCoefficient;
+	} else if (indexPath.item == PhoneCellIndex) {
+		cell.inputTextField.placeholder = @"Phone:";
+		self.phoneTextfield = cell.inputTextField;
+		cell.inputTextField.keyboardType = UIKeyboardTypeNamePhonePad;
 	} else if (indexPath.item == PasswordCellIndex) {
 		cell.inputTextField.placeholder = @"Password:";
 		cell.inputTextField.secureTextEntry = YES;

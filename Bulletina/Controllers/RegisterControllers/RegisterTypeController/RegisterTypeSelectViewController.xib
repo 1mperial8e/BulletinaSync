@@ -71,7 +71,7 @@
                                         <constraint firstAttribute="width" constant="64" id="ZD5-xQ-lg1"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business account 20$ month" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pvk-DD-qW6">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business account 5$ month" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pvk-DD-qW6">
                                     <rect key="frame" x="0.0" y="78" width="375" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="3Ta-e8-Y5f"/>
