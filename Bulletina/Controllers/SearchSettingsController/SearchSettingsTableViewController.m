@@ -137,7 +137,7 @@ static NSInteger const UserTypeSectionsIndex = 2;
 
 - (void)tableViewSetup
 {
-	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 5, 0)];
+	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 10, 0)];
 	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 	
 	[self.tableView registerNib:DefaultSettingsTableViewCell.nib forCellReuseIdentifier:DefaultSettingsTableViewCell.ID];
@@ -148,16 +148,16 @@ static NSInteger const UserTypeSectionsIndex = 2;
 
 - (void)areaSliderTap:(UITapGestureRecognizer *)tap
 {
-	UIView* sliderFakeView = (UIView *)tap.view;
-	CGPoint tapPoint = [tap locationInView: sliderFakeView];
+	UIView *sliderFakeView = (UIView *)tap.view;
+	CGPoint tapPoint = [tap locationInView:sliderFakeView];
 	CGFloat percentage = tapPoint.x / CGRectGetWidth(sliderFakeView.bounds);
 	[self.areaProgressView setProgress:percentage animated:NO];
 }
 
 - (void)areaSliderPan:(UIPanGestureRecognizer *)pan
 {
-	UIView* sliderFakeView = (UIView *)pan.view;
-	CGPoint tapPoint = [pan locationInView: sliderFakeView];
+	UIView *sliderFakeView = (UIView *)pan.view;
+	CGPoint tapPoint = [pan locationInView:sliderFakeView];
 	CGFloat percentage = tapPoint.x / CGRectGetWidth(sliderFakeView.bounds);
 	[self.areaProgressView setProgress:percentage animated:NO];
 }

@@ -6,6 +6,8 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
+#warning Unused view!
+
 #import "BaseView.h"
 
 @interface CustomRefreshControlView : BaseView

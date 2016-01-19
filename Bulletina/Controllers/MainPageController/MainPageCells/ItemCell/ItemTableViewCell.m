@@ -39,8 +39,8 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	}
 
 - (void)prepareForReuse
-{	
-	self.itemStateButton.backgroundColor = [UIColor clearColor];
+{
+	self.itemStateButton.hidden = YES;
 }
 
 #pragma mark - UICollectionViewDataSource

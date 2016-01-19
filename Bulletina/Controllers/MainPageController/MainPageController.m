@@ -46,11 +46,9 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	
 	if (indexPath.item % 2) {
-		[cell.itemStateButton setTitle:@"  LAST CHANCE  " forState:UIControlStateNormal];
-		cell.itemStateButton.backgroundColor = [UIColor mainPageRedColor];
-	} else {
-		[cell.itemStateButton setTitle:@"  NEW  " forState:UIControlStateNormal];
-		cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
+        [cell.itemStateButton setTitle:@"  NEW  " forState:UIControlStateNormal];
+        cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
+        cell.itemStateButton.hidden = NO;
 	}
 	
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
@@ -79,10 +77,8 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	self.tableView.backgroundView = backView;
 	
 	UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-	CGRect customRefreshFrame = refreshControl.frame;
-	customRefreshFrame.size.height = CGRectGetHeight([UIScreen mainScreen].bounds);
-	CustomRefreshControlView *customView =	[[CustomRefreshControlView alloc] initWithFrame:customRefreshFrame];
-	[refreshControl insertSubview:customView atIndex:0];
+    refreshControl.tintColor = [UIColor appOrangeColor];
+    
 	[self.tableView insertSubview:refreshControl atIndex:0];
 	[refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
 	
@@ -181,9 +177,11 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 - (void)itemImageTap:(UITapGestureRecognizer *)sender
 {
 	if (((UIImageView *)sender.view).image) {
-		CGRect imageViewRect = sender.view.frame;
-		imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
-		imageViewRect.origin.y += -self.tableView.contentOffset.y + imageViewRect.origin.x;
+        CGRect cellFrame = [self.navigationController.view convertRect:sender.view.superview.superview.frame fromView:self.tableView];
+        CGRect imageViewRect = sender.view.frame;
+        imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
+        imageViewRect.origin.y = cellFrame.origin.y + CGRectGetHeight(self.navigationController.navigationBar.frame);
+
 		FullScreenImageViewController *imageController = [FullScreenImageViewController new];
 		imageController.image = ((UIImageView *)sender.view).image;
 		imageController.presentationRect = imageViewRect;
