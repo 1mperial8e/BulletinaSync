@@ -87,12 +87,13 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	[refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
 	
 	//temp Ads Placeholder
-	UIView *adsPlaceholder = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 50)];
+	UIView *adsPlaceholder = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 50, ScreenWidth, 50)];
 	UILabel *adsPlaceholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth / 2 -60, 15, 200, 21)];
 	adsPlaceholderLabel.text = @"Ads placeholder";
 	[adsPlaceholder addSubview:adsPlaceholderLabel];
 	adsPlaceholder.backgroundColor = [UIColor appOrangeColor];
-	self.tableView.tableFooterView = adsPlaceholder;
+//	self.tableView.tableFooterView = adsPlaceholder;
+	[self.navigationController.view addSubview:adsPlaceholder];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle
