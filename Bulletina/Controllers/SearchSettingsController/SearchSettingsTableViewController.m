@@ -25,6 +25,7 @@ static NSInteger const UserTypeSectionsIndex = 2;
 @interface SearchSettingsTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSArray *categoriesArray;
+@property (weak, nonatomic) UIProgressView *areaProgressView;
 
 @end
 
@@ -79,9 +80,14 @@ static NSInteger const UserTypeSectionsIndex = 2;
 - (UITableViewCell *)searchAreaCellForIndexPath:(NSIndexPath *)indexPath
 {
 	SearchAreaTableViewCell *searchAreaCell = [self.tableView dequeueReusableCellWithIdentifier:SearchAreaTableViewCell.ID forIndexPath:indexPath];
-	[searchAreaCell.areaSlider setMinimumTrackTintColor:[UIColor appOrangeColor]];
-	[searchAreaCell.areaSlider setMaximumTrackTintColor:[UIColor mainPageBGColor]];
-	searchAreaCell.areaSlider.thumbTintColor = [UIColor colorWithWhite:1 alpha:0];
+	UITapGestureRecognizer *sliderTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(areaSliderTap:)];
+	[searchAreaCell.areaSliderCatcherView addGestureRecognizer:sliderTap];
+	
+	UIPanGestureRecognizer *sliderPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(areaSliderPan:)];
+	[searchAreaCell.areaSliderCatcherView addGestureRecognizer:sliderPan];
+	self.areaProgressView = searchAreaCell.areaSlider;
+	self.areaProgressView.progressTintColor = [UIColor appOrangeColor];
+	self.areaProgressView.layer.cornerRadius = 2;
 	return searchAreaCell;
 }
 
@@ -136,6 +142,24 @@ static NSInteger const UserTypeSectionsIndex = 2;
 	
 	[self.tableView registerNib:DefaultSettingsTableViewCell.nib forCellReuseIdentifier:DefaultSettingsTableViewCell.ID];
 	[self.tableView registerNib:SearchAreaTableViewCell.nib forCellReuseIdentifier:SearchAreaTableViewCell.ID];
+}
+
+#pragma mark - Actions
+
+- (void)areaSliderTap:(UITapGestureRecognizer *)tap
+{
+	UIView* sliderFakeView = (UIView *)tap.view;
+	CGPoint tapPoint = [tap locationInView: sliderFakeView];
+	CGFloat percentage = tapPoint.x / CGRectGetWidth(sliderFakeView.bounds);
+	[self.areaProgressView setProgress:percentage animated:NO];
+}
+
+- (void)areaSliderPan:(UIPanGestureRecognizer *)pan
+{
+	UIView* sliderFakeView = (UIView *)pan.view;
+	CGPoint tapPoint = [pan locationInView: sliderFakeView];
+	CGFloat percentage = tapPoint.x / CGRectGetWidth(sliderFakeView.bounds);
+	[self.areaProgressView setProgress:percentage animated:NO];
 }
 
 @end

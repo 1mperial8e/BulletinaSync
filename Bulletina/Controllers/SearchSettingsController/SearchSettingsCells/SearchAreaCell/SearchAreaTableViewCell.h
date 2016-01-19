@@ -10,6 +10,7 @@
 
 @interface SearchAreaTableViewCell : BaseTableViewCell
 
-@property (weak, nonatomic) IBOutlet UISlider *areaSlider;
+@property (weak, nonatomic) IBOutlet UIProgressView *areaSlider;
+@property (weak, nonatomic) IBOutlet UIView *areaSliderCatcherView;
 
 @end
