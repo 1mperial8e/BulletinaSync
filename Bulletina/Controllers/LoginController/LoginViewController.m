@@ -20,7 +20,6 @@
 
 // Helpers
 #import "TextInputNavigationCollection.h"
-#import "Utils.h"
 
 static CGFloat const LogoTableViewCellHeigth = 248.0f;
 static CGFloat const TextfieldTableViewCellHeigth = 48.0f;

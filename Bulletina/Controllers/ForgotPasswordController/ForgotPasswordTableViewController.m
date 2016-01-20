@@ -8,10 +8,9 @@
 
 #import "ForgotPasswordTableViewController.h"
 
+// Cells
 #import "SuccessPasswordTableViewCell.h"
 #import "ResetPasswordTableViewCell.h"
-
-#import "Utils.h"
 
 @interface ForgotPasswordTableViewController () <UITextFieldDelegate>
 
@@ -43,7 +42,7 @@
 	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
 }
 
-- (void) setupTableView
+- (void)setupTableView
 {
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 10, 0)];
 	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
