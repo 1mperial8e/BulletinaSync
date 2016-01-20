@@ -1,52 +1,37 @@
 //
-//  ProfileTableViewController.m
+//  MyItemsTableViewController.m
 //  Bulletina
 //
 //  Created by Stas Volskyi on 1/11/16.
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-//Controllers
-#import "ProfileTableViewController.h"
-#import "IndividualProfileEditTableViewController.h"
-#import "BusinessProfileEditTableViewController.h"
 #import "MyItemsTableViewController.h"
+#import "FullScreenImageViewController.h"
 
 //Cells
-#import "ProfileDefaultTableViewCell.h"
 #import "IndividualProfileLogoTableViewCell.h"
 #import "BusinessProfileLogoTableViewCell.h"
-//#import "ProfileButtonTableViewCell.h"
-#import "SearchSettingsTableViewController.h"
+#import "ItemTableViewCell.h"
 
-
+static CGFloat const ItemTableViewCellHeigth = 510.0f;
 static CGFloat const PersonalLogoCellHeigth = 220;
 static CGFloat const BusinessLogoCellHeigth = 252;
-static CGFloat const DefaultCellHeigth = 44;
 
-static NSInteger const CellsCount = 8;
+static NSInteger const CellsCount = 3;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
-	LogoCellIndex,
-	EditProfileCellIndex,
-	MyItemsCellIndex,
-	MessagesCellIndex,
-	SearchSettingsCellIndex,
-	InAppPurchaseCellIndex,
-	AboutCellIndex,
-	LogOutCellIndex
+	LogoCellIndex	
 };
 
-@interface ProfileTableViewController () <UIScrollViewDelegate>
+@interface MyItemsTableViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) UIImageView *topBackgroundImageView;
 @property (weak, nonatomic) NSLayoutConstraint *backgroundTopConstraint;
 
 @end
 
-@implementation ProfileTableViewController
-
-#pragma mark - Lifecycle
+@implementation MyItemsTableViewController
 
 - (void)viewDidLoad
 {
@@ -61,7 +46,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return CellsCount;
+	return CellsCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -101,86 +86,56 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	button.layer.cornerRadius = 5;
 }
 
-- (ProfileDefaultTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath
+- (ItemTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath
 {
-	ProfileDefaultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ProfileDefaultTableViewCell.ID forIndexPath:indexPath];
-	cell.backgroundColor = [UIColor whiteColor];
+	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
+	cell.backgroundColor = [UIColor mainPageBGColor];
 	
-	if (indexPath.item == EditProfileCellIndex) {
-		cell.label.text = @"Edit profile";
-		cell.iconImageView.image = [UIImage imageNamed:@"EditProfile"];
-	} else if (indexPath.item == MyItemsCellIndex) {
-		cell.label.text = @"My items";
-		cell.iconImageView.image = [UIImage imageNamed:@"MyItems"];
-	} else if (indexPath.item == MessagesCellIndex) {
-		cell.label.text = @"Messages";
-		cell.iconImageView.image = [UIImage imageNamed:@"Messages"];
-	} else if (indexPath.item == SearchSettingsCellIndex) {
-		cell.label.text = @"Search settings";
-		cell.iconImageView.image = [UIImage imageNamed:@"SearchSettings"];
-	} else if (indexPath.item == InAppPurchaseCellIndex) {
-		cell.label.text = @"In-app purchase";
-		cell.iconImageView.image = [UIImage imageNamed:@"InAppPurchase"];
-	} else if (indexPath.item == AboutCellIndex) {
-		cell.label.text = @"About bulletina";
-		cell.iconImageView.image = [UIImage imageNamed:@"AboutBulletina"];
-	} else if (indexPath.item == LogOutCellIndex) {
-		cell.label.text = @"Log out";
-		cell.iconImageView.image = [UIImage imageNamed:@"LogOut"];
-		[cell setAccessoryType:UITableViewCellAccessoryNone];
+	if (indexPath.item % 2) {
+		[cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
+		cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
+		cell.itemStateButton.hidden = NO;
 	}
+	
+	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
+	[cell.itemImageView addGestureRecognizer:imageTapGesture];
+	
+	cell.itemStateButton.layer.cornerRadius = 7;
 	return cell;
 }
-
-//- (ProfileButtonTableViewCell *)buttonCellForIndexPath:(NSIndexPath *)indexPath
-//{
-//	ProfileButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ProfileButtonTableViewCell.ID forIndexPath:indexPath];
-//	cell.backgroundColor = [UIColor whiteColor];
-//	cell.logoutButton.layer.cornerRadius = 5;
-//	cell.logoutButton.backgroundColor = [UIColor appOrangeColor];
-//	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-//	return cell;
-//}
 
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	CGFloat height = DefaultCellHeigth * HeigthCoefficient;
+	CGFloat height = ItemTableViewCellHeigth;
 	if (indexPath.row == LogoCellIndex) {
 		return [self heightForTopCell];
 	}
 	return height;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - Actions
+
+- (void)itemImageTap:(UITapGestureRecognizer *)sender
 {
-	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-	if (indexPath.item == EditProfileCellIndex) {
-		if (self.profileType == IndividualProfile) {
-			IndividualProfileEditTableViewController *individualProfileEditTableViewController = [IndividualProfileEditTableViewController new];
-			[self.navigationController pushViewController:individualProfileEditTableViewController animated:YES];
-		} else {
-			BusinessProfileEditTableViewController *businessProfileEditTableViewController = [BusinessProfileEditTableViewController new];
-			[self.navigationController pushViewController:businessProfileEditTableViewController animated:YES];
-		}
-	} else if (indexPath.item == LogOutCellIndex) {
-		[self.navigationController dismissViewControllerAnimated:NO completion:nil];
-		[self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];		
-	} else if (indexPath.item == SearchSettingsCellIndex) {
-		SearchSettingsTableViewController *searchSettingsTableViewController = [SearchSettingsTableViewController new];
-		[self.navigationController pushViewController:searchSettingsTableViewController animated:YES];
-	}	else if (indexPath.item == MyItemsCellIndex) {
-		MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
-		[self.navigationController pushViewController:itemsTableViewController animated:YES];
+	if (((UIImageView *)sender.view).image) {
+		CGRect cellFrame = [self.navigationController.view convertRect:sender.view.superview.superview.frame fromView:self.tableView];
+		CGRect imageViewRect = sender.view.frame;
+		imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
+		imageViewRect.origin.y = cellFrame.origin.y + CGRectGetHeight(self.navigationController.navigationBar.frame);
+		
+		FullScreenImageViewController *imageController = [FullScreenImageViewController new];
+		imageController.image = ((UIImageView *)sender.view).image;
+		imageController.presentationRect = imageViewRect;
+		imageController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+		[self.navigationController presentViewController:imageController animated:NO completion:nil];
 	}
 }
 
-#pragma mark - Actions
-
 - (void)doneButtonTap:(id)sender
 {
-	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Utils
@@ -188,10 +143,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (CGFloat)heightForTopCell
 {
 	if (self.profileType == IndividualProfile) {
-	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:IndividualProfileLogoTableViewCell.ID owner:self options:nil];
-	IndividualProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
-	CGSize size = CGSizeZero;
-	size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
+		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:IndividualProfileLogoTableViewCell.ID owner:self options:nil];
+		IndividualProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
+		CGSize size = CGSizeZero;
+		size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
 		return (size.height + PersonalLogoCellHeigth);
 	}
 	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
@@ -211,19 +166,21 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
 	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTap:)];
+	self.navigationItem.hidesBackButton = YES;
 }
 
 - (void)tableViewSetup
-{	
-	[self.tableView registerNib:ProfileDefaultTableViewCell.nib forCellReuseIdentifier:ProfileDefaultTableViewCell.ID];
+{
+	[self.tableView registerNib:ItemTableViewCell.nib forCellReuseIdentifier:ItemTableViewCell.ID];
 	[self.tableView registerNib:IndividualProfileLogoTableViewCell.nib forCellReuseIdentifier:IndividualProfileLogoTableViewCell.ID];
-	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];	
+	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];
 	
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
 	UIView *backgroundView = [[UIView alloc] init];
 	UIImageView *backgroundImageView = [[UIImageView alloc] init];
 	[backgroundView addSubview:backgroundImageView];
-		backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];
+	backgroundView.backgroundColor = [UIColor mainPageBGColor];
+	backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];
 	backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
 	self.tableView.backgroundView = backgroundView;
 	self.tableView.backgroundColor = [UIColor whiteColor];
@@ -231,7 +188,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[backgroundView addConstraint:self.backgroundTopConstraint];
 	
 	[backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:[self heightForTopCell]]];
-	 
+	
 	[backgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
 	self.topBackgroundImageView = backgroundImageView;
 	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -245,5 +202,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.topBackgroundImageView.transform = CGAffineTransformMakeScale(scaleCoef, scaleCoef);
 	self.backgroundTopConstraint.constant = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
 }
+
 
 @end
