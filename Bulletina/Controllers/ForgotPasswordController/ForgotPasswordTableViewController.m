@@ -11,11 +11,18 @@
 #import "SuccessPasswordTableViewCell.h"
 #import "ResetPasswordTableViewCell.h"
 
+#import "Utils.h"
+
 @interface ForgotPasswordTableViewController ()
+
+@property (assign, nonatomic) BOOL resetSuccess;
+@property (weak, nonatomic) UITextField *emailTextfield;
 
 @end
 
 @implementation ForgotPasswordTableViewController
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
@@ -43,43 +50,47 @@
     return 1;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	if (self.resetSuccess) {
+		SuccessPasswordTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:SuccessPasswordTableViewCell.ID forIndexPath:indexPath];
+		[cell.closeButton addTarget:self action:@selector(cancelNavBarAction:) forControlEvents:UIControlEventTouchUpInside];
+		return cell;
+	}
 	ResetPasswordTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ResetPasswordTableViewCell.ID forIndexPath:indexPath];
-	
 	cell.resetButton.layer.cornerRadius = 5;
-//	[cell.emailTextfield textRectForBounds:CGRectMake(20, 20, 10, 10)];
-//	[cell.emailTextfield editingRectForBounds:CGRectMake(20, 20, 10, 10)];
-//	settingCell.settingTitleLabel.text = self.categoriesArray[indexPath.row];
+	cell.emailTextfield.returnKeyType = UIReturnKeyDone;
+	[cell.resetButton addTarget:self action:@selector(resetButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+	self.emailTextfield = cell.emailTextfield;
 	return cell;
 }
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	CGFloat heigth = 235;
-//	if (indexPath.section == SearchAreaSectionsIndex) {
-//		heigth = 51;
-//	}
 	return heigth;
 }
-
-//#pragma mark - Lifecycle
-//UITextFieldDelegate
-
 
 #pragma mark - Actions
 
 - (void)cancelNavBarAction:(id)sender
 {
 	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)resetButtonTap:(id)sender
+{
+	if (!self.emailTextfield.text.length) {
+		[Utils showWarningWithMessage:@"Email is required"];
+	} else if ([Utils isValidEmail:self.emailTextfield.text UseHardFilter:NO]) {
+		self.resetSuccess = YES;
+		[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+	} else {
+		[Utils showWarningWithMessage:@"Email is not valid"];
+	}
+
 }
 
 @end

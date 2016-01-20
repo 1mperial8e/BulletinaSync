@@ -10,4 +10,6 @@
 
 @interface SuccessPasswordTableViewCell : BaseTableViewCell
 
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+
 @end
