@@ -38,6 +38,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @interface ProfileTableViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) UIImageView *topBackgroundImageView;
+@property (weak, nonatomic) NSLayoutConstraint *backgroundTopConstraint;
 
 @end
 
@@ -215,14 +216,19 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
 	UIView *backgroundView = [[UIView alloc] init];
-	UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, [self heightForTopCell])];
+	UIImageView *backgroundImageView = [[UIImageView alloc] init];
+	//WithFrame:CGRectMake(0, 64, ScreenWidth, [self heightForTopCell])];
 	[backgroundView addSubview:backgroundImageView];
-	
-	backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];
+		backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];
 	backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
 	self.tableView.backgroundView = backgroundView;
 	self.tableView.backgroundColor = [UIColor whiteColor];
+	self.backgroundTopConstraint = [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeTop multiplier:1.0f constant:64];
+	[backgroundView addConstraint:self.backgroundTopConstraint];
 	
+	[backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:[self heightForTopCell]]];
+	 
+	[backgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
 	self.topBackgroundImageView = backgroundImageView;
 	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -233,12 +239,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -64 ? (fabs(scrollView.contentOffset.y + 64.0) / 120) : 0);
 	self.topBackgroundImageView.transform = CGAffineTransformMakeScale(scaleCoef, scaleCoef);
-	
-	if (scrollView.contentOffset.y >= -64) {
-		CGRect imgFrame = self.topBackgroundImageView.frame;
-		imgFrame.origin.y = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
-		self.topBackgroundImageView.frame = imgFrame;
-	}
+	self.backgroundTopConstraint.constant = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
 }
 
 @end
