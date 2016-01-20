@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>AccountImageName</key>
+		<string>PersonalAccount</string>
+		<key>AccountTitleString</key>
+		<string>Individual account (Free)</string>
+	</dict>
+	<dict>
+		<key>AccountImageName</key>
+		<string>BusinessAccount</string>
+		<key>AccountTitleString</key>
+		<string>Business account 5$ month</string>
+	</dict>
+</array>
+</plist>
