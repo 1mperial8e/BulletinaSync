@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 #import "MainPageController.h"
 #import "RegisterTypeSelectViewController.h"
+#import "ForgotPasswordTableViewController.h"
 
 // Cells
 #import "LogoTableViewCell.h"
@@ -227,7 +228,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)forgotButtonTap:(id)sender
 {
-    
+	ForgotPasswordTableViewController *forgotPasswordTableViewController = [ForgotPasswordTableViewController new];
+	UINavigationController *forgotNavigationController = [[UINavigationController alloc] initWithRootViewController:forgotPasswordTableViewController];
+	[self.navigationController presentViewController:forgotNavigationController animated:YES completion:nil];
 }
 
 #pragma mark - UITextFieldDelegate
