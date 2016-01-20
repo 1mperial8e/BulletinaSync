@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	ImageCellIndex
 };
 
-@interface AddNewItemTableViewController () <UITextViewDelegate, ImageActionSheetControllerDelegate>
+@interface AddNewItemTableViewController () <UITextViewDelegate, ImageActionSheetControllerDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) NewItemTextTableViewCell *textCell;
 @property (strong,nonatomic) UIImage *itemImage;
@@ -86,7 +86,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (self.itemImage) {
 		CGFloat ratio = self.itemImage.size.height / self.itemImage.size.width;		
 		return (ScreenWidth - 30) * ratio + 16;
-//		return ScreenWidth * ratio;
 	}
 	return 0;
 }
@@ -111,21 +110,21 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (NewItemImageTableViewCell *)imageCellForIndexPath:(NSIndexPath *)indexPath
 {
 	NewItemImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NewItemImageTableViewCell.ID forIndexPath:indexPath];
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
 	if (self.itemImage) {
 		cell.itemImageView.image = self.itemImage;
 	} else {
 		cell.itemImageView.image = nil;
 	}
-	
-//	cell.itemImageView.contentMode =  UIViewContentModeScaleAspectFill;
 	return cell;
 }
 
 - (NewItemPriceTableViewCell *)priceCellForIndexPath:(NSIndexPath *)indexPath
 {
 	NewItemPriceTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NewItemPriceTableViewCell.ID forIndexPath:indexPath];
-//	cell.priceTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	cell.priceTextField.delegate = self;
 	return cell;
 }
 
@@ -136,6 +135,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.textCell.textView.text = TextViewPlaceholderText;
 	[self.textCell.textView setTextContainerInset:UIEdgeInsetsMake(10, 20, 5, 20)];
 	self.textCell.textView.returnKeyType = UIReturnKeyDone;
+	self.textCell.selectionStyle = UITableViewCellSelectionStyleNone;
 	return self.textCell;
 }
 
@@ -265,6 +265,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		textViewRect.origin.y += 5;
 		[self.tableView scrollRectToVisible:textViewRect animated:YES];
 	}
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+	[self.tableView endEditing:YES];
+	return NO;
 }
 
 @end

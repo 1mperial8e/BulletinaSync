@@ -231,8 +231,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -64 ? (fabs(scrollView.contentOffset.y + 64.0) / 150) : 0);
+	CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -64 ? (fabs(scrollView.contentOffset.y + 64.0) / 120) : 0);
 	self.topBackgroundImageView.transform = CGAffineTransformMakeScale(scaleCoef, scaleCoef);
+	
+	if (scrollView.contentOffset.y >= -64) {
+		CGRect imgFrame = self.topBackgroundImageView.frame;
+		imgFrame.origin.y = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
+		self.topBackgroundImageView.frame = imgFrame;
+	}
 }
 
 @end

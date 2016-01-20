@@ -16,13 +16,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add image" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxu-lw-e5R">
-                        <rect key="frame" x="160" y="13" width="160" height="18"/>
+                        <rect key="frame" x="145" y="13" width="175" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CameraButton" translatesAutoresizingMaskIntoConstraints="NO" id="hEl-am-zpa">
-                        <rect key="frame" x="120" y="9" width="33" height="25"/>
+                        <rect key="frame" x="105" y="9" width="33" height="25"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="33" id="GRb-NV-mEP"/>
@@ -31,7 +31,7 @@
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="wxu-lw-e5R" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="8b4-Ff-17S"/>
+                    <constraint firstItem="wxu-lw-e5R" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="-15" id="8b4-Ff-17S"/>
                     <constraint firstAttribute="trailing" secondItem="wxu-lw-e5R" secondAttribute="trailing" id="CGu-1U-64v"/>
                     <constraint firstItem="wxu-lw-e5R" firstAttribute="leading" secondItem="hEl-am-zpa" secondAttribute="trailing" constant="7" id="Qlz-7L-8Ic"/>
                     <constraint firstItem="wxu-lw-e5R" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="oWe-Wu-rSF"/>
