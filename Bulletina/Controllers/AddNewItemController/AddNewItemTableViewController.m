@@ -13,16 +13,18 @@
 #import "NewItemPriceTableViewCell.h"
 #import "NewItemImageTableViewCell.h"
 #import "ImageActionSheetController.h"
+#import "AddImageButtonTableViewCell.h"
 
-static CGFloat const ImageCellHeigth = 197;
 static CGFloat const PriceCellHeigth = 44;
 
-static NSInteger const CellsCount = 3;
+static NSInteger const CellsCount = 4;
+NSString * const TextViewPlaceholderText = @"Write your description here. Use #hashtags for making your ad more searchable.";
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
-	ImageCellIndex,
+	CameraButtonCellIndex,
+	TextCellIndex,
 	PriceCellIndex,
-	TextCellIndex
+	ImageCellIndex
 };
 
 @interface AddNewItemTableViewController () <UITextViewDelegate, ImageActionSheetControllerDelegate>
@@ -52,7 +54,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.item == ImageCellIndex) {
+	if (indexPath.item == CameraButtonCellIndex) {
+		return [self cameraButtonCellForIndexPath:indexPath];
+	} else if (indexPath.item == ImageCellIndex) {
 		return [self imageCellForIndexPath:indexPath];
 	} else if (indexPath.item == PriceCellIndex) {
 		return [self priceCellForIndexPath:indexPath];
@@ -68,7 +72,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	CGFloat height = PriceCellHeigth * HeigthCoefficient;
 	if (indexPath.row == ImageCellIndex) {
-		return ImageCellHeigth * HeigthCoefficient;
+		return [self heightForImageCell];
 	} else if (indexPath.row == PriceCellIndex) {
 		return PriceCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == TextCellIndex) {
@@ -77,50 +81,51 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return height;
 }
 
+- (CGFloat)heightForImageCell
+{
+	if (self.itemImage) {
+		CGFloat ratio = self.itemImage.size.height / self.itemImage.size.width;		
+		return (ScreenWidth - 30) * ratio + 16;
+//		return ScreenWidth * ratio;
+	}
+	return 0;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-#pragma mark - Utils
-
-- (CGFloat)heightForTextCell
-{
-	if (!self.textCell) {
-		self.textCell = [[NSBundle mainBundle] loadNibNamed:NewItemTextTableViewCell.ID owner:nil options:nil].firstObject;
+	if (indexPath.item == CameraButtonCellIndex) {
+		[self selectImageButtonTap:nil];
 	}
-	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
-	return height + 50.f;
-}
-
-- (void)updateImage:(UIImage *)image;
-{
-	self.itemImage = image;
-	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:ImageCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Cells
 
+- (AddImageButtonTableViewCell *)cameraButtonCellForIndexPath:(NSIndexPath *)indexPath
+{
+	AddImageButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:AddImageButtonTableViewCell.ID forIndexPath:indexPath];
+	cell.backgroundColor = [UIColor appOrangeColor];
+	return cell;
+}
+
 - (NewItemImageTableViewCell *)imageCellForIndexPath:(NSIndexPath *)indexPath
 {
 	NewItemImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NewItemImageTableViewCell.ID forIndexPath:indexPath];
-	cell.borderView.layer.borderColor = [UIColor appOrangeColor].CGColor;
-	cell.borderView.layer.borderWidth = 1.0f;
+
 	if (self.itemImage) {
 		cell.itemImageView.image = self.itemImage;
 	} else {
 		cell.itemImageView.image = nil;
 	}
-	[cell.selectImageButton addTarget:self action:@selector(selectImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
-	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+	
+//	cell.itemImageView.contentMode =  UIViewContentModeScaleAspectFill;
 	return cell;
 }
 
 - (NewItemPriceTableViewCell *)priceCellForIndexPath:(NSIndexPath *)indexPath
 {
 	NewItemPriceTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NewItemPriceTableViewCell.ID forIndexPath:indexPath];
-	cell.priceTextField.keyboardType = UIKeyboardTypeDecimalPad;
+//	cell.priceTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
 	return cell;
 }
 
@@ -128,7 +133,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	self.textCell = [self.tableView dequeueReusableCellWithIdentifier:NewItemTextTableViewCell.ID forIndexPath:indexPath];
 	self.textCell.textView.delegate = self;
-	self.textCell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+	self.textCell.textView.text = TextViewPlaceholderText;
+	[self.textCell.textView setTextContainerInset:UIEdgeInsetsMake(10, 20, 5, 20)];
 	self.textCell.textView.returnKeyType = UIReturnKeyDone;
 	return self.textCell;
 }
@@ -171,12 +177,28 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 5, 0)];
 	
 	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+	self.tableView.backgroundColor = [UIColor mainPageBGColor];
+	
+	[self.tableView registerNib:AddImageButtonTableViewCell.nib forCellReuseIdentifier:AddImageButtonTableViewCell.ID];
 	[self.tableView registerNib:NewItemImageTableViewCell.nib forCellReuseIdentifier:NewItemImageTableViewCell.ID];
 	[self.tableView registerNib:NewItemPriceTableViewCell.nib forCellReuseIdentifier:NewItemPriceTableViewCell.ID];
 	[self.tableView registerNib:NewItemTextTableViewCell.nib forCellReuseIdentifier:NewItemTextTableViewCell.ID];
 }
 
 #pragma mark - UITextViewDelegate
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+	if ([textView.text isEqualToString:TextViewPlaceholderText]) {
+		textView.text = @"";
+		textView.textColor = [UIColor blackColor];
+	}
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+	[self performTextViewText];
+}
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
 {
@@ -189,15 +211,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-	CGFloat height = ceil([textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
-	if (textView.contentSize.height > height + 1 || textView.contentSize.height < height - 1) {
-		[self.tableView beginUpdates];
-		[self.tableView endUpdates];
-		
-		CGRect textViewRect = [self.tableView convertRect:textView.frame fromView:textView.superview];
-		textViewRect.origin.y += 5;
-		[self.tableView scrollRectToVisible:textViewRect animated:YES];
-	}
+	[self performTextViewText];
 }
 
 #pragma mark - ImageActionSheetControllerDelegate
@@ -215,6 +229,42 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)imageActionSheetControllerDidTakeImageWithPicker:(UIImage *)image
 {
 	[self updateImage:image];
+}
+
+#pragma mark - Utils
+
+- (CGFloat)heightForTextCell
+{
+	if (!self.textCell) {
+		self.textCell = [[NSBundle mainBundle] loadNibNamed:NewItemTextTableViewCell.ID owner:nil options:nil].firstObject;
+	}
+	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+	return height + 50.f;
+}
+
+- (void)updateImage:(UIImage *)image;
+{
+	self.itemImage = image;
+	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:ImageCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)performTextViewText
+{
+	if ([self.textCell.textView.text isEqualToString:@""])
+	{
+		self.textCell.textView.text = TextViewPlaceholderText;
+		self.textCell.textView.textColor = [UIColor lightGrayColor];
+	}
+	
+	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+	if (self.textCell.textView.contentSize.height > height + 1 || self.textCell.textView.contentSize.height < height - 1) {
+		[self.tableView beginUpdates];
+		[self.tableView endUpdates];
+		
+		CGRect textViewRect = [self.tableView convertRect:self.textCell.textView.frame fromView:self.textCell.textView.superview];
+		textViewRect.origin.y += 5;
+		[self.tableView scrollRectToVisible:textViewRect animated:YES];
+	}
 }
 
 @end

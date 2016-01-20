@@ -15,16 +15,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5B7-dh-R2S">
-                        <rect key="frame" x="17" y="11" width="39" height="21"/>
+                        <rect key="frame" x="17" y="11" width="215" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="$300" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wxn-up-yqP">
-                        <rect key="frame" x="261" y="11" width="97" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="97" id="4VY-j4-7fc"/>
-                        </constraints>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ex. $20 / month" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wxn-up-yqP">
+                        <rect key="frame" x="232" y="11" width="126" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
@@ -33,6 +30,7 @@
                     <constraint firstAttribute="trailing" secondItem="wxn-up-yqP" secondAttribute="trailing" constant="17" id="FJ8-rj-B40"/>
                     <constraint firstItem="wxn-up-yqP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="VFV-nL-EH2"/>
                     <constraint firstItem="5B7-dh-R2S" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cVz-D6-5KA"/>
+                    <constraint firstItem="wxn-up-yqP" firstAttribute="leading" secondItem="5B7-dh-R2S" secondAttribute="trailing" id="mWF-KR-qk5"/>
                     <constraint firstItem="5B7-dh-R2S" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="rZI-bm-cpN"/>
                 </constraints>
             </tableViewCellContentView>

@@ -59,13 +59,6 @@
                             <constraint firstAttribute="height" constant="22" id="zvZ-2X-2j4"/>
                         </constraints>
                     </view>
-                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="FjJ-Xo-JTt">
-                        <rect key="frame" x="15" y="-10" width="345" height="61"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="60" id="uxS-kE-pVb"/>
-                        </constraints>
-                    </slider>
                     <progressView opaque="NO" contentMode="scaleAspectFit" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eaf-Cd-k9T">
                         <rect key="frame" x="17" y="20" width="341" height="2"/>
                     </progressView>
@@ -76,12 +69,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="ygA-6B-4IB" secondAttribute="trailing" constant="17" id="5tF-6D-qzR"/>
-                    <constraint firstItem="FjJ-Xo-JTt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="6by-FR-T6N"/>
-                    <constraint firstAttribute="trailing" secondItem="FjJ-Xo-JTt" secondAttribute="trailing" constant="17" id="DK4-sl-uhB"/>
                     <constraint firstAttribute="trailing" secondItem="knu-Gy-BTz" secondAttribute="trailing" constant="17" id="JKg-EW-pau"/>
                     <constraint firstAttribute="trailing" secondItem="eaf-Cd-k9T" secondAttribute="trailing" constant="17" id="PUI-c4-YkZ"/>
                     <constraint firstItem="knu-Gy-BTz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="RBR-L4-s52"/>
-                    <constraint firstItem="FjJ-Xo-JTt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-10" id="XNc-hk-ngd"/>
                     <constraint firstItem="ygA-6B-4IB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="XfX-1J-Vln"/>
                     <constraint firstItem="eaf-Cd-k9T" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="ZlB-bk-kQG"/>
                     <constraint firstItem="ygA-6B-4IB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="fLF-b7-7jQ"/>
@@ -89,11 +79,6 @@
                     <constraint firstAttribute="bottom" secondItem="ygA-6B-4IB" secondAttribute="bottom" id="oFO-ZK-1cl"/>
                     <constraint firstAttribute="bottom" secondItem="knu-Gy-BTz" secondAttribute="bottom" id="sQZ-IV-aHX"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="subviews">
-                        <exclude reference="FjJ-Xo-JTt"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="areaSlider" destination="eaf-Cd-k9T" id="YWG-3e-mN6"/>
