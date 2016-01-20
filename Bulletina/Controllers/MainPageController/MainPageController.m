@@ -13,13 +13,17 @@
 #import "SelectNewAdCategoryTableViewController.h"
 #import "FullScreenImageViewController.h"
 
-static CGFloat const ItemTableViewCellHeigth = 510.0f;
+static CGFloat const ItemTableViewCellHeigth = 140.0f;
 
 @interface MainPageController () <UISearchBarDelegate>
 
 @property (strong, nonatomic) UISearchController *searchController;
 
 @property (assign, nonatomic) ProfileType profileType;
+
+//Temp
+@property (strong, nonatomic) NSString *itemText;
+@property (strong, nonatomic) UIImage *itemImage;
 
 @end
 
@@ -31,26 +35,34 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	[self tableViewSetup];
 	[self setupNavigationBar];
 	[self addSearchBar];
+	
+	//Temp
+	self.itemText = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor.	ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor. sed do eiusmod tempor.";
+	
+	self.itemImage = [UIImage imageNamed:@"ItemExample"];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 15;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
-	
+	cell.itemImageView.image = self.itemImage;
+	cell.itemViewHeightConstraint.constant = [self heighForImageView];
+	[self.view layoutIfNeeded];
 	if (indexPath.item % 2) {
         [cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
         cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
         cell.itemStateButton.hidden = NO;
 	}
-	
+	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+	cell.itemTextView.text = self.itemText;
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
 	[cell.itemImageView addGestureRecognizer:imageTapGesture];
 	
@@ -62,7 +74,27 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return ItemTableViewCellHeigth;
+	return [self itemCellHeightForIndexPath:indexPath];
+}
+
+- (CGFloat)itemCellHeightForIndexPath:(NSIndexPath *)indexPath
+{
+	CGFloat textViewHeigth = 0;
+	ItemTableViewCell *cell = [[NSBundle mainBundle] loadNibNamed:ItemTableViewCell.ID owner:nil options:nil].firstObject;
+	cell.itemTextView.text = self.itemText;
+	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+	textViewHeigth = ceil([cell.itemTextView sizeThatFits:CGSizeMake(ScreenWidth - 32, MAXFLOAT)].height);
+	return ItemTableViewCellHeigth + [self heighForImageView] + textViewHeigth;
+}
+
+- (CGFloat)heighForImageView
+{
+	CGFloat imageViewHeigth = 0;
+	if (self.itemImage) {
+		CGFloat ratio = self.itemImage.size.height / self.itemImage.size.width;
+		imageViewHeigth = (ScreenWidth - 32) * ratio;
+	}
+	return imageViewHeigth;
 }
 
 #pragma mark - Setup
@@ -72,6 +104,7 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
 	[self.tableView registerNib:ItemTableViewCell.nib forCellReuseIdentifier:ItemTableViewCell.ID];
 	self.tableView.backgroundColor = [UIColor mainPageBGColor];
+	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 60, 0)];
 	UIView *backView = [UIView new];
 	backView.backgroundColor = [UIColor mainPageBGColor];
 	self.tableView.backgroundView = backView;
@@ -82,13 +115,12 @@ static CGFloat const ItemTableViewCellHeigth = 510.0f;
 	[self.tableView insertSubview:refreshControl atIndex:0];
 	[refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
 	
-	//temp Ads Placeholder
 	UIView *adsPlaceholder = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 50, ScreenWidth, 50)];
 	UILabel *adsPlaceholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth / 2 -60, 15, 200, 21)];
 	adsPlaceholderLabel.text = @"Ads placeholder";
 	[adsPlaceholder addSubview:adsPlaceholderLabel];
 	adsPlaceholder.backgroundColor = [UIColor appOrangeColor];
-//	self.tableView.tableFooterView = adsPlaceholder;
+
 	[self.navigationController.view addSubview:adsPlaceholder];
 }
 
