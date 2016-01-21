@@ -73,6 +73,8 @@
 		30A074E31C4F986700BCE672 /* ResetPasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A074E11C4F986700BCE672 /* ResetPasswordTableViewCell.xib */; };
 		30A074E71C4F988000BCE672 /* SuccessPasswordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A074E51C4F988000BCE672 /* SuccessPasswordTableViewCell.m */; };
 		30A074E81C4F988000BCE672 /* SuccessPasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A074E61C4F988000BCE672 /* SuccessPasswordTableViewCell.xib */; };
+		30A3057D1C4FC7BC002A48D0 /* MyItemsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A3057B1C4FC7BC002A48D0 /* MyItemsTableViewController.m */; };
+		30A3057E1C4FC7BC002A48D0 /* MyItemsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A3057C1C4FC7BC002A48D0 /* MyItemsTableViewController.xib */; };
 		30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */; };
 		30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */; };
 		30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */; };
@@ -216,6 +218,9 @@
 		30A074E41C4F988000BCE672 /* SuccessPasswordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuccessPasswordTableViewCell.h; sourceTree = "<group>"; };
 		30A074E51C4F988000BCE672 /* SuccessPasswordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuccessPasswordTableViewCell.m; sourceTree = "<group>"; };
 		30A074E61C4F988000BCE672 /* SuccessPasswordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuccessPasswordTableViewCell.xib; sourceTree = "<group>"; };
+		30A3057A1C4FC7BC002A48D0 /* MyItemsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyItemsTableViewController.h; sourceTree = "<group>"; };
+		30A3057B1C4FC7BC002A48D0 /* MyItemsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyItemsTableViewController.m; sourceTree = "<group>"; };
+		30A3057C1C4FC7BC002A48D0 /* MyItemsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyItemsTableViewController.xib; sourceTree = "<group>"; };
 		30BBACE21C43EB4D004F22D2 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		30BBACE71C43EDD4004F22D2 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
@@ -754,6 +759,16 @@
 			path = SuccessPasswordCell;
 			sourceTree = "<group>";
 		};
+		30A305791C4FC77A002A48D0 /* MyItemsController */ = {
+			isa = PBXGroup;
+			children = (
+				30A3057A1C4FC7BC002A48D0 /* MyItemsTableViewController.h */,
+				30A3057B1C4FC7BC002A48D0 /* MyItemsTableViewController.m */,
+				30A3057C1C4FC7BC002A48D0 /* MyItemsTableViewController.xib */,
+			);
+			path = MyItemsController;
+			sourceTree = "<group>";
+		};
 		30BBACDC1C43EA64004F22D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1114,6 +1129,7 @@
 			files = (
 				30928DEC1C465BD600041847 /* BusinessRegisterTableViewController.xib in Resources */,
 				30A074E31C4F986700BCE672 /* ResetPasswordTableViewCell.xib in Resources */,
+				30823DCD1C50D4C800609A0D /* ItemsListTableViewController.xib in Resources */,
 				307E2EE71C4A59E80007A7CC /* NewItemTextTableViewCell.xib in Resources */,
 				3099D48D1C4D4F080080C05B /* FullScreenImageViewController.xib in Resources */,
 				307E2EE21C4A59C40007A7CC /* NewItemImageTableViewCell.xib in Resources */,
@@ -1121,6 +1137,7 @@
 				3043591D1C479FBC007B6959 /* BusinessProfileLogoTableViewCell.xib in Resources */,
 				B2F8DB331C4FD14B0083FE1F /* AccountTypes.plist in Resources */,
 				30802F0E1C495C07008D97EC /* AddNewItemTableViewController.xib in Resources */,
+				30A3057E1C4FC7BC002A48D0 /* MyItemsTableViewController.xib in Resources */,
 				30A074E81C4F988000BCE672 /* SuccessPasswordTableViewCell.xib in Resources */,
 				3082B9B11C48F1B200C4925D /* IndividualProfileEditTableViewController.xib in Resources */,
 				3043590E1C479F51007B6959 /* ProfileTableViewController.xib in Resources */,
@@ -1203,6 +1220,7 @@
 				30A074E21C4F986700BCE672 /* ResetPasswordTableViewCell.m in Sources */,
 				4FA19C211C46829000140343 /* AFImageDownloader.m in Sources */,
 				3099D47B1C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.m in Sources */,
+				30A3057D1C4FC7BC002A48D0 /* MyItemsTableViewController.m in Sources */,
 				4FA19C281C46829000140343 /* UIWebView+AFNetworking.m in Sources */,
 				304359171C479F9C007B6959 /* IndividualProfileLogoTableViewCell.m in Sources */,
 				3099D47D1C4CFDFE0080C05B /* ImageActionSheetController.m in Sources */,
@@ -1222,6 +1240,7 @@
 				3082EE1C1C4E4507004DAB08 /* SearchSettingsTableViewController.m in Sources */,
 				304359121C479F6F007B6959 /* ProfileDefaultTableViewCell.m in Sources */,
 				4F79B9221C43DC2D0082740E /* LoginViewController.m in Sources */,
+				30823DCC1C50D4C800609A0D /* ItemsListTableViewController.m in Sources */,
 				30928DD01C463C9000041847 /* CustomRefreshControlView.m in Sources */,
 				4FA19C061C46828600140343 /* AFNetworkReachabilityManager.m in Sources */,
 				4FA19C231C46829000140343 /* UIActivityIndicatorView+AFNetworking.m in Sources */,

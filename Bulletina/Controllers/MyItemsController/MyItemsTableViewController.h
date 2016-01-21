@@ -1,13 +1,13 @@
 //
-//  MainPageController.h
+//  MyItemsTableViewController.h
 //  Bulletina
 //
 //  Created by Stas Volskyi on 1/11/16.
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
-
+#import "ProfileTableViewController.h"
 #import "ItemsListTableViewController.h"
 
-@interface MainPageController : ItemsListTableViewController
+@interface MyItemsTableViewController : ItemsListTableViewController
 
 @end

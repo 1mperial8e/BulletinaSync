@@ -10,13 +10,15 @@
 #import "ProfileTableViewController.h"
 #import "IndividualProfileEditTableViewController.h"
 #import "BusinessProfileEditTableViewController.h"
+#import "MyItemsTableViewController.h"
 
 //Cells
 #import "ProfileDefaultTableViewCell.h"
 #import "IndividualProfileLogoTableViewCell.h"
 #import "BusinessProfileLogoTableViewCell.h"
-#import "ProfileButtonTableViewCell.h"
+//#import "ProfileButtonTableViewCell.h"
 #import "SearchSettingsTableViewController.h"
+
 
 static CGFloat const PersonalLogoCellHeigth = 220;
 static CGFloat const BusinessLogoCellHeigth = 252;
@@ -130,15 +132,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return cell;
 }
 
-- (ProfileButtonTableViewCell *)buttonCellForIndexPath:(NSIndexPath *)indexPath
-{
-	ProfileButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ProfileButtonTableViewCell.ID forIndexPath:indexPath];
-	cell.backgroundColor = [UIColor whiteColor];
-	cell.logoutButton.layer.cornerRadius = 5;
-	cell.logoutButton.backgroundColor = [UIColor appOrangeColor];
-	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-	return cell;
-}
+//- (ProfileButtonTableViewCell *)buttonCellForIndexPath:(NSIndexPath *)indexPath
+//{
+//	ProfileButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ProfileButtonTableViewCell.ID forIndexPath:indexPath];
+//	cell.backgroundColor = [UIColor whiteColor];
+//	cell.logoutButton.layer.cornerRadius = 5;
+//	cell.logoutButton.backgroundColor = [UIColor appOrangeColor];
+//	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+//	return cell;
+//}
 
 #pragma mark - UITableViewDelegate
 
@@ -168,7 +170,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == SearchSettingsCellIndex) {
 		SearchSettingsTableViewController *searchSettingsTableViewController = [SearchSettingsTableViewController new];
 		[self.navigationController pushViewController:searchSettingsTableViewController animated:YES];
-	}	
+	}	else if (indexPath.item == MyItemsCellIndex) {
+		MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
+		[self.navigationController pushViewController:itemsTableViewController animated:YES];
+	}
 }
 
 #pragma mark - Actions
@@ -217,7 +222,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
 	UIView *backgroundView = [[UIView alloc] init];
 	UIImageView *backgroundImageView = [[UIImageView alloc] init];
-	//WithFrame:CGRectMake(0, 64, ScreenWidth, [self heightForTopCell])];
 	[backgroundView addSubview:backgroundImageView];
 		backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];
 	backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
