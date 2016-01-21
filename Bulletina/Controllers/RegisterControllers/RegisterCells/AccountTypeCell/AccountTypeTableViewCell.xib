@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mug-Zy-F9Z" userLabel="Account Title Label">
-                        <rect key="frame" x="0.0" y="94" width="320" height="23"/>
+                        <rect key="frame" x="0.0" y="94" width="320" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="0Dn-TU-3Lc"/>
                             <constraint firstAttribute="height" constant="21" id="JER-bj-qAL"/>
@@ -31,7 +31,7 @@
                         </variation>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eOf-zJ-jJV" userLabel="More Info Button">
-                        <rect key="frame" x="0.0" y="121" width="320" height="13"/>
+                        <rect key="frame" x="0.0" y="117" width="320" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="Wds-zg-pYJ"/>
                         </constraints>
@@ -55,7 +55,7 @@
                 <constraints>
                     <constraint firstItem="eOf-zJ-jJV" firstAttribute="top" secondItem="mug-Zy-F9Z" secondAttribute="bottom" constant="4" id="0uq-bs-yEo"/>
                     <constraint firstItem="eOf-zJ-jJV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="GsN-mg-BuB"/>
-                    <constraint firstAttribute="bottom" secondItem="eOf-zJ-jJV" secondAttribute="bottom" id="HP5-G4-qhB"/>
+                    <constraint firstAttribute="bottom" secondItem="eOf-zJ-jJV" secondAttribute="bottom" constant="4" id="HP5-G4-qhB"/>
                     <constraint firstItem="NQu-nW-AXB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="22" id="PVs-fd-gV8"/>
                     <constraint firstItem="mug-Zy-F9Z" firstAttribute="top" secondItem="NQu-nW-AXB" secondAttribute="bottom" constant="8" id="dxI-Nn-zTY"/>
                     <constraint firstItem="mug-Zy-F9Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fnC-2T-XJC"/>

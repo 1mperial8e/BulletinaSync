@@ -2,7 +2,7 @@
 //  AccountTypeTableViewCell.h
 //  Bulletina
 //
-//  Created by Yuriy Sirko on 1/20/16.
+//  Created by Stas Volskyi on 1/20/16.
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
