@@ -117,7 +117,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
 	[self.navigationController.navigationBar
 	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
-    [self setNeedsStatusBarAppearanceUpdate];
+	[Application setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)tableViewSetup
@@ -192,13 +192,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[cell.signupButton addTarget:self action:@selector(signupButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	
 	return cell;
-}
-
-#pragma mark - StatusBar setup
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-	return UIStatusBarStyleLightContent;
 }
 
 #pragma mark - Actions

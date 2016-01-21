@@ -93,15 +93,10 @@
 	[self.navigationController.view addSubview:adsPlaceholder];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-	return UIStatusBarStyleDefault;
-}
-
 - (void)setupNavigationBar
 {
 	[super setupNavigationBar];
-	[self setNeedsStatusBarAppearanceUpdate];
+	[Application setStatusBarStyle:UIStatusBarStyleDefault];
 	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddNew_navbarIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewButtonAction:)];
 	

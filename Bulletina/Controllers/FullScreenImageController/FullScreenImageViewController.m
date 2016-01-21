@@ -35,8 +35,7 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
     self.isShown = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.scrollView.minimumZoomScale = DefaultScrollViewZoomScale;
-//    self.backgroundView.viewForTouches = self.scrollView;
-    [self buildImageView];
+	[self buildImageView];
 }
 
 - (void)viewDidLayoutSubviews
@@ -196,9 +195,7 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
 
 - (CGFloat)navBarHeight
 {
-//    UITabBarController *tabBarCOntroller = (UITabBarController *)self.presentingViewController;
-//    UINavigationController *navController = tabBarCOntroller.viewControllers.firstObject;
-	return 0;//navController.navigationBar.frame.size.height;
+	return 0;
 }
 
 #pragma mark - UIScrollViewDelegate
