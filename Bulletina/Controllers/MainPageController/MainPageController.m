@@ -54,7 +54,9 @@
         cell.itemStateButton.hidden = NO;
 	}
 	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    cell.itemTextView.editable = YES;
 	cell.itemTextView.text = self.itemText;
+    cell.itemTextView.editable = NO;
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
 	[cell.itemImageView addGestureRecognizer:imageTapGesture];
 	

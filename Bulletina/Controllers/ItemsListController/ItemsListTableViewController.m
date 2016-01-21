@@ -11,7 +11,7 @@
 #import "SelectNewAdCategoryTableViewController.h"
 #import "FullScreenImageViewController.h"
 
-static CGFloat const ItemTableViewCellHeigth = 140.0f;
+static CGFloat const ItemTableViewCellHeigth = 148.0f;
 
 @interface ItemsListTableViewController ()
 
@@ -48,7 +48,9 @@ static CGFloat const ItemTableViewCellHeigth = 140.0f;
 {
 	CGFloat textViewHeigth = 0;
 	ItemTableViewCell *cell = [[NSBundle mainBundle] loadNibNamed:ItemTableViewCell.ID owner:nil options:nil].firstObject;
-	cell.itemTextView.text = text;
+    cell.itemTextView.editable = YES;
+    cell.itemTextView.text = text;
+    cell.itemTextView.editable = NO;
 	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
 	textViewHeigth = ceil([cell.itemTextView sizeThatFits:CGSizeMake(ScreenWidth - 32, MAXFLOAT)].height);
 	return ItemTableViewCellHeigth + [self heighOfImageViewForImage:image] + textViewHeigth;

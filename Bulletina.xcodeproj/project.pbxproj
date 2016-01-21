@@ -29,6 +29,10 @@
 		307E2EE71C4A59E80007A7CC /* NewItemTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307E2EE51C4A59E80007A7CC /* NewItemTextTableViewCell.xib */; };
 		30802F0D1C495C07008D97EC /* AddNewItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30802F0B1C495C07008D97EC /* AddNewItemTableViewController.m */; };
 		30802F0E1C495C07008D97EC /* AddNewItemTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30802F0C1C495C07008D97EC /* AddNewItemTableViewController.xib */; };
+		30802F141C495E34008D97EC /* SelectNewAdCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30802F121C495E34008D97EC /* SelectNewAdCategoryTableViewController.m */; };
+		30802F151C495E34008D97EC /* SelectNewAdCategoryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30802F131C495E34008D97EC /* SelectNewAdCategoryTableViewController.xib */; };
+		30823DCC1C50D4C800609A0D /* ItemsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30823DCA1C50D4C800609A0D /* ItemsListTableViewController.m */; };
+		30823DCD1C50D4C800609A0D /* ItemsListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30823DCB1C50D4C800609A0D /* ItemsListTableViewController.xib */; };
 		3082B9A91C48F00A00C4925D /* EditProfileAboutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082B9A71C48F00A00C4925D /* EditProfileAboutTableViewCell.m */; };
 		3082B9AA1C48F00A00C4925D /* EditProfileAboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3082B9A81C48F00A00C4925D /* EditProfileAboutTableViewCell.xib */; };
 		3082B9B01C48F1B200C4925D /* IndividualProfileEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082B9AE1C48F1B200C4925D /* IndividualProfileEditTableViewController.m */; };
@@ -151,6 +155,12 @@
 		30802F0A1C495C07008D97EC /* AddNewItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewItemTableViewController.h; sourceTree = "<group>"; };
 		30802F0B1C495C07008D97EC /* AddNewItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewItemTableViewController.m; sourceTree = "<group>"; };
 		30802F0C1C495C07008D97EC /* AddNewItemTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNewItemTableViewController.xib; sourceTree = "<group>"; };
+		30802F111C495E34008D97EC /* SelectNewAdCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectNewAdCategoryTableViewController.h; sourceTree = "<group>"; };
+		30802F121C495E34008D97EC /* SelectNewAdCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectNewAdCategoryTableViewController.m; sourceTree = "<group>"; };
+		30802F131C495E34008D97EC /* SelectNewAdCategoryTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectNewAdCategoryTableViewController.xib; sourceTree = "<group>"; };
+		30823DC91C50D4C800609A0D /* ItemsListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemsListTableViewController.h; sourceTree = "<group>"; };
+		30823DCA1C50D4C800609A0D /* ItemsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemsListTableViewController.m; sourceTree = "<group>"; };
+		30823DCB1C50D4C800609A0D /* ItemsListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemsListTableViewController.xib; sourceTree = "<group>"; };
 		3082B9A61C48F00A00C4925D /* EditProfileAboutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileAboutTableViewCell.h; sourceTree = "<group>"; };
 		3082B9A71C48F00A00C4925D /* EditProfileAboutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileAboutTableViewCell.m; sourceTree = "<group>"; };
 		3082B9A81C48F00A00C4925D /* EditProfileAboutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileAboutTableViewCell.xib; sourceTree = "<group>"; };
@@ -454,6 +464,27 @@
 				307E2ED11C4A59170007A7CC /* NewImageCell */,
 			);
 			path = AddNewCells;
+			sourceTree = "<group>";
+		};
+		30802F0F1C495DD1008D97EC /* SelectNewAdCategoryController */ = {
+			isa = PBXGroup;
+			children = (
+				30802F111C495E34008D97EC /* SelectNewAdCategoryTableViewController.h */,
+				30802F121C495E34008D97EC /* SelectNewAdCategoryTableViewController.m */,
+				30802F131C495E34008D97EC /* SelectNewAdCategoryTableViewController.xib */,
+			);
+			name = SelectNewAdCategoryController;
+			path = SelectNewItemCategoryController;
+			sourceTree = "<group>";
+		};
+		30823DC81C50D4A000609A0D /* ItemsListController */ = {
+			isa = PBXGroup;
+			children = (
+				30823DC91C50D4C800609A0D /* ItemsListTableViewController.h */,
+				30823DCA1C50D4C800609A0D /* ItemsListTableViewController.m */,
+				30823DCB1C50D4C800609A0D /* ItemsListTableViewController.xib */,
+			);
+			path = ItemsListController;
 			sourceTree = "<group>";
 		};
 		3082B99E1C48E37400C4925D /* EditProfileControllers */ = {
@@ -961,6 +992,8 @@
 			isa = PBXGroup;
 			children = (
 				4F49DDC21C50D82F002E2F24 /* SelectNewItemCategoryController */,
+				30823DC81C50D4A000609A0D /* ItemsListController */,
+				30A305791C4FC77A002A48D0 /* MyItemsController */,
 				30A074D61C4F960600BCE672 /* ForgotPasswordController */,
 				3082EE121C4E43DF004DAB08 /* SearchSettingsController */,
 				3099D47E1C4D2BE10080C05B /* FullScreenImageController */,
