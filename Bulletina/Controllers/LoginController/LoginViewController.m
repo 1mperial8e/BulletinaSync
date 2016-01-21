@@ -9,8 +9,8 @@
 // Controllers
 #import "LoginViewController.h"
 #import "MainPageController.h"
-#import "RegisterTypeSelectViewController.h"
 #import "ForgotPasswordTableViewController.h"
+#import "RegisterTypeSelectTableViewController.h"
 
 // Cells
 #import "LogoTableViewCell.h"
@@ -212,8 +212,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)signupButtonTap:(id)sender
 {
-	RegisterTypeSelectViewController *registerTypeSelectController = [RegisterTypeSelectViewController new];
-	[self.navigationController pushViewController:registerTypeSelectController animated:YES];
+    RegisterTypeSelectTableViewController *registerTypeSelectController = [RegisterTypeSelectTableViewController new];
+    [self.navigationController pushViewController:registerTypeSelectController animated:YES];
 }
 
 - (void)loginButtonTap:(id)sender

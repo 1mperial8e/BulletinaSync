@@ -29,8 +29,6 @@
 		307E2EE71C4A59E80007A7CC /* NewItemTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307E2EE51C4A59E80007A7CC /* NewItemTextTableViewCell.xib */; };
 		30802F0D1C495C07008D97EC /* AddNewItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30802F0B1C495C07008D97EC /* AddNewItemTableViewController.m */; };
 		30802F0E1C495C07008D97EC /* AddNewItemTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30802F0C1C495C07008D97EC /* AddNewItemTableViewController.xib */; };
-		30802F141C495E34008D97EC /* SelectNewAdCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30802F121C495E34008D97EC /* SelectNewAdCategoryTableViewController.m */; };
-		30802F151C495E34008D97EC /* SelectNewAdCategoryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30802F131C495E34008D97EC /* SelectNewAdCategoryTableViewController.xib */; };
 		3082B9A91C48F00A00C4925D /* EditProfileAboutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082B9A71C48F00A00C4925D /* EditProfileAboutTableViewCell.m */; };
 		3082B9AA1C48F00A00C4925D /* EditProfileAboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3082B9A81C48F00A00C4925D /* EditProfileAboutTableViewCell.xib */; };
 		3082B9B01C48F1B200C4925D /* IndividualProfileEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082B9AE1C48F1B200C4925D /* IndividualProfileEditTableViewController.m */; };
@@ -62,8 +60,6 @@
 		30928DFF1C465CCC00041847 /* AvatarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928DFD1C465CCC00041847 /* AvatarTableViewCell.xib */; };
 		30928E031C465CDE00041847 /* BusinessLogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928E011C465CDE00041847 /* BusinessLogoTableViewCell.m */; };
 		30928E041C465CDE00041847 /* BusinessLogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928E021C465CDE00041847 /* BusinessLogoTableViewCell.xib */; };
-		30928E0E1C46683E00041847 /* RegisterTypeSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30928E0C1C46683E00041847 /* RegisterTypeSelectViewController.m */; };
-		30928E0F1C46683E00041847 /* RegisterTypeSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30928E0D1C46683E00041847 /* RegisterTypeSelectViewController.xib */; };
 		3099D47B1C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3099D4771C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.m */; };
 		3099D47C1C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3099D4781C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.xib */; };
 		3099D47D1C4CFDFE0080C05B /* ImageActionSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3099D47A1C4CFDFE0080C05B /* ImageActionSheetController.m */; };
@@ -86,6 +82,8 @@
 		30BBACFA1C43EEF9004F22D2 /* TryBeforeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACF81C43EEF9004F22D2 /* TryBeforeTableViewCell.xib */; };
 		30BBAD031C43EF24004F22D2 /* LoginButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBAD011C43EF24004F22D2 /* LoginButtonTableViewCell.m */; };
 		30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBAD021C43EF24004F22D2 /* LoginButtonTableViewCell.xib */; };
+		4F49DDC61C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F49DDC41C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.m */; };
+		4F49DDC71C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F49DDC51C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.xib */; };
 		4F637BF61C464E2200DE7CCA /* TextInputNavigationCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F637BF51C464E2200DE7CCA /* TextInputNavigationCollection.m */; };
 		4F637BFC1C46596F00DE7CCA /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F637BFB1C46596F00DE7CCA /* Utils.m */; };
 		4F637C001C4659A200DE7CCA /* UIColor+AppColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F637BFF1C4659A200DE7CCA /* UIColor+AppColor.m */; };
@@ -110,6 +108,11 @@
 		4FA19C271C46829000140343 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C1D1C46829000140343 /* UIRefreshControl+AFNetworking.m */; };
 		4FA19C281C46829000140343 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C1F1C46829000140343 /* UIWebView+AFNetworking.m */; };
 		4FA19C2C1C46831C00140343 /* APIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C2B1C46831C00140343 /* APIClient.m */; };
+		B2F8DB281C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F8DB261C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.m */; };
+		B2F8DB291C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2F8DB271C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.xib */; };
+		B2F8DB2D1C4FBB390083FE1F /* AccountTypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F8DB2B1C4FBB390083FE1F /* AccountTypeTableViewCell.m */; };
+		B2F8DB2E1C4FBB390083FE1F /* AccountTypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2F8DB2C1C4FBB390083FE1F /* AccountTypeTableViewCell.xib */; };
+		B2F8DB331C4FD14B0083FE1F /* AccountTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2F8DB321C4FD14B0083FE1F /* AccountTypes.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,9 +149,6 @@
 		30802F0A1C495C07008D97EC /* AddNewItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewItemTableViewController.h; sourceTree = "<group>"; };
 		30802F0B1C495C07008D97EC /* AddNewItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewItemTableViewController.m; sourceTree = "<group>"; };
 		30802F0C1C495C07008D97EC /* AddNewItemTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNewItemTableViewController.xib; sourceTree = "<group>"; };
-		30802F111C495E34008D97EC /* SelectNewAdCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectNewAdCategoryTableViewController.h; sourceTree = "<group>"; };
-		30802F121C495E34008D97EC /* SelectNewAdCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectNewAdCategoryTableViewController.m; sourceTree = "<group>"; };
-		30802F131C495E34008D97EC /* SelectNewAdCategoryTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectNewAdCategoryTableViewController.xib; sourceTree = "<group>"; };
 		3082B9A61C48F00A00C4925D /* EditProfileAboutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileAboutTableViewCell.h; sourceTree = "<group>"; };
 		3082B9A71C48F00A00C4925D /* EditProfileAboutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileAboutTableViewCell.m; sourceTree = "<group>"; };
 		3082B9A81C48F00A00C4925D /* EditProfileAboutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileAboutTableViewCell.xib; sourceTree = "<group>"; };
@@ -196,9 +196,6 @@
 		30928E001C465CDE00041847 /* BusinessLogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessLogoTableViewCell.h; sourceTree = "<group>"; };
 		30928E011C465CDE00041847 /* BusinessLogoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessLogoTableViewCell.m; sourceTree = "<group>"; };
 		30928E021C465CDE00041847 /* BusinessLogoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessLogoTableViewCell.xib; sourceTree = "<group>"; };
-		30928E0B1C46683E00041847 /* RegisterTypeSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterTypeSelectViewController.h; sourceTree = "<group>"; };
-		30928E0C1C46683E00041847 /* RegisterTypeSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterTypeSelectViewController.m; sourceTree = "<group>"; };
-		30928E0D1C46683E00041847 /* RegisterTypeSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterTypeSelectViewController.xib; sourceTree = "<group>"; };
 		3099D4761C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageActionSheetCollectionViewCell.h; sourceTree = "<group>"; };
 		3099D4771C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageActionSheetCollectionViewCell.m; sourceTree = "<group>"; };
 		3099D4781C4CFDFE0080C05B /* ImageActionSheetCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageActionSheetCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -233,6 +230,9 @@
 		30BBAD001C43EF24004F22D2 /* LoginButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginButtonTableViewCell.h; sourceTree = "<group>"; };
 		30BBAD011C43EF24004F22D2 /* LoginButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginButtonTableViewCell.m; sourceTree = "<group>"; };
 		30BBAD021C43EF24004F22D2 /* LoginButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginButtonTableViewCell.xib; sourceTree = "<group>"; };
+		4F49DDC31C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectNewAdCategoryTableViewController.h; sourceTree = "<group>"; };
+		4F49DDC41C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectNewAdCategoryTableViewController.m; sourceTree = "<group>"; };
+		4F49DDC51C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectNewAdCategoryTableViewController.xib; sourceTree = "<group>"; };
 		4F637BF41C464E2200DE7CCA /* TextInputNavigationCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextInputNavigationCollection.h; sourceTree = "<group>"; };
 		4F637BF51C464E2200DE7CCA /* TextInputNavigationCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextInputNavigationCollection.m; sourceTree = "<group>"; };
 		4F637BFA1C46596F00DE7CCA /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
@@ -286,6 +286,13 @@
 		4FA19C2A1C46831C00140343 /* APIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIClient.h; sourceTree = "<group>"; };
 		4FA19C2B1C46831C00140343 /* APIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIClient.m; sourceTree = "<group>"; };
 		4FA19C2D1C46838800140343 /* APIClientConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIClientConstants.h; sourceTree = "<group>"; };
+		B2F8DB251C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterTypeSelectTableViewController.h; sourceTree = "<group>"; };
+		B2F8DB261C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterTypeSelectTableViewController.m; sourceTree = "<group>"; };
+		B2F8DB271C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterTypeSelectTableViewController.xib; sourceTree = "<group>"; };
+		B2F8DB2A1C4FBB390083FE1F /* AccountTypeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountTypeTableViewCell.h; sourceTree = "<group>"; };
+		B2F8DB2B1C4FBB390083FE1F /* AccountTypeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountTypeTableViewCell.m; sourceTree = "<group>"; };
+		B2F8DB2C1C4FBB390083FE1F /* AccountTypeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountTypeTableViewCell.xib; sourceTree = "<group>"; };
+		B2F8DB321C4FD14B0083FE1F /* AccountTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AccountTypes.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -442,17 +449,6 @@
 				307E2ED11C4A59170007A7CC /* NewImageCell */,
 			);
 			path = AddNewCells;
-			sourceTree = "<group>";
-		};
-		30802F0F1C495DD1008D97EC /* SelectNewAdCategoryController */ = {
-			isa = PBXGroup;
-			children = (
-				30802F111C495E34008D97EC /* SelectNewAdCategoryTableViewController.h */,
-				30802F121C495E34008D97EC /* SelectNewAdCategoryTableViewController.m */,
-				30802F131C495E34008D97EC /* SelectNewAdCategoryTableViewController.xib */,
-			);
-			name = SelectNewAdCategoryController;
-			path = SelectNewItemCategoryController;
 			sourceTree = "<group>";
 		};
 		3082B99E1C48E37400C4925D /* EditProfileControllers */ = {
@@ -616,6 +612,7 @@
 		30928DE21C465B8000041847 /* RegisterCells */ = {
 			isa = PBXGroup;
 			children = (
+				B2F8DB211C4FB48F0083FE1F /* AccountTypeCell */,
 				30928DF01C465C6E00041847 /* AvatarCell */,
 				30928DEF1C465C3E00041847 /* ButtonCell */,
 				30928DEE1C465C1200041847 /* InputCell */,
@@ -668,9 +665,10 @@
 		30928E051C4667D600041847 /* RegisterTypeSelectController */ = {
 			isa = PBXGroup;
 			children = (
-				30928E0B1C46683E00041847 /* RegisterTypeSelectViewController.h */,
-				30928E0C1C46683E00041847 /* RegisterTypeSelectViewController.m */,
-				30928E0D1C46683E00041847 /* RegisterTypeSelectViewController.xib */,
+				B2F8DB251C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.h */,
+				B2F8DB261C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.m */,
+				B2F8DB271C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.xib */,
+				B2F8DB321C4FD14B0083FE1F /* AccountTypes.plist */,
 			);
 			name = RegisterTypeSelectController;
 			path = RegisterTypeController;
@@ -830,6 +828,16 @@
 			path = TryBeforeCell;
 			sourceTree = "<group>";
 		};
+		4F49DDC21C50D82F002E2F24 /* SelectNewItemCategoryController */ = {
+			isa = PBXGroup;
+			children = (
+				4F49DDC31C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.h */,
+				4F49DDC41C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.m */,
+				4F49DDC51C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.xib */,
+			);
+			path = SelectNewItemCategoryController;
+			sourceTree = "<group>";
+		};
 		4F637BF21C464DDE00DE7CCA /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -937,11 +945,11 @@
 		4F79B9151C43DC2D0082740E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4F49DDC21C50D82F002E2F24 /* SelectNewItemCategoryController */,
 				30A074D61C4F960600BCE672 /* ForgotPasswordController */,
 				3082EE121C4E43DF004DAB08 /* SearchSettingsController */,
 				3099D47E1C4D2BE10080C05B /* FullScreenImageController */,
 				3099D4741C4CFDFE0080C05B /* ImageActionSheetController */,
-				30802F0F1C495DD1008D97EC /* SelectNewAdCategoryController */,
 				30802F081C495BE3008D97EC /* AddNewAdController */,
 				3082B99E1C48E37400C4925D /* EditProfileControllers */,
 				304359051C479B2D007B6959 /* ProfileControllers */,
@@ -1037,6 +1045,16 @@
 			path = APIClient;
 			sourceTree = "<group>";
 		};
+		B2F8DB211C4FB48F0083FE1F /* AccountTypeCell */ = {
+			isa = PBXGroup;
+			children = (
+				B2F8DB2A1C4FBB390083FE1F /* AccountTypeTableViewCell.h */,
+				B2F8DB2B1C4FBB390083FE1F /* AccountTypeTableViewCell.m */,
+				B2F8DB2C1C4FBB390083FE1F /* AccountTypeTableViewCell.xib */,
+			);
+			path = AccountTypeCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1101,9 +1119,9 @@
 				307E2EE21C4A59C40007A7CC /* NewItemImageTableViewCell.xib in Resources */,
 				307DD9201C44F93200F59857 /* ItemTableViewCell.xib in Resources */,
 				3043591D1C479FBC007B6959 /* BusinessProfileLogoTableViewCell.xib in Resources */,
+				B2F8DB331C4FD14B0083FE1F /* AccountTypes.plist in Resources */,
 				30802F0E1C495C07008D97EC /* AddNewItemTableViewController.xib in Resources */,
 				30A074E81C4F988000BCE672 /* SuccessPasswordTableViewCell.xib in Resources */,
-				30928E0F1C46683E00041847 /* RegisterTypeSelectViewController.xib in Resources */,
 				3082B9B11C48F1B200C4925D /* IndividualProfileEditTableViewController.xib in Resources */,
 				3043590E1C479F51007B6959 /* ProfileTableViewController.xib in Resources */,
 				300CA1CD1C484D5700DA85CE /* ProfileButtonTableViewCell.xib in Resources */,
@@ -1111,10 +1129,12 @@
 				3082EE2A1C4E61AF004DAB08 /* DefaultSettingsTableViewCell.xib in Resources */,
 				30928DFA1C465CBA00041847 /* ButtonTableViewCell.xib in Resources */,
 				4F79B9231C43DC2D0082740E /* Assets.xcassets in Resources */,
+				B2F8DB291C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.xib in Resources */,
 				3082B9B61C48F1DE00C4925D /* BusinessProfileEditTableViewController.xib in Resources */,
 				30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */,
 				30928DFF1C465CCC00041847 /* AvatarTableViewCell.xib in Resources */,
 				304359131C479F6F007B6959 /* ProfileDefaultTableViewCell.xib in Resources */,
+				B2F8DB2E1C4FBB390083FE1F /* AccountTypeTableViewCell.xib in Resources */,
 				30BBACF11C43EE24004F22D2 /* TextFieldTableViewCell.xib in Resources */,
 				30928DDD1C464F7200041847 /* IconCollectionViewCell.xib in Resources */,
 				30928DD21C463CA100041847 /* CustomRefreshControlView.xib in Resources */,
@@ -1127,9 +1147,9 @@
 				30928DF51C465CA700041847 /* InputTableViewCell.xib in Resources */,
 				30A074DC1C4F96AD00BCE672 /* ForgotPasswordTableViewController.xib in Resources */,
 				307E2EDD1C4A59950007A7CC /* NewItemPriceTableViewCell.xib in Resources */,
+				4F49DDC71C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.xib in Resources */,
 				3082B9AA1C48F00A00C4925D /* EditProfileAboutTableViewCell.xib in Resources */,
 				3082EE2F1C4E64A2004DAB08 /* SearchAreaTableViewCell.xib in Resources */,
-				30802F151C495E34008D97EC /* SelectNewAdCategoryTableViewController.xib in Resources */,
 				30BBACFA1C43EEF9004F22D2 /* TryBeforeTableViewCell.xib in Resources */,
 				3082EE1D1C4E4507004DAB08 /* SearchSettingsTableViewController.xib in Resources */,
 				4F79B9261C43DD130082740E /* LoginViewController.xib in Resources */,
@@ -1154,8 +1174,7 @@
 				307E2EE61C4A59E80007A7CC /* NewItemTextTableViewCell.m in Sources */,
 				30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */,
 				4FA19C241C46829000140343 /* UIButton+AFNetworking.m in Sources */,
-				30802F141C495E34008D97EC /* SelectNewAdCategoryTableViewController.m in Sources */,
-				30928E0E1C46683E00041847 /* RegisterTypeSelectViewController.m in Sources */,
+				B2F8DB281C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.m in Sources */,
 				4F637BFC1C46596F00DE7CCA /* Utils.m in Sources */,
 				4FA19C071C46828600140343 /* AFSecurityPolicy.m in Sources */,
 				4FA19C2C1C46831C00140343 /* APIClient.m in Sources */,
@@ -1168,6 +1187,7 @@
 				4FA19C271C46829000140343 /* UIRefreshControl+AFNetworking.m in Sources */,
 				30A074E71C4F988000BCE672 /* SuccessPasswordTableViewCell.m in Sources */,
 				3082B9A91C48F00A00C4925D /* EditProfileAboutTableViewCell.m in Sources */,
+				4F49DDC61C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.m in Sources */,
 				3082EE241C4E5852004DAB08 /* CategoryHeaderView.m in Sources */,
 				4FA19C261C46829000140343 /* UIProgressView+AFNetworking.m in Sources */,
 				30802F0D1C495C07008D97EC /* AddNewItemTableViewController.m in Sources */,
@@ -1177,6 +1197,7 @@
 				4FA19C051C46828600140343 /* AFHTTPSessionManager.m in Sources */,
 				30928DEB1C465BD600041847 /* BusinessRegisterTableViewController.m in Sources */,
 				3082EE291C4E61AF004DAB08 /* DefaultSettingsTableViewCell.m in Sources */,
+				B2F8DB2D1C4FBB390083FE1F /* AccountTypeTableViewCell.m in Sources */,
 				3043590D1C479F51007B6959 /* ProfileTableViewController.m in Sources */,
 				4F637BF61C464E2200DE7CCA /* TextInputNavigationCollection.m in Sources */,
 				30A074E21C4F986700BCE672 /* ResetPasswordTableViewCell.m in Sources */,
