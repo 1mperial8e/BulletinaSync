@@ -73,7 +73,7 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
 {
     UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
     CGRect frame = self.presentationRect;
-    frame.origin.y += CGRectGetHeight([UIApplication sharedApplication].statusBarFrame) + self.navBarHeight;
+    frame.origin.y += CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
     imageView.frame = frame;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds = YES;
@@ -104,7 +104,7 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
     
     self.imageView.layer.bounds = [boundsAnim.toValue CGRectValue];
     self.imageView.layer.position = [positionAnim.toValue CGPointValue];
-    
+	
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration animations:^{
         weakSelf.backgroundView.alpha = 1;
@@ -121,7 +121,7 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
     boundsAnim.toValue = [NSValue valueWithCGRect:originBounds];
     
     CGPoint originPosition = CGPointMake(CGRectGetMidX(self.presentationRect), CGRectGetMidY(self.presentationRect));
-    originPosition.y += CGRectGetHeight([UIApplication sharedApplication].statusBarFrame) + self.navBarHeight;
+    originPosition.y += CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
     CABasicAnimation *positionAnim = [CABasicAnimation animationWithKeyPath:@"position"];
     positionAnim.fromValue = [NSValue valueWithCGPoint:self.imageView.layer.position];
     positionAnim.toValue = [NSValue valueWithCGPoint:originPosition];
@@ -191,11 +191,6 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
     self.imageView.frame = frame;
     [self.view addSubview:self.imageView];
     [self animateHide];
-}
-
-- (CGFloat)navBarHeight
-{
-	return 0;
 }
 
 #pragma mark - UIScrollViewDelegate
