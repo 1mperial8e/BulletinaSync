@@ -6,6 +6,8 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-@interface MainPageController : UITableViewController
+#import "ItemsListTableViewController.h"
+
+@interface MainPageController : ItemsListTableViewController
 
 @end

@@ -7,19 +7,11 @@
 //
 
 #import "MainPageController.h"
-#import "ItemTableViewCell.h"
-#import "CustomRefreshControlView.h"
-#import "ProfileTableViewController.h"
 #import "SelectNewAdCategoryTableViewController.h"
-#import "FullScreenImageViewController.h"
-
-static CGFloat const ItemTableViewCellHeigth = 140.0f;
 
 @interface MainPageController () <UISearchBarDelegate>
 
 @property (strong, nonatomic) UISearchController *searchController;
-
-@property (assign, nonatomic) ProfileType profileType;
 
 //Temp
 @property (strong, nonatomic) NSString *itemText;
@@ -37,7 +29,7 @@ static CGFloat const ItemTableViewCellHeigth = 140.0f;
 	[self addSearchBar];
 	
 	//Temp
-	self.itemText = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor.	ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor. sed do eiusmod tempor.";
+	self.itemText = @"Lorem ipsum dolor sit er elit lamet, consectetaur ci l li um adi pis ici ng pe cu, sed do eiu smod tempor.	ipsum dolor sit er elit lamet, consectetaur c i ll iu m adipisicing pecu, sed do eiusmod tempor dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor. sed do eiusmod tempor.";
 	
 	self.itemImage = [UIImage imageNamed:@"ItemExample"];
 }
@@ -54,7 +46,7 @@ static CGFloat const ItemTableViewCellHeigth = 140.0f;
     ItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.itemImageView.image = self.itemImage;
-	cell.itemViewHeightConstraint.constant = [self heighForImageView];
+	cell.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];
 	[self.view layoutIfNeeded];
 	if (indexPath.item % 2) {
         [cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
@@ -74,44 +66,21 @@ static CGFloat const ItemTableViewCellHeigth = 140.0f;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return [self itemCellHeightForIndexPath:indexPath];
-}
-
-- (CGFloat)itemCellHeightForIndexPath:(NSIndexPath *)indexPath
-{
-	CGFloat textViewHeigth = 0;
-	ItemTableViewCell *cell = [[NSBundle mainBundle] loadNibNamed:ItemTableViewCell.ID owner:nil options:nil].firstObject;
-	cell.itemTextView.text = self.itemText;
-	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-	textViewHeigth = ceil([cell.itemTextView sizeThatFits:CGSizeMake(ScreenWidth - 32, MAXFLOAT)].height);
-	return ItemTableViewCellHeigth + [self heighForImageView] + textViewHeigth;
-}
-
-- (CGFloat)heighForImageView
-{
-	CGFloat imageViewHeigth = 0;
-	if (self.itemImage) {
-		CGFloat ratio = self.itemImage.size.height / self.itemImage.size.width;
-		imageViewHeigth = (ScreenWidth - 32) * ratio;
-	}
-	return imageViewHeigth;
+	return [self itemCellHeightForText:self.itemText andImage:self.itemImage];
 }
 
 #pragma mark - Setup
 
 - (void)tableViewSetup
 {
-	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-	[self.tableView registerNib:ItemTableViewCell.nib forCellReuseIdentifier:ItemTableViewCell.ID];
-	self.tableView.backgroundColor = [UIColor mainPageBGColor];
-	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 60, 0)];
+	[super tableViewSetup];
+
 	UIView *backView = [UIView new];
 	backView.backgroundColor = [UIColor mainPageBGColor];
 	self.tableView.backgroundView = backView;
 	
 	UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.tintColor = [UIColor appOrangeColor];
-    
 	[self.tableView insertSubview:refreshControl atIndex:0];
 	[refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
 	
@@ -124,19 +93,15 @@ static CGFloat const ItemTableViewCellHeigth = 140.0f;
 	[self.navigationController.view addSubview:adsPlaceholder];
 }
 
-- (UIStatusBarStyle) preferredStatusBarStyle
+- (UIStatusBarStyle)preferredStatusBarStyle
 {
 	return UIStatusBarStyleDefault;
 }
 
 - (void)setupNavigationBar
-{	
+{
+	[super setupNavigationBar];
 	[self setNeedsStatusBarAppearanceUpdate];
-	
-	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
-	[self.navigationController.navigationBar
-	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
 	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddNew_navbarIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewButtonAction:)];
 	
@@ -203,22 +168,6 @@ static CGFloat const ItemTableViewCellHeigth = 140.0f;
 		self.profileType = IndividualProfile;
 	} else {
 		self.profileType = BusinessProfile;
-	}
-}
-
-- (void)itemImageTap:(UITapGestureRecognizer *)sender
-{
-	if (((UIImageView *)sender.view).image) {
-        CGRect cellFrame = [self.navigationController.view convertRect:sender.view.superview.superview.frame fromView:self.tableView];
-        CGRect imageViewRect = sender.view.frame;
-        imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
-        imageViewRect.origin.y = cellFrame.origin.y + CGRectGetHeight(self.navigationController.navigationBar.frame);
-
-		FullScreenImageViewController *imageController = [FullScreenImageViewController new];
-		imageController.image = ((UIImageView *)sender.view).image;
-		imageController.presentationRect = imageViewRect;
-		imageController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-		[self.navigationController presentViewController:imageController animated:NO completion:nil];
 	}
 }
 

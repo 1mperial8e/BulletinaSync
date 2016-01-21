@@ -6,9 +6,8 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 #import "ProfileTableViewController.h"
+#import "ItemsListTableViewController.h"
 
-@interface MyItemsTableViewController : UITableViewController
-
-@property (assign, nonatomic) ProfileType profileType;
+@interface MyItemsTableViewController : ItemsListTableViewController
 
 @end

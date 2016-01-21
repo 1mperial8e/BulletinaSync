@@ -12,9 +12,7 @@
 //Cells
 #import "IndividualProfileLogoTableViewCell.h"
 #import "BusinessProfileLogoTableViewCell.h"
-#import "ItemTableViewCell.h"
 
-static CGFloat const ItemTableViewCellHeigth = 510.0f;
 static CGFloat const PersonalLogoCellHeigth = 220;
 static CGFloat const BusinessLogoCellHeigth = 252;
 
@@ -29,6 +27,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UIImageView *topBackgroundImageView;
 @property (weak, nonatomic) NSLayoutConstraint *backgroundTopConstraint;
 
+//Temp
+@property (strong, nonatomic) NSString *itemText;
+@property (strong, nonatomic) UIImage *itemImage;
+
 @end
 
 @implementation MyItemsTableViewController
@@ -37,9 +39,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
     [super viewDidLoad];
 	[self tableViewSetup];
-	[self setupNavBar];
+	[self setupNavigationBar];
 	
 	self.title = @"My Bulletina";
+	
+	//Temp
+	self.itemText = @"Lorem ipsum dolor sit er elit lamet, consectetaur ci l li um adi pis ici ng pe cu, sed do eiu smod tempor.	ipsum dolor sit er elit lamet, consectetaur c i ll iu m adipisicing pecu, sed do eiusmod tempor dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor. sed do eiusmod tempor.";
+	
+	self.itemImage = [UIImage imageNamed:@"ItemExample"];
 }
 
 #pragma mark - Table view data source
@@ -79,23 +86,23 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return cell;
 }
 
-- (void)addCustomBorderToButton:(UIButton *)button
-{
-	button.layer.borderColor = [UIColor whiteColor].CGColor;
-	button.layer.borderWidth = 1.0f;
-	button.layer.cornerRadius = 5;
-}
-
 - (ItemTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath
 {
 	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
+	
+	cell.itemImageView.image = self.itemImage;
+	cell.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];
+	[self.view layoutIfNeeded];
 	
 	if (indexPath.item % 2) {
 		[cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
 		cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
 		cell.itemStateButton.hidden = NO;
 	}
+	
+	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+	cell.itemTextView.text = self.itemText;
 	
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
 	[cell.itemImageView addGestureRecognizer:imageTapGesture];
@@ -108,30 +115,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	CGFloat height = ItemTableViewCellHeigth;
 	if (indexPath.row == LogoCellIndex) {
 		return [self heightForTopCell];
 	}
-	return height;
+	return [self itemCellHeightForText:self.itemText andImage:self.itemImage];
 }
 
 #pragma mark - Actions
-
-- (void)itemImageTap:(UITapGestureRecognizer *)sender
-{
-	if (((UIImageView *)sender.view).image) {
-		CGRect cellFrame = [self.navigationController.view convertRect:sender.view.superview.superview.frame fromView:self.tableView];
-		CGRect imageViewRect = sender.view.frame;
-		imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
-		imageViewRect.origin.y = cellFrame.origin.y + CGRectGetHeight(self.navigationController.navigationBar.frame);
-		
-		FullScreenImageViewController *imageController = [FullScreenImageViewController new];
-		imageController.image = ((UIImageView *)sender.view).image;
-		imageController.presentationRect = imageViewRect;
-		imageController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-		[self.navigationController presentViewController:imageController animated:NO completion:nil];
-	}
-}
 
 - (void)doneButtonTap:(id)sender
 {
@@ -156,14 +146,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return (size.height + BusinessLogoCellHeigth);
 }
 
+- (void)addCustomBorderToButton:(UIButton *)button
+{
+	button.layer.borderColor = [UIColor whiteColor].CGColor;
+	button.layer.borderWidth = 1.0f;
+	button.layer.cornerRadius = 5;
+}
+
 #pragma mark - Setup
 
-- (void)setupNavBar
+- (void)setupNavigationBar
 {
-	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
-	[self.navigationController.navigationBar
-	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
+	[super setupNavigationBar];
 	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTap:)];
 	self.navigationItem.hidesBackButton = YES;
@@ -171,11 +165,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)tableViewSetup
 {
-	[self.tableView registerNib:ItemTableViewCell.nib forCellReuseIdentifier:ItemTableViewCell.ID];
+	[super tableViewSetup];
+	
 	[self.tableView registerNib:IndividualProfileLogoTableViewCell.nib forCellReuseIdentifier:IndividualProfileLogoTableViewCell.ID];
 	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];
-	
-	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
 	UIView *backgroundView = [[UIView alloc] init];
 	UIImageView *backgroundImageView = [[UIImageView alloc] init];
 	[backgroundView addSubview:backgroundImageView];
@@ -183,15 +176,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];
 	backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
 	self.tableView.backgroundView = backgroundView;
-	self.tableView.backgroundColor = [UIColor whiteColor];
 	self.backgroundTopConstraint = [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeTop multiplier:1.0f constant:64];
 	[backgroundView addConstraint:self.backgroundTopConstraint];
-	
 	[backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:[self heightForTopCell]]];
-	
 	[backgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
 	self.topBackgroundImageView = backgroundImageView;
-	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 #pragma mark - UIScrollViewDelegate
