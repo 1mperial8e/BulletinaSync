@@ -82,7 +82,6 @@
 		30A3057D1C4FC7BC002A48D0 /* MyItemsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A3057B1C4FC7BC002A48D0 /* MyItemsTableViewController.m */; };
 		30A3057E1C4FC7BC002A48D0 /* MyItemsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A3057C1C4FC7BC002A48D0 /* MyItemsTableViewController.xib */; };
 		30ACB0911C5276D500A879D5 /* BulletinaLoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */; };
-		30ACB0931C527C6D00A879D5 /* BulletinaLoaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30ACB0921C527C6D00A879D5 /* BulletinaLoaderView.xib */; };
 		30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */; };
 		30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */; };
 		30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */; };
@@ -233,7 +232,6 @@
 		30A3057C1C4FC7BC002A48D0 /* MyItemsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyItemsTableViewController.xib; sourceTree = "<group>"; };
 		30ACB08F1C5276D500A879D5 /* BulletinaLoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletinaLoaderView.h; sourceTree = "<group>"; };
 		30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletinaLoaderView.m; sourceTree = "<group>"; };
-		30ACB0921C527C6D00A879D5 /* BulletinaLoaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BulletinaLoaderView.xib; sourceTree = "<group>"; };
 		30BBACE21C43EB4D004F22D2 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		30BBACE71C43EDD4004F22D2 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
@@ -796,7 +794,6 @@
 			children = (
 				30ACB08F1C5276D500A879D5 /* BulletinaLoaderView.h */,
 				30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */,
-				30ACB0921C527C6D00A879D5 /* BulletinaLoaderView.xib */,
 			);
 			path = BulletinaLoader;
 			sourceTree = "<group>";
@@ -1147,7 +1144,6 @@
 				30823DCD1C50D4C800609A0D /* ItemsListTableViewController.xib in Resources */,
 				307E2EE71C4A59E80007A7CC /* NewItemTextTableViewCell.xib in Resources */,
 				3099D48D1C4D4F080080C05B /* FullScreenImageViewController.xib in Resources */,
-				30ACB0931C527C6D00A879D5 /* BulletinaLoaderView.xib in Resources */,
 				307E2EE21C4A59C40007A7CC /* NewItemImageTableViewCell.xib in Resources */,
 				307DD9201C44F93200F59857 /* ItemTableViewCell.xib in Resources */,
 				3043591D1C479FBC007B6959 /* BusinessProfileLogoTableViewCell.xib in Resources */,

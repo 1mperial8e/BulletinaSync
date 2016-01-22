@@ -10,7 +10,7 @@
 
 @interface BulletinaLoaderView ()
 
-@property (strong, nonatomic) UIView *baseView;
+@property (weak, nonatomic) UIView *baseView;
 
 @property (assign, nonatomic) NSInteger animationIndex;
 @property (strong, nonatomic) NSArray *animationsArray;
@@ -35,33 +35,43 @@
 - (void)show
 {
 	[self.baseView addSubview:self];
-	self.animationIndex = (long)0;
+	self.animationIndex = 0;
 	self.animationsArray = @[@"simpleSquareLoader", @"simpleRoundLoader", @"bulletinaSimpleLogo", @"bulletinaLogoWithDots", @"bulletinaLogoPulse"];
+	self.labelText = @"Please wait ...";
 	[self changeAnimation];
 }
 
 - (void)hide
 {
 	self.layer.sublayers = nil;
-	[self removeFromSuperview];
+	if (self.superview) {
+		[self removeFromSuperview];
+	}
 }
 
 - (void)changeAnimation
 {
 	self.layer.sublayers = nil;
-	UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 30, 150, 30)];
+	UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) / 2.0f - 125, 30, 250, 30)];
 	closeButton.layer.cornerRadius = 10;
-	[closeButton setTitle:@"Close" forState:UIControlStateNormal];
+	[closeButton setTitle:@"Close loader" forState:UIControlStateNormal];
 	closeButton.backgroundColor = [UIColor blackColor];
 	[closeButton addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
 	[self addSubview:closeButton];
 	
-	UIButton *changeButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 70, 150, 30)];
+	UIButton *changeButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds) / 2.0f - 125, 70, 250, 30)];
 	changeButton.layer.cornerRadius = 10;
-	[changeButton setTitle:@"Change" forState:UIControlStateNormal];
+	[changeButton setTitle:@"Change animation" forState:UIControlStateNormal];
 	changeButton.backgroundColor = [UIColor blueColor];
 	[changeButton addTarget:self action:@selector(changeAnimation) forControlEvents:UIControlEventTouchUpInside];
 	[self addSubview:changeButton];
+	
+	UILabel *loaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds) / 4, CGRectGetWidth(self.bounds), 30)];
+	loaderLabel.text = self.animationsArray[self.animationIndex];//self.labelText;
+	loaderLabel.backgroundColor =[UIColor whiteColor];
+	loaderLabel.textColor = [UIColor appOrangeColor];
+	loaderLabel.textAlignment = NSTextAlignmentCenter;
+	[self addSubview:loaderLabel];
 	
 	[self performSelector:NSSelectorFromString((NSString *)self.animationsArray[(long)self.animationIndex]) withObject:nil];
 	self.animationIndex++;

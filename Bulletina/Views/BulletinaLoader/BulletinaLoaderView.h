@@ -6,9 +6,9 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-#import "BaseView.h"
+@interface BulletinaLoaderView : UIView
 
-@interface BulletinaLoaderView : BaseView
+@property (strong, nonatomic) NSString *labelText;
 
 - (instancetype)initWithView:(UIView *)baseView;
 - (void)show;
