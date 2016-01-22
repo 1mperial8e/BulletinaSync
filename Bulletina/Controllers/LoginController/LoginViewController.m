@@ -214,7 +214,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	LoaderViewController *loader = [[LoaderViewController alloc] initWithView:self.navigationController.view];
 	[loader show];
-	[loader performSelector:@selector(hide) withObject:nil afterDelay:2.0];
+//	[loader performSelector:@selector(hide) withObject:nil afterDelay:2.0];
 
 
 //	if (!self.usernameTextfield.text.length) {
