@@ -1,12 +1,14 @@
 //
-//  LoaderViewController.h
+//  BulletinaLoaderView.h
 //  Bulletina
 //
-//  Created by Roman R on 22.01.16.
+//  Created by Stas Volskyi on 1/11/16.
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-@interface LoaderViewController : UIViewController
+#import "BaseView.h"
+
+@interface BulletinaLoaderView : BaseView
 
 - (instancetype)initWithView:(UIView *)baseView;
 - (void)show;

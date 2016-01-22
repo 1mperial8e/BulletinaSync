@@ -11,7 +11,8 @@
 #import "MainPageController.h"
 #import "RegisterTypeSelectViewController.h"
 #import "ForgotPasswordTableViewController.h"
-#import "LoaderViewController.h"
+
+#import "BulletinaLoaderView.h"
 
 // Cells
 #import "LogoTableViewCell.h"
@@ -63,6 +64,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewWillAppear:(BOOL)animated
 {
 	[self setupUI];
+	
+	//loader test
+	BulletinaLoaderView *loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view];
+	[loader show];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -212,16 +217,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)loginButtonTap:(id)sender
 {
-	LoaderViewController *loader = [[LoaderViewController alloc] initWithView:self.navigationController.view];
-	[loader show];
-//	[loader performSelector:@selector(hide) withObject:nil afterDelay:2.0];
-
-
-//	if (!self.usernameTextfield.text.length) {
-//		[Utils showErrorWithMessage:@"Username / email is required."];
-//	} else if (!self.passwordTextfield.text.length) {
-//		[Utils showErrorWithMessage:@"Password is required."];
-//	}
+	if (!self.usernameTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Username / email is required."];
+	} else if (!self.passwordTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Password is required."];
+	}
 }
 
 - (void)forgotButtonTap:(id)sender
