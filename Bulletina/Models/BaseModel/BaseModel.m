@@ -12,6 +12,11 @@
 
 #pragma mark - init
 
++ (instancetype)initWithDictionary:(NSDictionary *)dictionary
+{
+	return [[self alloc] initWithDictionary:dictionary];
+}
+
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
