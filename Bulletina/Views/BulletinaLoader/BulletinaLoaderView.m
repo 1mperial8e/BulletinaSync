@@ -21,10 +21,11 @@
 
 #pragma mark - Lifecycle
 
-- (instancetype)initWithView:(UIView *)baseView
+- (instancetype)initWithView:(UIView *)baseView andText:(NSString *)text
 {
 	self = [super initWithFrame:baseView.frame];
 	if (self) {
+		_labelText = text;
 		_baseView = baseView;
 	}
 	return self;	
@@ -66,12 +67,14 @@
 	[changeButton addTarget:self action:@selector(changeAnimation) forControlEvents:UIControlEventTouchUpInside];
 	[self addSubview:changeButton];
 	
-	UILabel *loaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds) / 4, CGRectGetWidth(self.bounds), 30)];
-	loaderLabel.text = self.animationsArray[self.animationIndex];//self.labelText;
-	loaderLabel.backgroundColor =[UIColor whiteColor];
-	loaderLabel.textColor = [UIColor appOrangeColor];
-	loaderLabel.textAlignment = NSTextAlignmentCenter;
-	[self addSubview:loaderLabel];
+	if (self.labelText.length) {
+		UILabel *loaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds) / 4, CGRectGetWidth(self.bounds), 30)];
+		loaderLabel.text = self.labelText; //self.animationsArray[self.animationIndex];
+		loaderLabel.backgroundColor =[UIColor whiteColor];
+		loaderLabel.textColor = [UIColor appOrangeColor];
+		loaderLabel.textAlignment = NSTextAlignmentCenter;
+		[self addSubview:loaderLabel];
+	}
 	
 	[self performSelector:NSSelectorFromString((NSString *)self.animationsArray[(long)self.animationIndex]) withObject:nil];
 	self.animationIndex++;
