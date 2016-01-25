@@ -1128,8 +1128,8 @@
 		B247CCB01C520FC70064396E /* MessageTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				B22AF4C31C53C821008D1708 /* MessageTableViewCell.m */,
 				B22AF4C41C53C821008D1708 /* MessageTableViewCell.h */,
+				B22AF4C31C53C821008D1708 /* MessageTableViewCell.m */,
 			);
 			path = MessageTableViewCell;
 			sourceTree = "<group>";

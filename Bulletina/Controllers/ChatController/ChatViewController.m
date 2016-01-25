@@ -13,7 +13,7 @@
 #import "MessageTableViewCell.h"
 #import "PostTableViewCell.h"
 
-static NSString *const ViewControllerTitle        = @"Chat";
+static NSString *const ViewControllerTitle = @"Chat";
 static NSString *const MessageTextViewPlaceholder = @"Your message";
 
 static CGFloat const DefaultTableViewSectionsCount = 2;
@@ -29,8 +29,8 @@ typedef NS_ENUM(NSUInteger, SectionType){
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
+@property (weak, nonatomic) IBOutlet UIView *messageInputView;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageTextViewConstraint;
 
 @property (strong, nonatomic) NSMutableArray *dataSource;
@@ -38,6 +38,8 @@ typedef NS_ENUM(NSUInteger, SectionType){
 @end
 
 @implementation ChatViewController
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
@@ -47,16 +49,31 @@ typedef NS_ENUM(NSUInteger, SectionType){
     [self prepareDataSource];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
-    [self registerForKeyboardNotifications];
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewDidDisappear:animated];
-    [self unregisterForKeyboardNotifications];
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - UIResponder
+
+- (UIView *)inputAccessoryView
+{
+    return self.messageInputView;
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
 }
 
 #pragma mark - UITableViewDataSource
@@ -69,7 +86,7 @@ typedef NS_ENUM(NSUInteger, SectionType){
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //TODO: delete hardcode
-    return section == SectionMessages ? self.dataSource.count :1;
+    return section == SectionMessages ? self.dataSource.count : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,12 +94,7 @@ typedef NS_ENUM(NSUInteger, SectionType){
     UITableViewCell *cell;
     
     if (indexPath.section == SectionMessages) {
-        cell = [tableView dequeueReusableCellWithIdentifier:MessageTableViewCell.ID];
-        
-        if (!cell) {
-            cell = [[MessageTableViewCell alloc] initCellWithReuseIdentifier:MessageTableViewCell.ID];
-        }
-        
+        cell = [[MessageTableViewCell alloc] initCellWithReuseIdentifier:MessageTableViewCell.ID];
         [self configureMessageCell:(MessageTableViewCell *)cell forIndexPath:indexPath];
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:PostTableViewCell.ID forIndexPath:indexPath];
@@ -95,7 +107,7 @@ typedef NS_ENUM(NSUInteger, SectionType){
 - (void)configureMessageCell:(MessageTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger type = indexPath.row % 2 ? MessageTypeOutgoing : MessageTypeIncoming;
-    [(MessageTableViewCell *)cell configureCellWithMessageType:type];
+    [cell configureCellWithMessageType:type];
 }
 
 - (void)configureCell:(PostTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
@@ -110,14 +122,6 @@ typedef NS_ENUM(NSUInteger, SectionType){
     if (indexPath.section == SectionPost) {
         return DefaultRowHeight;
     } else {
-        
-//        static MessageTableViewCell *cell;
-//        static dispatch_once_t onceToken;
-//        dispatch_once(&onceToken, ^{
-//            cell = [MessageTableViewCell new];
-//        });
-//
-        
         //TODO: configure message cell, calculate cell height, delete hardcoded height
         
         return 120.f;
@@ -163,41 +167,6 @@ typedef NS_ENUM(NSUInteger, SectionType){
     }
 }
 
-#pragma mark - Keyboard Notifications
-
-- (void)registerForKeyboardNotifications
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)unregisterForKeyboardNotifications
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-    NSDictionary *userInfo = [notification userInfo];
-    CGRect keyboardRect = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.bottomConstraint.constant = CGRectGetHeight(keyboardRect);
-        [self.view layoutIfNeeded];
-    }];
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification
-{
-    CGFloat animationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.bottomConstraint.constant = 0.f;
-        [self.view layoutIfNeeded];
-    }];
-}
-
 #pragma mark - Private Methods
 
 - (void)prepareUI
@@ -205,12 +174,13 @@ typedef NS_ENUM(NSUInteger, SectionType){
     [self prepareNavigationBar];
     self.title = ViewControllerTitle;
     self.view.backgroundColor = [UIColor mainPageBGColor];
-    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (void)prepareNavigationBar
 {
-    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)registerNibs
@@ -222,7 +192,7 @@ typedef NS_ENUM(NSUInteger, SectionType){
 {
     //TODO: remove hardcoded data source
     
-    self.dataSource = @[@1, @1, @1, @1, @1, @1, @1, @1, @1, @1];
+    self.dataSource = @[@1, @1, @1, @1, @1, @1, @1, @1, @1, @1].mutableCopy;
     [self.tableView reloadData];
 }
 
@@ -257,4 +227,19 @@ typedef NS_ENUM(NSUInteger, SectionType){
     
     //TODO: send button tap handler
 }
+
+#pragma mark - NSNotification
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat height = keyboardFrame.size.height - self.tabBarController.tabBar.frame.size.height;
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, height, 0);
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    self.tableView.contentInset = UIEdgeInsetsZero;
+}
+
 @end
