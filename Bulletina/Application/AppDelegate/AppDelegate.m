@@ -10,7 +10,7 @@
 
 // Controllers
 #import "LoginViewController.h"
-#import "ChatViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -20,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    ChatViewController *loginController = [ChatViewController new];
+    LoginViewController *loginController = [LoginViewController new];
 	UINavigationController *loginNavigationController = [[UINavigationController alloc] initWithRootViewController:loginController];
     self.window.rootViewController = loginNavigationController;
     [self.window makeKeyAndVisible];
