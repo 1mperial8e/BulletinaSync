@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="KGk-i7-Jjw" customClass="MessageTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="342" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFf-1B-pOw" userLabel="Message Label">
+                        <rect key="frame" x="62" y="15" width="246" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="raf-5k-SJH" userLabel="Badge Label">
+                        <rect key="frame" x="318" y="13" width="24" height="24"/>
+                        <color key="backgroundColor" red="1" green="0.15786631405921292" blue="0.097182278499589159" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="Bgg-PJ-24f"/>
+                            <constraint firstAttribute="height" constant="24" id="snW-BO-lcl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HeM-of-SPo" userLabel="Avatar Image View">
+                        <rect key="frame" x="10" y="5" width="40" height="40"/>
+                        <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="N8I-Ys-Bhx"/>
+                            <constraint firstAttribute="width" constant="40" id="hbg-nI-08Z"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="raf-5k-SJH" firstAttribute="leading" secondItem="oFf-1B-pOw" secondAttribute="trailing" constant="10" id="Cqh-yo-YPn"/>
+                    <constraint firstItem="raf-5k-SJH" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Jn5-mM-uH5"/>
+                    <constraint firstItem="oFf-1B-pOw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Lpf-79-D2Z"/>
+                    <constraint firstItem="oFf-1B-pOw" firstAttribute="leading" secondItem="HeM-of-SPo" secondAttribute="trailing" constant="12" id="bEu-Bn-dtK"/>
+                    <constraint firstItem="HeM-of-SPo" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cyT-8F-tgo"/>
+                    <constraint firstAttribute="trailing" secondItem="raf-5k-SJH" secondAttribute="trailing" id="tDN-rq-d4W"/>
+                    <constraint firstItem="HeM-of-SPo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="xpa-eb-Cjb"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="avatarImageView" destination="HeM-of-SPo" id="3Bt-dQ-oZv"/>
+                <outlet property="badgeLabel" destination="raf-5k-SJH" id="60l-1m-JTX"/>
+                <outlet property="messageLabel" destination="oFf-1B-pOw" id="fOU-in-bPk"/>
+            </connections>
+            <point key="canvasLocation" x="280" y="246.5"/>
+        </tableViewCell>
+    </objects>
+</document>

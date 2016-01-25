@@ -167,7 +167,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == LogOutCellIndex) {
 		[self.navigationController dismissViewControllerAnimated:NO completion:nil];
 		[self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];		
-	} else if (indexPath.item == SearchSettingsCellIndex) {
+    } else if (indexPath.item == MessagesCellIndex) {
+        MessageTableViewController *messageTableViewController = [MessageTableViewController new];
+        [self.navigationController pushViewController:messageTableViewController animated:YES];
+    } else if (indexPath.item == SearchSettingsCellIndex) {
 		SearchSettingsTableViewController *searchSettingsTableViewController = [SearchSettingsTableViewController new];
 		[self.navigationController pushViewController:searchSettingsTableViewController animated:YES];
 	}	else if (indexPath.item == MyItemsCellIndex) {
