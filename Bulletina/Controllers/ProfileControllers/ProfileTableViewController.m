@@ -11,6 +11,7 @@
 #import "IndividualProfileEditTableViewController.h"
 #import "BusinessProfileEditTableViewController.h"
 #import "MyItemsTableViewController.h"
+#import "MessageTableViewController.h"
 
 //Cells
 #import "ProfileDefaultTableViewCell.h"

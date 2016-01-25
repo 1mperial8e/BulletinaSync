@@ -120,6 +120,10 @@
 		B2F8DB2E1C4FBB390083FE1F /* AccountTypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2F8DB2C1C4FBB390083FE1F /* AccountTypeTableViewCell.xib */; };
 		B2F8DB331C4FD14B0083FE1F /* AccountTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2F8DB321C4FD14B0083FE1F /* AccountTypes.plist */; };
 		B2B5E03A1C50FBCD000E5A4C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B5E0391C50FBCD000E5A4C /* LocationManager.m */; };
+		B2B5E02F1C50C876000E5A4C /* MessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B5E02D1C50C876000E5A4C /* MessageTableViewController.m */; };
+		B2B5E0301C50C876000E5A4C /* MessageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B5E02E1C50C876000E5A4C /* MessageTableViewController.xib */; };
+		B2B5E0351C50C8C0000E5A4C /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B5E0331C50C8C0000E5A4C /* MessageTableViewCell.m */; };
+		B2B5E0361C50C8C0000E5A4C /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B5E0341C50C8C0000E5A4C /* MessageTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -311,6 +315,12 @@
 		B2F8DB321C4FD14B0083FE1F /* AccountTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AccountTypes.plist; sourceTree = "<group>"; };
 		B2B5E0381C50FBCD000E5A4C /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		B2B5E0391C50FBCD000E5A4C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
+		B2B5E02C1C50C876000E5A4C /* MessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewController.h; sourceTree = "<group>"; };
+		B2B5E02D1C50C876000E5A4C /* MessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewController.m; sourceTree = "<group>"; };
+		B2B5E02E1C50C876000E5A4C /* MessageTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableViewController.xib; sourceTree = "<group>"; };
+		B2B5E0321C50C8C0000E5A4C /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
+		B2B5E0331C50C8C0000E5A4C /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
+		B2B5E0341C50C8C0000E5A4C /* MessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -998,6 +1008,7 @@
 				4F49DDC21C50D82F002E2F24 /* SelectNewItemCategoryController */,
 				30823DC81C50D4A000609A0D /* ItemsListController */,
 				30A305791C4FC77A002A48D0 /* MyItemsController */,
+				B2B5E02B1C50C847000E5A4C /* MessageViewController */,
 				30A074D61C4F960600BCE672 /* ForgotPasswordController */,
 				3082EE121C4E43DF004DAB08 /* SearchSettingsController */,
 				3099D47E1C4D2BE10080C05B /* FullScreenImageController */,
@@ -1107,15 +1118,36 @@
 			path = AccountTypeCell;
 			sourceTree = "<group>";
 		};
-B2B5E0371C50FBBC000E5A4C /* LocationManager */ = {
-isa = PBXGroup;
-children = (
-B2B5E0381C50FBCD000E5A4C /* LocationManager.h */,
-B2B5E0391C50FBCD000E5A4C /* LocationManager.m */,
-);
-path = LocationManager;
-sourceTree = "<group>";
-};
+        B2B5E0371C50FBBC000E5A4C /* LocationManager */ = {
+            isa = PBXGroup;
+            children = (
+                B2B5E0381C50FBCD000E5A4C /* LocationManager.h */,
+                B2B5E0391C50FBCD000E5A4C /* LocationManager.m */,
+            );
+            path = LocationManager;
+            sourceTree = "<group>";
+        };
+        B2B5E02B1C50C847000E5A4C /* MessageViewController */ = {
+            isa = PBXGroup;
+            children = (
+                B2B5E0311C50C8A9000E5A4C /* MessageTableViewCell */,
+                B2B5E02C1C50C876000E5A4C /* MessageTableViewController.h */,
+                B2B5E02D1C50C876000E5A4C /* MessageTableViewController.m */,
+                B2B5E02E1C50C876000E5A4C /* MessageTableViewController.xib */,
+            );
+            path = MessageViewController;
+            sourceTree = "<group>";
+        };
+        B2B5E0311C50C8A9000E5A4C /* MessageTableViewCell */ = {
+            isa = PBXGroup;
+            children = (
+                B2B5E0321C50C8C0000E5A4C /* MessageTableViewCell.h */,
+                B2B5E0331C50C8C0000E5A4C /* MessageTableViewCell.m */,
+                B2B5E0341C50C8C0000E5A4C /* MessageTableViewCell.xib */,
+            );
+            path = MessageTableViewCell;
+            sourceTree = "<group>";
+        };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
