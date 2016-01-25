@@ -6,7 +6,6 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
 @interface LocationManager : NSObject

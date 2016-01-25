@@ -11,7 +11,7 @@
 static CGFloat const MinimunDistance = 5.f;
 
 static NSString *const TitleLocationServicesDisabled = @"Location Service Disabled";
-static NSString *const MessageLocationServicesDisabled = @"To re-enable, please go to Settings and turn on Location Service for this app.";
+static NSString *const MessageLocationServicesDisabled = @"To re-enable, please go to Settings and turn on Location Service for Bulletina.";
 
 @interface LocationManager () <CLLocationManagerDelegate>
 
@@ -25,15 +25,13 @@ static NSString *const MessageLocationServicesDisabled = @"To re-enable, please 
 
 - (id)init
 {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         self.locationManager.distanceFilter = MinimunDistance;
         self.locationManager.delegate = self;
-        
-        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-            [self.locationManager requestWhenInUseAuthorization];
-        }
+        [self.locationManager requestWhenInUseAuthorization];
     }
     return self;
 }
