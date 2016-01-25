@@ -10,9 +10,9 @@
 
 @interface MessageTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageViewAvatar;
-@property (weak, nonatomic) IBOutlet UILabel *labelMassage;
-@property (weak, nonatomic) IBOutlet UILabel *labelBadge;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *badgeLabel;
 
 @end
 
@@ -37,13 +37,13 @@
 
 - (void)prepareUI
 {
-    self.imageViewAvatar.layer.cornerRadius = CGRectGetWidth(self.imageViewAvatar.bounds) / 2;
-    self.imageViewAvatar.layer.masksToBounds = YES;
-    self.labelBadge.layer.cornerRadius = CGRectGetHeight(self.labelBadge.bounds) / 2;
-    self.labelBadge.layer.masksToBounds = YES;
+    self.avatarImageView.layer.cornerRadius = CGRectGetWidth(self.avatarImageView.bounds) / 2;
+    self.avatarImageView.layer.masksToBounds = YES;
+    self.badgeLabel.layer.cornerRadius = CGRectGetHeight(self.badgeLabel.bounds) / 2;
+    self.badgeLabel.layer.masksToBounds = YES;
     
     //TODO: delete
-    self.labelBadge.text = [NSString stringWithFormat:@"%d", arc4random_uniform(10)];
+    self.badgeLabel.text = [NSString stringWithFormat:@"%d", arc4random_uniform(10)];
 }
 
 @end

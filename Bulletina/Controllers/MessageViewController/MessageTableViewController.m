@@ -32,7 +32,7 @@ static NSString *const ViewControllerTitle = @"Messages";
     [self prepareDataSource];
 }
 
-#pragma mark - UITable view data source
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -60,6 +60,7 @@ static NSString *const ViewControllerTitle = @"Messages";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //TODO: show ChatViewController
 }
 
@@ -68,13 +69,14 @@ static NSString *const ViewControllerTitle = @"Messages";
 - (void)prepareUI
 {
     self.title = ViewControllerTitle;
+    self.navigationController.navigationBar.topItem.title = @"Back";
     [self prepareNavigationBar];
     [self prepareTableView];
 }
 
 - (void)prepareNavigationBar
 {
-    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.view.backgroundColor = [UIColor mainPageBGColor];
 }
 
