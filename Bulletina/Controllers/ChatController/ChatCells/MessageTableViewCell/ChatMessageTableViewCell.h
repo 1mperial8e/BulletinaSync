@@ -15,7 +15,7 @@ typedef NS_ENUM(NSUInteger, MessageType){
     MessageTypeOutgoing
 };
 
-@interface MessageTableViewCell : BaseTableViewCell
+@interface ChatMessageTableViewCell : BaseTableViewCell
 
 - (instancetype)initCellWithReuseIdentifier:(NSString *)identifier;
 - (void)configureCellWithMessageType:(MessageType)type;

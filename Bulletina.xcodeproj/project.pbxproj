@@ -112,22 +112,22 @@
 		4FA19C271C46829000140343 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C1D1C46829000140343 /* UIRefreshControl+AFNetworking.m */; };
 		4FA19C281C46829000140343 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C1F1C46829000140343 /* UIWebView+AFNetworking.m */; };
 		4FA19C2C1C46831C00140343 /* APIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C2B1C46831C00140343 /* APIClient.m */; };
-		B22AF4C61C53C821008D1708 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B22AF4C31C53C821008D1708 /* MessageTableViewCell.m */; };
-		B23EC3C01C56181600C15B14 /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23EC3BE1C56181600C15B14 /* PostTableViewCell.m */; };
-		B23EC3C11C56181600C15B14 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B23EC3BF1C56181600C15B14 /* PostTableViewCell.xib */; };
+		B22AF4C61C53C821008D1708 /* ChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B22AF4C31C53C821008D1708 /* ChatMessageTableViewCell.m */; };
+		B23EC3C01C56181600C15B14 /* MessagePostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23EC3BE1C56181600C15B14 /* MessagePostTableViewCell.m */; };
+		B23EC3C11C56181600C15B14 /* MessagePostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B23EC3BF1C56181600C15B14 /* MessagePostTableViewCell.xib */; };
 		B247CCA21C520E060064396E /* ChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B247CCA01C520E060064396E /* ChatViewController.xib */; };
 		B251B3A91C5227650052B9E9 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B251B3A81C5227650052B9E9 /* ChatViewController.m */; };
 		B2A88B431C53BBC70008D619 /* MessageLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A88B3E1C53BBC70008D619 /* MessageLabel.m */; };
+		B2B5E02F1C50C876000E5A4C /* MessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B5E02D1C50C876000E5A4C /* MessageTableViewController.m */; };
+		B2B5E0301C50C876000E5A4C /* MessageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B5E02E1C50C876000E5A4C /* MessageTableViewController.xib */; };
+		B2B5E0351C50C8C0000E5A4C /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B5E0331C50C8C0000E5A4C /* MessageTableViewCell.m */; };
+		B2B5E0361C50C8C0000E5A4C /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B5E0341C50C8C0000E5A4C /* MessageTableViewCell.xib */; };
+		B2B5E03A1C50FBCD000E5A4C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B5E0391C50FBCD000E5A4C /* LocationManager.m */; };
 		B2F8DB281C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F8DB261C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.m */; };
 		B2F8DB291C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2F8DB271C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.xib */; };
 		B2F8DB2D1C4FBB390083FE1F /* AccountTypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F8DB2B1C4FBB390083FE1F /* AccountTypeTableViewCell.m */; };
 		B2F8DB2E1C4FBB390083FE1F /* AccountTypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2F8DB2C1C4FBB390083FE1F /* AccountTypeTableViewCell.xib */; };
 		B2F8DB331C4FD14B0083FE1F /* AccountTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2F8DB321C4FD14B0083FE1F /* AccountTypes.plist */; };
-		B2B5E03A1C50FBCD000E5A4C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B5E0391C50FBCD000E5A4C /* LocationManager.m */; };
-		B2B5E02F1C50C876000E5A4C /* MessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B5E02D1C50C876000E5A4C /* MessageTableViewController.m */; };
-		B2B5E0301C50C876000E5A4C /* MessageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B5E02E1C50C876000E5A4C /* MessageTableViewController.xib */; };
-		B2B5E0351C50C8C0000E5A4C /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B5E0331C50C8C0000E5A4C /* MessageTableViewCell.m */; };
-		B2B5E0361C50C8C0000E5A4C /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B5E0341C50C8C0000E5A4C /* MessageTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -307,16 +307,24 @@
 		4FA19C2A1C46831C00140343 /* APIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIClient.h; sourceTree = "<group>"; };
 		4FA19C2B1C46831C00140343 /* APIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIClient.m; sourceTree = "<group>"; };
 		4FA19C2D1C46838800140343 /* APIClientConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIClientConstants.h; sourceTree = "<group>"; };
-		B22AF4C31C53C821008D1708 /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
-		B22AF4C41C53C821008D1708 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
-		B23EC3BD1C56181600C15B14 /* PostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTableViewCell.h; sourceTree = "<group>"; };
-		B23EC3BE1C56181600C15B14 /* PostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTableViewCell.m; sourceTree = "<group>"; };
-		B23EC3BF1C56181600C15B14 /* PostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
+		B22AF4C31C53C821008D1708 /* ChatMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessageTableViewCell.m; sourceTree = "<group>"; };
+		B22AF4C41C53C821008D1708 /* ChatMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageTableViewCell.h; sourceTree = "<group>"; };
+		B23EC3BD1C56181600C15B14 /* MessagePostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePostTableViewCell.h; sourceTree = "<group>"; };
+		B23EC3BE1C56181600C15B14 /* MessagePostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagePostTableViewCell.m; sourceTree = "<group>"; };
+		B23EC3BF1C56181600C15B14 /* MessagePostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessagePostTableViewCell.xib; sourceTree = "<group>"; };
 		B247CC9E1C520E060064396E /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		B247CCA01C520E060064396E /* ChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatViewController.xib; sourceTree = "<group>"; };
 		B251B3A81C5227650052B9E9 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		B2A88B3D1C53BBC70008D619 /* MessageLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageLabel.h; sourceTree = "<group>"; };
 		B2A88B3E1C53BBC70008D619 /* MessageLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageLabel.m; sourceTree = "<group>"; };
+		B2B5E02C1C50C876000E5A4C /* MessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewController.h; sourceTree = "<group>"; };
+		B2B5E02D1C50C876000E5A4C /* MessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewController.m; sourceTree = "<group>"; };
+		B2B5E02E1C50C876000E5A4C /* MessageTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableViewController.xib; sourceTree = "<group>"; };
+		B2B5E0321C50C8C0000E5A4C /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
+		B2B5E0331C50C8C0000E5A4C /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
+		B2B5E0341C50C8C0000E5A4C /* MessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
+		B2B5E0381C50FBCD000E5A4C /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
+		B2B5E0391C50FBCD000E5A4C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		B2F8DB251C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterTypeSelectTableViewController.h; sourceTree = "<group>"; };
 		B2F8DB261C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterTypeSelectTableViewController.m; sourceTree = "<group>"; };
 		B2F8DB271C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterTypeSelectTableViewController.xib; sourceTree = "<group>"; };
@@ -324,14 +332,6 @@
 		B2F8DB2B1C4FBB390083FE1F /* AccountTypeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountTypeTableViewCell.m; sourceTree = "<group>"; };
 		B2F8DB2C1C4FBB390083FE1F /* AccountTypeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountTypeTableViewCell.xib; sourceTree = "<group>"; };
 		B2F8DB321C4FD14B0083FE1F /* AccountTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AccountTypes.plist; sourceTree = "<group>"; };
-		B2B5E0381C50FBCD000E5A4C /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
-		B2B5E0391C50FBCD000E5A4C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
-		B2B5E02C1C50C876000E5A4C /* MessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewController.h; sourceTree = "<group>"; };
-		B2B5E02D1C50C876000E5A4C /* MessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewController.m; sourceTree = "<group>"; };
-		B2B5E02E1C50C876000E5A4C /* MessageTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableViewController.xib; sourceTree = "<group>"; };
-		B2B5E0321C50C8C0000E5A4C /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
-		B2B5E0331C50C8C0000E5A4C /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
-		B2B5E0341C50C8C0000E5A4C /* MessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1109,13 +1109,14 @@
 			path = APIClient;
 			sourceTree = "<group>";
 		};
-		B23EC3BC1C56181600C15B14 /* PostTableViewCell */ = {
+		B23EC3BC1C56181600C15B14 /* MessagePostTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				B23EC3BD1C56181600C15B14 /* PostTableViewCell.h */,
-				B23EC3BE1C56181600C15B14 /* PostTableViewCell.m */,
-				B23EC3BF1C56181600C15B14 /* PostTableViewCell.xib */,
+				B23EC3BD1C56181600C15B14 /* MessagePostTableViewCell.h */,
+				B23EC3BE1C56181600C15B14 /* MessagePostTableViewCell.m */,
+				B23EC3BF1C56181600C15B14 /* MessagePostTableViewCell.xib */,
 			);
+			name = MessagePostTableViewCell;
 			path = PostTableViewCell;
 			sourceTree = "<group>";
 		};
@@ -1133,19 +1134,20 @@
 		B247CCA91C520F9C0064396E /* ChatCells */ = {
 			isa = PBXGroup;
 			children = (
-				B23EC3BC1C56181600C15B14 /* PostTableViewCell */,
+				B23EC3BC1C56181600C15B14 /* MessagePostTableViewCell */,
 				B2A88B3C1C53BBC70008D619 /* MessageLabel */,
-				B247CCB01C520FC70064396E /* MessageTableViewCell */,
+				B247CCB01C520FC70064396E /* ChatMessageTableViewCell */,
 			);
 			path = ChatCells;
 			sourceTree = "<group>";
 		};
-		B247CCB01C520FC70064396E /* MessageTableViewCell */ = {
+		B247CCB01C520FC70064396E /* ChatMessageTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				B22AF4C41C53C821008D1708 /* MessageTableViewCell.h */,
-				B22AF4C31C53C821008D1708 /* MessageTableViewCell.m */,
+				B22AF4C41C53C821008D1708 /* ChatMessageTableViewCell.h */,
+				B22AF4C31C53C821008D1708 /* ChatMessageTableViewCell.m */,
 			);
+			name = ChatMessageTableViewCell;
 			path = MessageTableViewCell;
 			sourceTree = "<group>";
 		};
@@ -1158,6 +1160,36 @@
 			path = MessageLabel;
 			sourceTree = "<group>";
 		};
+		B2B5E02B1C50C847000E5A4C /* MessageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B2B5E0311C50C8A9000E5A4C /* MessageTableViewCell */,
+				B2B5E02C1C50C876000E5A4C /* MessageTableViewController.h */,
+				B2B5E02D1C50C876000E5A4C /* MessageTableViewController.m */,
+				B2B5E02E1C50C876000E5A4C /* MessageTableViewController.xib */,
+			);
+			path = MessageViewController;
+			sourceTree = "<group>";
+		};
+		B2B5E0311C50C8A9000E5A4C /* MessageTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				B2B5E0321C50C8C0000E5A4C /* MessageTableViewCell.h */,
+				B2B5E0331C50C8C0000E5A4C /* MessageTableViewCell.m */,
+				B2B5E0341C50C8C0000E5A4C /* MessageTableViewCell.xib */,
+			);
+			path = MessageTableViewCell;
+			sourceTree = "<group>";
+		};
+		B2B5E0371C50FBBC000E5A4C /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				B2B5E0381C50FBCD000E5A4C /* LocationManager.h */,
+				B2B5E0391C50FBCD000E5A4C /* LocationManager.m */,
+			);
+			path = LocationManager;
+			sourceTree = "<group>";
+		};
 		B2F8DB211C4FB48F0083FE1F /* AccountTypeCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1168,36 +1200,6 @@
 			path = AccountTypeCell;
 			sourceTree = "<group>";
 		};
-        B2B5E0371C50FBBC000E5A4C /* LocationManager */ = {
-            isa = PBXGroup;
-            children = (
-                B2B5E0381C50FBCD000E5A4C /* LocationManager.h */,
-                B2B5E0391C50FBCD000E5A4C /* LocationManager.m */,
-            );
-            path = LocationManager;
-            sourceTree = "<group>";
-        };
-        B2B5E02B1C50C847000E5A4C /* MessageViewController */ = {
-            isa = PBXGroup;
-            children = (
-                B2B5E0311C50C8A9000E5A4C /* MessageTableViewCell */,
-                B2B5E02C1C50C876000E5A4C /* MessageTableViewController.h */,
-                B2B5E02D1C50C876000E5A4C /* MessageTableViewController.m */,
-                B2B5E02E1C50C876000E5A4C /* MessageTableViewController.xib */,
-            );
-            path = MessageViewController;
-            sourceTree = "<group>";
-        };
-        B2B5E0311C50C8A9000E5A4C /* MessageTableViewCell */ = {
-            isa = PBXGroup;
-            children = (
-                B2B5E0321C50C8C0000E5A4C /* MessageTableViewCell.h */,
-                B2B5E0331C50C8C0000E5A4C /* MessageTableViewCell.m */,
-                B2B5E0341C50C8C0000E5A4C /* MessageTableViewCell.xib */,
-            );
-            path = MessageTableViewCell;
-            sourceTree = "<group>";
-        };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1282,7 +1284,7 @@
 				30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */,
 				30928DFF1C465CCC00041847 /* AvatarTableViewCell.xib in Resources */,
 				304359131C479F6F007B6959 /* ProfileDefaultTableViewCell.xib in Resources */,
-				B23EC3C11C56181600C15B14 /* PostTableViewCell.xib in Resources */,
+				B23EC3C11C56181600C15B14 /* MessagePostTableViewCell.xib in Resources */,
 				B2F8DB2E1C4FBB390083FE1F /* AccountTypeTableViewCell.xib in Resources */,
 				30BBACF11C43EE24004F22D2 /* TextFieldTableViewCell.xib in Resources */,
 				30928DDD1C464F7200041847 /* IconCollectionViewCell.xib in Resources */,
@@ -1330,7 +1332,7 @@
 				30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */,
 				3099D48C1C4D4F080080C05B /* FullScreenImageViewController.m in Sources */,
 				B2A88B431C53BBC70008D619 /* MessageLabel.m in Sources */,
-				B23EC3C01C56181600C15B14 /* PostTableViewCell.m in Sources */,
+				B23EC3C01C56181600C15B14 /* MessagePostTableViewCell.m in Sources */,
 				4F637C001C4659A200DE7CCA /* UIColor+AppColor.m in Sources */,
 				307DD91F1C44F93200F59857 /* ItemTableViewCell.m in Sources */,
 				30928DF91C465CBA00041847 /* ButtonTableViewCell.m in Sources */,
@@ -1351,7 +1353,7 @@
 				3082EE291C4E61AF004DAB08 /* DefaultSettingsTableViewCell.m in Sources */,
 				B2F8DB2D1C4FBB390083FE1F /* AccountTypeTableViewCell.m in Sources */,
 				3043590D1C479F51007B6959 /* ProfileTableViewController.m in Sources */,
-				B22AF4C61C53C821008D1708 /* MessageTableViewCell.m in Sources */,
+				B22AF4C61C53C821008D1708 /* ChatMessageTableViewCell.m in Sources */,
 				4F637BF61C464E2200DE7CCA /* TextInputNavigationCollection.m in Sources */,
 				B2B5E02F1C50C876000E5A4C /* MessageTableViewController.m in Sources */,
 				30A074E21C4F986700BCE672 /* ResetPasswordTableViewCell.m in Sources */,

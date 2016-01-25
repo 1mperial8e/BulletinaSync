@@ -10,8 +10,8 @@
 #import "ChatViewController.h"
 
 //Cells
-#import "MessageTableViewCell.h"
-#import "PostTableViewCell.h"
+#import "ChatMessageTableViewCell.h"
+#import "MessagePostTableViewCell.h"
 
 static NSString *const ViewControllerTitle = @"Chat";
 static NSString *const MessageTextViewPlaceholder = @"Your message";
@@ -94,23 +94,23 @@ typedef NS_ENUM(NSUInteger, SectionType){
     UITableViewCell *cell;
     
     if (indexPath.section == SectionMessages) {
-        cell = [[MessageTableViewCell alloc] initCellWithReuseIdentifier:MessageTableViewCell.ID];
-        [self configureMessageCell:(MessageTableViewCell *)cell forIndexPath:indexPath];
+        cell = [[ChatMessageTableViewCell alloc] initCellWithReuseIdentifier:ChatMessageTableViewCell.ID];
+        [self configureMessageCell:(ChatMessageTableViewCell *)cell forIndexPath:indexPath];
     } else {
-        cell = [tableView dequeueReusableCellWithIdentifier:PostTableViewCell.ID forIndexPath:indexPath];
-        [self configureCell:(PostTableViewCell *)cell forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:MessagePostTableViewCell.ID forIndexPath:indexPath];
+        [self configureCell:(MessagePostTableViewCell *)cell forIndexPath:indexPath];
     }
 
     return cell;
 }
 
-- (void)configureMessageCell:(MessageTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
+- (void)configureMessageCell:(ChatMessageTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger type = indexPath.row % 2 ? MessageTypeOutgoing : MessageTypeIncoming;
     [cell configureCellWithMessageType:type];
 }
 
-- (void)configureCell:(PostTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(MessagePostTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
     //TODO: configure cell
 }
@@ -185,7 +185,7 @@ typedef NS_ENUM(NSUInteger, SectionType){
 
 - (void)registerNibs
 {
-    [self.tableView registerNib:PostTableViewCell.nib forCellReuseIdentifier:PostTableViewCell.ID];
+    [self.tableView registerNib:MessagePostTableViewCell.nib forCellReuseIdentifier:MessagePostTableViewCell.ID];
 }
 
 - (void)prepareDataSource

@@ -6,12 +6,12 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-#import "MessageTableViewCell.h"
+#import "ChatMessageTableViewCell.h"
 
 static CGFloat const DefaultBorderWidth = 1.f;
 static CGFloat const MessageFontSize    = 14.f;
 
-@interface MessageTableViewCell ()
+@interface ChatMessageTableViewCell ()
 
 @property (strong, nonatomic) MessageLabel *messageLabel;
 @property (strong, nonatomic) UIImageView  *messageAvatar;
@@ -19,7 +19,7 @@ static CGFloat const MessageFontSize    = 14.f;
 
 @end
 
-@implementation MessageTableViewCell
+@implementation ChatMessageTableViewCell
 
 #pragma mark - Initialization
 
