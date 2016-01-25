@@ -86,6 +86,8 @@
 		30BBACFA1C43EEF9004F22D2 /* TryBeforeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACF81C43EEF9004F22D2 /* TryBeforeTableViewCell.xib */; };
 		30BBAD031C43EF24004F22D2 /* LoginButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBAD011C43EF24004F22D2 /* LoginButtonTableViewCell.m */; };
 		30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBAD021C43EF24004F22D2 /* LoginButtonTableViewCell.xib */; };
+		30D644A41C567D5B008F118B /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D644A31C567D5B008F118B /* BaseModel.m */; };
+		30D644A81C567F43008F118B /* NSDictionary+Nonnull.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D644A71C567F43008F118B /* NSDictionary+Nonnull.m */; };
 		4F49DDC61C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F49DDC41C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.m */; };
 		4F49DDC71C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F49DDC51C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.xib */; };
 		4F637BF61C464E2200DE7CCA /* TextInputNavigationCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F637BF51C464E2200DE7CCA /* TextInputNavigationCollection.m */; };
@@ -251,6 +253,10 @@
 		30BBAD001C43EF24004F22D2 /* LoginButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginButtonTableViewCell.h; sourceTree = "<group>"; };
 		30BBAD011C43EF24004F22D2 /* LoginButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginButtonTableViewCell.m; sourceTree = "<group>"; };
 		30BBAD021C43EF24004F22D2 /* LoginButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginButtonTableViewCell.xib; sourceTree = "<group>"; };
+		30D644A21C567D5B008F118B /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		30D644A31C567D5B008F118B /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		30D644A61C567F43008F118B /* NSDictionary+Nonnull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Nonnull.h"; sourceTree = "<group>"; };
+		30D644A71C567F43008F118B /* NSDictionary+Nonnull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Nonnull.m"; sourceTree = "<group>"; };
 		4F49DDC31C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectNewAdCategoryTableViewController.h; sourceTree = "<group>"; };
 		4F49DDC41C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectNewAdCategoryTableViewController.m; sourceTree = "<group>"; };
 		4F49DDC51C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectNewAdCategoryTableViewController.xib; sourceTree = "<group>"; };
@@ -887,6 +893,24 @@
 			path = TryBeforeCell;
 			sourceTree = "<group>";
 		};
+		30D644A11C567C3E008F118B /* BaseModel */ = {
+			isa = PBXGroup;
+			children = (
+				30D644A21C567D5B008F118B /* BaseModel.h */,
+				30D644A31C567D5B008F118B /* BaseModel.m */,
+			);
+			path = BaseModel;
+			sourceTree = "<group>";
+		};
+		30D644A51C567F1E008F118B /* NSDictionary+Nonnull */ = {
+			isa = PBXGroup;
+			children = (
+				30D644A61C567F43008F118B /* NSDictionary+Nonnull.h */,
+				30D644A71C567F43008F118B /* NSDictionary+Nonnull.m */,
+			);
+			path = "NSDictionary+Nonnull";
+			sourceTree = "<group>";
+		};
 		4F49DDC21C50D82F002E2F24 /* SelectNewItemCategoryController */ = {
 			isa = PBXGroup;
 			children = (
@@ -900,6 +924,7 @@
 		4F637BF21C464DDE00DE7CCA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				30D644A11C567C3E008F118B /* BaseModel */,
 				4FA19C291C46830600140343 /* APIClient */,
 				4F637BF31C464E0C00DE7CCA /* TextInputNavigationCollection */,
 			);
@@ -929,6 +954,7 @@
 		4F637BF81C46594E00DE7CCA /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				30D644A51C567F1E008F118B /* NSDictionary+Nonnull */,
 				4F637BFD1C46598E00DE7CCA /* UIColor+AppColor */,
 			);
 			path = Categories;
@@ -1325,11 +1351,13 @@
 				307E2EE61C4A59E80007A7CC /* NewItemTextTableViewCell.m in Sources */,
 				30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */,
 				4FA19C241C46829000140343 /* UIButton+AFNetworking.m in Sources */,
+				30D644A41C567D5B008F118B /* BaseModel.m in Sources */,
 				B2F8DB281C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.m in Sources */,
 				4F637BFC1C46596F00DE7CCA /* Utils.m in Sources */,
 				4FA19C071C46828600140343 /* AFSecurityPolicy.m in Sources */,
 				4FA19C2C1C46831C00140343 /* APIClient.m in Sources */,
 				30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */,
+				30D644A81C567F43008F118B /* NSDictionary+Nonnull.m in Sources */,
 				3099D48C1C4D4F080080C05B /* FullScreenImageViewController.m in Sources */,
 				B2A88B431C53BBC70008D619 /* MessageLabel.m in Sources */,
 				B23EC3C01C56181600C15B14 /* MessagePostTableViewCell.m in Sources */,
