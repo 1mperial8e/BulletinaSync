@@ -66,7 +66,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self setupUI];
 	
 	//loader test
-	BulletinaLoaderView *loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:@"Please wait..."];
+	BulletinaLoaderView *loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:@"Loading items. Please wait.."];
 	[loader show];
 	[loader performSelector:@selector(hide) withObject:nil afterDelay:3];
 }

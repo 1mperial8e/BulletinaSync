@@ -21,6 +21,7 @@
 
 - (instancetype)initWithView:(UIView *)baseView andText:(NSString *)text
 {
+    NSParameterAssert(baseView);
 	self = [super initWithFrame:baseView.frame];
 	if (self) {
 		_labelText = text;
@@ -36,20 +37,20 @@
 {
 	[self.baseView addSubview:self];
 	[self bulletinaLogoPulse];
-	[UIView animateWithDuration:0.2f animations:^{
-		[self setAlpha:1.0f];
+    __weak typeof(self) weakSelf = self;
+	[UIView animateWithDuration:0.3f animations:^{
+		[weakSelf setAlpha:1.0f];
 	} completion:nil];
 }
 
 - (void)hide
 {
-	[UIView animateWithDuration:0.2f animations:^{
-		[self setAlpha:0.1f];
+    __weak typeof(self) weakSelf = self;
+	[UIView animateWithDuration:0.3f animations:^{
+		[weakSelf setAlpha:0.1f];
 	} completion:^(BOOL finished){
-		self.layer.sublayers = nil;
-		if (self.superview) {
-			[self removeFromSuperview];
-		}
+		weakSelf.layer.sublayers = nil;
+        [weakSelf removeFromSuperview];
 	}];
 }
 
@@ -58,12 +59,7 @@
 - (void)bulletinaLogoPulse
 {
 	if (self.labelText.length) {
-		UILabel *loaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds) / 4, CGRectGetWidth(self.bounds), 30)];
-		loaderLabel.text = self.labelText;
-		loaderLabel.backgroundColor =[UIColor whiteColor];
-		loaderLabel.textColor = [UIColor appOrangeColor];
-		loaderLabel.textAlignment = NSTextAlignmentCenter;
-		[self addSubview:loaderLabel];
+        [self addTextLabel];
 	}
 	
 	self.backgroundColor = [[UIColor appOrangeColor] colorWithAlphaComponent:0.8];
@@ -115,6 +111,29 @@
 	shrink.removedOnCompletion = NO;
 	shrink.autoreverses = YES;
 	[oval4 addAnimation:shrink forKey:nil];
+}
+
+#pragma mark - UI
+
+- (void)addTextLabel
+{
+    UILabel *loaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.bounds) / 4, CGRectGetWidth(self.bounds), 30)];
+    
+    loaderLabel.numberOfLines = 0;
+    loaderLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    loaderLabel.text = self.labelText;
+    loaderLabel.backgroundColor = [UIColor whiteColor];
+    loaderLabel.textColor = [UIColor appOrangeColor];
+    loaderLabel.textAlignment = NSTextAlignmentCenter;
+    [loaderLabel sizeToFit];
+    
+    CGRect frame = loaderLabel.frame;
+    frame.size.width = CGRectGetWidth(self.bounds);
+    loaderLabel.frame = frame;
+    
+    CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), -143 * 0.7 * HeigthCoefficient + CGRectGetMidY(self.bounds) - CGRectGetMidY(loaderLabel.bounds));
+    loaderLabel.center = center;
+    [self addSubview:loaderLabel];
 }
 
 @end
