@@ -8,8 +8,6 @@
 
 @interface BulletinaLoaderView : UIView
 
-@property (strong, nonatomic) NSString *labelText;
-
 - (instancetype)initWithView:(UIView *)baseView andText:(NSString *)text;
 - (void)show;
 - (void)hide;
