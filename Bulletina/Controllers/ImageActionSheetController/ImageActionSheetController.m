@@ -163,22 +163,24 @@ static CGSize AssetGridThumbnailSize;
     __weak typeof(self) weakSelf = self;
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         __strong __typeof(weakSelf) strongSelf = weakSelf;
-        switch (status) {
-            case PHAuthorizationStatusAuthorized: {
-                [strongSelf prepareCameraRollImages];
-                [strongSelf.collectionView reloadData];
-                break;
-            }
-            case PHAuthorizationStatusDenied:
-            case PHAuthorizationStatusRestricted: {
-                if (strongSelf.delegate && [strongSelf.delegate respondsToSelector:@selector(imageActionSheetControllerDidReceiveError:)]) {
-                    [strongSelf.delegate imageActionSheetControllerDidReceiveError:[strongSelf errorWithDescription:status == PHAuthorizationStatusRestricted ? RestrinctedErrorDescription : DeniedErrorDescription]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            switch (status) {
+                case PHAuthorizationStatusAuthorized: {
+                    [strongSelf prepareCameraRollImages];
+                    [strongSelf.collectionView reloadData];
+                    break;
                 }
-                break;
+                case PHAuthorizationStatusDenied:
+                case PHAuthorizationStatusRestricted: {
+                    if (strongSelf.delegate && [strongSelf.delegate respondsToSelector:@selector(imageActionSheetControllerDidReceiveError:)]) {
+                        [strongSelf.delegate imageActionSheetControllerDidReceiveError:[strongSelf errorWithDescription:status == PHAuthorizationStatusRestricted ? RestrinctedErrorDescription : DeniedErrorDescription]];
+                    }
+                    break;
+                }
+                default:
+                    break;
             }
-            default:
-                break;
-        }
+        });
     }];
 }
 
