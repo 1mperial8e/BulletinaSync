@@ -30,6 +30,12 @@
 	[self setupTableView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Application setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+}
+
 #pragma mark - Setup
 
 - (void)setupUI

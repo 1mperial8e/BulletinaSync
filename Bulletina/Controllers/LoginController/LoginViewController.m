@@ -125,8 +125,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
 	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-	[self.navigationController.navigationBar
-	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
+	[self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
+    [Application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 	[Application setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 

@@ -49,6 +49,12 @@ typedef NS_ENUM(NSUInteger, AccountType) {
     [self prepareDataSource];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Application setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

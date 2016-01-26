@@ -1383,6 +1383,7 @@
 				30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */,
 				4FA19C241C46829000140343 /* UIButton+AFNetworking.m in Sources */,
 				B2F8DB281C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.m in Sources */,
+				30ACB0911C5276D500A879D5 /* BulletinaLoaderView.m in Sources */,
 				4F637BFC1C46596F00DE7CCA /* Utils.m in Sources */,
 				4FA19C071C46828600140343 /* AFSecurityPolicy.m in Sources */,
 				4FA19C2C1C46831C00140343 /* APIClient.m in Sources */,
