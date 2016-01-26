@@ -12,6 +12,8 @@
 #import "ForgotPasswordTableViewController.h"
 #import "RegisterTypeSelectTableViewController.h"
 
+#import "BulletinaLoaderView.h"
+
 // Cells
 #import "LogoTableViewCell.h"
 #import "TextFieldTableViewCell.h"
@@ -65,6 +67,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewWillAppear:(BOOL)animated
 {
 	[self setupUI];
+	
+	//loader test
+	BulletinaLoaderView *loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:@"Loading items. Please wait.."];
+	[loader show];
+	[loader performSelector:@selector(hide) withObject:nil afterDelay:3];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -120,7 +127,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
 	[self.navigationController.navigationBar
 	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
-    [self setNeedsStatusBarAppearanceUpdate];
+	[Application setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)tableViewSetup
@@ -197,13 +204,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return cell;
 }
 
-#pragma mark - StatusBar setup
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-	return UIStatusBarStyleLightContent;
-}
-
 #pragma mark - Actions
 
 - (void)tryBeforeSignupButtonTap:(id)sender
@@ -220,7 +220,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 }
 
 - (void)loginButtonTap:(id)sender
-{	
+{
 	if (!self.usernameTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Nickname / email is required."];
 	} else if (!self.passwordTextfield.text.length) {

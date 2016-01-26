@@ -77,6 +77,7 @@
 		30A074E81C4F988000BCE672 /* SuccessPasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A074E61C4F988000BCE672 /* SuccessPasswordTableViewCell.xib */; };
 		30A3057D1C4FC7BC002A48D0 /* MyItemsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A3057B1C4FC7BC002A48D0 /* MyItemsTableViewController.m */; };
 		30A3057E1C4FC7BC002A48D0 /* MyItemsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A3057C1C4FC7BC002A48D0 /* MyItemsTableViewController.xib */; };
+		30ACB0911C5276D500A879D5 /* BulletinaLoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */; };
 		30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */; };
 		30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */; };
 		30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */; };
@@ -241,6 +242,8 @@
 		30A3057A1C4FC7BC002A48D0 /* MyItemsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyItemsTableViewController.h; sourceTree = "<group>"; };
 		30A3057B1C4FC7BC002A48D0 /* MyItemsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyItemsTableViewController.m; sourceTree = "<group>"; };
 		30A3057C1C4FC7BC002A48D0 /* MyItemsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyItemsTableViewController.xib; sourceTree = "<group>"; };
+		30ACB08F1C5276D500A879D5 /* BulletinaLoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletinaLoaderView.h; sourceTree = "<group>"; };
+		30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletinaLoaderView.m; sourceTree = "<group>"; };
 		30BBACE21C43EB4D004F22D2 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		30BBACE71C43EDD4004F22D2 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
@@ -824,9 +827,19 @@
 			path = MyItemsController;
 			sourceTree = "<group>";
 		};
+		30ACB08E1C5276A900A879D5 /* BulletinaLoader */ = {
+			isa = PBXGroup;
+			children = (
+				30ACB08F1C5276D500A879D5 /* BulletinaLoaderView.h */,
+				30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */,
+			);
+			path = BulletinaLoader;
+			sourceTree = "<group>";
+		};
 		30BBACDC1C43EA64004F22D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				30ACB08E1C5276A900A879D5 /* BulletinaLoader */,
 				3082EE201C4E5852004DAB08 /* CustomSectionsHeaderView */,
 				30928DC91C463AEA00041847 /* BaseView */,
 				30928DCA1C463AEA00041847 /* RefreshControl */,
