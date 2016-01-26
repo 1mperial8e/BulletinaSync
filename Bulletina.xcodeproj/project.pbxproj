@@ -87,6 +87,7 @@
 		30BBAD031C43EF24004F22D2 /* LoginButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBAD011C43EF24004F22D2 /* LoginButtonTableViewCell.m */; };
 		30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBAD021C43EF24004F22D2 /* LoginButtonTableViewCell.xib */; };
 		30D33A9D1C576BC7002AD94F /* APIClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D33A9C1C576BC7002AD94F /* APIClient+User.m */; };
+		30D33AA01C57796D002AD94F /* APIClient+Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D33A9F1C57796D002AD94F /* APIClient+Item.m */; };
 		30D644A81C567F43008F118B /* NSDictionary+Nonnull.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D644A71C567F43008F118B /* NSDictionary+Nonnull.m */; };
 		4F49DDC61C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F49DDC41C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.m */; };
 		4F49DDC71C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F49DDC51C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.xib */; };
@@ -256,6 +257,8 @@
 		30BBAD021C43EF24004F22D2 /* LoginButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginButtonTableViewCell.xib; sourceTree = "<group>"; };
 		30D33A9B1C576BC7002AD94F /* APIClient+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "APIClient+User.h"; sourceTree = "<group>"; };
 		30D33A9C1C576BC7002AD94F /* APIClient+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "APIClient+User.m"; sourceTree = "<group>"; };
+		30D33A9E1C57796D002AD94F /* APIClient+Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "APIClient+Item.h"; sourceTree = "<group>"; };
+		30D33A9F1C57796D002AD94F /* APIClient+Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "APIClient+Item.m"; sourceTree = "<group>"; };
 		30D644A61C567F43008F118B /* NSDictionary+Nonnull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Nonnull.h"; sourceTree = "<group>"; };
 		30D644A71C567F43008F118B /* NSDictionary+Nonnull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Nonnull.m"; sourceTree = "<group>"; };
 		4F49DDC31C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectNewAdCategoryTableViewController.h; sourceTree = "<group>"; };
@@ -476,7 +479,7 @@
 			path = TextCell;
 			sourceTree = "<group>";
 		};
-		30802F081C495BE3008D97EC /* AddNewAdController */ = {
+		30802F081C495BE3008D97EC /* AddNewItemController */ = {
 			isa = PBXGroup;
 			children = (
 				30802F091C495BF3008D97EC /* AddNewCells */,
@@ -484,7 +487,6 @@
 				30802F0B1C495C07008D97EC /* AddNewItemTableViewController.m */,
 				30802F0C1C495C07008D97EC /* AddNewItemTableViewController.xib */,
 			);
-			name = AddNewAdController;
 			path = AddNewItemController;
 			sourceTree = "<group>";
 		};
@@ -1034,7 +1036,7 @@
 				3082EE121C4E43DF004DAB08 /* SearchSettingsController */,
 				3099D47E1C4D2BE10080C05B /* FullScreenImageController */,
 				3099D4741C4CFDFE0080C05B /* ImageActionSheetController */,
-				30802F081C495BE3008D97EC /* AddNewAdController */,
+				30802F081C495BE3008D97EC /* AddNewItemController */,
 				3082B99E1C48E37400C4925D /* EditProfileControllers */,
 				304359051C479B2D007B6959 /* ProfileControllers */,
 				30928DDF1C465B8000041847 /* RegisterControllers */,
@@ -1144,6 +1146,8 @@
 				4FA19C2D1C46838800140343 /* APIClientConstants.h */,
 				30D33A9B1C576BC7002AD94F /* APIClient+User.h */,
 				30D33A9C1C576BC7002AD94F /* APIClient+User.m */,
+				30D33A9E1C57796D002AD94F /* APIClient+Item.h */,
+				30D33A9F1C57796D002AD94F /* APIClient+Item.m */,
 			);
 			path = APIClient;
 			sourceTree = "<group>";
@@ -1360,6 +1364,7 @@
 				30A074D41C4F809000BCE672 /* AddImageButtonTableViewCell.m in Sources */,
 				30928E031C465CDE00041847 /* BusinessLogoTableViewCell.m in Sources */,
 				30928DDC1C464F7200041847 /* IconCollectionViewCell.m in Sources */,
+				30D33AA01C57796D002AD94F /* APIClient+Item.m in Sources */,
 				307E2EDC1C4A59950007A7CC /* NewItemPriceTableViewCell.m in Sources */,
 				307E2EE61C4A59E80007A7CC /* NewItemTextTableViewCell.m in Sources */,
 				30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */,

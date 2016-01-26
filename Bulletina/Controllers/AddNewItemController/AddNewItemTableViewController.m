@@ -15,6 +15,9 @@
 #import "ImageActionSheetController.h"
 #import "AddImageButtonTableViewCell.h"
 
+//Models
+#import "APIClient+Item.h"
+
 static CGFloat const PriceCellHeigth = 44;
 
 static NSInteger const CellsCount = 4;
@@ -31,6 +34,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @property (strong, nonatomic) NewItemTextTableViewCell *textCell;
 @property (strong,nonatomic) UIImage *itemImage;
+@property (strong, nonatomic) UITextField *priceTextField;;
 
 @end
 
@@ -125,6 +129,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	NewItemPriceTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NewItemPriceTableViewCell.ID forIndexPath:indexPath];
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	cell.priceTextField.delegate = self;
+	self.priceTextField = cell.priceTextField;
 	return cell;
 }
 
@@ -140,6 +145,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 }
 
 #pragma mark - Actions
+
+- (void)publishNavBarAction:(id)sender
+{
+	if ([self.textCell.textView.text isEqualToString:TextViewPlaceholderText]) {
+		[Utils showWarningWithMessage:@"Description is requied"];	
+	} else {
+		[[APIClient sharedInstance] addNewItemWithCategory:self.category description:self.textCell.textView.text price:self.priceTextField.text image:self.itemImage withCompletion:^(id response, NSError *error, NSInteger statusCode){ DLog(@"Not implemented"); }];
+	}
+}
 
 - (void)cancelNavBarAction:(id)sender
 {
@@ -168,7 +182,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelNavBarAction:)];
 	
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStylePlain target:self action:nil];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStylePlain target:self action:@selector(publishNavBarAction:)];
 }
 
 - (void)tableViewSetup

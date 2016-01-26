@@ -18,6 +18,9 @@
 // Helpers
 #import "TextInputNavigationCollection.h"
 
+//Models
+#import "APIClient+User.h"
+
 static CGFloat const LogoCellHeigth = 178;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
@@ -228,6 +231,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[Utils showErrorWithMessage:@"Password is not valid."];
 	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
 		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
+	} else {
+		[[APIClient sharedInstance] registerBusinessProfileWithCompanyname:self.companyNameTextfield.text email:self.emailTextfield.text phone:self.phoneTextfield.text website:self.websiteTextfield.text password:self.passwordTextfield.text logo:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode){ DLog(@"Not implemented"); }];
 	}
 }
 
