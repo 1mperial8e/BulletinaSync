@@ -225,20 +225,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[Utils showErrorWithMessage:@"Nickname / email is required."];
 	} else if (!self.passwordTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Password is required."];
-	} else if (![Utils isValidPassword:self.passwordTextfield.text]){
-		[Utils showErrorWithMessage:@"Password is not valid."];
-	} else if ([self.usernameTextfield.text rangeOfString:@"@"].location != NSNotFound){
-		if (![Utils isValidEmail:self.usernameTextfield.text UseHardFilter:NO]) {
-			[Utils showErrorWithMessage:@"Email is not valid."];
-		} else {
-			[[APIClient sharedInstance] loginWithEmail:self.usernameTextfield.text password:self.passwordTextfield.text withCompletion:^(id response, NSError *error, NSInteger statusCode){ DLog(@"Not implemented"); }];
-		}
 	} else {
-		if (![Utils isValidUserName:self.usernameTextfield.text]){
-			[Utils showErrorWithMessage:@"Nickname is not valid."];
-		} else {
-			[[APIClient sharedInstance] loginWithUsername:self.usernameTextfield.text password:self.passwordTextfield.text withCompletion:^(id response, NSError *error, NSInteger statusCode){ DLog(@"Not implemented"); }];
-		}
+		[[APIClient sharedInstance] loginWithUsername:self.usernameTextfield.text password:self.passwordTextfield.text withCompletion:^(id response, NSError *error, NSInteger statusCode){ DLog(@"Not implemented"); }];
 	}
 }
 
