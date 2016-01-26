@@ -232,7 +232,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
 		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	} else {
-		[[APIClient sharedInstance] registerBusinessProfileWithCompanyname:self.companyNameTextfield.text email:self.emailTextfield.text phone:self.phoneTextfield.text website:self.websiteTextfield.text password:self.passwordTextfield.text logo:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode){ DLog(@"Not implemented"); }];
+		[[APIClient sharedInstance] registerBusinessProfileWithCompanyname:self.companyNameTextfield.text email:self.emailTextfield.text phone:self.phoneTextfield.text website:self.websiteTextfield.text password:self.passwordTextfield.text logo:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+            DLog(@"Not implemented");
+        }];
 	}
 }
 

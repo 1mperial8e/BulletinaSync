@@ -14,22 +14,20 @@
 
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password withCompletion:(ResponseBlock)completion;
 
-- (void)loginWithEmail:(NSString *)email password:(NSString *)password withCompletion:(ResponseBlock)completion;
-
 #pragma mark - Password recovery
 
 - (void)forgotPasswordWithEmail:(NSString *)email withCompletion:(ResponseBlock)completion;
 
 #pragma mark - Register profile (Signup)
 
-- (void)registerIndividualProfileWithNickname:(NSString *)nickname  email:(NSString *)email password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion;
+- (void)registerIndividualProfileWithNickname:(NSString *)nickname email:(NSString *)email password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion;
 
-- (void)registerBusinessProfileWithCompanyname:(NSString *)companyname  email:(NSString *)email phone:(NSString *)phone website:(NSString *)website password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion;
+- (void)registerBusinessProfileWithCompanyname:(NSString *)companyname email:(NSString *)email phone:(NSString *)phone website:(NSString *)website password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion;
 
 #pragma mark - Edit profile (Update)
 
-- (void)updateIndividualProfileWithNickname:(NSString *)nickname  about:(NSString *)about password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion;
+- (void)updateIndividualProfileWithNickname:(NSString *)nickname about:(NSString *)about password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion;
 
-- (void)updateBusinessProfileWithCompanyname:(NSString *)companyname  username:(NSString *)username phone:(NSString *)phone website:(NSString *)website facebook:(NSString *)facebook instagram:(NSString *)instagram linkedin:(NSString *)linkedin about:(NSString *)about  password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion;
+- (void)updateBusinessProfileWithCompanyname:(NSString *)companyname username:(NSString *)username phone:(NSString *)phone website:(NSString *)website facebook:(NSString *)facebook instagram:(NSString *)instagram linkedin:(NSString *)linkedin about:(NSString *)about password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion;
 
 @end
