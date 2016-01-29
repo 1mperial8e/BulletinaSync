@@ -14,6 +14,8 @@
 
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password withCompletion:(ResponseBlock)completion;
 
+- (NSURLSessionDataTask *)generateUserWithCompletion:(ResponseBlock)completion;
+
 #pragma mark - Password recovery
 
 - (void)forgotPasswordWithEmail:(NSString *)email withCompletion:(ResponseBlock)completion;

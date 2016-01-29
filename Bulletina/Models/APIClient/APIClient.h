@@ -19,13 +19,13 @@
 
 + (instancetype)sharedInstance;
 
-//temporary
-+ (NSArray *)tempCategoriesList;
-
 - (void)cancelAllOperations;
 - (BOOL)hasActiveRequest;
 
 - (void)updateCurrentUser:(id)newUser;
+
+//temporary
++ (NSArray *)tempCategoriesList;
 
 #pragma mark - Reachability
 

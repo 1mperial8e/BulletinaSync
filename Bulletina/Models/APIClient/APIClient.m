@@ -71,6 +71,7 @@
     }
 }
 
+
 #pragma mark - Reachability
 
 - (void)startMonitoringNetwork
@@ -97,16 +98,23 @@ void PerformFailureRecognition(NSURLResponse * response, id responseObject, NSEr
         statusCode = ((NSHTTPURLResponse *)response).statusCode;
     }
     if (responseObject) {
-        responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
-    }
-    
+		if ([responseObject isKindOfClass:[NSData class]]) {
+			responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
+		} else {
+			responseDict = (NSDictionary *)responseObject;
+		}
+	}
     handler(responseDict, error, statusCode);
 };
 
 void PerformSuccessRecognition(NSURLResponse * response, id responseObject, ResponseBlock handler) {
     id value = nil;
     if (responseObject) {
-        value = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
+		if ([responseObject isKindOfClass:[NSData class]]) {
+			value = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
+		} else {
+			value = (NSDictionary *)responseObject;
+		}		
     }
     handler(value, nil, ((NSHTTPURLResponse *)response).statusCode);
 };
@@ -159,7 +167,7 @@ void(^PerformCompletionRecognition)(NSURLResponse *, id, NSError *, ResponseBloc
     NSError *requestError;
     NSURLRequest *request;
     AFHTTPRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
-    [serializer setValue:APIKey forHTTPHeaderField:@"X-API-KEY"];
+    [serializer setValue:APIValue forHTTPHeaderField:APIKey];
 
     if (dataArray) {
         request = [serializer multipartFormRequestWithMethod:method URLString:URLWithPath(path) parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {

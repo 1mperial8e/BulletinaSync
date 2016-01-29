@@ -71,7 +71,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	//loader test
 	BulletinaLoaderView *loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:@"Loading items. Please wait.."];
 	[loader show];
-	[loader performSelector:@selector(hide) withObject:nil afterDelay:3];
+	[loader performSelector:@selector(hide) withObject:nil afterDelay:1];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -208,9 +208,16 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)tryBeforeSignupButtonTap:(id)sender
 {
-	MainPageController *mainPageController = [MainPageController new];
-	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
-	[self.navigationController presentViewController:mainPageNavigationController animated:YES completion:nil];
+	[[APIClient sharedInstance] generateUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		if (error) {
+			DLog(@"%@",error);
+		} else {
+			DLog(@"%@",response);
+		}
+	}];
+//	MainPageController *mainPageController = [MainPageController new];
+//	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
+//	[self.navigationController presentViewController:mainPageNavigationController animated:YES completion:nil];
 }
 
 - (void)signupButtonTap:(id)sender

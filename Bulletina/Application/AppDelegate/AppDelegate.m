@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "APIClient.h"
 
 // Controllers
 #import "LoginViewController.h"
@@ -24,6 +25,8 @@
 	UINavigationController *loginNavigationController = [[UINavigationController alloc] initWithRootViewController:loginController];
     self.window.rootViewController = loginNavigationController;
     [self.window makeKeyAndVisible];
+	
+	[APIClient sharedInstance];
     
     return YES;
 }
