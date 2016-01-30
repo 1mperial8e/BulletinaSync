@@ -10,6 +10,7 @@
 
 // Controllers
 #import "LoginViewController.h"
+#import <BuddyBuildSDK/BuddyBuildSDK.h>
 
 @interface AppDelegate ()
 
@@ -19,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [BuddyBuildSDK setup];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     LoginViewController *loginController = [LoginViewController new];
 	UINavigationController *loginNavigationController = [[UINavigationController alloc] initWithRootViewController:loginController];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00EFD9316BBBC64E9E96F341 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CACAC3DBDE9D2BDDEF28C2 /* CoreText.framework */; };
 		300CA1CC1C484D5700DA85CE /* ProfileButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 300CA1CA1C484D5700DA85CE /* ProfileButtonTableViewCell.m */; };
 		300CA1CD1C484D5700DA85CE /* ProfileButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 300CA1CB1C484D5700DA85CE /* ProfileButtonTableViewCell.xib */; };
 		3043590D1C479F51007B6959 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3043590B1C479F51007B6959 /* ProfileTableViewController.m */; };
@@ -117,6 +118,8 @@
 		4FA19C271C46829000140343 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C1D1C46829000140343 /* UIRefreshControl+AFNetworking.m */; };
 		4FA19C281C46829000140343 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C1F1C46829000140343 /* UIWebView+AFNetworking.m */; };
 		4FA19C2C1C46831C00140343 /* APIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C2B1C46831C00140343 /* APIClient.m */; };
+		6F5D9E156A2E789482FC2CB1 /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17EE9D5E55C6576903F9B10 /* BuddyBuildSDK.framework */; };
+		A3F1DCF0F06C9D28D40EFAE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010230394B40F87431694DD7 /* SystemConfiguration.framework */; };
 		B22AF4C61C53C821008D1708 /* ChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B22AF4C31C53C821008D1708 /* ChatMessageTableViewCell.m */; };
 		B23EC3C01C56181600C15B14 /* MessagePostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23EC3BE1C56181600C15B14 /* MessagePostTableViewCell.m */; };
 		B23EC3C11C56181600C15B14 /* MessagePostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B23EC3BF1C56181600C15B14 /* MessagePostTableViewCell.xib */; };
@@ -133,9 +136,13 @@
 		B2F8DB2D1C4FBB390083FE1F /* AccountTypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F8DB2B1C4FBB390083FE1F /* AccountTypeTableViewCell.m */; };
 		B2F8DB2E1C4FBB390083FE1F /* AccountTypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2F8DB2C1C4FBB390083FE1F /* AccountTypeTableViewCell.xib */; };
 		B2F8DB331C4FD14B0083FE1F /* AccountTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2F8DB321C4FD14B0083FE1F /* AccountTypes.plist */; };
+		C9769278802C3F05B2A7EEB9 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BCC7AA0F12EFF92BEAE8919 /* AssetsLibrary.framework */; };
+		FC70FDE96105E8290760B333 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF89A0FAAF5707DE675DA /* CoreTelephony.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		010230394B40F87431694DD7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		09CACAC3DBDE9D2BDDEF28C2 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		300CA1C91C484D5700DA85CE /* ProfileButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileButtonTableViewCell.h; sourceTree = "<group>"; };
 		300CA1CA1C484D5700DA85CE /* ProfileButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileButtonTableViewCell.m; sourceTree = "<group>"; };
 		300CA1CB1C484D5700DA85CE /* ProfileButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileButtonTableViewCell.xib; sourceTree = "<group>"; };
@@ -322,6 +329,7 @@
 		4FA19C2A1C46831C00140343 /* APIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIClient.h; sourceTree = "<group>"; };
 		4FA19C2B1C46831C00140343 /* APIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIClient.m; sourceTree = "<group>"; };
 		4FA19C2D1C46838800140343 /* APIClientConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIClientConstants.h; sourceTree = "<group>"; };
+		6BCC7AA0F12EFF92BEAE8919 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		B22AF4C31C53C821008D1708 /* ChatMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessageTableViewCell.m; sourceTree = "<group>"; };
 		B22AF4C41C53C821008D1708 /* ChatMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageTableViewCell.h; sourceTree = "<group>"; };
 		B23EC3BD1C56181600C15B14 /* MessagePostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePostTableViewCell.h; sourceTree = "<group>"; };
@@ -347,6 +355,8 @@
 		B2F8DB2B1C4FBB390083FE1F /* AccountTypeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountTypeTableViewCell.m; sourceTree = "<group>"; };
 		B2F8DB2C1C4FBB390083FE1F /* AccountTypeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountTypeTableViewCell.xib; sourceTree = "<group>"; };
 		B2F8DB321C4FD14B0083FE1F /* AccountTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AccountTypes.plist; sourceTree = "<group>"; };
+		E17EE9D5E55C6576903F9B10 /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
+		F45FF89A0FAAF5707DE675DA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -354,6 +364,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F5D9E156A2E789482FC2CB1 /* BuddyBuildSDK.framework in Frameworks */,
+				C9769278802C3F05B2A7EEB9 /* AssetsLibrary.framework in Frameworks */,
+				00EFD9316BBBC64E9E96F341 /* CoreText.framework in Frameworks */,
+				FC70FDE96105E8290760B333 /* CoreTelephony.framework in Frameworks */,
+				A3F1DCF0F06C9D28D40EFAE6 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -992,6 +1007,7 @@
 			children = (
 				4F79B8F61C43DA2A0082740E /* Bulletina */,
 				4F79B8F51C43DA2A0082740E /* Products */,
+				5414166CE4C8F87309A8356B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1163,6 +1179,18 @@
 				30D33A9F1C57796D002AD94F /* APIClient+Item.m */,
 			);
 			path = APIClient;
+			sourceTree = "<group>";
+		};
+		5414166CE4C8F87309A8356B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E17EE9D5E55C6576903F9B10 /* BuddyBuildSDK.framework */,
+				6BCC7AA0F12EFF92BEAE8919 /* AssetsLibrary.framework */,
+				09CACAC3DBDE9D2BDDEF28C2 /* CoreText.framework */,
+				F45FF89A0FAAF5707DE675DA /* CoreTelephony.framework */,
+				010230394B40F87431694DD7 /* SystemConfiguration.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B23EC3BC1C56181600C15B14 /* MessagePostTableViewCell */ = {
@@ -1540,6 +1568,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Bulletina/Application/PrefixHeader.pch;
 				INFOPLIST_FILE = Bulletina/Application/Info.plist;
@@ -1556,6 +1588,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Bulletina/Application/PrefixHeader.pch;
 				INFOPLIST_FILE = Bulletina/Application/Info.plist;
