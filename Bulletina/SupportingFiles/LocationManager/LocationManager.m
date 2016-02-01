@@ -8,8 +8,6 @@
 
 #import "LocationManager.h"
 
-static CGFloat const MinimunDistance = 5.f;
-
 static NSString *const TitleLocationServicesDisabled = @"Location Service Disabled";
 static NSString *const MessageLocationServicesDisabled = @"To re-enable, please go to Settings and turn on Location Service for Bulletina.";
 
@@ -29,7 +27,7 @@ static NSString *const MessageLocationServicesDisabled = @"To re-enable, please 
     if (self) {
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        self.locationManager.distanceFilter = MinimunDistance;
+        self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
         self.locationManager.delegate = self;
         [self.locationManager requestWhenInUseAuthorization];
     }
@@ -49,6 +47,27 @@ static NSString *const MessageLocationServicesDisabled = @"To re-enable, please 
 }
 
 #pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    switch (status) {
+        case kCLAuthorizationStatusDenied:
+        case kCLAuthorizationStatusRestricted: {
+            self.currentLocation = nil;
+            break;
+        }
+        case kCLAuthorizationStatusNotDetermined: {
+            [self.locationManager requestWhenInUseAuthorization];
+            break;
+        }
+        case kCLAuthorizationStatusAuthorizedWhenInUse: {
+            [self.locationManager startUpdatingLocation];
+            break;
+        }
+        default:
+            break;
+    }
+}
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {

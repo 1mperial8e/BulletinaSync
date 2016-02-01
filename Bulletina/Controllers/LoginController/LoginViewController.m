@@ -216,7 +216,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[[APIClient sharedInstance] generateUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
 			[weakSelf.loader hide];
+            [Utils showErrorForStatusCode:statusCode];
 		} else {
+            NSAssert([response isKindOfClass:[NSDictionary class]], @"Uncknown response from server");
 			UserModel *generatedUser = [UserModel initWithDictionary:response];
 			[[APIClient sharedInstance] updateCurrentUser:generatedUser];
 			[weakSelf createLoginSessionWithEmail:generatedUser.email password:generatedUser.password];
@@ -256,8 +258,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[[APIClient sharedInstance] loginSessionWithEmail:email password:password endpoint_arn:@"" device_token:@"" operating_system:@"" device_type:@"" current_lattitude:@"" current_longitude:@"" withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		[weakSelf.loader hide];
 		if (error) {
-			DLog(@"%@",error);
+            [Utils showErrorForStatusCode:statusCode];
 		} else {
+            NSAssert([response isKindOfClass:[NSDictionary class]], @"Uncknown response from server");
 			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
 			[[APIClient sharedInstance] updateCurrentUser:[UserModel initWithDictionary:response]];
 			[weakSelf showMainPage];
