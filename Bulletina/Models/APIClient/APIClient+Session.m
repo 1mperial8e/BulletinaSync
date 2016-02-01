@@ -12,33 +12,33 @@
 
 - (NSURLSessionDataTask *)loginSessionWithEmail:(NSString *)email
 								   password:(NSString *)password
-								   endpoint_arn:(NSString *)endpoint_arn
-								   device_token:(NSString *)device_token
-								   operating_system:(NSString *)operating_system
-								   device_type:(NSString *)device_type
-								   current_lattitude:(NSString *)current_lattitude
-								   current_longitude:(NSString *)current_longitude
+								   endpointArn:(NSString *)endpointArn
+								   deviceToken:(NSString *)deviceToken
+								   operatingSystem:(NSString *)operatingSystem
+								   deviceType:(NSString *)deviceType
+								   currentLattitude:(CGFloat)currentLattitude
+								   currentLongitude:(CGFloat)currentLongitude
 								  withCompletion:(ResponseBlock)completion
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{	@"email" : email, @"password":password }];
 	
-	if (endpoint_arn.length) {
-		[parameters setObject:endpoint_arn forKey:@"endpoint_arn"];
+	if (endpointArn.length) {
+		[parameters setObject:endpointArn forKey:@"endpoint_arn"];
 	}
-	if (device_token.length) {
-		[parameters setObject:device_token forKey:@"device_token"];
+	if (deviceToken.length) {
+		[parameters setObject:deviceToken forKey:@"device_token"];
 	}
-	if (operating_system.length) {
-		[parameters setObject:operating_system forKey:@"operating_system"];
+	if (operatingSystem.length) {
+		[parameters setObject:operatingSystem forKey:@"operating_system"];
 	}
-	if (device_type.length) {
-		[parameters setObject:device_type forKey:@"device_type"];
+	if (deviceType.length) {
+		[parameters setObject:deviceType forKey:@"device_type"];
 	}
-	if (current_lattitude.length) {
-		[parameters setObject:current_lattitude forKey:@"current_lattitude"];
+	if (currentLattitude) {
+		[parameters setObject:@(currentLattitude) forKey:@"current_lattitude"];
 	}
-	if (current_longitude.length) {
-		[parameters setObject:current_longitude forKey:@"current_longitude"];
+	if (currentLongitude) {
+		[parameters setObject:@(currentLongitude) forKey:@"current_longitude"];
 	}
 	
 	return [self performPOST:@"api/v1/sessions" withParameters:parameters response:completion];

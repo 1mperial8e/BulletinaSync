@@ -131,7 +131,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == EmailCellIndex) {
 		cell.inputTextField.placeholder = @"Email:";
-		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
+		cell.inputTextField.keyboardType = UIKeyboardTypeEmailAddress;
 		self.emailTextfield = cell.inputTextField;
 	} else if (indexPath.item == CompanyNameCellIndex) {
 		cell.inputTextField.placeholder = @"Company Name:";
@@ -232,9 +232,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
 		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	} else {
-		[[APIClient sharedInstance] registerBusinessProfileWithCompanyname:self.companyNameTextfield.text email:self.emailTextfield.text phone:self.phoneTextfield.text website:self.websiteTextfield.text password:self.passwordTextfield.text logo:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-            DLog(@"Not implemented");
-        }];
+		[[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:@"" password:self.passwordTextfield.text languageId:@"" homeLatitude:@"" homeLongitude:@"" customerTypeId:BusinessAccount companyname:self.companyNameTextfield.text website:self.websiteTextfield.text phone:self.phoneTextfield.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			if (error) {
+				[Utils showErrorForStatusCode:statusCode];
+			} else {
+				DLog(@"%@",response);
+			}
+		}];
 	}
 }
 

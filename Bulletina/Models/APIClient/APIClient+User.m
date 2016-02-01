@@ -27,64 +27,43 @@
 	return [self performPOST:@"api/v1/users" withParameters:parameters response:completion];
 }
 
-- (NSURLSessionDataTask *)createUserWithFullName:(NSString *)fullName
-                                           email:(NSString *)email
+- (NSURLSessionDataTask *)createUserWithEmail:(NSString *)email
                                         username:(NSString *)username
                                         password:(NSString *)password
-                                password_confirm:(NSString *)password_confirm
-                                     language_id:(NSString *)language_id
-                                   home_latitude:(NSString *)home_latitude
-                                  home_longitude:(NSString *)home_longitude
-                                customer_type_id:(UserAccountType)customer_type_id
-                                    company_name:(NSString *)company_name
-                                         address:(NSString *)address
+                                     languageId:(NSString *)languageId
+                                   homeLatitude:(NSString *)homeLatitude
+                                  homeLongitude:(NSString *)homeLongitude
+                                customerTypeId:(UserAccountType)customerTypeId
+                                    companyname:(NSString *)companyname
                                          website:(NSString *)website
-                                        facebook:(NSString *)facebook
-                                        linkedin:(NSString *)linkedin
-                                           phone:(NSString *)phone
-                                     description:(NSString *)description
+										phone:(NSString *)phone
                                           avatar:(UIImage *)avatar
                                   withCompletion:(ResponseBlock)completion
 {
 	NSMutableDictionary *createParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"email" : email,
 																						 @"login" : username,
 																						 @"password":password,
-																						 @"password_confirm":password_confirm,
-																						 @"company_name":company_name,
-																						 @"customer_type_id":@(customer_type_id)}];
+																						 @"company_name":companyname,
+																						 @"customer_type_id":@(customerTypeId)}];
 	
-	if (fullName.length) {
-		[createParameters setObject:fullName forKey:@"name"];
-	}
-	if (language_id.length) {
-		[createParameters setObject:language_id forKey:@"language_id"];
-	}
-	if (address.length) {
-		[createParameters setObject:address forKey:@"address"];
+	if (languageId.length) {
+		[createParameters setObject:languageId forKey:@"language_id"];
 	}
 	if (website.length) {
 		[createParameters setObject:website forKey:@"website"];
 	}
-	if (facebook.length) {
-		[createParameters setObject:facebook forKey:@"facebook"];
-	}
-	if (linkedin.length) {
-		[createParameters setObject:linkedin forKey:@"linkedin"];
-	}
 	if (phone.length) {
 		[createParameters setObject:phone forKey:@"phone"];
 	}
-	if (description.length) {
-		[createParameters setObject:description forKey:@"description"];
-	}
-	if (home_latitude.length && home_longitude.length) {
-		[createParameters setObject:home_latitude forKey:@"home_latitude"];
-		[createParameters setObject:home_longitude forKey:@"home_longitude"];
+	if (homeLatitude.length && homeLongitude.length) {
+		[createParameters setObject:homeLatitude forKey:@"home_latitude"];
+		[createParameters setObject:homeLongitude forKey:@"home_longitude"];
 	}
 	NSData *imageData;
 	if (avatar) {
 		imageData = UIImageJPEGRepresentation(avatar, 1.0f);
 	}
+	//implement sending image
 	return [self performPOST:@"api/v1/users" withParameters:createParameters multipartData:nil response:completion];
 }
 
@@ -95,12 +74,11 @@
 										   email:(NSString *)email
 										username:(NSString *)username
 										password:(NSString *)password
-								password_confirm:(NSString *)password_confirm
-									 language_id:(NSString *)language_id
-								   home_latitude:(NSString *)home_latitude
-								  home_longitude:(NSString *)home_longitude
-								customer_type_id:(UserAccountType)customer_type_id
-									company_name:(NSString *)company_name
+									 languageId:(NSString *)languageId
+								   homeLatitude:(NSString *)homeLatitude
+								  homeLongitude:(NSString *)homeLongitude
+								customerTypeId:(UserAccountType)customerTypeId
+									companyname:(NSString *)companyname
 								   address:(NSString *)address
 								   website:(NSString *)website
 										facebook:(NSString *)facebook
@@ -115,15 +93,14 @@
 																							   @"email" : email,
 																							   @"login" : username,
 																							   @"password":password,
-																							   @"password_confirm":password_confirm,
-																							   @"company_name":company_name,
-																							   @"customer_type_id":@(customer_type_id)}];
+																							   @"company_name":companyname,
+																							   @"customer_type_id":@(customerTypeId)}];
 	
 	if (fullName.length) {
 		[updateParameters setObject:fullName forKey:@"name"];
 	}
-	if (language_id.length) {
-		[updateParameters setObject:language_id forKey:@"language_id"];
+	if (languageId.length) {
+		[updateParameters setObject:languageId forKey:@"language_id"];
 	}
 	if (address.length) {
 		[updateParameters setObject:address forKey:@"address"];
@@ -143,14 +120,15 @@
 	if (description.length) {
 		[updateParameters setObject:description forKey:@"description"];
 	}
-	if (home_latitude.length && home_longitude.length) {
-		[updateParameters setObject:home_latitude forKey:@"home_latitude"];
-		[updateParameters setObject:home_longitude forKey:@"home_longitude"];
+	if (homeLatitude.length && homeLongitude.length) {
+		[updateParameters setObject:homeLatitude forKey:@"home_latitude"];
+		[updateParameters setObject:homeLongitude forKey:@"home_longitude"];
 	}
 	NSData *imageData;
 	if (avatar) {
 		imageData = UIImageJPEGRepresentation(avatar, 1.0f);
 	}
+	//implement sending image
 		NSString *putString = [NSString stringWithFormat:@"api/v1/users/%li.html", userId];
 		return [self performPUT:putString withParameters:updateParameters multipartData:nil response:completion];
 }
@@ -203,7 +181,5 @@
 		completion(nil, nil, 404);
 	}
 }
-
-
 
 @end

@@ -220,10 +220,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
 			[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	} else {
-		[[APIClient sharedInstance] createUserWithFullName:@"" email:self.emailTextfield.text username:self.usernameTextfield.text password:self.passwordTextfield.text password_confirm:self.retypePasswordTextfield.text language_id:@"" home_latitude:@"" home_longitude:@"" customer_type_id:IndividualAccount company_name:@"" address:@"" website:@"" facebook:@"" linkedin:@"" phone:@"" description:@""	avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode){
-			            DLog(@"Not implemented");
-			        }];
-#warning start here
+		[[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:self.usernameTextfield.text password:self.passwordTextfield.text languageId:@"" homeLatitude:@"" homeLongitude:@"" customerTypeId:IndividualAccount companyname:@"" website:@"" phone:@"" avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			if (error) {
+				[Utils showErrorForStatusCode:statusCode];
+			} else {
+				DLog(@"%@",response);
+			}
+		}];
 	}
 }
 

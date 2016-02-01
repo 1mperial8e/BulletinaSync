@@ -16,24 +16,18 @@
 - (NSURLSessionDataTask *)generateUserWithCompletion:(ResponseBlock)completion;
 - (NSURLSessionDataTask *)showUserWithUserId:(NSInteger)userId passtoken:(NSString *)passtoken withCompletion:(ResponseBlock)completion;
 
-- (NSURLSessionDataTask *)createUserWithFullName:(NSString *)fullName
-										   email:(NSString *)email
-										username:(NSString *)username
-										password:(NSString *)password
-								password_confirm:(NSString *)password_confirm
-									 languageID:(NSString *)language_id
-								   home_latitude:(NSString *)home_latitude
-								  home_longitude:(NSString *)home_longitude
-								customer_type_id:(UserAccountType)customer_type_id
-									company_name:(NSString *)company_name
-                                         address:(NSString *)address
-                                         website:(NSString *)website
-										facebook:(NSString *)facebook
-										linkedin:(NSString *)linkedin
-										   phone:(NSString *)phone
-									 description:(NSString *)description
-										  avatar:(UIImage *)avatar
-								  withCompletion:(ResponseBlock)completion;
+- (NSURLSessionDataTask *)createUserWithEmail:(NSString *)email
+									 username:(NSString *)username
+									 password:(NSString *)password
+								   languageId:(NSString *)languageId
+								 homeLatitude:(NSString *)homeLatitude
+								homeLongitude:(NSString *)homeLongitude
+							   customerTypeId:(UserAccountType)customerTypeId
+								  companyname:(NSString *)companyname
+									  website:(NSString *)website
+										phone:(NSString *)phone
+									   avatar:(UIImage *)avatar
+							   withCompletion:(ResponseBlock)completion;
 
 - (NSURLSessionDataTask *)updateUserWithUserId:(NSInteger)userId
 										passtoken:(NSString *)passtoken
@@ -42,12 +36,11 @@
 										 email:(NSString *)email
 									  username:(NSString *)username
 									  password:(NSString *)password
-							  password_confirm:(NSString *)password_confirm
-								   language_id:(NSString *)language_id
-								 home_latitude:(NSString *)home_latitude
-								home_longitude:(NSString *)home_longitude
-							  customer_type_id:(UserAccountType)customer_type_id
-								  company_name:(NSString *)company_name
+									languageId:(NSString *)languageId
+								  homeLatitude:(NSString *)homeLatitude
+								 homeLongitude:(NSString *)homeLongitude
+								customerTypeId:(UserAccountType)customerTypeId
+								   companyname:(NSString *)companyname
 									   address:(NSString *)address
 									   website:(NSString *)website
 									  facebook:(NSString *)facebook

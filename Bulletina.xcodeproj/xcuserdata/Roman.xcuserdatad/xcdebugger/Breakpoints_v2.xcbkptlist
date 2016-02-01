@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/RegisterControllers/PersonalRegisterController/PersonalRegisterTableViewController.m"
-            timestampString = "476037994.720863"
+            timestampString = "476052488.069521"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "@implementation PersonalRegisterTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -182,33 +182,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/LoginController/LoginViewController.m"
-            timestampString = "476037642.614991"
+            timestampString = "476052233.411336"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
             landmarkName = "-tryBeforeSignupButtonTap:"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Bulletina/Controllers/LoginController/LoginViewController.m"
-            timestampString = "476037365.201896"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
-            landmarkName = "-createLoginSessionWithEmail:password:"
-            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__48-[LoginViewController tryBeforeSignupButtonTap:]_block_invoke"
+                  moduleName = "Bulletina"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Roman/Desktop/BulletinaSync/Bulletina/Controllers/LoginController/LoginViewController.m"
+                  timestampString = "476051471.963615"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "221"
+                  endingLineNumber = "221"
+                  offsetFromSymbolStart = "228">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__48-[LoginViewController tryBeforeSignupButtonTap:]_block_invoke"
+                  moduleName = "Bulletina"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Roman/Desktop/BulletinaSync/Bulletina/Controllers/LoginController/LoginViewController.m"
+                  timestampString = "476051471.964022"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "221"
+                  endingLineNumber = "221"
+                  offsetFromSymbolStart = "297">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -223,7 +239,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "43"
             endingLineNumber = "43"
-            landmarkName = "-loginSessionWithEmail:password:endpoint_arn:device_token:operating_system:device_type:current_lattitude:current_longitude:withCompletion:"
+            landmarkName = "-loginSessionWithEmail:password:endpointArn:deviceToken:operatingSystem:deviceType:currentLattitude:currentLongitude:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -233,13 +249,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Bulletina/Views/BulletinaLoader/BulletinaLoaderView.m"
-            timestampString = "476037362.31977"
+            filePath = "Bulletina/Controllers/LoginController/LoginViewController.m"
+            timestampString = "476052233.411336"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "-hide"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "-createLoginSessionWithEmail:password:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bulletina/Controllers/RegisterControllers/PersonalRegisterController/PersonalRegisterTableViewController.m"
+            timestampString = "476052221.446826"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "-saveButtonTap:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bulletina/Controllers/RegisterControllers/BuisnessRegisterController/BusinessRegisterTableViewController.m"
+            timestampString = "476052475.253204"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
+            landmarkName = "-saveButtonTap:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

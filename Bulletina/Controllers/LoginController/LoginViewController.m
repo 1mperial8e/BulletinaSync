@@ -27,6 +27,7 @@
 #import "APIClient+User.h"
 #import "APIClient+Session.h"
 #import "UserModel.h"
+#import "LocationManager.h"
 
 static CGFloat const LogoTableViewCellHeigth = 248.0f;
 static CGFloat const TextfieldTableViewCellHeigth = 48.0f;
@@ -219,7 +220,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             [Utils showErrorForStatusCode:statusCode];
 		} else {
             NSAssert([response isKindOfClass:[NSDictionary class]], @"Uncknown response from server");
-			UserModel *generatedUser = [UserModel initWithDictionary:response];
+			UserModel *generatedUser = [UserModel modelWithDictionary:response];
 			[[APIClient sharedInstance] updateCurrentUser:generatedUser];
 			[weakSelf createLoginSessionWithEmail:generatedUser.email password:generatedUser.password];
 		}
@@ -255,14 +256,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)createLoginSessionWithEmail:(NSString *)email password:(NSString *)password
 {
 	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] loginSessionWithEmail:email password:password endpoint_arn:@"" device_token:@"" operating_system:@"" device_type:@"" current_lattitude:@"" current_longitude:@"" withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+	[[APIClient sharedInstance]loginSessionWithEmail:email password:password endpointArn:@"" deviceToken:@"" operatingSystem:@"" deviceType:@"" currentLattitude:[LocationManager sharedManager].currentLocation.coordinate.latitude currentLongitude:[LocationManager sharedManager].currentLocation.coordinate.longitude withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		[weakSelf.loader hide];
 		if (error) {
             [Utils showErrorForStatusCode:statusCode];
 		} else {
             NSAssert([response isKindOfClass:[NSDictionary class]], @"Uncknown response from server");
 			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
-			[[APIClient sharedInstance] updateCurrentUser:[UserModel initWithDictionary:response]];
+			[[APIClient sharedInstance] updateCurrentUser:[UserModel modelWithDictionary:response]];
 			[weakSelf showMainPage];
 		}
 	}];

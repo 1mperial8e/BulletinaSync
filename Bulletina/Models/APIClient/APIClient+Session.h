@@ -12,12 +12,12 @@
 
 - (NSURLSessionDataTask *)loginSessionWithEmail:(NSString *)email
 									   password:(NSString *)password
-								   endpoint_arn:(NSString *)endpoint_arn
-								   device_token:(NSString *)device_token
-							   operating_system:(NSString *)operating_system
-									device_type:(NSString *)device_type
-							  current_lattitude:(NSString *)current_lattitude
-							  current_longitude:(NSString *)current_longitude
+									endpointArn:(NSString *)endpointArn
+									deviceToken:(NSString *)deviceToken
+								operatingSystem:(NSString *)operatingSystem
+									 deviceType:(NSString *)deviceType
+							   currentLattitude:(CGFloat)currentLattitude
+							   currentLongitude:(CGFloat)currentLongitude
 								 withCompletion:(ResponseBlock)completion;
 
 - (NSURLSessionDataTask *)logoutSessionWithUserId:(NSInteger)userId passtoken:(NSString *)passtoken withCompletion:(ResponseBlock)completion;

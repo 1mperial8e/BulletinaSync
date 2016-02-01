@@ -16,7 +16,6 @@ typedef NS_ENUM(NSInteger, UserAccountType) {
 
 @interface UserModel : BaseModel
 
-
 @property (strong, nonatomic) NSString *password;
 @property (assign, nonatomic) BOOL isActive; //active
 @property (strong, nonatomic) NSString *address;
@@ -25,7 +24,7 @@ typedef NS_ENUM(NSInteger, UserAccountType) {
 @property (strong, nonatomic) NSString *cellphone;
 
 @property (strong, nonatomic) NSString *company_name;
-@property (assign, nonatomic) NSInteger country_id;
+@property (strong, nonatomic) NSString *country_id;
 @property (strong, nonatomic) NSString *created_at;
 @property (assign, nonatomic) UserAccountType customer_type_id;
 @property (assign, nonatomic) BOOL isDeleted; //deleted
@@ -44,7 +43,7 @@ typedef NS_ENUM(NSInteger, UserAccountType) {
 
 @property (assign, nonatomic) BOOL ignoreReports; //ignore_reports
 @property (assign, nonatomic) BOOL isAdmin; //is_admin
-@property (assign, nonatomic) NSInteger language_id;
+@property (strong, nonatomic) NSString *language_id;
 @property (strong, nonatomic) NSString *linkedin;
 @property (assign, nonatomic) BOOL isLocked; //locked
 

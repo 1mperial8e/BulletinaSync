@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "APIClient.h"
+#import "LocationManager.h"
 
 // Controllers
 #import "LoginViewController.h"
@@ -27,6 +28,7 @@
     [self.window makeKeyAndVisible];
 	
 	[APIClient sharedInstance];
+	[LocationManager sharedManager];
     
     return YES;
 }

@@ -22,68 +22,51 @@
 	id newObject = [dictionary objectForKey:@"user"];
 	if (newObject) {
 		userWithInfo = dictionary[@"user"];
-		self.password = [self stringFromDictionary:dictionary forKey:@"passwd"];
+		self.password = dictionary[@"passwd"];
 	} else {
 		userWithInfo = dictionary;
 	}	
 	
-	self.isActive = [self boolFromDictionary:userWithInfo forKey:@"active"];//active
-	self.address = [self stringFromDictionary:userWithInfo forKey:@"address"];
-	self.avatar_url = [self stringFromDictionary:userWithInfo forKey:@"avatar_url"];
-	self.isBanned = [self boolFromDictionary:userWithInfo forKey:@"banned"]; //banned
-	self.cellphone = [self stringFromDictionary:userWithInfo forKey:@"cellphone"];
+	self.isActive = [userWithInfo[@"active"] boolValue];//active
+	self.address = userWithInfo[@"address"];
+	self.avatar_url = userWithInfo[@"avatar_url"];
+	self.isBanned = [userWithInfo[@"banned"] boolValue]; //banned
+	self.cellphone = userWithInfo[@"cellphone"];
 	
-	self.company_name = [self stringFromDictionary:userWithInfo forKey:@"company_name"];
-	self.country_id = [self integerFromDictionary:userWithInfo forKey:@"country_id"];
-	self.created_at = [self stringFromDictionary:userWithInfo forKey:@"created_at"];
-	self.customer_type_id = [self integerFromDictionary:userWithInfo forKey:@"customer_type_id"];
-	self.isDeleted = [self boolFromDictionary:userWithInfo forKey:@"deleted"]; //deleted
+	self.company_name = userWithInfo[@"company_name"];
+	self.country_id = userWithInfo[@"country_id"];
+	self.created_at = userWithInfo[@"created_at"];
+	self.customer_type_id = [userWithInfo[@"customer_type_id"] integerValue];
+	self.isDeleted = userWithInfo[@"deleted"]; //deleted
 	
-	self.about = [self stringFromDictionary:userWithInfo forKey:@"description"]; //description
-	self.email = [self stringFromDictionary:userWithInfo forKey:@"email"];
-	self.email_confirmation_sent_at = [self stringFromDictionary:userWithInfo forKey:@"email_confirmation_sent_at"];
-	self.email_confirmation_token = [self stringFromDictionary:userWithInfo forKey:@"email_confirmation_token"];
-	self.email_confirmed_at = [self stringFromDictionary:userWithInfo forKey:@"email_confirmed_at"];
+	self.about = userWithInfo[@"description"]; //description
+	self.email = userWithInfo[@"email"];
+	self.email_confirmation_sent_at = userWithInfo[@"email_confirmation_sent_at"];
+	self.email_confirmation_token = userWithInfo[@"email_confirmation_token"];
+	self.email_confirmed_at = userWithInfo[@"email_confirmed_at"];
 	
-	self.facebook = [self stringFromDictionary:userWithInfo forKey:@"facebook"];
-	self.home_latitude = [self stringFromDictionary:userWithInfo forKey:@"home_latitude"];
-	self.home_longitude = [self stringFromDictionary:userWithInfo forKey:@"home_longitude"];
-	self.hours = [self stringFromDictionary:userWithInfo forKey:@"hours"];
-	self.userId = [self integerFromDictionary:userWithInfo forKey:@"id"]; //id
+	self.facebook = userWithInfo[@"facebook"];
+	self.home_latitude = userWithInfo[@"home_latitude"];
+	self.home_longitude = userWithInfo[@"home_longitude"];
+	self.hours = userWithInfo[@"hours"];
+	self.userId = [userWithInfo[@"id"] integerValue]; //id
 	
-	self.ignoreReports  = [self boolFromDictionary:userWithInfo forKey:@"ignore_reports"];
-	self.isAdmin = [self boolFromDictionary:userWithInfo forKey:@"is_admin"]; //is_admin
-	self.language_id = [self integerFromDictionary:userWithInfo forKey:@"language_id"];
-	self.linkedin = [self stringFromDictionary:userWithInfo forKey:@"linkedin"];
-	self.isLocked = [self boolFromDictionary:userWithInfo forKey:@"locked"]; //locked
+	self.ignoreReports  = userWithInfo[@"ignore_reports"];
+	self.isAdmin = userWithInfo[@"is_admin"]; //is_admin
+	self.language_id = userWithInfo[@"language_id"] ;
+	self.linkedin = userWithInfo[@"linkedin"];
+	self.isLocked = userWithInfo[@"locked"]; //locked
 	
-	self.login = [self stringFromDictionary:userWithInfo forKey:@"login"];
-	self.name = [self stringFromDictionary:userWithInfo forKey:@"name"];
-	self.password_digest = [self stringFromDictionary:userWithInfo forKey:@"password_digest"]; //not present at generated user
-	self.phone = [self stringFromDictionary:userWithInfo forKey:@"phone"]; //cellphone duplicate?
-	self.reset_password_sent_at = [self stringFromDictionary:userWithInfo forKey:@"reset_password_sent_at"];
-	self.reset_password_token = [self stringFromDictionary:userWithInfo forKey:@"reset_password_token"]; //not present at generated user
-	self.twitter = [self stringFromDictionary:userWithInfo forKey:@"twitter"];
-	self.unconfirmed_email = [self stringFromDictionary:userWithInfo forKey:@"unconfirmed_email"];
-	self.updated_at = [self stringFromDictionary:userWithInfo forKey:@"updated_at"];
-	self.website = [self stringFromDictionary:userWithInfo forKey:@"website"];
+	self.login = userWithInfo[@"login"];
+	self.name = userWithInfo[@"name"];
+	self.password_digest = userWithInfo[@"password_digest"]; //not present at generated user
+	self.phone = userWithInfo[@"phone"]; //cellphone duplicate?
+	self.reset_password_sent_at = userWithInfo[@"reset_password_sent_at"];
+	self.reset_password_token = userWithInfo[@"reset_password_token"]; //not present at generated user
+	self.twitter = userWithInfo[@"twitter"];
+	self.unconfirmed_email = userWithInfo[@"unconfirmed_email"];
+	self.updated_at = userWithInfo[@"updated_at"];
+	self.website = userWithInfo[@"website"];
 }
-
-#pragma mark - NSCoding methods
-
-- (void)encodeWithCoder:(NSCoder *)encoder
-{
-	[encoder encodeObject:@(self.userId) forKey:@"userID"];
-}
-
-- (id)initWithCoder:(NSCoder *)decoder
-{
-	self = [super init];
-	if (self) {
-		self.userId = [[decoder decodeObjectForKey:@"userID"] integerValue];
-	}
-	return self;
-}
-
 
 @end
