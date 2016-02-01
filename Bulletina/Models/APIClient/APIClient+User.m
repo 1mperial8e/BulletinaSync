@@ -129,16 +129,16 @@
 		imageData = UIImageJPEGRepresentation(avatar, 1.0f);
 	}
 	//implement sending image
-		NSString *putString = [NSString stringWithFormat:@"api/v1/users/%li.html", userId];
-		return [self performPUT:putString withParameters:updateParameters multipartData:nil response:completion];
+		NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.html", userId];
+		return [self performPUT:query withParameters:updateParameters multipartData:nil response:completion];
 }
 
 - (NSURLSessionDataTask *)destroyUserWithUserId:(NSInteger)userId passtoken:(NSString *)passtoken withCompletion:(ResponseBlock)completion
 {
 	NSDictionary *parameters = @{@"passtoken":passtoken};
 	
-	NSString *deleteString = [NSString stringWithFormat:@"api/v1/users/%li.html", userId];
-	return [self performDELETE:deleteString withParameters:parameters response:completion];
+	NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.html", userId];
+	return [self performDELETE:query withParameters:parameters response:completion];
 }
 
 #pragma mark - Password recovery

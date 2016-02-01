@@ -39,17 +39,16 @@
 	}
 	if (currentLongitude) {
 		[parameters setObject:@(currentLongitude) forKey:@"current_longitude"];
-	}
-	
+	}	
 	return [self performPOST:@"api/v1/sessions" withParameters:parameters response:completion];
 }
 
 - (NSURLSessionDataTask *)logoutSessionWithUserId:(NSInteger)userId passtoken:(NSString *)passtoken withCompletion:(ResponseBlock)completion
 {
 	NSDictionary *parameters = @{@"userId":@(userId), @"passtoken":passtoken};
-	NSString *deleteString = [NSString stringWithFormat:@"api/v1/sessions/26.json"];
-	return [self performDELETE:deleteString withParameters:parameters response:completion];
-//	return [self performPOST:deleteString withParameters:parameters response:completion];
+	NSString *query = [NSString stringWithFormat:@"api/v1/sessions/26.json"];
+	return [self performDELETE:query withParameters:parameters response:completion];
+//	return [self performPOST:query withParameters:parameters response:completion];
 }
 
 @end
