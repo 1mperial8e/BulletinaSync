@@ -7,6 +7,7 @@
 //
 
 #import "APIClientConstants.h"
+#import "UserModel.h"
 
 @interface APIClient : NSObject
 
@@ -15,7 +16,8 @@
 
 @property (strong, nonatomic) NSString *pushToken;
 
-@property (strong, nonatomic, readonly) id currentUser;
+@property (strong, nonatomic, readonly) UserModel *currentUser;
+@property (strong, nonatomic, readonly) NSString *passtoken;
 
 + (instancetype)sharedInstance;
 
@@ -23,6 +25,8 @@
 - (BOOL)hasActiveRequest;
 
 - (void)updateCurrentUser:(id)newUser;
+- (void)updatePasstoken:(NSString *)newPasstoken;
+- (void)updatePasstokenWithDictionary:(NSDictionary *)newDictionary;
 
 //temporary
 + (NSArray *)tempCategoriesList;
@@ -33,6 +37,7 @@
 - (void)stopMonitoringNetwork;
 
 #pragma mark - API
+
 - (NSURLSessionDataTask *)performPOST:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler;
 - (NSURLSessionDataTask *)performPOST:(NSString *)path withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler;
 - (NSURLSessionDataTask *)performPUT:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler;

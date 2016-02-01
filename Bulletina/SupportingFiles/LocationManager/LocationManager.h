@@ -13,7 +13,7 @@
 @property (strong, nonatomic) CLLocation *currentLocation;
 
 - (instancetype)init __attribute__((unavailable("Init not available, use sharedManager instead")));
-+ (instancetype)new __attribute__((unavailable("New not available, use sharedManager instead")));
++ (instancetype)new __attribute__((unavailable("Now not available, use sharedManager instead")));
 + (instancetype)alloc __attribute__((unavailable("Alloc not available, use sharedManager instead")));
 
 + (instancetype)sharedManager;

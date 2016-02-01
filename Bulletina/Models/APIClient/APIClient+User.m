@@ -12,20 +12,155 @@
 
 #pragma mark - Login
 
-- (void)loginWithUsername:(NSString *)username password:(NSString *)password withCompletion:(ResponseBlock)completion
+- (NSURLSessionDataTask *)showUserWithUserId:(NSInteger)userId passtoken:(NSString *)passtoken withCompletion:(ResponseBlock)completion
 {
-	if (completion) {
-		completion(nil, nil, 404);
-	}
+	NSDictionary *parameters = @{@"id":@(userId), @"passtoken":passtoken};
+	
+	NSString *getString = [NSString stringWithFormat:@"api/v1/users/%li.html", userId];
+	return [self performGET:getString withParameters:parameters response:completion];
 }
 
 - (NSURLSessionDataTask *)generateUserWithCompletion:(ResponseBlock)completion
 {
-	NSDictionary *parameters = @{}; //@{@"commit":@"Generate user"}; //@{@"utf8":@"✓",APIKey: APIValue, @"generate":@"{:value=>\"1\"}",@"commit":@"Generate user"};
+	NSDictionary *parameters = @{@"generate":@"1"};
 	
-	NSDictionary *createParameters = @{@"name":@"userNAME", @"cellphone":@"123",@"email":@"123",@"login":@"123",@"password":@"123", @"password_confirm":@"123", @"language_id":@"1",@"home_latitude":@"123" ,@"home_longitude":@"123", @"country_id":@"1",@"customer_type_id":@"1",@"company_name":@"123",@"address":@"123", @"website":@"123",@"facebook":@"123",@"twitter":@"123",@"linkedin":@"123",@"phone":@"123",@"hours":@"123",@"description":@"123"};
+	return [self performPOST:@"api/v1/users" withParameters:parameters response:completion];
+}
+
+- (NSURLSessionDataTask *)createUserWithFullName:(NSString *)fullName
+								   email:(NSString *)email
+								   username:(NSString *)username
+								   password:(NSString *)password
+								   password_confirm:(NSString *)password_confirm
+								   language_id:(NSString *)language_id
+								   home_latitude:(NSString *)home_latitude
+								   home_longitude:(NSString *)home_longitude
+								   customer_type_id:(UserAccountType)customer_type_id
+								   company_name:(NSString *)company_name
+								   address:(NSString *)address
+								   website:(NSString *)website
+								   facebook:(NSString *)facebook
+								   linkedin:(NSString *)linkedin
+								   phone:(NSString *)phone
+								   description:(NSString *)description
+								   avatar:(UIImage *)avatar
+								   withCompletion:(ResponseBlock)completion
+{
+	NSMutableDictionary *createParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"email" : email,
+																						 @"login" : username,
+																						 @"password":password,
+																						 @"password_confirm":password_confirm,
+																						 @"company_name":company_name,
+																						 @"customer_type_id":@(customer_type_id)}];
 	
-	return [self performPOST:@"api/v1/users.json" withParameters:parameters response:completion];
+	if (fullName.length) {
+		[createParameters setObject:fullName forKey:@"name"];
+	}
+	if (language_id.length) {
+		[createParameters setObject:language_id forKey:@"language_id"];
+	}
+	if (address.length) {
+		[createParameters setObject:address forKey:@"address"];
+	}
+	if (website.length) {
+		[createParameters setObject:website forKey:@"website"];
+	}
+	if (facebook.length) {
+		[createParameters setObject:facebook forKey:@"facebook"];
+	}
+	if (linkedin.length) {
+		[createParameters setObject:linkedin forKey:@"linkedin"];
+	}
+	if (phone.length) {
+		[createParameters setObject:phone forKey:@"phone"];
+	}
+	if (description.length) {
+		[createParameters setObject:description forKey:@"description"];
+	}
+	if (home_latitude.length && home_longitude.length) {
+		[createParameters setObject:home_latitude forKey:@"home_latitude"];
+		[createParameters setObject:home_longitude forKey:@"home_longitude"];
+	}
+	NSData *imageData;
+	if (avatar) {
+		imageData = UIImageJPEGRepresentation(avatar, 1.0f);
+	}
+	return [self performPOST:@"api/v1/users" withParameters:createParameters multipartData:nil response:completion];
+}
+
+- (NSURLSessionDataTask *)updateUserWithUserId:(NSInteger)userId
+										passtoken:(NSString *)passtoken
+										   active:(NSString *)active
+											  fullName:(NSString *)fullName
+										   email:(NSString *)email
+										username:(NSString *)username
+										password:(NSString *)password
+								password_confirm:(NSString *)password_confirm
+									 language_id:(NSString *)language_id
+								   home_latitude:(NSString *)home_latitude
+								  home_longitude:(NSString *)home_longitude
+								customer_type_id:(UserAccountType)customer_type_id
+									company_name:(NSString *)company_name
+								   address:(NSString *)address
+								   website:(NSString *)website
+										facebook:(NSString *)facebook
+										linkedin:(NSString *)linkedin
+										   phone:(NSString *)phone
+									 description:(NSString *)description
+										  avatar:(UIImage *)avatar
+								  withCompletion:(ResponseBlock)completion
+{
+	NSMutableDictionary *updateParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken":passtoken,
+																							   @"active":active,
+																							   @"email" : email,
+																							   @"login" : username,
+																							   @"password":password,
+																							   @"password_confirm":password_confirm,
+																							   @"company_name":company_name,
+																							   @"customer_type_id":@(customer_type_id)}];
+	
+	if (fullName.length) {
+		[updateParameters setObject:fullName forKey:@"name"];
+	}
+	if (language_id.length) {
+		[updateParameters setObject:language_id forKey:@"language_id"];
+	}
+	if (address.length) {
+		[updateParameters setObject:address forKey:@"address"];
+	}
+	if (website.length) {
+		[updateParameters setObject:website forKey:@"website"];
+	}
+	if (facebook.length) {
+		[updateParameters setObject:facebook forKey:@"facebook"];
+	}
+	if (linkedin.length) {
+		[updateParameters setObject:linkedin forKey:@"linkedin"];
+	}
+	if (phone.length) {
+		[updateParameters setObject:phone forKey:@"phone"];
+	}
+	if (description.length) {
+		[updateParameters setObject:description forKey:@"description"];
+	}
+	if (home_latitude.length && home_longitude.length) {
+		[updateParameters setObject:home_latitude forKey:@"home_latitude"];
+		[updateParameters setObject:home_longitude forKey:@"home_longitude"];
+	}
+	NSData *imageData;
+	if (avatar) {
+		imageData = UIImageJPEGRepresentation(avatar, 1.0f);
+	}
+		NSString *putString = [NSString stringWithFormat:@"api/v1/users/%li.html", userId];
+		return [self performPUT:putString withParameters:updateParameters multipartData:nil response:completion];
+}
+
+- (NSURLSessionDataTask *)destroyUserWithUserId:(NSInteger)userId passtoken:(NSString *)passtoken withCompletion:(ResponseBlock)completion
+{
+	NSDictionary *parameters = @{@"passtoken":passtoken};
+	
+	NSString *deleteString = [NSString stringWithFormat:@"api/v1/users/%li.html", userId];
+	return [self performDELETE:deleteString withParameters:parameters response:completion];
 }
 
 #pragma mark - Password recovery

@@ -28,9 +28,6 @@ static NSString *const NetworkErrorDomain = @"com.bulletina.network.error";
 static NSString *const APIBaseURLProduction = @"https://www.bulletina.com/";
 static NSString *const APIBaseURLSandbox = @"http://api.bulletina.net/";
 
-static NSString *const APIKey = @"authenticity_token";
-static NSString *const APIValue = @"7A8QO75/1e6Eb4ekjKnAWs7nbKI+GR4vpehdeCVdsIPe63h4nSk7pLkNJsaohjaoQbAGIjXMcUWmP+kW3UseCg==";
-
 static NSString *const MultipartDataFileName = @"MultipartDataFileName";
 static NSString *const MultipartDataFileMimeType = @"MultipartDataFileMimeType";
 static NSString *const MultipartDataFileBytes = @"MultipartDataFileBytes";

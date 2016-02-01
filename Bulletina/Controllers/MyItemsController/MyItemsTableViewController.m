@@ -68,21 +68,30 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (UITableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath
 {
-	if (self.profileType == IndividualProfile) {
-		IndividualProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:IndividualProfileLogoTableViewCell.ID forIndexPath:indexPath];
-		cell.aboutMeTextView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-		cell.logoImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-		cell.logoImageView.layer.borderWidth = 2.0f;
-		cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
+	if ([APIClient sharedInstance].currentUser.customer_type_id == BusinessAccount) {
+		BusinessProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessProfileLogoTableViewCell.ID forIndexPath:indexPath];
+		[self addCustomBorderToButton:cell.websiteButton];
+		[self addCustomBorderToButton:cell.facebookButton];
+		[self addCustomBorderToButton:cell.instagramButton];
+		[self addCustomBorderToButton:cell.linkedInButton];
 		cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+		cell.companyNameLabel.text = ((UserModel *)[APIClient sharedInstance].currentUser).company_name;
+		cell.companyPhoneLabel.text = ((UserModel *)[APIClient sharedInstance].currentUser).phone;
+		cell.companyDescriptionTextView.text = ((UserModel *)[APIClient sharedInstance].currentUser).about;
+		
 		return cell;
 	}
-	BusinessProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessProfileLogoTableViewCell.ID forIndexPath:indexPath];
-	[self addCustomBorderToButton:cell.websiteButton];
-	[self addCustomBorderToButton:cell.facebookButton];
-	[self addCustomBorderToButton:cell.instagramButton];
-	[self addCustomBorderToButton:cell.linkedInButton];
+	IndividualProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:IndividualProfileLogoTableViewCell.ID forIndexPath:indexPath];
+	cell.aboutMeTextView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+	cell.logoImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+	cell.logoImageView.layer.borderWidth = 2.0f;
+	cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
 	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+	
+	cell.userFullNameLabel.text = ((UserModel *)[APIClient sharedInstance].currentUser).name;
+	cell.userNicknameLabel.text = ((UserModel *)[APIClient sharedInstance].currentUser).login;
+	cell.aboutMeTextView.text = ((UserModel *)[APIClient sharedInstance].currentUser).about;
+	
 	return cell;
 }
 
@@ -133,18 +142,24 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (CGFloat)heightForTopCell
 {
-	if (self.profileType == IndividualProfile) {
-		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:IndividualProfileLogoTableViewCell.ID owner:self options:nil];
-		IndividualProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
+	if ([APIClient sharedInstance].currentUser.customer_type_id == BusinessAccount) {
+		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
+		BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
 		CGSize size = CGSizeZero;
-		size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
-		return (size.height + PersonalLogoCellHeigth);
+		//		cell.companyNameLabel.text = ((UserModel *)[APIClient sharedInstance].currentUser).company_name;
+		//		cell.companyPhoneLabel.text = ((UserModel *)[APIClient sharedInstance].currentUser).phone;
+		cell.companyDescriptionTextView.text = ((UserModel *)[APIClient sharedInstance].currentUser).about;
+		size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
+		return (size.height + BusinessLogoCellHeigth);
 	}
-	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
-	BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
+	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:IndividualProfileLogoTableViewCell.ID owner:self options:nil];
+	IndividualProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
 	CGSize size = CGSizeZero;
-	size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
-	return (size.height + BusinessLogoCellHeigth);
+	//	cell.userFullNameLabel.text = ((UserModel *)[APIClient sharedInstance].currentUser).name;
+	//	cell.userNicknameLabel.text = ((UserModel *)[APIClient sharedInstance].currentUser).login;
+	cell.aboutMeTextView.text = ((UserModel *)[APIClient sharedInstance].currentUser).about;
+	size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
+	return (size.height + PersonalLogoCellHeigth);
 }
 
 - (void)addCustomBorderToButton:(UIButton *)button

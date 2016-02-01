@@ -25,6 +25,8 @@
 
 //Models
 #import "APIClient+User.h"
+#import "APIClient+Session.h"
+#import "UserModel.h"
 
 static CGFloat const LogoTableViewCellHeigth = 248.0f;
 static CGFloat const TextfieldTableViewCellHeigth = 48.0f;
@@ -47,6 +49,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @property (weak, nonatomic) UITextField *usernameTextfield;
 @property (weak, nonatomic) UITextField *passwordTextfield;
+@property (strong, nonatomic) BulletinaLoaderView *loader;
 
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 
@@ -59,7 +62,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
 	[self tableViewSetup];
     [self setupDefaults];
 }
@@ -67,11 +69,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewWillAppear:(BOOL)animated
 {
 	[self setupUI];
-	
-	//loader test
-	BulletinaLoaderView *loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:@"Loading items. Please wait.."];
-	[loader show];
-	[loader performSelector:@selector(hide) withObject:nil afterDelay:1];
+	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:@"Loading items. Please wait.."];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -134,13 +132,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
 	self.tableView.separatorColor = [UIColor clearColor];
-	
 	CAGradientLayer *gradient = [CAGradientLayer layer];
 	gradient.frame = [UIScreen mainScreen].bounds;
 	gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:241/255.0f green:158/255.0f blue:15/255.0f alpha:1] CGColor], (id)[[UIColor colorWithRed:231/255.0f green:144/255.0f blue:16/255.0f alpha:1] CGColor], (id)[[UIColor colorWithRed:219/255.0f green:129/255.0f blue:16/255.0f alpha:1] CGColor],  (id)[[UIColor colorWithRed:196/255.0f green:99/255.0f blue:18/255.0f alpha:1] CGColor],  nil];
 	gradient.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f], [NSNumber numberWithFloat:0.25], [NSNumber numberWithFloat:0.5], [NSNumber numberWithFloat:1.0], nil];
 	[self.view.layer insertSublayer:gradient atIndex:0];
-	
 	[self.tableView registerNib:LogoTableViewCell.nib forCellReuseIdentifier:LogoTableViewCell.ID];
 	[self.tableView registerNib:TextFieldTableViewCell.nib forCellReuseIdentifier:TextFieldTableViewCell.ID];
 	[self.tableView registerNib:LoginButtonTableViewCell.nib forCellReuseIdentifier:LoginButtonTableViewCell.ID];
@@ -165,8 +161,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	TextFieldTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:TextFieldTableViewCell.ID forIndexPath:indexPath];
 	cell.textField.placeholder = @"Nickname / email:";
+	
+	cell.textField.text = @"784900e9-d708-4e88-8b84-0ac8bac04620@bulletina.net"; //test
+	
 	if (indexPath.row == PasswordTextfieldIndex) {
 		cell.textField.placeholder = @"Password:";
+		
+		cell.textField.text = @"r0)Z@pX-HTpa"; //test
+		
         cell.textField.secureTextEntry = YES;
         cell.textField.returnKeyType = UIReturnKeyDone;
         self.passwordTextfield = cell.textField;
@@ -208,16 +210,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)tryBeforeSignupButtonTap:(id)sender
 {
+	[self.loader show];
+	__weak typeof(self) weakSelf = self;
+	
 	[[APIClient sharedInstance] generateUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
-			DLog(@"%@",error);
+			[weakSelf.loader hide];
 		} else {
-			DLog(@"%@",response);
+			UserModel *generatedUser = [UserModel initWithDictionary:response];
+			[[APIClient sharedInstance] updateCurrentUser:generatedUser];
+			[weakSelf createLoginSessionWithEmail:generatedUser.email password:generatedUser.password];
 		}
 	}];
-//	MainPageController *mainPageController = [MainPageController new];
-//	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
-//	[self.navigationController presentViewController:mainPageNavigationController animated:YES completion:nil];
 }
 
 - (void)signupButtonTap:(id)sender
@@ -233,7 +237,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (!self.passwordTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Password is required."];
 	} else {
-		[[APIClient sharedInstance] loginWithUsername:self.usernameTextfield.text password:self.passwordTextfield.text withCompletion:^(id response, NSError *error, NSInteger statusCode){ DLog(@"Not implemented"); }];
+		[self createLoginSessionWithEmail:self.usernameTextfield.text password:self.passwordTextfield.text];
 	}
 }
 
@@ -242,6 +246,30 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	ForgotPasswordTableViewController *forgotPasswordTableViewController = [ForgotPasswordTableViewController new];
 	UINavigationController *forgotNavigationController = [[UINavigationController alloc] initWithRootViewController:forgotPasswordTableViewController];
 	[self.navigationController presentViewController:forgotNavigationController animated:YES completion:nil];
+}
+
+#pragma mark - Utils
+
+- (void)createLoginSessionWithEmail:(NSString *)email password:(NSString *)password
+{
+	__weak typeof(self) weakSelf = self;
+	[[APIClient sharedInstance] loginSessionWithEmail:email password:password endpoint_arn:@"" device_token:@"" operating_system:@"" device_type:@"" current_lattitude:@"" current_longitude:@"" withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[weakSelf.loader hide];
+		if (error) {
+			DLog(@"%@",error);
+		} else {
+			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+			[[APIClient sharedInstance] updateCurrentUser:[UserModel initWithDictionary:response]];
+			[weakSelf showMainPage];
+		}
+	}];
+}
+
+- (void)showMainPage
+{
+	MainPageController *mainPageController = [MainPageController new];
+	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
+	[self.navigationController presentViewController:mainPageNavigationController animated:YES completion:nil];
 }
 
 #pragma mark - UITextFieldDelegate

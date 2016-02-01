@@ -62,6 +62,19 @@
     _currentUser = newUser;
 }
 
+- (void)updatePasstoken:(NSString *)newPasstoken
+{
+	_passtoken = newPasstoken;
+}
+
+- (void)updatePasstokenWithDictionary:(NSDictionary *)newDictionary
+{
+	id newObject = [newDictionary objectForKey:@"passtoken"];
+	if (newObject && (NSNull *)newObject != [NSNull null]) {
+		_passtoken =  (NSString *)newObject;		
+	}
+}
+
 - (void)loadCurrentUser
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -167,7 +180,7 @@ void(^PerformCompletionRecognition)(NSURLResponse *, id, NSError *, ResponseBloc
     NSError *requestError;
     NSURLRequest *request;
     AFHTTPRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
-    [serializer setValue:APIValue forHTTPHeaderField:APIKey];
+//    [serializer setValue:APIValue forHTTPHeaderField:APIKey];
 
     if (dataArray) {
         request = [serializer multipartFormRequestWithMethod:method URLString:URLWithPath(path) parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {

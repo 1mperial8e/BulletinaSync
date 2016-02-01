@@ -27,7 +27,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEm-c9-rd3">
-                                <rect key="frame" x="30" y="44" width="315" height="1"/>
+                                <rect key="frame" x="30" y="44" width="315" height="0.0"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <string key="text">AppMedia is an Apple Retails store Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor Lorem ipsum dolor sit er elit lamet, consectetaur </string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -119,7 +119,7 @@
                             <constraint firstItem="aEm-c9-rd3" firstAttribute="top" secondItem="k2f-QB-yi5" secondAttribute="bottom" constant="15" id="aXI-Px-I49"/>
                             <constraint firstItem="ujD-QF-gLP" firstAttribute="centerX" secondItem="aOb-SS-Fta" secondAttribute="centerX" id="cgh-4y-F4e"/>
                             <constraint firstItem="xRd-sA-c8I" firstAttribute="centerX" secondItem="aOb-SS-Fta" secondAttribute="centerX" id="fkl-4B-YBv"/>
-                            <constraint firstItem="xRd-sA-c8I" firstAttribute="top" secondItem="aEm-c9-rd3" secondAttribute="bottom" constant="12" id="k64-WU-eFr"/>
+                            <constraint firstItem="xRd-sA-c8I" firstAttribute="top" secondItem="aEm-c9-rd3" secondAttribute="bottom" constant="13" id="k64-WU-eFr"/>
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BusinessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="TlN-oR-IhT">
@@ -144,6 +144,7 @@
             <connections>
                 <outlet property="companyDescriptionTextView" destination="aEm-c9-rd3" id="dDX-Rn-1Um"/>
                 <outlet property="companyNameLabel" destination="k2f-QB-yi5" id="IHH-Ge-ad1"/>
+                <outlet property="companyPhoneLabel" destination="xRd-sA-c8I" id="776-Dr-X83"/>
                 <outlet property="facebookButton" destination="Pab-jj-7f8" id="gOc-9T-KEP"/>
                 <outlet property="instagramButton" destination="vDF-7e-FAV" id="Yvf-ma-z4e"/>
                 <outlet property="linkedInButton" destination="Npi-cs-FGf" id="KVB-K1-vMh"/>

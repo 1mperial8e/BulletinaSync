@@ -11,7 +11,7 @@
 
 @interface ItemsListTableViewController : UITableViewController
 
-@property (assign, nonatomic) ProfileType profileType;
+//@property (assign, nonatomic) UserAccountType profileType;
 
 - (CGFloat)itemCellHeightForText:(NSString *)text andImage:(UIImage *)image;
 - (CGFloat)heighOfImageViewForImage:(UIImage *)image;
