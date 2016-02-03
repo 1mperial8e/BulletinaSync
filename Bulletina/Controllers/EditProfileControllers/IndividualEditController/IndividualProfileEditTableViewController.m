@@ -60,6 +60,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self tableViewSetup];
 	[self setupDefaults];
 	[self setupUI];
+	
+	if ([APIClient sharedInstance].currentUser.avatar_url.length) {
+		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
+		self.logoImage = [UIImage imageWithData:imageData];
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated

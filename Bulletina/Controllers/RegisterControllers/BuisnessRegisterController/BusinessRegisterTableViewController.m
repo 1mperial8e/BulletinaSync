@@ -63,7 +63,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self setupDefaults];
 	
 	self.title = @"Business account";
-	self.navigationController.navigationBar.topItem.title = @"Cancel";
 	self.view.backgroundColor = [UIColor mainPageBGColor];	
 }
 
@@ -232,13 +231,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
 		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	} else {
-//		[[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:@"" password:self.passwordTextfield.text languageId:@"" homeLatitude:@"" homeLongitude:@"" customerTypeId:BusinessAccount companyname:self.companyNameTextfield.text website:self.websiteTextfield.text phone:self.phoneTextfield.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-//			if (error) {
-//				[Utils showErrorForStatusCode:statusCode];
-//			} else {
-//				DLog(@"%@",response);
-//			}
-//		}];
+//register
 	}
 }
 

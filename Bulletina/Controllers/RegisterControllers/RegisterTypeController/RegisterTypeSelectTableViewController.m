@@ -135,6 +135,7 @@ typedef NS_ENUM(NSUInteger, AccountTypeIndex) {
 
 - (void)prepareNavigationBar
 {
+	self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
     self.navigationController.navigationBar.backItem.title = @"Cancel";
 }

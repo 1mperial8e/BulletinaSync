@@ -76,35 +76,19 @@
 {
 	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 	if ([cell.textLabel.text isEqualToString:@"UserGenerate"]) {
-		
-			[self.loader show];
-			__weak typeof(self) weakSelf = self;
-		
-			[[APIClient sharedInstance] generateUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
-				[weakSelf.loader hide];
-				if (error) {
-					DLog(@"Generate user: %@",error);
-		            [Utils showErrorForStatusCode:statusCode];
-				} else {
-		            NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
-					DLog(@"Generate user: %@",response);
-					UserModel *generatedUser = [UserModel modelWithDictionary:response];
-					[[APIClient sharedInstance] updateCurrentUser:generatedUser];
-					[[APIClient sharedInstance] updateUserPasswordWithDictionary:response];
-					[Utils showWarningWithMessage:@"User successfully generated. Now you can Login"];
-				}
-			}];
-		
+		[self generateUser];
 	} else if ([cell.textLabel.text isEqualToString:@"TestUIWithFakeIndividualAccount"]) {
 		NSDictionary *fakeUser = @{@"banned":@NO, @"customer_type_id":@2, @"description":@"Here is some description of personal profile", @"email":@"myemail@bulletina.net", @"id":@5, @"login":@"myFakeLogin", @"name":@"myFullName"};
 		[[APIClient sharedInstance] updateCurrentUser:[UserModel modelWithDictionary:fakeUser]];
 		[self showMainPage];
 	} else if ([cell.textLabel.text isEqualToString:@"TestUIWithFakeBusinessAccount"]) {
-		NSDictionary *fakeUser = @{@"banned":@NO, @"customer_type_id":@3, @"description":@"Here is some description of business profile", @"email":@"myemail@bulletina.net", @"id":@5, @"login":@"myFakeLogin", @"company_name":@"myCompanyName"};
+		NSDictionary *fakeUser = @{@"banned":@NO, @"customer_type_id":@3, @"description":@"Here is some description of business profile", @"email":@"myemail@bulletina.net", @"id":@5, @"phone":@"+1234567890", @"login":@"myFakeLogin", @"company_name":@"myCompanyName"};
 		[[APIClient sharedInstance] updateCurrentUser:[UserModel modelWithDictionary:fakeUser]];
 		[self showMainPage];
 	} else if ([cell.textLabel.text isEqualToString:@"SessionCreate - Login"]) {
-		[self createLoginSessionWithEmail:@"784900e9-d708-4e88-8b84-0ac8bac04620@bulletina.net" password:@"r0)Z@pX-HTpa"];
+		NSString *userEmail = [APIClient sharedInstance].currentUser ? [APIClient sharedInstance].currentUser.email : @"784900e9-d708-4e88-8b84-0ac8bac04620@bulletina.net";
+		NSString *password = [APIClient sharedInstance].userPassword ? [APIClient sharedInstance].userPassword : @"r0)Z@pX-HTpa";
+		[self createLoginSessionWithEmail:userEmail password:password];
 	}
 }
 
@@ -115,6 +99,27 @@
 	MainPageController *mainPageController = [MainPageController new];
 	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
 	[self.navigationController presentViewController:mainPageNavigationController animated:YES completion:nil];
+}
+
+- (void)generateUser
+{
+	[self.loader show];
+	__weak typeof(self) weakSelf = self;
+	
+	[[APIClient sharedInstance] generateUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[weakSelf.loader hide];
+		if (error) {
+			DLog(@"Generate user: %@",error);
+			[Utils showErrorForStatusCode:statusCode];
+		} else {
+			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+			DLog(@"Generate user: %@",response);
+			UserModel *generatedUser = [UserModel modelWithDictionary:response];
+			[[APIClient sharedInstance] updateCurrentUser:generatedUser];
+			[[APIClient sharedInstance] updateUserPasswordWithDictionary:response];
+			[Utils showWarningWithMessage:[NSString stringWithFormat:@"User with id:%li successfully generated. Now you can Login",generatedUser.userId]];
+		}
+	}];
 }
 
 - (void)createLoginSessionWithEmail:(NSString *)email password:(NSString *)password
@@ -131,10 +136,9 @@
 			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
 			[[APIClient sharedInstance] updateCurrentUser:[UserModel modelWithDictionary:response]];
 			DLog(@"Login: %@", response);
-			[Utils showWarningWithMessage:@"Login successfull. Now you have passtoken"];
+			[Utils showWarningWithMessage:[NSString stringWithFormat:@"User with id:%li successfully login. Now you have passtoken",[APIClient sharedInstance].currentUser.userId]];
 		}
 	}];
 }
-
 
 @end

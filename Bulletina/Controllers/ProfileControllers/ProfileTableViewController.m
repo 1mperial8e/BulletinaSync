@@ -86,8 +86,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[self addCustomBorderToButton:cell.linkedInButton];
 		cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
 		cell.companyNameLabel.text = [APIClient sharedInstance].currentUser.company_name;
-		cell.companyPhoneLabel.text = [APIClient sharedInstance].currentUser.phone;
+		cell.companyPhoneLabel.text = [NSString stringWithFormat:@"Phone:%@", [APIClient sharedInstance].currentUser.phone];
+		[cell.companyDescriptionTextView setEditable:YES];
 		cell.companyDescriptionTextView.text = [APIClient sharedInstance].currentUser.about;
+		[cell.companyDescriptionTextView setEditable:NO];
+		if ([APIClient sharedInstance].currentUser.avatar_url.length) {
+			NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
+			cell.logoImageView.image = [UIImage imageWithData:imageData];
+		}
 		return cell;
 	}
 	IndividualProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:IndividualProfileLogoTableViewCell.ID forIndexPath:indexPath];
@@ -95,21 +101,17 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.logoImageView.layer.borderColor = [UIColor whiteColor].CGColor;
 	cell.logoImageView.layer.borderWidth = 2.0f;
 	cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
-	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-	
+	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);	
 	cell.userFullNameLabel.text = [APIClient sharedInstance].currentUser.name;
 	cell.userNicknameLabel.text = [APIClient sharedInstance].currentUser.login;
 	[cell.aboutMeTextView setEditable:YES];
-	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about ?  [APIClient sharedInstance].currentUser.about : @"No description.";
+	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
 	[cell.aboutMeTextView setEditable:NO];
+	if ([APIClient sharedInstance].currentUser.avatar_url.length) {
+		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
+		cell.logoImageView.image = [UIImage imageWithData:imageData];
+	}
 	return cell;
-}
-
-- (void)addCustomBorderToButton:(UIButton *)button
-{
-	button.layer.borderColor = [UIColor whiteColor].CGColor;
-	button.layer.borderWidth = 1.0f;
-	button.layer.cornerRadius = 5;
 }
 
 - (ProfileDefaultTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath
@@ -166,7 +168,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 			[self.navigationController pushViewController:individualProfileEditTableViewController animated:YES];
 		}
 	} else if (indexPath.item == LogOutCellIndex) {
-		//logout
 		[self.navigationController dismissViewControllerAnimated:NO completion:nil];
 		[self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];		
     } else if (indexPath.item == MessagesCellIndex) {
@@ -196,16 +197,27 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
 		BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
 		CGSize size = CGSizeZero;
+		[cell.companyDescriptionTextView setEditable:YES];
 		cell.companyDescriptionTextView.text = [APIClient sharedInstance].currentUser.about;
+		[cell.companyDescriptionTextView setEditable:NO];
 		size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
 		return (size.height + BusinessLogoCellHeigth);
 	}
 	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:IndividualProfileLogoTableViewCell.ID owner:self options:nil];
 	IndividualProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
 	CGSize size = CGSizeZero;
+	[cell.aboutMeTextView setEditable:YES];
 	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
+	[cell.aboutMeTextView setEditable:NO];
 	size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
 	return (size.height + PersonalLogoCellHeigth);
+}
+
+- (void)addCustomBorderToButton:(UIButton *)button
+{
+	button.layer.borderColor = [UIColor whiteColor].CGColor;
+	button.layer.borderWidth = 1.0f;
+	button.layer.cornerRadius = 5;
 }
 
 #pragma mark - Setup

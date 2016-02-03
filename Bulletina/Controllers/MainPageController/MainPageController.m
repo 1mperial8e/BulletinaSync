@@ -107,7 +107,6 @@
 	UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"Nearby",@"Favorites"]];
 	segment.selectedSegmentIndex = 0;
 	[segment addTarget:self action:@selector(segmentedControlSwitch:) forControlEvents:UIControlEventValueChanged];
-//	self.profileType = [APIClient sharedInstance].currentUser.customer_type_id;
 	self.navigationItem.titleView = segment;
 }
 
@@ -154,18 +153,13 @@
 - (void)profileButtonAction:(id)sender
 {
 	ProfileTableViewController *profileTableViewController = [ProfileTableViewController new];
-//	profileTableViewController.profileType = self.profileType;
 	UINavigationController *profileNavigationController = [[UINavigationController alloc] initWithRootViewController:profileTableViewController];
 	[self.navigationController presentViewController:profileNavigationController animated:YES completion:nil];
 }
 
 - (void)segmentedControlSwitch:(UISegmentedControl *)sender
 {
-//	if (sender.selectedSegmentIndex == 0) {
-//		self.profileType = IndividualAccount;
-//	} else {
-//		self.profileType = BusinessAccount;
-//	}
+ //switch
 }
 
 #pragma mark - Utils

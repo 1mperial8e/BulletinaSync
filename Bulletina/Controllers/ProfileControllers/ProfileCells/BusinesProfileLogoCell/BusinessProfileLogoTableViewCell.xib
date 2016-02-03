@@ -18,16 +18,16 @@
                         <rect key="frame" x="0.0" y="120" width="375" height="131"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AppMedia AS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2f-QB-yi5">
-                                <rect key="frame" x="17" y="15" width="341" height="14"/>
+                                <rect key="frame" x="17" y="15" width="341" height="16"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="14" id="P6r-H7-Knx"/>
+                                    <constraint firstAttribute="height" constant="16" id="P6r-H7-Knx"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEm-c9-rd3">
-                                <rect key="frame" x="30" y="44" width="315" height="0.0"/>
+                                <rect key="frame" x="30" y="45" width="315" height="0.0"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <string key="text">AppMedia is an Apple Retails store Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor Lorem ipsum dolor sit er elit lamet, consectetaur </string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -35,10 +35,10 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ujD-QF-gLP">
-                                <rect key="frame" x="33" y="89" width="310" height="26"/>
+                                <rect key="frame" x="33" y="90" width="310" height="25"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ki1-Vt-IxM">
-                                        <rect key="frame" x="0.0" y="0.0" width="75" height="26"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="25"/>
                                         <color key="backgroundColor" red="0.23921568630000001" green="0.36862745099999999" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="contentEdgeInsets" minX="2" minY="0.0" maxX="2" maxY="0.0"/>
@@ -48,7 +48,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pab-jj-7f8">
-                                        <rect key="frame" x="79" y="0.0" width="74" height="26"/>
+                                        <rect key="frame" x="79" y="0.0" width="74" height="25"/>
                                         <color key="backgroundColor" red="0.23921568627450979" green="0.36862745098039218" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -59,7 +59,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDF-7e-FAV">
-                                        <rect key="frame" x="157" y="0.0" width="75" height="26"/>
+                                        <rect key="frame" x="157" y="0.0" width="75" height="25"/>
                                         <color key="backgroundColor" red="0.23921568630000001" green="0.36862745099999999" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="contentEdgeInsets" minX="2" minY="0.0" maxX="2" maxY="0.0"/>
@@ -69,7 +69,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Npi-cs-FGf">
-                                        <rect key="frame" x="236" y="0.0" width="74" height="26"/>
+                                        <rect key="frame" x="236" y="0.0" width="74" height="25"/>
                                         <color key="backgroundColor" red="0.23921568630000001" green="0.36862745099999999" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="contentEdgeInsets" minX="2" minY="5" maxX="2" maxY="5"/>
@@ -101,7 +101,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone: +47 999 99 999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRd-sA-c8I">
-                                <rect key="frame" x="110" y="57" width="156" height="17"/>
+                                <rect key="frame" x="110" y="58" width="156" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -116,7 +116,7 @@
                             <constraint firstAttribute="trailing" secondItem="k2f-QB-yi5" secondAttribute="trailing" constant="17" id="OwR-cZ-vjQ"/>
                             <constraint firstAttribute="trailing" secondItem="aEm-c9-rd3" secondAttribute="trailing" constant="30" id="XL6-74-u6c"/>
                             <constraint firstAttribute="bottom" secondItem="ujD-QF-gLP" secondAttribute="bottom" constant="16" id="XvP-c6-SCZ"/>
-                            <constraint firstItem="aEm-c9-rd3" firstAttribute="top" secondItem="k2f-QB-yi5" secondAttribute="bottom" constant="15" id="aXI-Px-I49"/>
+                            <constraint firstItem="aEm-c9-rd3" firstAttribute="top" secondItem="k2f-QB-yi5" secondAttribute="bottom" constant="14" id="aXI-Px-I49"/>
                             <constraint firstItem="ujD-QF-gLP" firstAttribute="centerX" secondItem="aOb-SS-Fta" secondAttribute="centerX" id="cgh-4y-F4e"/>
                             <constraint firstItem="xRd-sA-c8I" firstAttribute="centerX" secondItem="aOb-SS-Fta" secondAttribute="centerX" id="fkl-4B-YBv"/>
                             <constraint firstItem="xRd-sA-c8I" firstAttribute="top" secondItem="aEm-c9-rd3" secondAttribute="bottom" constant="13" id="k64-WU-eFr"/>

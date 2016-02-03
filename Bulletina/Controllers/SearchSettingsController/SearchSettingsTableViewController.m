@@ -39,8 +39,7 @@ static NSInteger const UserTypeSectionsIndex = 2;
 	[self tableViewSetup];
 	self.categoriesArray = [APIClient tempCategoriesList];
 	
-	self.title = @"Search filter";
-	self.navigationController.navigationBar.topItem.title = @"Back";
+	self.title = @"Search filter";	
 }
 
 #pragma mark - UITableView data source

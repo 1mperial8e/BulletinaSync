@@ -69,7 +69,6 @@ static NSString *const ViewControllerTitle = @"Messages";
 - (void)prepareUI
 {
     self.title = ViewControllerTitle;
-    self.navigationController.navigationBar.topItem.title = @"Back";
     [self prepareNavigationBar];
     [self prepareTableView];
 }

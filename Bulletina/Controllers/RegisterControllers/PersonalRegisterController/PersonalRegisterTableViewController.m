@@ -59,7 +59,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self setupDefaults];
 	
 	self.title = @"Individual account";
-	self.navigationController.navigationBar.topItem.title = @"Cancel";
 	self.view.backgroundColor = [UIColor mainPageBGColor];	
 }
 

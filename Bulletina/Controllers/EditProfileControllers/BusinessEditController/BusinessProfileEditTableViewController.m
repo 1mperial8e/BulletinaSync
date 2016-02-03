@@ -26,7 +26,7 @@ static CGFloat const LogoCellHeigth = 178;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
 
-static NSInteger const CellsCount = 12;
+static NSInteger const CellsCount = 11;
 static CGFloat const AdditionalBottomInset = 36;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
@@ -36,7 +36,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	PhoneCellIndex,
 	WebsiteCellIndex,
 	FacebookCellIndex,
-	InstagramCellIndex,
 	LinkedInCellIndex,
 	AboutCellIndex,
 	PasswordCellIndex,
@@ -52,7 +51,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UITextField *websiteTextfield;
 @property (weak, nonatomic) UITextField *facebookTextfield;
 @property (weak, nonatomic) UITextField *linkedInTextfield;
-@property (weak, nonatomic) UITextField *instagramTextfield;
 @property (weak, nonatomic) UITextView *aboutTextView;
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
@@ -73,6 +71,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self tableViewSetup];
 	[self setupDefaults];
 	[self setupUI];
+	
+	if ([APIClient sharedInstance].currentUser.avatar_url.length) {
+		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
+		self.logoImage = [UIImage imageWithData:imageData];
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -144,26 +147,29 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.inputTextField.placeholder = @"Username:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
+		cell.inputTextField.text = [APIClient sharedInstance].currentUser.login;
 	} else if (indexPath.item == CompanyNameCellIndex) {
 		cell.inputTextField.placeholder = @"Company Name:";
+		cell.inputTextField.text = [APIClient sharedInstance].currentUser.company_name;
 		self.companyNameTextfield = cell.inputTextField;
 	} else if (indexPath.item == PhoneCellIndex) {
 		cell.inputTextField.placeholder = @"Phone:";
+		cell.inputTextField.text = [APIClient sharedInstance].currentUser.phone;
 		self.phoneTextfield = cell.inputTextField;
 		cell.inputTextField.keyboardType = UIKeyboardTypePhonePad;
 	} else if (indexPath.item == WebsiteCellIndex) {
 		cell.inputTextField.placeholder = @"Website:";
+		cell.inputTextField.text = [APIClient sharedInstance].currentUser.website;
 		self.websiteTextfield = cell.inputTextField;
 	} else if (indexPath.item == FacebookCellIndex) {
 		cell.inputTextField.placeholder = @"Facebook:";
+		cell.inputTextField.text = [APIClient sharedInstance].currentUser.facebook;
 		self.facebookTextfield = cell.inputTextField;
 	} else if (indexPath.item == LinkedInCellIndex) {
 		cell.inputTextField.placeholder = @"LinkedIn:";
+		cell.inputTextField.text = [APIClient sharedInstance].currentUser.linkedin;
 		self.linkedInTextfield = cell.inputTextField;
-	} else if (indexPath.item == InstagramCellIndex) {
-		cell.inputTextField.placeholder = @"Insagram:";
-		self.instagramTextfield = cell.inputTextField;
-	} else if (indexPath.item == PasswordCellIndex) {
+	}  else if (indexPath.item == PasswordCellIndex) {
 		cell.inputTextField.placeholder = @"New password:";
 		cell.inputTextField.secureTextEntry = YES;
 		self.passwordTextfield = cell.inputTextField;
@@ -182,6 +188,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	self.aboutCell = [self.tableView dequeueReusableCellWithIdentifier:EditProfileAboutTableViewCell.ID forIndexPath:indexPath];
 	self.aboutCell.backgroundColor = [UIColor mainPageBGColor];
+	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
 	self.aboutTextView = self.aboutCell.aboutTextView;
 	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyNext;
 	self.aboutCell.aboutTextView.delegate = self;
@@ -277,6 +284,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (!self.aboutCell) {
 		self.aboutCell = [[NSBundle mainBundle] loadNibNamed:EditProfileAboutTableViewCell.ID owner:nil options:nil].firstObject;
 	}
+	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
 	CGFloat height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
 	return height + 5.f + AdditionalBottomInset*HeigthCoefficient;
 }
@@ -299,9 +307,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	}
 	if (self.facebookTextfield) {
 		[views addObject:self.facebookTextfield];
-	}
-	if (self.instagramTextfield) {
-		[views addObject:self.instagramTextfield];
 	}
 	if (self.linkedInTextfield) {
 		[views addObject:self.linkedInTextfield];
