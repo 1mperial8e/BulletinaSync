@@ -42,9 +42,9 @@
 {
 	NSMutableDictionary *createParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"email" : email,
 																						 @"login" : username,
-																						 @"password":password,
-																						 @"company_name":companyname,
-																						 @"customer_type_id":@(customerTypeId)}];
+																						 @"company_name": companyname,
+																						 @"password": password,
+																						 @"customer_type_id": @(customerTypeId)}];
 	
 	if (languageId.length) {
 		[createParameters setObject:languageId forKey:@"language_id"];
@@ -67,20 +67,10 @@
 	return [self performPOST:@"api/v1/users" withParameters:createParameters multipartData:nil response:completion];
 }
 
-- (NSURLSessionDataTask *)updateUserWithUserId:(NSInteger)userId
-										passtoken:(NSString *)passtoken
-										   active:(NSString *)active
-											  fullName:(NSString *)fullName
-										   email:(NSString *)email
-										username:(NSString *)username
+- (NSURLSessionDataTask *)updateUserWithUsername:(NSString *)username
 										password:(NSString *)password
-									 languageId:(NSString *)languageId
-								   homeLatitude:(NSString *)homeLatitude
-								  homeLongitude:(NSString *)homeLongitude
-								customerTypeId:(UserAccountType)customerTypeId
-									companyname:(NSString *)companyname
-								   address:(NSString *)address
-								   website:(NSString *)website
+								companyname:(NSString *)companyname
+										 website:(NSString *)website
 										facebook:(NSString *)facebook
 										linkedin:(NSString *)linkedin
 										   phone:(NSString *)phone
@@ -88,23 +78,15 @@
 										  avatar:(UIImage *)avatar
 								  withCompletion:(ResponseBlock)completion
 {
-	NSMutableDictionary *updateParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken":passtoken,
-																							   @"active":active,
-																							   @"email" : email,
+	NSMutableDictionary *updateParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken":self.passtoken,
+																							   @"email" : self.currentUser.email,
 																							   @"login" : username,
 																							   @"password":password,
 																							   @"company_name":companyname,
-																							   @"customer_type_id":@(customerTypeId)}];
+																							   @"customer_type_id":@(self.currentUser.customer_type_id),
+																							   @"home_latitude":self.currentUser.home_latitude ? self.currentUser.home_latitude : @0,
+																							   @"home_longitude":self.currentUser.home_longitude ? self.currentUser.home_longitude : @0}];	
 	
-	if (fullName.length) {
-		[updateParameters setObject:fullName forKey:@"name"];
-	}
-	if (languageId.length) {
-		[updateParameters setObject:languageId forKey:@"language_id"];
-	}
-	if (address.length) {
-		[updateParameters setObject:address forKey:@"address"];
-	}
 	if (website.length) {
 		[updateParameters setObject:website forKey:@"website"];
 	}
@@ -120,16 +102,15 @@
 	if (description.length) {
 		[updateParameters setObject:description forKey:@"description"];
 	}
-	if (homeLatitude.length && homeLongitude.length) {
-		[updateParameters setObject:homeLatitude forKey:@"home_latitude"];
-		[updateParameters setObject:homeLongitude forKey:@"home_longitude"];
-	}
+	if (password.length) {
+		[updateParameters setObject:password forKey:@"password"];
+	} 
 	NSData *imageData;
 	if (avatar) {
 		imageData = UIImageJPEGRepresentation(avatar, 1.0f);
 	}
 	//implement sending image
-		NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.html", userId];
+		NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.html", self.currentUser.userId];
 		return [self performPUT:query withParameters:updateParameters multipartData:nil response:completion];
 }
 
@@ -166,20 +147,20 @@
 	}
 }
 
-#pragma mark - Edit profile (Update)
-
-- (void)updateIndividualProfileWithNickname:(NSString *)nickname about:(NSString *)about password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion
-{
-	if (completion) {
-		completion(nil, nil, 404);
-	}
-}
-
-- (void)updateBusinessProfileWithCompanyname:(NSString *)companyname username:(NSString *)username phone:(NSString *)phone website:(NSString *)website facebook:(NSString *)facebook instagram:(NSString *)instagram linkedin:(NSString *)linkedin about:(NSString *)about password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion
-{
-	if (completion) {
-		completion(nil, nil, 404);
-	}
-}
+//#pragma mark - Edit profile (Update)
+//
+//- (void)updateIndividualProfileWithNickname:(NSString *)nickname about:(NSString *)about password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion
+//{
+//	if (completion) {
+//		completion(nil, nil, 404);
+//	}
+//}
+//
+//- (void)updateBusinessProfileWithCompanyname:(NSString *)companyname username:(NSString *)username phone:(NSString *)phone website:(NSString *)website facebook:(NSString *)facebook instagram:(NSString *)instagram linkedin:(NSString *)linkedin about:(NSString *)about password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion
+//{
+//	if (completion) {
+//		completion(nil, nil, 404);
+//	}
+//}
 
 @end

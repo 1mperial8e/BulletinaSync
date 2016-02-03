@@ -22,7 +22,6 @@
 //Models
 #import "APIClient+Session.h"
 
-
 static CGFloat const PersonalLogoCellHeigth = 220;
 static CGFloat const BusinessLogoCellHeigth = 252;
 static CGFloat const DefaultCellHeigth = 44;
@@ -56,7 +55,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [super viewDidLoad];
 	[self tableViewSetup];
 	[self setupNavBar];
-	
+	self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
 	self.title = @"My Bulletina";
 }
 
@@ -89,7 +88,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.companyNameLabel.text = [APIClient sharedInstance].currentUser.company_name;
 		cell.companyPhoneLabel.text = [APIClient sharedInstance].currentUser.phone;
 		cell.companyDescriptionTextView.text = [APIClient sharedInstance].currentUser.about;
-		
 		return cell;
 	}
 	IndividualProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:IndividualProfileLogoTableViewCell.ID forIndexPath:indexPath];
@@ -101,8 +99,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
 	cell.userFullNameLabel.text = [APIClient sharedInstance].currentUser.name;
 	cell.userNicknameLabel.text = [APIClient sharedInstance].currentUser.login;
-	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
-	
+	[cell.aboutMeTextView setEditable:YES];
+	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about ?  [APIClient sharedInstance].currentUser.about : @"No description.";
+	[cell.aboutMeTextView setEditable:NO];
 	return cell;
 }
 
@@ -167,13 +166,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 			[self.navigationController pushViewController:individualProfileEditTableViewController animated:YES];
 		}
 	} else if (indexPath.item == LogOutCellIndex) {
-		[[APIClient sharedInstance] logoutSessionWithUserId:[APIClient sharedInstance].currentUser.userId passtoken:[APIClient sharedInstance].passtoken withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-			if (error) {
-				DLog(@"%@",error);
-			} else {
-				DLog(@"%@",response);
-			}
-		}];
+		//logout
 		[self.navigationController dismissViewControllerAnimated:NO completion:nil];
 		[self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];		
     } else if (indexPath.item == MessagesCellIndex) {

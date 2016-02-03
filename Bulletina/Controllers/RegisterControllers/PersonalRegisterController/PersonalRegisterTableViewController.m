@@ -30,8 +30,8 @@ static CGFloat const AdditionalBottomInset = 36;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	AvatarCellIndex,
-	UsernameCellIndex,
 	EmailCellIndex,
+	UsernameCellIndex,	
 	PasswordCellIndex,
 	RetypePasswordCellIndex,
 	SaveButtonCellIndex
@@ -66,7 +66,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-	self.inputViewsCollection.textInputViews = @[self.usernameTextfield, self.emailTextfield, self.passwordTextfield , self.retypePasswordTextfield];
+	self.inputViewsCollection.textInputViews = @[self.emailTextfield, self.usernameTextfield, self.passwordTextfield , self.retypePasswordTextfield];
 }
 
 #pragma mark - Table view data source
@@ -96,7 +96,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		return AvatarCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == SaveButtonCellIndex) {
 		return ButtonCellHeigth * HeigthCoefficient;
-	} else if (indexPath.row == EmailCellIndex) {
+	} else if (indexPath.row == UsernameCellIndex) {
 		return (InputCellHeigth + AdditionalBottomInset) * HeigthCoefficient;
 	}
 	return height;
@@ -127,11 +127,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.inputTextField.placeholder = @"Nickname:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
+		cell.bottomInsetConstraint.constant = AdditionalBottomInset;
 	} else if (indexPath.item == EmailCellIndex) {
 		cell.inputTextField.placeholder = @"Email:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeEmailAddress;
 		self.emailTextfield = cell.inputTextField;
-		cell.bottomInsetConstraint.constant = AdditionalBottomInset;
 	} else if (indexPath.item == PasswordCellIndex) {
 		cell.inputTextField.placeholder = @"Password:";
 		cell.inputTextField.secureTextEntry = YES;
@@ -220,13 +220,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
 			[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	} else {
-		[[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:self.usernameTextfield.text password:self.passwordTextfield.text languageId:@"" homeLatitude:@"" homeLongitude:@"" customerTypeId:IndividualAccount companyname:@"" website:@"" phone:@"" avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-			if (error) {
-				[Utils showErrorForStatusCode:statusCode];
-			} else {
-				DLog(@"%@",response);
-			}
-		}];
+//Register user
 	}
 }
 

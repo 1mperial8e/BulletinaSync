@@ -207,7 +207,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)setupUI
 {
 	self.title = @"Edit company profile";
-	self.navigationController.navigationBar.topItem.title = @"Cancel";
 	self.view.backgroundColor = [UIColor mainPageBGColor];
 }
 
@@ -347,14 +346,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[Utils showErrorWithMessage:@"Company name is required."];
 	} else if (![Utils isValidName:self.companyNameTextfield.text] ) {
 		[Utils showErrorWithMessage:@"Company name is not valid."];
-	}	else if (self.passwordTextfield.text.length || self.retypePasswordTextfield.text.length) {
-		if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
-			[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
-		} else if (![Utils isValidPassword:self.passwordTextfield.text]) {
-			[Utils showErrorWithMessage:@"Password is not valid."];
-		} else {
-			[[APIClient sharedInstance] updateBusinessProfileWithCompanyname:self.companyNameTextfield.text username:self.usernameTextfield.text phone:self.phoneTextfield.text website:self.websiteTextfield.text facebook:self.facebookTextfield.text instagram:self.instagramTextfield.text linkedin:self.linkedInTextfield.text about:self.aboutTextView.text password:self.passwordTextfield.text logo:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode){ DLog(@"Not implemented"); }];
-		}
+	}	else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
+		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
+	} else if (![Utils isValidPassword:self.passwordTextfield.text] && self.passwordTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Password is not valid."];
+	} else {
+		//Update user	
 	}
 }
 

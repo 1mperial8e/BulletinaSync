@@ -20,33 +20,35 @@
 								   currentLongitude:(CGFloat)currentLongitude
 								  withCompletion:(ResponseBlock)completion
 {
-	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{	@"email" : email, @"password":password }];
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"email":email, @"password":password }];
+//	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+//	[parameters setObject:session forKey:@"session"];
 	
-	if (endpointArn.length) {
-		[parameters setObject:endpointArn forKey:@"endpoint_arn"];
-	}
-	if (deviceToken.length) {
-		[parameters setObject:deviceToken forKey:@"device_token"];
-	}
-	if (operatingSystem.length) {
-		[parameters setObject:operatingSystem forKey:@"operating_system"];
-	}
-	if (deviceType.length) {
-		[parameters setObject:deviceType forKey:@"device_type"];
-	}
-	if (currentLattitude) {
-		[parameters setObject:@(currentLattitude) forKey:@"current_lattitude"];
-	}
-	if (currentLongitude) {
-		[parameters setObject:@(currentLongitude) forKey:@"current_longitude"];
-	}	
+//	if (endpointArn.length) {
+//		[parameters setObject:endpointArn forKey:@"session[endpoint_arn]"];
+//	}
+//	if (deviceToken.length) {
+//		[parameters setObject:deviceToken forKey:@"session[device_token]"];
+//	}
+//	if (operatingSystem.length) {
+//		[parameters setObject:operatingSystem forKey:@"session[operating_system]"];
+//	}
+//	if (deviceType.length) {
+//		[parameters setObject:deviceType forKey:@"session[device_type]"];
+//	}
+//	if (currentLattitude) {
+//		[parameters setObject:@(currentLattitude) forKey:@"session[current_lattitude]"];
+//	}
+//	if (currentLongitude) {
+//		[parameters setObject:@(currentLongitude) forKey:@"session[current_longitude]"];
+//	}	
 	return [self performPOST:@"api/v1/sessions" withParameters:parameters response:completion];
 }
 
 - (NSURLSessionDataTask *)logoutSessionWithUserId:(NSInteger)userId passtoken:(NSString *)passtoken withCompletion:(ResponseBlock)completion
 {
 	NSDictionary *parameters = @{@"userId":@(userId), @"passtoken":passtoken};
-	NSString *query = [NSString stringWithFormat:@"api/v1/sessions/26.json"];
+	NSString *query = [NSString stringWithFormat:@"api/v1/sessions"];
 	return [self performDELETE:query withParameters:parameters response:completion];
 //	return [self performPOST:query withParameters:parameters response:completion];
 }

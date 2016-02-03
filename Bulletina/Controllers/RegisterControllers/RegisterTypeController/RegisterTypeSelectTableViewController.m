@@ -26,9 +26,9 @@ static CGFloat const DefaultTableViewHeaderHeight        = 77.f;
 static CGFloat const DefaultTableViewCellHeight          = 135.f;
 static CGFloat const DefaultTableViewCellCount           = 1.f;
 
-typedef NS_ENUM(NSUInteger, AccountType) {
-    AccountTypePersonal,
-    AccountTypeBusiness
+typedef NS_ENUM(NSUInteger, AccountTypeIndex) {
+    AccountTypePersonalIndex,
+    AccountTypeBusinessIndex
 };
 
 @interface RegisterTypeSelectTableViewController () <AccountTypeTableViewCellDelegate>
@@ -105,9 +105,9 @@ typedef NS_ENUM(NSUInteger, AccountType) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == AccountTypePersonal) {
+    if (indexPath.section == AccountTypePersonalIndex) {
         [self selectPersonalAccount];
-    } else if (indexPath.section == AccountTypeBusiness) {
+    } else if (indexPath.section == AccountTypeBusinessIndex) {
         [self selectBusinessAccount];
     }
 }

@@ -41,12 +41,6 @@
     return sharedClient;
 }
 
-//temporary
-+ (NSArray *)tempCategoriesList
-{
-	return  @[@"For sale", @"For rent", @"Give away", @"Job request", @"Services", @"Annoucement", @"Lost & found", @"Other"];
-}
-
 - (void)cancelAllOperations
 {
     [self.manager.operationQueue cancelAllOperations];
@@ -75,6 +69,14 @@
 	}
 }
 
+- (void)updateUserPasswordWithDictionary:(NSDictionary *)newDictionary
+{
+	id newObject = [newDictionary objectForKey:@"passwd"];
+	if (newObject && (NSNull *)newObject != [NSNull null]) {
+		_userPassword =  (NSString *)newObject;
+	}
+}
+
 - (void)loadCurrentUser
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -84,6 +86,11 @@
     }
 }
 
+//temporary
++ (NSArray *)tempCategoriesList
+{
+	return  @[@"For sale", @"For rent", @"Give away", @"Job request", @"Services", @"Annoucement", @"Lost & found", @"Other"];
+}
 
 #pragma mark - Reachability
 

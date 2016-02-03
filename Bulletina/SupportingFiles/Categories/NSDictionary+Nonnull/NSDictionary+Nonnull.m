@@ -15,9 +15,11 @@
 	NSMutableDictionary *newDict = [NSMutableDictionary dictionary];
 	for (NSString *key in self.allKeys) {
 		id obj = [self objectForKey:key];
-		if (obj != [NSNull null]) {
-			if (([obj isKindOfClass:[NSString class]] && [obj isEqualToString:@"null"])) {
-				continue;
+		if ((obj == [NSNull null]) || ((obj != [NSNull null]) && ([obj isKindOfClass:[NSString class]]) && ([obj isEqualToString:@"null"]))) {
+			continue;
+		} else {
+			if ([obj isKindOfClass:[NSDictionary class]]) {
+				obj = [obj nonnullDictionary];
 			}
 			[newDict setValue:obj forKey:key];
 		}

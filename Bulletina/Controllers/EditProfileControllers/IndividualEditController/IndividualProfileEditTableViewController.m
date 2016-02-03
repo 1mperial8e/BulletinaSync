@@ -128,6 +128,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == UsernameCellIndex) {
 		cell.inputTextField.placeholder = @"Username:";
+		cell.inputTextField.text = [APIClient sharedInstance].currentUser.login;
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
 	} else if (indexPath.item == PasswordCellIndex) {
@@ -155,6 +156,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.aboutCell.aboutTextView.layer.borderColor = [UIColor colorWithRed:225 / 255.0f green:225 / 255.0f  blue:225 / 255.0f  alpha:1].CGColor;
 	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
 	self.aboutCell.aboutTextView.layer.cornerRadius = 5;
+	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
 	return self.aboutCell ;
 }
 
@@ -171,8 +173,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)setupUI
 {
-	self.title = @"Edit profile";
-	self.navigationController.navigationBar.topItem.title = @"Cancel";
+	self.title = @"Edit profile";	
+	
 	self.view.backgroundColor = [UIColor mainPageBGColor];
 }
 
@@ -243,6 +245,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (!self.aboutCell) {
 		self.aboutCell = [[NSBundle mainBundle] loadNibNamed:EditProfileAboutTableViewCell.ID owner:nil options:nil].firstObject;
 	}
+	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
 	CGFloat height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
 	return height + 5.f;
 }
@@ -293,14 +296,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[Utils showErrorWithMessage:@"Username is required."];
 	} else if (![Utils isValidName:self.usernameTextfield.text] ) {
 		[Utils showErrorWithMessage:@"Username is not valid."];
-	}	else if (self.passwordTextfield.text.length || self.retypePasswordTextfield.text.length) {
-		if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
-			[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
-		} else if (![Utils isValidPassword:self.passwordTextfield.text]) {
-			[Utils showErrorWithMessage:@"Password is not valid."];
-		} else {
-			[[APIClient sharedInstance] updateIndividualProfileWithNickname:self.usernameTextfield.text  about:self.aboutMeTextView.text password:self.passwordTextfield.text logo:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode){ DLog(@"Not implemented"); }];
-		}
+	}	else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
+		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
+	} else if (![Utils isValidPassword:self.passwordTextfield.text] && self.passwordTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Password is not valid."];
+	} else {
+		//Update user
 	}
 }
 

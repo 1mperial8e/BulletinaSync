@@ -15,9 +15,10 @@
 @property (assign, nonatomic) APIEnvironment apiEnviroment;
 
 @property (strong, nonatomic) NSString *pushToken;
+@property (strong, nonatomic, readonly) NSString *passtoken;
+@property (strong, nonatomic, readonly) NSString *userPassword;
 
 @property (strong, nonatomic, readonly) UserModel *currentUser;
-@property (strong, nonatomic, readonly) NSString *passtoken;
 
 + (instancetype)sharedInstance;
 
@@ -27,6 +28,7 @@
 - (void)updateCurrentUser:(id)newUser;
 - (void)updatePasstoken:(NSString *)newPasstoken;
 - (void)updatePasstokenWithDictionary:(NSDictionary *)newDictionary;
+- (void)updateUserPasswordWithDictionary:(NSDictionary *)newDictionary;
 
 //temporary
 + (NSArray *)tempCategoriesList;

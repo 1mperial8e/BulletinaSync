@@ -79,6 +79,8 @@
 		30A3057E1C4FC7BC002A48D0 /* MyItemsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A3057C1C4FC7BC002A48D0 /* MyItemsTableViewController.xib */; };
 		30A525951C5F5206000E1CBA /* APIClient+Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A525941C5F5206000E1CBA /* APIClient+Session.m */; };
 		30ACB0911C5276D500A879D5 /* BulletinaLoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */; };
+		30ACE0C51C62024A0076108C /* APITestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ACE0C31C62024A0076108C /* APITestTableViewController.m */; };
+		30ACE0C61C62024A0076108C /* APITestTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30ACE0C41C62024A0076108C /* APITestTableViewController.xib */; };
 		30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */; };
 		30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */; };
 		30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */; };
@@ -248,6 +250,9 @@
 		30A525941C5F5206000E1CBA /* APIClient+Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "APIClient+Session.m"; sourceTree = "<group>"; };
 		30ACB08F1C5276D500A879D5 /* BulletinaLoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletinaLoaderView.h; sourceTree = "<group>"; };
 		30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletinaLoaderView.m; sourceTree = "<group>"; };
+		30ACE0C21C62024A0076108C /* APITestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APITestTableViewController.h; sourceTree = "<group>"; };
+		30ACE0C31C62024A0076108C /* APITestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APITestTableViewController.m; sourceTree = "<group>"; };
+		30ACE0C41C62024A0076108C /* APITestTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = APITestTableViewController.xib; sourceTree = "<group>"; };
 		30BBACE21C43EB4D004F22D2 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		30BBACE71C43EDD4004F22D2 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
@@ -842,6 +847,16 @@
 			path = BulletinaLoader;
 			sourceTree = "<group>";
 		};
+		30ACE0C11C6201EC0076108C /* APITestVC */ = {
+			isa = PBXGroup;
+			children = (
+				30ACE0C21C62024A0076108C /* APITestTableViewController.h */,
+				30ACE0C31C62024A0076108C /* APITestTableViewController.m */,
+				30ACE0C41C62024A0076108C /* APITestTableViewController.xib */,
+			);
+			path = APITestVC;
+			sourceTree = "<group>";
+		};
 		30BBACDC1C43EA64004F22D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1055,6 +1070,7 @@
 		4F79B9151C43DC2D0082740E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				30ACE0C11C6201EC0076108C /* APITestVC */,
 				B247CC9D1C520DE90064396E /* ChatController */,
 				4F49DDC21C50D82F002E2F24 /* SelectNewItemCategoryController */,
 				30823DC81C50D4A000609A0D /* ItemsListController */,
@@ -1354,6 +1370,7 @@
 				4F79B9231C43DC2D0082740E /* Assets.xcassets in Resources */,
 				B2F8DB291C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.xib in Resources */,
 				3082B9B61C48F1DE00C4925D /* BusinessProfileEditTableViewController.xib in Resources */,
+				30ACE0C61C62024A0076108C /* APITestTableViewController.xib in Resources */,
 				B2B5E0361C50C8C0000E5A4C /* MessageTableViewCell.xib in Resources */,
 				30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */,
 				30928DFF1C465CCC00041847 /* AvatarTableViewCell.xib in Resources */,
@@ -1396,6 +1413,7 @@
 				30928E031C465CDE00041847 /* BusinessLogoTableViewCell.m in Sources */,
 				30928DDC1C464F7200041847 /* IconCollectionViewCell.m in Sources */,
 				30D33AA01C57796D002AD94F /* APIClient+Item.m in Sources */,
+				30ACE0C51C62024A0076108C /* APITestTableViewController.m in Sources */,
 				307E2EDC1C4A59950007A7CC /* NewItemPriceTableViewCell.m in Sources */,
 				307E2EE61C4A59E80007A7CC /* NewItemTextTableViewCell.m in Sources */,
 				30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */,

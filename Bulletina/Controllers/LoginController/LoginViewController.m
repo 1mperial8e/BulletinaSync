@@ -6,13 +6,14 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
+//temp
+#import "APITestTableViewController.h"
+
 // Controllers
 #import "LoginViewController.h"
 #import "MainPageController.h"
 #import "ForgotPasswordTableViewController.h"
 #import "RegisterTypeSelectTableViewController.h"
-
-#import "BulletinaLoaderView.h"
 
 // Cells
 #import "LogoTableViewCell.h"
@@ -22,6 +23,7 @@
 
 // Helpers
 #import "TextInputNavigationCollection.h"
+#import "BulletinaLoaderView.h"
 
 //Models
 #import "APIClient+User.h"
@@ -163,13 +165,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	TextFieldTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:TextFieldTableViewCell.ID forIndexPath:indexPath];
 	cell.textField.placeholder = @"Nickname / email:";
 	
-	cell.textField.text = @"784900e9-d708-4e88-8b84-0ac8bac04620@bulletina.net"; //test
-	
 	if (indexPath.row == PasswordTextfieldIndex) {
 		cell.textField.placeholder = @"Password:";
-		
-		cell.textField.text = @"r0)Z@pX-HTpa"; //test
-		
         cell.textField.secureTextEntry = YES;
         cell.textField.returnKeyType = UIReturnKeyDone;
         self.passwordTextfield = cell.textField;
@@ -211,20 +208,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)tryBeforeSignupButtonTap:(id)sender
 {
-	[self.loader show];
-	__weak typeof(self) weakSelf = self;
-	
-	[[APIClient sharedInstance] generateUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
-		if (error) {
-			[weakSelf.loader hide];
-            [Utils showErrorForStatusCode:statusCode];
-		} else {
-            NSAssert([response isKindOfClass:[NSDictionary class]], @"Uncknown response from server");
-			UserModel *generatedUser = [UserModel modelWithDictionary:response];
-			[[APIClient sharedInstance] updateCurrentUser:generatedUser];
-			[weakSelf createLoginSessionWithEmail:generatedUser.email password:generatedUser.password];
-		}
-	}];
+	[self showAPITestVC];
 }
 
 - (void)signupButtonTap:(id)sender
@@ -240,7 +224,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (!self.passwordTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Password is required."];
 	} else {
-		[self createLoginSessionWithEmail:self.usernameTextfield.text password:self.passwordTextfield.text];
+		//login
 	}
 }
 
@@ -253,27 +237,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 #pragma mark - Utils
 
-- (void)createLoginSessionWithEmail:(NSString *)email password:(NSString *)password
-{
-	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance]loginSessionWithEmail:email password:password endpointArn:@"" deviceToken:@"" operatingSystem:@"" deviceType:@"" currentLattitude:[LocationManager sharedManager].currentLocation.coordinate.latitude currentLongitude:[LocationManager sharedManager].currentLocation.coordinate.longitude withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-		[weakSelf.loader hide];
-		if (error) {
-            [Utils showErrorForStatusCode:statusCode];
-		} else {
-            NSAssert([response isKindOfClass:[NSDictionary class]], @"Uncknown response from server");
-			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
-			[[APIClient sharedInstance] updateCurrentUser:[UserModel modelWithDictionary:response]];
-			[weakSelf showMainPage];
-		}
-	}];
-}
-
 - (void)showMainPage
 {
 	MainPageController *mainPageController = [MainPageController new];
 	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
 	[self.navigationController presentViewController:mainPageNavigationController animated:YES completion:nil];
+}
+
+- (void)showAPITestVC
+{
+	//TEMP
+	APITestTableViewController *apiTestController = [APITestTableViewController new];
+	[self.navigationController pushViewController:apiTestController animated:YES];
 }
 
 #pragma mark - UITextFieldDelegate
