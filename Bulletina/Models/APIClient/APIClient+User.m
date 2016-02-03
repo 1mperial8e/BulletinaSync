@@ -10,14 +10,12 @@
 
 @implementation APIClient (User)
 
-#pragma mark - Login
-
-- (NSURLSessionDataTask *)showUserWithUserId:(NSInteger)userId passtoken:(NSString *)passtoken withCompletion:(ResponseBlock)completion
+- (NSURLSessionDataTask *)showUserWithUserId:(NSInteger)userId withCompletion:(ResponseBlock)completion
 {
-	NSDictionary *parameters = @{@"id":@(userId), @"passtoken":passtoken};
+	NSDictionary *parameters = @{@"id":@(userId), @"passtoken":self.passtoken};
 	
-	NSString *getString = [NSString stringWithFormat:@"api/v1/users/%li.html", userId];
-	return [self performGET:getString withParameters:parameters response:completion];
+	NSString *query = [NSString stringWithFormat:@"api/v1/users"];
+	return [self performGET:query withParameters:parameters response:completion];
 }
 
 - (NSURLSessionDataTask *)generateUserWithCompletion:(ResponseBlock)completion
@@ -68,8 +66,9 @@
 }
 
 - (NSURLSessionDataTask *)updateUserWithUsername:(NSString *)username
-										password:(NSString *)password
+										fullname:(NSString *)fullname
 								companyname:(NSString *)companyname
+										password:(NSString *)password
 										 website:(NSString *)website
 										facebook:(NSString *)facebook
 										linkedin:(NSString *)linkedin
@@ -82,6 +81,7 @@
 																							   @"email" : self.currentUser.email,
 																							   @"login" : username,
 																							   @"password":password,
+																							   @"name":fullname,
 																							   @"company_name":companyname,
 																							   @"customer_type_id":@(self.currentUser.customer_type_id),
 																							   @"home_latitude":self.currentUser.home_latitude ? self.currentUser.home_latitude : @0,
@@ -114,11 +114,11 @@
 		return [self performPUT:query withParameters:updateParameters multipartData:nil response:completion];
 }
 
-- (NSURLSessionDataTask *)destroyUserWithUserId:(NSInteger)userId passtoken:(NSString *)passtoken withCompletion:(ResponseBlock)completion
+- (NSURLSessionDataTask *)destroyUserWithCompletion:(ResponseBlock)completion
 {
-	NSDictionary *parameters = @{@"passtoken":passtoken};
+	NSDictionary *parameters = @{@"passtoken":self.passtoken};
 	
-	NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.html", userId];
+	NSString *query = [NSString stringWithFormat:@"api/v1/users"];
 	return [self performDELETE:query withParameters:parameters response:completion];
 }
 
@@ -130,37 +130,5 @@
 		completion(nil, nil, 404);
 	}
 }
-
-#pragma mark - Register profile (Signup)
-
-- (void)registerIndividualProfileWithNickname:(NSString *)nickname email:(NSString *)email password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion
-{
-	if (completion) {
-		completion(nil, nil, 404);
-	}
-}
-
-- (void)registerBusinessProfileWithCompanyname:(NSString *)companyname email:(NSString *)email phone:(NSString *)phone website:(NSString *)website password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion
-{
-	if (completion) {
-		completion(nil, nil, 404);
-	}
-}
-
-//#pragma mark - Edit profile (Update)
-//
-//- (void)updateIndividualProfileWithNickname:(NSString *)nickname about:(NSString *)about password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion
-//{
-//	if (completion) {
-//		completion(nil, nil, 404);
-//	}
-//}
-//
-//- (void)updateBusinessProfileWithCompanyname:(NSString *)companyname username:(NSString *)username phone:(NSString *)phone website:(NSString *)website facebook:(NSString *)facebook instagram:(NSString *)instagram linkedin:(NSString *)linkedin about:(NSString *)about password:(NSString *)password logo:(UIImage *)logo withCompletion:(ResponseBlock)completion
-//{
-//	if (completion) {
-//		completion(nil, nil, 404);
-//	}
-//}
 
 @end

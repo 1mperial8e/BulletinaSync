@@ -34,9 +34,10 @@
     [super viewDidLoad];
 	self.title =@"API TEST";
 	[[self navigationController] setNavigationBarHidden:NO animated:YES];
+	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 	
-	self.sectionTitles =@[@"Custom",@"User",@"Session",@"Item",@"Message",@"Other"];
-	self.rowTitles = @{@"Custom":@[@"TestUIWithFakeIndividualAccount", @"TestUIWithFakeBusinessAccount"], @"User":@[@"UserGenerate", @"UserShow", @"UserCreate", @"UserUpdate", @"UserDestroy"], @"Session":@[@"SessionCreate - Login", @"SessionDestroy - Logout"], @"Item":@[@"ItemIndex", @"ItemShow", @"ItemCreate", @"ItemUpdate", @"ItemDestroy"], @"Message":@[@"MessageIndex", @"MessageShow", @"MessageCreate", @"MessageUpdate", @"MessageDestroy"],@"Other":@[@"ReportCreate" ,@"AdTypes" ,@"Countries" ,@"CustomerTypes" ,@"Languages" ,@"ReportReasons"]};
+	self.sectionTitles =@[@"Custom",@"User",@"Session"]; //,@"Item",@"Message",@"Other"];
+	self.rowTitles = @{@"Custom":@[@"TestUIWithFakeIndividualAccount", @"TestUIWithFakeBusinessAccount"], @"User":@[@"UserGenerate", @"UserShow", @"UserCreate", @"UserUpdate", @"UserDestroy"], @"Session":@[@"SessionCreate - Login", @"SessionDestroy - Logout"]};//, @"Item":@[@"ItemIndex", @"ItemShow", @"ItemCreate", @"ItemUpdate", @"ItemDestroy"], @"Message":@[@"MessageIndex", @"MessageShow", @"MessageCreate", @"MessageUpdate", @"MessageDestroy"],@"Other":@[@"ReportCreate" ,@"AdTypes" ,@"Countries" ,@"CustomerTypes" ,@"Languages" ,@"ReportReasons"]};
 }
 
 #pragma mark - Table view data source
@@ -74,10 +75,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	[self.loader show];
 	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-	if ([cell.textLabel.text isEqualToString:@"UserGenerate"]) {
-		[self generateUser];
-	} else if ([cell.textLabel.text isEqualToString:@"TestUIWithFakeIndividualAccount"]) {
+	 if ([cell.textLabel.text isEqualToString:@"TestUIWithFakeIndividualAccount"]) {
 		NSDictionary *fakeUser = @{@"banned":@NO, @"customer_type_id":@2, @"description":@"Here is some description of personal profile", @"email":@"myemail@bulletina.net", @"id":@5, @"login":@"myFakeLogin", @"name":@"myFullName"};
 		[[APIClient sharedInstance] updateCurrentUser:[UserModel modelWithDictionary:fakeUser]];
 		[self showMainPage];
@@ -85,10 +85,22 @@
 		NSDictionary *fakeUser = @{@"banned":@NO, @"customer_type_id":@3, @"description":@"Here is some description of business profile", @"email":@"myemail@bulletina.net", @"id":@5, @"phone":@"+1234567890", @"login":@"myFakeLogin", @"company_name":@"myCompanyName"};
 		[[APIClient sharedInstance] updateCurrentUser:[UserModel modelWithDictionary:fakeUser]];
 		[self showMainPage];
+	} else if ([cell.textLabel.text isEqualToString:@"UserGenerate"]) {
+		[self generateUser];
+	} else if ([cell.textLabel.text isEqualToString:@"UserCreate"]) {
+		[self userCreate];
+	} else if ([cell.textLabel.text isEqualToString:@"UserShow"]) {
+		[self showUser];
+	} else if ([cell.textLabel.text isEqualToString:@"UserUpdate"]) {
+				[self updateUser];
+	} else if ([cell.textLabel.text isEqualToString:@"UserDestroy"]) {
+				[self destroyUser];
 	} else if ([cell.textLabel.text isEqualToString:@"SessionCreate - Login"]) {
 		NSString *userEmail = [APIClient sharedInstance].currentUser ? [APIClient sharedInstance].currentUser.email : @"784900e9-d708-4e88-8b84-0ac8bac04620@bulletina.net";
 		NSString *password = [APIClient sharedInstance].userPassword ? [APIClient sharedInstance].userPassword : @"r0)Z@pX-HTpa";
 		[self createLoginSessionWithEmail:userEmail password:password];
+	} if ([cell.textLabel.text isEqualToString:@"SessionDestroy - Logout"]) {
+		[self logoutSession];
 	}
 }
 
@@ -96,6 +108,7 @@
 
 - (void)showMainPage
 {
+	[self.loader hide];
 	MainPageController *mainPageController = [MainPageController new];
 	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
 	[self.navigationController presentViewController:mainPageNavigationController animated:YES completion:nil];
@@ -103,13 +116,11 @@
 
 - (void)generateUser
 {
-	[self.loader show];
 	__weak typeof(self) weakSelf = self;
-	
 	[[APIClient sharedInstance] generateUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		[weakSelf.loader hide];
 		if (error) {
-			DLog(@"Generate user: %@",error);
+			DLog(@"Generate user: %@ \n %li",error, statusCode);
 			[Utils showErrorForStatusCode:statusCode];
 		} else {
 			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
@@ -122,15 +133,90 @@
 	}];
 }
 
+- (void)userCreate
+{
+	__weak typeof(self) weakSelf = self;
+	[[APIClient sharedInstance] createUserWithEmail:@"myemail@bulletina.net" username:@"testUsername" password:@"123" languageId:@"" homeLatitude:0 homeLongitude:0 customerTypeId:2 companyname:@"" website:@"" phone:@"" avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[weakSelf.loader hide];
+		if (error) {
+			DLog(@"Create user: %@ \n %li",error, statusCode);
+			[Utils showErrorForStatusCode:statusCode];
+		} else {
+			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+			DLog(@"Create user: %@",response);
+			UserModel *generatedUser = [UserModel modelWithDictionary:response];
+			[Utils showWarningWithMessage:[NSString stringWithFormat:@"User with id:%li successfully created.",generatedUser.userId]];
+		}
+	}];
+}
+
+- (void)showUser
+{
+	__weak typeof(self) weakSelf = self;
+	if ([APIClient sharedInstance].passtoken) {
+		[[APIClient sharedInstance] showUserWithUserId:33 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			[weakSelf.loader hide];
+			if (error) {
+				DLog(@"Show user: %@ \n %li",error, statusCode);
+				[Utils showErrorForStatusCode:statusCode];
+			} else {
+				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+				DLog(@"Show user: %@",response);
+				UserModel *generatedUser = [UserModel modelWithDictionary:response];
+				[Utils showWarningWithMessage:[NSString stringWithFormat:@"User with id:%li successfully showed.",generatedUser.userId]];
+			}
+		}];
+	} else {
+		[Utils showWarningWithMessage:@"You need passtoken. Please log in"];
+		[self.loader hide];
+	}
+}
+
+- (void)updateUser
+{
+	__weak typeof(self) weakSelf = self;
+	[[APIClient sharedInstance] updateUserWithUsername:@"updatedUsername" password:@"123" companyname:@"" website:@"" facebook:@"" linkedin:@"" phone:@"123" description:@"updated description" avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[weakSelf.loader hide];
+		if (error) {
+			DLog(@"Update user: %@ \n %li",error, statusCode);
+			[Utils showErrorForStatusCode:statusCode];
+		} else {
+			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+			DLog(@"Update user: %@",response);
+			[Utils showWarningWithMessage:@"User successfully updated."];
+		}
+	}];
+}
+
+- (void)destroyUser
+{
+	__weak typeof(self) weakSelf = self;
+	if ([APIClient sharedInstance].passtoken) {
+		[[APIClient sharedInstance] destroyUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			[weakSelf.loader hide];
+			if (error) {
+				DLog(@"Destroy user: %@ \n %li",error, statusCode);
+				[Utils showErrorForStatusCode:statusCode];
+			} else {
+				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+				DLog(@"Destroy user: %@",response);
+				[Utils showWarningWithMessage:@"User successfully destroyed."];
+			}
+		}];
+	} else {
+		[Utils showWarningWithMessage:@"You need passtoken. Please log in"];
+		[self.loader hide];
+	}
+}
+
 - (void)createLoginSessionWithEmail:(NSString *)email password:(NSString *)password
 {
 	__weak typeof(self) weakSelf = self;
-	[self.loader show];
 	[[APIClient sharedInstance]loginSessionWithEmail:email password:password endpointArn:@"" deviceToken:@"" operatingSystem:@"" deviceType:@"" currentLattitude:[LocationManager sharedManager].currentLocation.coordinate.latitude currentLongitude:[LocationManager sharedManager].currentLocation.coordinate.longitude withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		[weakSelf.loader hide];
 		if (error) {
 			[Utils showErrorForStatusCode:statusCode];
-			DLog(@"Login: %@", error);
+			DLog(@"Login: %@ \n %li",error, statusCode);
 		} else {
 			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
 			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
@@ -139,6 +225,26 @@
 			[Utils showWarningWithMessage:[NSString stringWithFormat:@"User with id:%li successfully login. Now you have passtoken",[APIClient sharedInstance].currentUser.userId]];
 		}
 	}];
+}
+
+- (void)logoutSession
+{
+	__weak typeof(self) weakSelf = self;
+	if ([APIClient sharedInstance].passtoken) {
+		[[APIClient sharedInstance] logoutSessionWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			[weakSelf.loader hide];
+			if (error) {
+				[Utils showErrorForStatusCode:statusCode];
+				DLog(@"Logout: %@ \n %li",error, statusCode);
+			} else {
+				DLog(@"Logout: %@", response);
+				[Utils showWarningWithMessage:@"Logout successfully"];
+			}
+		}];
+	} else {
+		[Utils showWarningWithMessage:@"You need passtoken. Please log in"];
+		[self.loader hide];
+	}
 }
 
 @end

@@ -20,6 +20,6 @@
 							   currentLongitude:(CGFloat)currentLongitude
 								 withCompletion:(ResponseBlock)completion;
 
-- (NSURLSessionDataTask *)logoutSessionWithUserId:(NSInteger)userId passtoken:(NSString *)passtoken withCompletion:(ResponseBlock)completion;
+- (NSURLSessionDataTask *)logoutSessionWithCompletion:(ResponseBlock)completion;
 
 @end

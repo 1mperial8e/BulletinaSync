@@ -13,8 +13,8 @@
 
 #pragma mark - Login
 
+- (NSURLSessionDataTask *)showUserWithUserId:(NSInteger)userId withCompletion:(ResponseBlock)completion;
 - (NSURLSessionDataTask *)generateUserWithCompletion:(ResponseBlock)completion;
-- (NSURLSessionDataTask *)showUserWithUserId:(NSInteger)userId passtoken:(NSString *)passtoken withCompletion:(ResponseBlock)completion;
 
 #pragma mark - Register profile (Signup)
 
@@ -45,7 +45,7 @@
 								  withCompletion:(ResponseBlock)completion;
 
 
-- (NSURLSessionDataTask *)destroyUserWithUserId:(NSInteger)userId passtoken:(NSString *)passtoken withCompletion:(ResponseBlock)completion;
+- (NSURLSessionDataTask *)destroyUserWithCompletion:(ResponseBlock)completion;
 
 #pragma mark - Password recovery
 

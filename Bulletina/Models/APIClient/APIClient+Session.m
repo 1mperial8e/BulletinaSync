@@ -45,9 +45,9 @@
 	return [self performPOST:@"api/v1/sessions" withParameters:parameters response:completion];
 }
 
-- (NSURLSessionDataTask *)logoutSessionWithUserId:(NSInteger)userId passtoken:(NSString *)passtoken withCompletion:(ResponseBlock)completion
+- (NSURLSessionDataTask *)logoutSessionWithCompletion:(ResponseBlock)completion
 {
-	NSDictionary *parameters = @{@"userId":@(userId), @"passtoken":passtoken};
+	NSDictionary *parameters = @{@"userId":@(self.currentUser.userId), @"passtoken":self.passtoken};
 	NSString *query = [NSString stringWithFormat:@"api/v1/sessions"];
 	return [self performDELETE:query withParameters:parameters response:completion];
 //	return [self performPOST:query withParameters:parameters response:completion];
