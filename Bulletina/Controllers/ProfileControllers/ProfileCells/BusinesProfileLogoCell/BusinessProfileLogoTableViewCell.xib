@@ -35,10 +35,10 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ujD-QF-gLP">
-                                <rect key="frame" x="33" y="90" width="310" height="25"/>
+                                <rect key="frame" x="74" y="90" width="227" height="25"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ki1-Vt-IxM">
-                                        <rect key="frame" x="0.0" y="0.0" width="75" height="25"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="73" height="25"/>
                                         <color key="backgroundColor" red="0.23921568630000001" green="0.36862745099999999" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="contentEdgeInsets" minX="2" minY="0.0" maxX="2" maxY="0.0"/>
@@ -48,7 +48,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pab-jj-7f8">
-                                        <rect key="frame" x="79" y="0.0" width="74" height="25"/>
+                                        <rect key="frame" x="77" y="0.0" width="73" height="25"/>
                                         <color key="backgroundColor" red="0.23921568627450979" green="0.36862745098039218" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,18 +58,8 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDF-7e-FAV">
-                                        <rect key="frame" x="157" y="0.0" width="75" height="25"/>
-                                        <color key="backgroundColor" red="0.23921568630000001" green="0.36862745099999999" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <inset key="contentEdgeInsets" minX="2" minY="0.0" maxX="2" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="4" maxY="0.0"/>
-                                        <state key="normal" title="Twitter" image="HeadInstagram">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Npi-cs-FGf">
-                                        <rect key="frame" x="236" y="0.0" width="74" height="25"/>
+                                        <rect key="frame" x="154" y="0.0" width="73" height="25"/>
                                         <color key="backgroundColor" red="0.23921568630000001" green="0.36862745099999999" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="contentEdgeInsets" minX="2" minY="5" maxX="2" maxY="5"/>
@@ -82,18 +72,14 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Pab-jj-7f8" secondAttribute="bottom" id="7uQ-D5-bdb"/>
-                                    <constraint firstAttribute="bottom" secondItem="vDF-7e-FAV" secondAttribute="bottom" id="8Y0-gD-51y"/>
                                     <constraint firstAttribute="trailing" secondItem="Npi-cs-FGf" secondAttribute="trailing" id="9qc-AK-LOl"/>
-                                    <constraint firstItem="vDF-7e-FAV" firstAttribute="leading" secondItem="Pab-jj-7f8" secondAttribute="trailing" constant="4" id="Czi-Sp-lZY"/>
-                                    <constraint firstItem="Npi-cs-FGf" firstAttribute="leading" secondItem="vDF-7e-FAV" secondAttribute="trailing" constant="4" id="GE3-Tu-oaG"/>
+                                    <constraint firstItem="Npi-cs-FGf" firstAttribute="leading" secondItem="Pab-jj-7f8" secondAttribute="trailing" constant="4" id="I2w-2B-u1x"/>
                                     <constraint firstAttribute="bottom" secondItem="Ki1-Vt-IxM" secondAttribute="bottom" id="Om6-i3-S0a"/>
-                                    <constraint firstItem="vDF-7e-FAV" firstAttribute="top" secondItem="ujD-QF-gLP" secondAttribute="top" id="QVZ-h2-MsV"/>
-                                    <constraint firstAttribute="width" constant="310" id="SEt-Fy-gwV"/>
+                                    <constraint firstAttribute="width" constant="227" id="SEt-Fy-gwV"/>
                                     <constraint firstItem="Pab-jj-7f8" firstAttribute="leading" secondItem="Ki1-Vt-IxM" secondAttribute="trailing" constant="4" id="VoK-ru-h77"/>
                                     <constraint firstItem="Pab-jj-7f8" firstAttribute="top" secondItem="ujD-QF-gLP" secondAttribute="top" id="bCE-dg-o7D"/>
                                     <constraint firstItem="Npi-cs-FGf" firstAttribute="top" secondItem="ujD-QF-gLP" secondAttribute="top" id="dAh-xt-vzV"/>
-                                    <constraint firstItem="vDF-7e-FAV" firstAttribute="width" secondItem="Npi-cs-FGf" secondAttribute="width" multiplier="1:1" id="gvu-lL-X3d"/>
-                                    <constraint firstItem="Pab-jj-7f8" firstAttribute="width" secondItem="vDF-7e-FAV" secondAttribute="width" multiplier="1:1" id="mdb-pg-RGB"/>
+                                    <constraint firstItem="Npi-cs-FGf" firstAttribute="width" secondItem="Pab-jj-7f8" secondAttribute="width" id="mvb-1e-nRf"/>
                                     <constraint firstItem="Ki1-Vt-IxM" firstAttribute="width" secondItem="Pab-jj-7f8" secondAttribute="width" multiplier="1:1" id="rmf-yv-628"/>
                                     <constraint firstItem="Ki1-Vt-IxM" firstAttribute="leading" secondItem="ujD-QF-gLP" secondAttribute="leading" id="wqt-BF-e7D"/>
                                     <constraint firstItem="Ki1-Vt-IxM" firstAttribute="top" secondItem="ujD-QF-gLP" secondAttribute="top" id="xsL-Mv-XN7"/>
@@ -146,7 +132,6 @@
                 <outlet property="companyNameLabel" destination="k2f-QB-yi5" id="IHH-Ge-ad1"/>
                 <outlet property="companyPhoneLabel" destination="xRd-sA-c8I" id="776-Dr-X83"/>
                 <outlet property="facebookButton" destination="Pab-jj-7f8" id="gOc-9T-KEP"/>
-                <outlet property="instagramButton" destination="vDF-7e-FAV" id="Yvf-ma-z4e"/>
                 <outlet property="linkedInButton" destination="Npi-cs-FGf" id="KVB-K1-vMh"/>
                 <outlet property="logoImageView" destination="TlN-oR-IhT" id="DWG-GW-kRg"/>
                 <outlet property="websiteButton" destination="Ki1-Vt-IxM" id="U8c-QH-ZUO"/>
@@ -157,7 +142,6 @@
     <resources>
         <image name="BusinessLogo" width="339" height="100"/>
         <image name="HeadFacebook" width="16" height="16"/>
-        <image name="HeadInstagram" width="16" height="16"/>
         <image name="HeadLinkedin" width="16" height="16"/>
         <image name="HeadWebsite" width="16" height="16"/>
     </resources>

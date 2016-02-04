@@ -34,8 +34,9 @@
 #pragma mark - Edit profile (Update)
 
 - (NSURLSessionDataTask *)updateUserWithUsername:(NSString *)username
-										password:(NSString *)password
+										fullname:(NSString *)fullname
 									 companyname:(NSString *)companyname
+										password:(NSString *)password
 										 website:(NSString *)website
 										facebook:(NSString *)facebook
 										linkedin:(NSString *)linkedin

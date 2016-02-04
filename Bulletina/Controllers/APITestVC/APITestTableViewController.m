@@ -175,17 +175,22 @@
 - (void)updateUser
 {
 	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] updateUserWithUsername:@"updatedUsername" password:@"123" companyname:@"" website:@"" facebook:@"" linkedin:@"" phone:@"123" description:@"updated description" avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-		[weakSelf.loader hide];
-		if (error) {
-			DLog(@"Update user: %@ \n %li",error, statusCode);
-			[Utils showErrorForStatusCode:statusCode];
-		} else {
-			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
-			DLog(@"Update user: %@",response);
-			[Utils showWarningWithMessage:@"User successfully updated."];
-		}
-	}];
+	if ([APIClient sharedInstance].passtoken) {
+		[[APIClient sharedInstance] updateUserWithUsername:@"updatedUsername" fullname:@"myFullName" companyname:@"" password:@"123" website:@"" facebook:@"" linkedin:@"" phone:@"123" description:@"updated description" avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			[weakSelf.loader hide];
+			if (error) {
+				DLog(@"Update user: %@ \n %li",error, statusCode);
+				[Utils showErrorForStatusCode:statusCode];
+			} else {
+				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+				DLog(@"Update user: %@",response);
+				[Utils showWarningWithMessage:@"User successfully updated."];
+			}
+		}];
+	} else {
+		[Utils showWarningWithMessage:@"You need passtoken. Please log in"];
+		[self.loader hide];
+	}
 }
 
 - (void)destroyUser
