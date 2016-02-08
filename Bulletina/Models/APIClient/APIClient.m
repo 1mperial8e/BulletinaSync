@@ -147,14 +147,14 @@ void(^PerformCompletionRecognition)(NSURLResponse *, id, NSError *, ResponseBloc
     }
 };
 
-- (NSURLSessionDataTask *)performPOST:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler
+- (NSURLSessionDataTask *)performPOST:(NSString *)path contentTypeJson:(BOOL)isJson withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler
 {
-    return [self performPOST:path withParameters:parameters multipartData:nil response:completionHandler];
+	return [self performPOST:path contentTypeJson:isJson withParameters:parameters multipartData:nil response:completionHandler];
 }
 
-- (NSURLSessionDataTask *)performPOST:(NSString *)path withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler
+- (NSURLSessionDataTask *)performPOST:(NSString *)path contentTypeJson:(BOOL)isJson withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler
 {
-    return [self performRequestWithMethod:@"POST" withPath:path withParameters:parameters multipartData:dataArray response:completionHandler];
+    return [self performRequestWithMethod:@"POST" contentTypeJson:isJson withPath:path withParameters:parameters multipartData:dataArray response:completionHandler];
 }
 
 - (NSURLSessionDataTask *)performPUT:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler
@@ -164,20 +164,20 @@ void(^PerformCompletionRecognition)(NSURLResponse *, id, NSError *, ResponseBloc
 
 - (NSURLSessionDataTask *)performPUT:(NSString *)path withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler
 {
-    return [self performRequestWithMethod:@"PUT" withPath:path withParameters:parameters multipartData:dataArray response:completionHandler];
+    return [self performRequestWithMethod:@"PUT" contentTypeJson:YES withPath:path withParameters:parameters multipartData:dataArray response:completionHandler];
 }
 
 - (NSURLSessionDataTask *)performGET:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler
 {
-    return [self performRequestWithMethod:@"GET" withPath:path withParameters:parameters multipartData:nil response:completionHandler];
+    return [self performRequestWithMethod:@"GET" contentTypeJson:NO withPath:path withParameters:parameters multipartData:nil response:completionHandler];
 }
 
 - (NSURLSessionDataTask *)performDELETE:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler
 {
-    return [self performRequestWithMethod:@"DELETE" withPath:path withParameters:parameters multipartData:nil response:completionHandler];
+    return [self performRequestWithMethod:@"DELETE" contentTypeJson:YES  withPath:path withParameters:parameters multipartData:nil response:completionHandler];
 }
 
-- (NSURLSessionDataTask *)performRequestWithMethod:(NSString *)method withPath:(NSString *)path withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler
+- (NSURLSessionDataTask *)performRequestWithMethod:(NSString *)method contentTypeJson:(BOOL)isJson withPath:(NSString *)path withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler
 {
     if (self.networkStatus <= NetworkStatusNotReachable && completionHandler) {
         completionHandler(nil, NoConnectionError(), NSURLErrorNotConnectedToInternet);
@@ -186,9 +186,9 @@ void(^PerformCompletionRecognition)(NSURLResponse *, id, NSError *, ResponseBloc
     
     NSError *requestError;
     NSURLRequest *request;
-    AFHTTPRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
-//    [serializer setValue:APIValue forHTTPHeaderField:APIKey];
-
+	AFHTTPRequestSerializer *serializer = (isJson || dataArray) ? [AFJSONRequestSerializer serializer] : [AFHTTPRequestSerializer serializer];
+// [serializer setValue:@"Basic YXBwOm1lZGlh" forHTTPHeaderField:@"Authorization"];
+	
     if (dataArray) {
         request = [serializer multipartFormRequestWithMethod:method URLString:URLWithPath(path) parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             for (NSDictionary *dict in dataArray) {

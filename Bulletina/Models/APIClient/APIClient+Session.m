@@ -42,7 +42,7 @@
 //	if (currentLongitude) {
 //		[parameters setObject:@(currentLongitude) forKey:@"session[current_longitude]"];
 //	}	
-	return [self performPOST:@"api/v1/sessions" withParameters:parameters response:completion];
+	return [self performPOST:@"api/v1/sessions" contentTypeJson:YES withParameters:parameters response:completion];
 }
 
 - (NSURLSessionDataTask *)logoutSessionWithCompletion:(ResponseBlock)completion

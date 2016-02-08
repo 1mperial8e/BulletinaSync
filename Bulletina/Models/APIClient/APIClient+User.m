@@ -20,9 +20,10 @@
 
 - (NSURLSessionDataTask *)generateUserWithCompletion:(ResponseBlock)completion
 {
-	NSDictionary *parameters = @{@"generate":@"1"};
+	NSDictionary *parameters = @{@"generate":@"1", @"device[endpoint_arn]":@"", @"device[device_token]":@"", @"device[operating_system]":@"", @"device[device_type]":@"", @"device[current_latitude]":@"", @"device[current_longitude]":@""};
 	
-	return [self performPOST:@"api/v1/users" withParameters:parameters response:completion];
+	return [self performPOST:@"api/v1/users.json" contentTypeJson:NO withParameters:parameters response:completion];
+//	return [self performPOST:@"api/v1/generate.json" contentTypeJson:NO withParameters:@{} response:completion];
 }
 
 - (NSURLSessionDataTask *)createUserWithEmail:(NSString *)email
@@ -62,7 +63,7 @@
 		imageData = UIImageJPEGRepresentation(avatar, 1.0f);
 	}
 	//implement sending image
-	return [self performPOST:@"api/v1/users" withParameters:createParameters multipartData:nil response:completion];
+	return [self performPOST:@"api/v1/users" contentTypeJson:YES withParameters:createParameters multipartData:nil response:completion];
 }
 
 - (NSURLSessionDataTask *)updateUserWithUsername:(NSString *)username
