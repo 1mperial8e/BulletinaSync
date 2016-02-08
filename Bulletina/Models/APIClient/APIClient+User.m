@@ -20,10 +20,14 @@
 
 - (NSURLSessionDataTask *)generateUserWithCompletion:(ResponseBlock)completion
 {
-	NSDictionary *parameters = @{@"generate":@"1", @"device[endpoint_arn]":@"", @"device[device_token]":@"", @"device[operating_system]":@"", @"device[device_type]":@"", @"device[current_latitude]":@"", @"device[current_longitude]":@""};
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"generate":@"1", @"device[endpoint_arn]":@"", @"device[device_token]":@"", @"device[operating_system]":@"", @"device[device_type]":@"", @"device[current_latitude]":@"", @"device[current_longitude]":@""}];
+	
+	NSString *endpointArn = [[NSUserDefaults standardUserDefaults] objectForKey:SNSEndpointArnKey];
+	if (endpointArn.length) {
+		[parameters setObject:endpointArn forKey:@"device[endpoint_arn]"];
+	}
 	
 	return [self performPOST:@"api/v1/users.json" contentTypeJson:NO withParameters:parameters response:completion];
-//	return [self performPOST:@"api/v1/generate.json" contentTypeJson:NO withParameters:@{} response:completion];
 }
 
 - (NSURLSessionDataTask *)createUserWithEmail:(NSString *)email
@@ -44,6 +48,11 @@
 																						 @"company_name": companyname,
 																						 @"password": password,
 																						 @"customer_type_id": @(customerTypeId)}];
+	
+	NSString *endpointArn = [[NSUserDefaults standardUserDefaults] objectForKey:SNSEndpointArnKey];
+	if (endpointArn.length) {
+		[createParameters setObject:endpointArn forKey:@"device[endpoint_arn]"];
+	}
 	
 	if (languageId.length) {
 		[createParameters setObject:languageId forKey:@"language_id"];
