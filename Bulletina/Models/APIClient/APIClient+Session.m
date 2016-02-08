@@ -19,14 +19,14 @@
     NSParameterAssert(password.length);
     
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"session[email]":username, @"session[password]":password }];
-//	[parameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? : @"" forKey:@"session[endpoint_arn]"];
-//	[parameters setObject:self.pushToken ? : @"" forKey:@"session[device_token]"];
-//	[parameters setObject:[Device.systemName stringByAppendingString:Device.systemVersion] forKey:@"session[operating_system]"];
-//	[parameters setObject:Device.model forKey:@"session[device_type]"];
-//	[parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"session[current_latitude]"];
-//	[parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"session[current_longitude]"];	
+	[parameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? : @"" forKey:@"session[endpoint_arn]"];
+	[parameters setObject:self.pushToken ? : @"" forKey:@"session[device_token]"];
+	[parameters setObject:[Device.systemName stringByAppendingString:Device.systemVersion] forKey:@"session[operating_system]"];
+	[parameters setObject:Device.model forKey:@"session[device_type]"];
+	[parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"session[current_latitude]"];
+	[parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"session[current_longitude]"];	
 	
-	return [self performPOST:@"api/v1/sessions" contentTypeJson:YES withParameters:parameters response:completion];
+	return [self performPOST:@"api/v1/sessions" contentTypeJson:NO withParameters:parameters response:completion];
 }
 
 - (NSURLSessionDataTask *)logoutSessionWithCompletion:(ResponseBlock)completion
