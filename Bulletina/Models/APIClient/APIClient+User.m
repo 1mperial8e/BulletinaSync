@@ -20,23 +20,27 @@
 
 - (NSURLSessionDataTask *)generateUserWithCompletion:(ResponseBlock)completion
 {
-	NSDictionary *parameters = @{@"generate":@"1"};
-	
-	return [self performPOST:@"api/v1/users" withParameters:parameters response:completion];
+	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? : @"" forKey:@"device_endpoint_arn"];
+    [parameters setObject:self.pushToken ? : @"" forKey:@"device_device_token"];
+    [parameters setObject:[Device.systemName stringByAppendingString:Device.systemVersion] forKey:@"device_operating_system"];
+    [parameters setObject:Device.model forKey:@"device_device_type"];
+    
+	return [self performPOST:@"api/v1/generate.json" withParameters:parameters response:completion];
 }
 
 - (NSURLSessionDataTask *)createUserWithEmail:(NSString *)email
-                                        username:(NSString *)username
-                                        password:(NSString *)password
-                                     languageId:(NSString *)languageId
-                                   homeLatitude:(NSString *)homeLatitude
-                                  homeLongitude:(NSString *)homeLongitude
-                                customerTypeId:(UserAccountType)customerTypeId
-                                    companyname:(NSString *)companyname
-                                         website:(NSString *)website
-										phone:(NSString *)phone
-                                          avatar:(UIImage *)avatar
-                                  withCompletion:(ResponseBlock)completion
+                                     username:(NSString *)username
+                                     password:(NSString *)password
+                                   languageId:(NSString *)languageId
+                                 homeLatitude:(NSString *)homeLatitude
+                                homeLongitude:(NSString *)homeLongitude
+                               customerTypeId:(UserAccountType)customerTypeId
+                                  companyname:(NSString *)companyname
+                                      website:(NSString *)website
+                                        phone:(NSString *)phone
+                                       avatar:(UIImage *)avatar
+                               withCompletion:(ResponseBlock)completion
 {
 	NSMutableDictionary *createParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"email" : email,
 																						 @"login" : username,
@@ -67,7 +71,7 @@
 
 - (NSURLSessionDataTask *)updateUserWithUsername:(NSString *)username
 										fullname:(NSString *)fullname
-								companyname:(NSString *)companyname
+                                     companyname:(NSString *)companyname
 										password:(NSString *)password
 										 website:(NSString *)website
 										facebook:(NSString *)facebook

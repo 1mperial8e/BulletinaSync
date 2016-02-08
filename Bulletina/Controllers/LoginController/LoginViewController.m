@@ -72,7 +72,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewWillAppear:(BOOL)animated
 {
 	[self setupUI];
-	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:@"Loading items. Please wait.."];
+	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -97,7 +97,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.row == LoginButtonCellIndex) {
 		return [self loginButtonCellForIndexPath:indexPath];
 	} else if (indexPath.row == TryBeforeCellIndex) {
-		return [self TryBeforeCellForIndexPath:indexPath];
+		return [self tryBeforeCellForIndexPath:indexPath];
 	}
 	return [UITableViewCell new];
 }
@@ -193,7 +193,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return cell;
 }
 
-- (TryBeforeTableViewCell *)TryBeforeCellForIndexPath:(NSIndexPath *)indexPath
+- (TryBeforeTableViewCell *)tryBeforeCellForIndexPath:(NSIndexPath *)indexPath
 {
 	TryBeforeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:TryBeforeTableViewCell.ID forIndexPath:indexPath];
 	[cell.tryButton.layer setCornerRadius:6.0f];
@@ -208,7 +208,16 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)tryBeforeSignupButtonTap:(id)sender
 {
-	[self showAPITestVC];
+    [self.loader show];
+    __weak typeof(self) weakSelf = self;
+    [[APIClient sharedInstance] generateUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+        [weakSelf.loader hide];
+        if (error) {
+            [Utils showErrorForStatusCode:statusCode];
+        } else {
+            
+        }
+    }];
 }
 
 - (void)signupButtonTap:(id)sender

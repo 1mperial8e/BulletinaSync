@@ -13,6 +13,7 @@
 #define Defaults [NSUserDefaults standardUserDefaults]
 #define Bundle [NSBundle mainBundle]
 #define FileManager [NSFileManager defaultManager]
+#define Device [UIDevice currentDevice]
 
 #define ScreenSize [UIScreen mainScreen].bounds
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width

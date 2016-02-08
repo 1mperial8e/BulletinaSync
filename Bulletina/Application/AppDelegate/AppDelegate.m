@@ -48,7 +48,7 @@
     NSString *token = [deviceToken description];
     token = [token stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
+    [APIClient sharedInstance].pushToken = token;
     
     AWSSNSCreatePlatformEndpointInput *endPointInput = [[AWSSNSCreatePlatformEndpointInput alloc] init];
     endPointInput.platformApplicationArn = AWSArn;

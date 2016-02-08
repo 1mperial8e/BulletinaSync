@@ -20,6 +20,9 @@
 								   currentLongitude:(CGFloat)currentLongitude
 								  withCompletion:(ResponseBlock)completion
 {
+    NSParameterAssert(email.length);
+    NSParameterAssert(password.length);
+    
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"email":email, @"password":password }];
 //	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
 //	[parameters setObject:session forKey:@"session"];
@@ -47,10 +50,12 @@
 
 - (NSURLSessionDataTask *)logoutSessionWithCompletion:(ResponseBlock)completion
 {
-	NSDictionary *parameters = @{@"userId":@(self.currentUser.userId), @"passtoken":self.passtoken};
-	NSString *query = [NSString stringWithFormat:@"api/v1/sessions"];
+    NSParameterAssert(self.currentUser);
+    NSParameterAssert(self.passtoken);
+    
+	NSDictionary *parameters = @{/*@"userId":@(self.currentUser.userId),*/ @"passtoken":self.passtoken};
+	NSString *query = [NSString stringWithFormat:@"api/v1/sessions/%zd", self.currentUser.userId];
 	return [self performDELETE:query withParameters:parameters response:completion];
-//	return [self performPOST:query withParameters:parameters response:completion];
 }
 
 @end
