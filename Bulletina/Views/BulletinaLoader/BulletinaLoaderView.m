@@ -45,15 +45,17 @@
 
 - (void)hide
 {
-	if (self.superview) {
-		__weak typeof(self) weakSelf = self;
-		[UIView animateWithDuration:0.3f animations:^{
-			[weakSelf setAlpha:0.1f];
-		} completion:^(BOOL finished){
-			weakSelf.layer.sublayers = nil;
-			[weakSelf removeFromSuperview];
-		}];
-	}	
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.superview) {
+            __weak typeof(self) weakSelf = self;
+            [UIView animateWithDuration:0.3f animations:^{
+                [weakSelf setAlpha:0.1f];
+            } completion:^(BOOL finished){
+                weakSelf.layer.sublayers = nil;
+                [weakSelf removeFromSuperview];
+            }];
+        }
+    });
 }
 
 #pragma mark - Animations

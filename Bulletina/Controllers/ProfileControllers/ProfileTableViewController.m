@@ -19,6 +19,9 @@
 #import "BusinessProfileLogoTableViewCell.h"
 #import "SearchSettingsTableViewController.h"
 
+// Views
+#import "BulletinaLoaderView.h"
+
 //Models
 #import "APIClient+Session.h"
 
@@ -43,6 +46,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @property (weak, nonatomic) UIImageView *topBackgroundImageView;
 @property (weak, nonatomic) NSLayoutConstraint *backgroundTopConstraint;
+@property (strong, nonatomic) BulletinaLoaderView *loader;
 
 @end
 
@@ -168,8 +172,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 			[self.navigationController pushViewController:individualProfileEditTableViewController animated:YES];
 		}
 	} else if (indexPath.item == LogOutCellIndex) {
-		[self.navigationController dismissViewControllerAnimated:NO completion:nil];
-		[self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];		
+        [self logout];
     } else if (indexPath.item == MessagesCellIndex) {
         MessageTableViewController *messageTableViewController = [MessageTableViewController new];
         [self.navigationController pushViewController:messageTableViewController animated:YES];
@@ -187,6 +190,28 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)doneButtonTap:(id)sender
 {
 	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)logout
+{
+    [self.loader show];
+    __weak typeof(self) weakSelf = self;
+    [[APIClient sharedInstance] logoutSessionWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+        if (error) {
+            [Utils showErrorForStatusCode:statusCode];
+        } else {
+            [[APIClient sharedInstance] updatePasstoken:@""];
+            [[APIClient sharedInstance] updateCurrentUser:nil];
+            [Defaults removeObjectForKey:CurrentUserKey];
+            [Defaults synchronize];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.navigationController dismissViewControllerAnimated:NO completion:nil];
+                [weakSelf.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+            });
+        }
+        [weakSelf.loader hide];
+    }];
 }
 
 #pragma mark - Utils
@@ -230,6 +255,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
 	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTap:)];
+    
+    self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 }
 
 - (void)tableViewSetup

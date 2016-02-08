@@ -54,9 +54,9 @@
     NSParameterAssert(self.currentUser);
     NSParameterAssert(self.passtoken);
     
-	NSDictionary *parameters = @{/*@"userId":@(self.currentUser.userId),*/ @"passtoken":self.passtoken};
-	NSString *query = [NSString stringWithFormat:@"api/v1/sessions/%zd", self.currentUser.userId];
-	return [self performDELETE:query withParameters:parameters response:completion];
+    NSDictionary *parameters = @{@"passtoken" : self.passtoken, @"user_id" : @(self.currentUser.userId)};
+	NSString *query = [NSString stringWithFormat:@"api/v1/sessions/%zd.json", self.currentUser.userId];
+    return [self performPOST:query contentTypeJson:NO withParameters:parameters response:completion];
 }
 
 @end

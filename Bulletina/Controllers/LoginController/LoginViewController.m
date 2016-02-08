@@ -67,12 +67,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [super viewDidLoad];
 	[self tableViewSetup];
     [self setupDefaults];
+    if ([APIClient sharedInstance].currentUser) {
+        [self showMainPage];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
 	[self setupUI];
-	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -149,6 +152,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)setupDefaults
 {
     self.inputViewsCollection = [TextInputNavigationCollection new];
+    self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 }
 
 #pragma mark - Cells
@@ -211,12 +215,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [self.loader show];
     __weak typeof(self) weakSelf = self;
     [[APIClient sharedInstance] generateUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
-        [weakSelf.loader hide];
         if (error) {
             [Utils showErrorForStatusCode:statusCode];
         } else {
-            
+            NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+            UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
+            [Utils storeValue:response[@"user"] forKey:CurrentUserKey];
+            [[APIClient sharedInstance] updateCurrentUser:generatedUser];
+            [[APIClient sharedInstance] updateUserPasswordWithDictionary:response];
+            [[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+            [weakSelf performSelectorOnMainThread:@selector(showMainPage) withObject:nil waitUntilDone:NO];
         }
+        [weakSelf.loader hide];
     }];
 }
 

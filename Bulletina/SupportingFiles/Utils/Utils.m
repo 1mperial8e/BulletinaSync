@@ -7,6 +7,7 @@
 //
 
 #import "Utils.h"
+#import "NSDictionary+Nonnull.h"
 
 @implementation Utils
 
@@ -113,7 +114,10 @@
     NSParameterAssert(value);
     NSParameterAssert(key);
     
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+    if ([value isKindOfClass:[NSDictionary class]]) {
+        value = ((NSDictionary *)value).nonnullDictionary;
+    }
+    [[NSUserDefaults standardUserDefaults] setValue:value forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

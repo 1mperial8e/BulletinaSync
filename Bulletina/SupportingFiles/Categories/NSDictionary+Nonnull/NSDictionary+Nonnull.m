@@ -21,10 +21,30 @@
 			if ([obj isKindOfClass:[NSDictionary class]]) {
 				obj = [obj nonnullDictionary];
 			}
+            if ([obj isKindOfClass:[NSArray class]]) {
+                obj = [[self class] arrayByRemovingNulls:obj];
+            }
 			[newDict setValue:obj forKey:key];
 		}
 	}
 	return newDict;
+}
+
++ (NSArray *)arrayByRemovingNulls:(NSArray *)array
+{
+    NSMutableArray *newArray = [NSMutableArray array];
+    for (id obj in array) {
+        if ((obj == [NSNull null]) || ((obj != [NSNull null]) && ([obj isKindOfClass:[NSString class]]) && ([obj isEqualToString:@"null"]))) {
+            continue;
+        } else {
+            id objCopy = [obj copy];
+            if ([objCopy isKindOfClass:[NSDictionary class]]) {
+                objCopy = [objCopy nonnullDictionary];
+            }
+            [newArray addObject:objCopy];
+        }
+    }
+    return newArray;
 }
 
 @end

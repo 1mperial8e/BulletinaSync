@@ -16,16 +16,8 @@
 
 #pragma mark - Parse
 
-- (void)parseDictionary:(NSDictionary *)dictionary
+- (void)parseDictionary:(NSDictionary *)userWithInfo
 {
-	NSDictionary *userWithInfo;
-	id newObject = [dictionary objectForKey:@"user"];
-	if (newObject) {
-		userWithInfo = dictionary[@"user"];
-	} else {
-		userWithInfo = dictionary;
-	}	
-	
 	self.isActive = [userWithInfo[@"active"] boolValue];
 	self.isBanned = [userWithInfo[@"banned"] boolValue];
 	self.isDeleted = [userWithInfo[@"deleted"] boolValue];

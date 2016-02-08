@@ -21,12 +21,15 @@
 - (NSURLSessionDataTask *)generateUserWithCompletion:(ResponseBlock)completion
 {
 	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? : @"" forKey:@"device_endpoint_arn"];
-    [parameters setObject:self.pushToken ? : @"" forKey:@"device_device_token"];
-    [parameters setObject:[Device.systemName stringByAppendingString:Device.systemVersion] forKey:@"device_operating_system"];
-    [parameters setObject:Device.model forKey:@"device_device_type"];
-    
-	return [self performPOST:@"api/v1/generate.json" withParameters:parameters response:completion];
+    [parameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? : @"" forKey:@"device[endpoint_arn]"];
+    [parameters setObject:self.pushToken ? : @"" forKey:@"device[device_token]"];
+    [parameters setObject:[Device.systemName stringByAppendingString:Device.systemVersion] forKey:@"device[operating_system]"];
+    [parameters setObject:Device.model forKey:@"device[device_type]"];
+    [parameters setObject:@1 forKey:@"generate"];
+    [parameters setObject:@"" forKey:@"device[current_latitude]"];
+    [parameters setObject:@"" forKey:@"device[current_longitude]"];
+
+    return [self performPOST:@"api/v1/generate.json" contentTypeJson:NO withParameters:parameters response:completion];
 }
 
 - (NSURLSessionDataTask *)createUserWithEmail:(NSString *)email

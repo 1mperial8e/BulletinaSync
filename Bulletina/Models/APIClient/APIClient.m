@@ -8,10 +8,12 @@
 
 #import "APIClient.h"
 #import "AFNetworking.h"
+#import "UserModel.h"
 
 @interface APIClient ()
 
 @property (strong, nonatomic) AFHTTPSessionManager *manager;
+@property (strong, nonatomic, readwrite) NSString *passtoken;
 
 @end
 
@@ -59,13 +61,14 @@
 - (void)updatePasstoken:(NSString *)newPasstoken
 {
 	_passtoken = newPasstoken;
+    [Utils storeValue:_passtoken forKey:PassTokenKey];
 }
 
 - (void)updatePasstokenWithDictionary:(NSDictionary *)newDictionary
 {
 	id newObject = [newDictionary objectForKey:@"passtoken"];
 	if (newObject && (NSNull *)newObject != [NSNull null]) {
-		_passtoken =  (NSString *)newObject;		
+		[self updatePasstoken:newObject];
 	}
 }
 
@@ -82,7 +85,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults objectForKey:CurrentUserKey]) {
         id user = [defaults objectForKey:CurrentUserKey];
-        [self updateCurrentUser:user];
+        [self updateCurrentUser:[UserModel modelWithDictionary:user]];
     }
 }
 
@@ -226,6 +229,7 @@ void(^PerformCompletionRecognition)(NSURLResponse *, id, NSError *, ResponseBloc
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     self.manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
     [self startMonitoringNetwork];
+    self.passtoken = [Defaults valueForKey:PassTokenKey];
 }
 
 NSError *NoConnectionError()

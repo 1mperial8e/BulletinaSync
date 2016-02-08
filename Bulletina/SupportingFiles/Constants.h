@@ -28,6 +28,7 @@
 
 //MARK: UserDefaults
 static NSString *const CurrentUserKey = @"CurrentUserKey";
+static NSString *const PassTokenKey = @"PassTokenKey";
 static NSString *const SNSEndpointArnKey = @"SNSEndpointArnKey";
 
 //MARK: Amazon
