@@ -12,7 +12,6 @@
 
 - (NSURLSessionDataTask *)loginSessionWithEmail:(NSString *)email
 									   password:(NSString *)password
-									endpointArn:(NSString *)endpointArn
 									deviceToken:(NSString *)deviceToken
 								operatingSystem:(NSString *)operatingSystem
 									 deviceType:(NSString *)deviceType

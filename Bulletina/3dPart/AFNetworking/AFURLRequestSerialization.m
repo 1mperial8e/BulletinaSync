@@ -393,7 +393,6 @@ forHTTPHeaderField:(NSString *)field
             } else {
                 data = [[pair.value description] dataUsingEncoding:self.stringEncoding];
             }
-
             if (data) {
                 [formData appendPartWithFormData:data name:[pair.field description]];
             }
@@ -1255,8 +1254,9 @@ typedef enum {
     if (parameters) {
         if (![mutableRequest valueForHTTPHeaderField:@"Content-Type"]) {
             [mutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        }
+//			[mutableRequest setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
 
+        }
         [mutableRequest setHTTPBody:[NSJSONSerialization dataWithJSONObject:parameters options:self.writingOptions error:error]];
     }
 

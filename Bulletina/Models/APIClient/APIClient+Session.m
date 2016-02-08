@@ -12,7 +12,6 @@
 
 - (NSURLSessionDataTask *)loginSessionWithEmail:(NSString *)email
 								   password:(NSString *)password
-								   endpointArn:(NSString *)endpointArn
 								   deviceToken:(NSString *)deviceToken
 								   operatingSystem:(NSString *)operatingSystem
 								   deviceType:(NSString *)deviceType
@@ -27,9 +26,11 @@
 //	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
 //	[parameters setObject:session forKey:@"session"];
 	
-//	if (endpointArn.length) {
-//		[parameters setObject:endpointArn forKey:@"session[endpoint_arn]"];
-//	}
+	NSString *endpointArn = [[NSUserDefaults standardUserDefaults] objectForKey:SNSEndpointArnKey];
+	if (endpointArn.length) {
+		[parameters setObject:endpointArn forKey:@"session[endpoint_arn]"];
+	}
+	
 //	if (deviceToken.length) {
 //		[parameters setObject:deviceToken forKey:@"session[device_token]"];
 //	}
@@ -45,7 +46,7 @@
 //	if (currentLongitude) {
 //		[parameters setObject:@(currentLongitude) forKey:@"session[current_longitude]"];
 //	}	
-	return [self performPOST:@"api/v1/sessions" withParameters:parameters response:completion];
+	return [self performPOST:@"api/v1/sessions" contentTypeJson:YES withParameters:parameters response:completion];
 }
 
 - (NSURLSessionDataTask *)logoutSessionWithCompletion:(ResponseBlock)completion

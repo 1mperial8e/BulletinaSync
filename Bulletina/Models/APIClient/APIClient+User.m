@@ -48,6 +48,11 @@
 																						 @"password": password,
 																						 @"customer_type_id": @(customerTypeId)}];
 	
+	NSString *endpointArn = [[NSUserDefaults standardUserDefaults] objectForKey:SNSEndpointArnKey];
+	if (endpointArn.length) {
+		[createParameters setObject:endpointArn forKey:@"device[endpoint_arn]"];
+	}
+	
 	if (languageId.length) {
 		[createParameters setObject:languageId forKey:@"language_id"];
 	}
@@ -66,7 +71,7 @@
 		imageData = UIImageJPEGRepresentation(avatar, 1.0f);
 	}
 	//implement sending image
-	return [self performPOST:@"api/v1/users" withParameters:createParameters multipartData:nil response:completion];
+	return [self performPOST:@"api/v1/users" contentTypeJson:YES withParameters:createParameters multipartData:nil response:completion];
 }
 
 - (NSURLSessionDataTask *)updateUserWithUsername:(NSString *)username

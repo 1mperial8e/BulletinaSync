@@ -96,8 +96,8 @@
 	} else if ([cell.textLabel.text isEqualToString:@"UserDestroy"]) {
 				[self destroyUser];
 	} else if ([cell.textLabel.text isEqualToString:@"SessionCreate - Login"]) {
-		NSString *userEmail = [APIClient sharedInstance].currentUser ? [APIClient sharedInstance].currentUser.email : @"784900e9-d708-4e88-8b84-0ac8bac04620@bulletina.net";
-		NSString *password = [APIClient sharedInstance].userPassword ? [APIClient sharedInstance].userPassword : @"r0)Z@pX-HTpa";
+		NSString *userEmail = [APIClient sharedInstance].currentUser ? [APIClient sharedInstance].currentUser.email : @"myemail@bulletina.net";
+		NSString *password = [APIClient sharedInstance].userPassword ? [APIClient sharedInstance].userPassword : @"123";
 		[self createLoginSessionWithEmail:userEmail password:password];
 	} if ([cell.textLabel.text isEqualToString:@"SessionDestroy - Logout"]) {
 		[self logoutSession];
@@ -128,7 +128,8 @@
 			UserModel *generatedUser = [UserModel modelWithDictionary:response];
 			[[APIClient sharedInstance] updateCurrentUser:generatedUser];
 			[[APIClient sharedInstance] updateUserPasswordWithDictionary:response];
-			[Utils showWarningWithMessage:[NSString stringWithFormat:@"User with id:%li successfully generated. Now you can Login",generatedUser.userId]];
+			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+			[Utils showWarningWithMessage:[NSString stringWithFormat:@"User with id:%li successfully generated. And Logined. Now you have passtoken",generatedUser.userId]];
 		}
 	}];
 }
@@ -136,7 +137,7 @@
 - (void)userCreate
 {
 	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] createUserWithEmail:@"myemail@bulletina.net" username:@"testUsername" password:@"123" languageId:@"" homeLatitude:0 homeLongitude:0 customerTypeId:2 companyname:@"" website:@"" phone:@"" avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+	[[APIClient sharedInstance] createUserWithEmail:@"myemail2@bulletina.net" username:@"testUsername2" password:@"123" languageId:@"" homeLatitude:0 homeLongitude:0 customerTypeId:2 companyname:@"" website:@"" phone:@"" avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		[weakSelf.loader hide];
 		if (error) {
 			DLog(@"Create user: %@ \n %li",error, statusCode);
@@ -217,7 +218,7 @@
 - (void)createLoginSessionWithEmail:(NSString *)email password:(NSString *)password
 {
 	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance]loginSessionWithEmail:email password:password endpointArn:@"" deviceToken:@"" operatingSystem:@"" deviceType:@"" currentLattitude:[LocationManager sharedManager].currentLocation.coordinate.latitude currentLongitude:[LocationManager sharedManager].currentLocation.coordinate.longitude withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+	[[APIClient sharedInstance]loginSessionWithEmail:email password:password deviceToken:@"" operatingSystem:@"" deviceType:@"" currentLattitude:[LocationManager sharedManager].currentLocation.coordinate.latitude currentLongitude:[LocationManager sharedManager].currentLocation.coordinate.longitude withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		[weakSelf.loader hide];
 		if (error) {
 			[Utils showErrorForStatusCode:statusCode];
