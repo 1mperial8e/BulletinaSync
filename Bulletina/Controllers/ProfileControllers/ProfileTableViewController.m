@@ -210,7 +210,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
                 [weakSelf.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
             });
         }
-        [weakSelf.loader hide];
+		dispatch_async(dispatch_get_main_queue(), ^{
+		 [weakSelf.loader hide];
+		});
     }];
 }
 

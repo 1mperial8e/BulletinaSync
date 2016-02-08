@@ -68,7 +68,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self tableViewSetup];
     [self setupDefaults];
     if ([APIClient sharedInstance].currentUser) {
-        [self showMainPage];
+        [self showMainPageAnimated:YES];
     }
 }
 
@@ -224,7 +224,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             [[APIClient sharedInstance] updateCurrentUser:generatedUser];
             [[APIClient sharedInstance] updateUserPasswordWithDictionary:response];
             [[APIClient sharedInstance] updatePasstokenWithDictionary:response];
-            [weakSelf performSelectorOnMainThread:@selector(showMainPage) withObject:nil waitUntilDone:NO];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[weakSelf showMainPageAnimated:NO];
+			});
         }
         [weakSelf.loader hide];
     }];
@@ -256,11 +258,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 #pragma mark - Utils
 
-- (void)showMainPage
+- (void)showMainPageAnimated:(BOOL)animated
 {
 	MainPageController *mainPageController = [MainPageController new];
 	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
-	[self.navigationController presentViewController:mainPageNavigationController animated:YES completion:nil];
+	[self.navigationController presentViewController:mainPageNavigationController animated:animated completion:nil];
 }
 
 - (void)showAPITestVC

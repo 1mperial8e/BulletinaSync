@@ -56,7 +56,7 @@
     
     NSDictionary *parameters = @{@"passtoken" : self.passtoken, @"user_id" : @(self.currentUser.userId)};
 	NSString *query = [NSString stringWithFormat:@"api/v1/sessions/%zd.json", self.currentUser.userId];
-    return [self performPOST:query contentTypeJson:NO withParameters:parameters response:completion];
+    return [self performDELETE:query withParameters:parameters response:completion];
 }
 
 @end

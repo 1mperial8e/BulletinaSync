@@ -80,11 +80,11 @@
 	 if ([cell.textLabel.text isEqualToString:@"TestUIWithFakeIndividualAccount"]) {
 		NSDictionary *fakeUser = @{@"banned":@NO, @"customer_type_id":@2, @"description":@"Here is some description of personal profile", @"email":@"myemail@bulletina.net", @"id":@5, @"login":@"myFakeLogin", @"name":@"myFullName"};
 		[[APIClient sharedInstance] updateCurrentUser:[UserModel modelWithDictionary:fakeUser]];
-		[self showMainPage];
+		[self showMainPageAnimated:YES];
 	} else if ([cell.textLabel.text isEqualToString:@"TestUIWithFakeBusinessAccount"]) {
 		NSDictionary *fakeUser = @{@"banned":@NO, @"customer_type_id":@3, @"description":@"Here is some description of business profile", @"email":@"myemail@bulletina.net", @"id":@5, @"phone":@"+1234567890", @"login":@"myFakeLogin", @"company_name":@"myCompanyName"};
 		[[APIClient sharedInstance] updateCurrentUser:[UserModel modelWithDictionary:fakeUser]];
-		[self showMainPage];
+		[self showMainPageAnimated:YES];
 	} else if ([cell.textLabel.text isEqualToString:@"UserGenerate"]) {
 		[self generateUser];
 	} else if ([cell.textLabel.text isEqualToString:@"UserCreate"]) {
@@ -106,12 +106,12 @@
 
 #pragma mark - Utils
 
-- (void)showMainPage
+- (void)showMainPageAnimated:(BOOL)animated
 {
 	[self.loader hide];
 	MainPageController *mainPageController = [MainPageController new];
 	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
-	[self.navigationController presentViewController:mainPageNavigationController animated:YES completion:nil];
+	[self.navigationController presentViewController:mainPageNavigationController animated:animated completion:nil];
 }
 
 - (void)generateUser
