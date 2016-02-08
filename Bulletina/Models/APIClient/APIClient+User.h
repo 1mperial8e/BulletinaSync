@@ -22,8 +22,6 @@
 									 username:(NSString *)username
 									 password:(NSString *)password
 								   languageId:(NSString *)languageId
-								 homeLatitude:(NSString *)homeLatitude
-								homeLongitude:(NSString *)homeLongitude
 							   customerTypeId:(UserAccountType)customerTypeId
 								  companyname:(NSString *)companyname
 									  website:(NSString *)website

@@ -190,7 +190,7 @@ void(^PerformCompletionRecognition)(NSURLResponse *, id, NSError *, ResponseBloc
     NSError *requestError;
     NSURLRequest *request;
 	AFHTTPRequestSerializer *serializer = (isJson || dataArray) ? [AFJSONRequestSerializer serializer] : [AFHTTPRequestSerializer serializer];
-// [serializer setValue:@"Basic YXBwOm1lZGlh" forHTTPHeaderField:@"Authorization"];
+//	[serializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
 	
     if (dataArray) {
         request = [serializer multipartFormRequestWithMethod:method URLString:URLWithPath(path) parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {

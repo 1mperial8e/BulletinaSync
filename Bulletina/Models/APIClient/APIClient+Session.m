@@ -7,45 +7,25 @@
 //
 
 #import "APIClient+Session.h"
+#import "LocationManager.h"
 
 @implementation APIClient (Session)
 
-- (NSURLSessionDataTask *)loginSessionWithEmail:(NSString *)email
+- (NSURLSessionDataTask *)loginSessionWithUsername:(NSString *)username
 								   password:(NSString *)password
-								   deviceToken:(NSString *)deviceToken
-								   operatingSystem:(NSString *)operatingSystem
-								   deviceType:(NSString *)deviceType
-								   currentLattitude:(CGFloat)currentLattitude
-								   currentLongitude:(CGFloat)currentLongitude
 								  withCompletion:(ResponseBlock)completion
 {
-    NSParameterAssert(email.length);
+    NSParameterAssert(username.length);
     NSParameterAssert(password.length);
     
-	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"email":email, @"password":password }];
-//	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-//	[parameters setObject:session forKey:@"session"];
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"session[email]":username, @"session[password]":password }];
+//	[parameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? : @"" forKey:@"session[endpoint_arn]"];
+//	[parameters setObject:self.pushToken ? : @"" forKey:@"session[device_token]"];
+//	[parameters setObject:[Device.systemName stringByAppendingString:Device.systemVersion] forKey:@"session[operating_system]"];
+//	[parameters setObject:Device.model forKey:@"session[device_type]"];
+//	[parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"session[current_latitude]"];
+//	[parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"session[current_longitude]"];	
 	
-	NSString *endpointArn = [[NSUserDefaults standardUserDefaults] objectForKey:SNSEndpointArnKey];
-	if (endpointArn.length) {
-		[parameters setObject:endpointArn forKey:@"session[endpoint_arn]"];
-	}
-	
-//	if (deviceToken.length) {
-//		[parameters setObject:deviceToken forKey:@"session[device_token]"];
-//	}
-//	if (operatingSystem.length) {
-//		[parameters setObject:operatingSystem forKey:@"session[operating_system]"];
-//	}
-//	if (deviceType.length) {
-//		[parameters setObject:deviceType forKey:@"session[device_type]"];
-//	}
-//	if (currentLattitude) {
-//		[parameters setObject:@(currentLattitude) forKey:@"session[current_lattitude]"];
-//	}
-//	if (currentLongitude) {
-//		[parameters setObject:@(currentLongitude) forKey:@"session[current_longitude]"];
-//	}	
 	return [self performPOST:@"api/v1/sessions" contentTypeJson:YES withParameters:parameters response:completion];
 }
 

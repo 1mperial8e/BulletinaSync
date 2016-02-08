@@ -17,6 +17,7 @@
 
 // Helpers
 #import "TextInputNavigationCollection.h"
+#import "BulletinaLoaderView.h"
 
 //Models
 #import "APIClient+User.h"
@@ -45,6 +46,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
 @property (strong,nonatomic) UIImage *logoImage;
+@property (strong, nonatomic) BulletinaLoaderView *loader;
 
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 
@@ -170,6 +172,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)setupDefaults
 {
 	self.inputViewsCollection = [TextInputNavigationCollection new];
+	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -219,7 +222,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
 			[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	} else {
-//Register user
+		[self.loader show];
+		__weak typeof(self) weakSelf = self;
+		[[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:self.usernameTextfield.text password:self.passwordTextfield.text languageId:@"" customerTypeId:IndividualAccount companyname:@"" website:@"" phone:@"" avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			[weakSelf.loader hide];
+			if (error) {
+				[Utils showErrorForStatusCode:statusCode];
+			} else {
+				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+				UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
+				[Utils showWarningWithMessage:[NSString stringWithFormat:@"User with id:%li successfully created.",generatedUser.userId]];
+			}
+		}];
 	}
 }
 

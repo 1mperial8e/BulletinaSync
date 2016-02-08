@@ -29,7 +29,7 @@
 #import "APIClient+User.h"
 #import "APIClient+Session.h"
 #import "UserModel.h"
-#import "LocationManager.h"
+
 
 static CGFloat const LogoTableViewCellHeigth = 248.0f;
 static CGFloat const TextfieldTableViewCellHeigth = 48.0f;
@@ -245,7 +245,21 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (!self.passwordTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Password is required."];
 	} else {
-		//login
+		__weak typeof(self) weakSelf = self;
+		[[APIClient sharedInstance]loginSessionWithUsername:self.usernameTextfield.text password:self.passwordTextfield.text withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			[weakSelf.loader hide];
+			if (error) {
+				[Utils showErrorForStatusCode:statusCode];
+				DLog(@"Login: %@ \n %li",error, statusCode);
+			} else {
+				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+				[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+				[[APIClient sharedInstance] updateCurrentUser:[UserModel modelWithDictionary:response]];
+				DLog(@"Login: %@", response);
+				[Utils showWarningWithMessage:[NSString stringWithFormat:@"User with id:%li successfully login. Now you have passtoken",[APIClient sharedInstance].currentUser.userId]];
+			}
+		}];
+
 	}
 }
 

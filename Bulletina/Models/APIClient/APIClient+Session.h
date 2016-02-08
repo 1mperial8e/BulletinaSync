@@ -10,14 +10,9 @@
 
 @interface APIClient (Session)
 
-- (NSURLSessionDataTask *)loginSessionWithEmail:(NSString *)email
-									   password:(NSString *)password
-									deviceToken:(NSString *)deviceToken
-								operatingSystem:(NSString *)operatingSystem
-									 deviceType:(NSString *)deviceType
-							   currentLattitude:(CGFloat)currentLattitude
-							   currentLongitude:(CGFloat)currentLongitude
-								 withCompletion:(ResponseBlock)completion;
+- (NSURLSessionDataTask *)loginSessionWithUsername:(NSString *)username
+										  password:(NSString *)password
+									withCompletion:(ResponseBlock)completion;
 
 - (NSURLSessionDataTask *)logoutSessionWithCompletion:(ResponseBlock)completion;
 

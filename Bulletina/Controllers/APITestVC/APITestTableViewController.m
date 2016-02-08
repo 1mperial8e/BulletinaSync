@@ -137,7 +137,7 @@
 - (void)userCreate
 {
 	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] createUserWithEmail:@"myemail2@bulletina.net" username:@"testUsername2" password:@"123" languageId:@"" homeLatitude:0 homeLongitude:0 customerTypeId:2 companyname:@"" website:@"" phone:@"" avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+	[[APIClient sharedInstance] createUserWithEmail:@"myemail2@bulletina.net" username:@"testUsername2" password:@"123" languageId:@"" customerTypeId:2 companyname:@"" website:@"" phone:@"" avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		[weakSelf.loader hide];
 		if (error) {
 			DLog(@"Create user: %@ \n %li",error, statusCode);
@@ -218,7 +218,7 @@
 - (void)createLoginSessionWithEmail:(NSString *)email password:(NSString *)password
 {
 	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance]loginSessionWithEmail:email password:password deviceToken:@"" operatingSystem:@"" deviceType:@"" currentLattitude:[LocationManager sharedManager].currentLocation.coordinate.latitude currentLongitude:[LocationManager sharedManager].currentLocation.coordinate.longitude withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+	[[APIClient sharedInstance]loginSessionWithUsername:email password:password withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		[weakSelf.loader hide];
 		if (error) {
 			[Utils showErrorForStatusCode:statusCode];

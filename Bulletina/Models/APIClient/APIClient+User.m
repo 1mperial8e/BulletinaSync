@@ -7,6 +7,7 @@
 //
 
 #import "APIClient+User.h"
+#import "LocationManager.h"
 
 @implementation APIClient (User)
 
@@ -26,8 +27,8 @@
     [parameters setObject:[Device.systemName stringByAppendingString:Device.systemVersion] forKey:@"device[operating_system]"];
     [parameters setObject:Device.model forKey:@"device[device_type]"];
     [parameters setObject:@1 forKey:@"generate"];
-    [parameters setObject:@"" forKey:@"device[current_latitude]"];
-    [parameters setObject:@"" forKey:@"device[current_longitude]"];
+    [parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"device[current_latitude]"];
+    [parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"device[current_longitude]"];
 
     return [self performPOST:@"api/v1/generate.json" contentTypeJson:NO withParameters:parameters response:completion];
 }
@@ -36,8 +37,6 @@
                                      username:(NSString *)username
                                      password:(NSString *)password
                                    languageId:(NSString *)languageId
-                                 homeLatitude:(NSString *)homeLatitude
-                                homeLongitude:(NSString *)homeLongitude
                                customerTypeId:(UserAccountType)customerTypeId
                                   companyname:(NSString *)companyname
                                       website:(NSString *)website
@@ -45,36 +44,58 @@
                                        avatar:(UIImage *)avatar
                                withCompletion:(ResponseBlock)completion
 {
-	NSMutableDictionary *createParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"email" : email,
-																						 @"login" : username,
-																						 @"company_name": companyname,
-																						 @"password": password,
-																						 @"customer_type_id": @(customerTypeId)}];
+	NSMutableDictionary *createParameters = [[NSMutableDictionary alloc] init]; //]WithDictionary: @{@"email":email, @"login":username, @"password":password}];
 	
-	NSString *endpointArn = [[NSUserDefaults standardUserDefaults] objectForKey:SNSEndpointArnKey];
-	if (endpointArn.length) {
-		[createParameters setObject:endpointArn forKey:@"device[endpoint_arn]"];
+	[createParameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? : @"" forKey:@"device[endpoint_arn]"];
+	[createParameters setObject:self.pushToken ? : @"" forKey:@"device[device_token]"];
+	[createParameters setObject:[Device.systemName stringByAppendingString:Device.systemVersion] forKey:@"device[operating_system]"];
+	[createParameters setObject:Device.model forKey:@"device[device_type]"];
+	[createParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"device[current_latitude]"];
+	[createParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"device[current_longitude]"];
+	
+	[createParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"user[home_latitude]"];
+	[createParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"user[home_longitude]"];
+	
+//	[createParameters setObject:@"0" forKey:@"generate"];
+	[createParameters setObject:@"" forKey:@"user[name]"];
+	[createParameters setObject:@"" forKey:@"user[cellphone]"];
+	[createParameters setObject:@"" forKey:@"user[language_id]"];
+	[createParameters setObject:@"" forKey:@"user[country_id]"];
+	[createParameters setObject:@"" forKey:@"user[address]"];
+	[createParameters setObject:@"" forKey:@"user[facebook]"];
+	[createParameters setObject:@"" forKey:@"user[linkedin]"];
+	[createParameters setObject:@"" forKey:@"user[hours]"];
+	[createParameters setObject:@"" forKey:@"user[description]"];
+	
+	if (email.length) {
+		[createParameters setObject:email forKey:@"user[email]"];
 	}
-	
-	if (languageId.length) {
-		[createParameters setObject:languageId forKey:@"language_id"];
+	if (username.length) {
+		[createParameters setObject:username forKey:@"user[login]"];
+	}
+	if (password.length) {
+		[createParameters setObject:password forKey:@"user[password]"];
+		[createParameters setObject:password forKey:@"user[password_confirmation]"];
+	}
+	if (customerTypeId) {
+		[createParameters setObject:@(customerTypeId) forKey:@"user[customer_type_id]"];
+	}
+	if (companyname) {
+		[createParameters setObject:companyname forKey:@"user[company_name]"];
 	}
 	if (website.length) {
-		[createParameters setObject:website forKey:@"website"];
+		[createParameters setObject:website forKey:@"user[website]"];
 	}
 	if (phone.length) {
-		[createParameters setObject:phone forKey:@"phone"];
+		[createParameters setObject:phone forKey:@"user[phone]"];
 	}
-	if (homeLatitude.length && homeLongitude.length) {
-		[createParameters setObject:homeLatitude forKey:@"home_latitude"];
-		[createParameters setObject:homeLongitude forKey:@"home_longitude"];
-	}
+	
 	NSData *imageData;
 	if (avatar) {
 		imageData = UIImageJPEGRepresentation(avatar, 1.0f);
 	}
 	//implement sending image
-	return [self performPOST:@"api/v1/users" contentTypeJson:YES withParameters:createParameters multipartData:nil response:completion];
+	return [self performPOST:@"api/v1/users.json" contentTypeJson:NO withParameters:createParameters multipartData:nil response:completion];
 }
 
 - (NSURLSessionDataTask *)updateUserWithUsername:(NSString *)username
