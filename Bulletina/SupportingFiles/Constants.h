@@ -27,10 +27,11 @@
 
 //MARK: UserDefaults
 static NSString *const CurrentUserKey = @"CurrentUserKey";
+static NSString *const SNSEndpointArnKey = @"SNSEndpointArnKey";
 
 //MARK: Amazon
-static NSString *const AWSCredentialAccessKey = @"AKIAJGGUYAFAJC7XOTDQ";
-static NSString *const AWSCredentialAccessSecret = @"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";
-static NSString *const AWSArn = @"arn:aws:sns:eu-west-1:340493393210:app/APNS/bulletina_general";
+static NSString *const AWSCredentialAccessKey = @"AKIAJ4V7INSUGVJNLYJQ";
+static NSString *const AWSCredentialAccessSecret = @"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";
+static NSString *const AWSArn = @"arn:aws:sns:eu-west-1:794544298113:app/APNS_SANDBOX/bulletina_app_ios";
 
 #endif /* Constants_h */

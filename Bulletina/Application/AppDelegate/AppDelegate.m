@@ -57,6 +57,10 @@
             AWSSNSCreateEndpointResponse *createEndPointResponse = task.result;
             AWSSNSGetEndpointAttributesInput *getEndpoints = [[AWSSNSGetEndpointAttributesInput alloc] init];
             getEndpoints.endpointArn = createEndPointResponse.endpointArn;
+            
+            if (getEndpoints.endpointArn.length) {
+                [Utils storeValue:getEndpoints.endpointArn forKey:SNSEndpointArnKey];
+            }
             [[sns getEndpointAttributes:getEndpoints] continueWithBlock:^id _Nullable(AWSTask<AWSSNSGetEndpointAttributesResponse *> * _Nonnull task2) {
                 AWSSNSGetEndpointAttributesResponse *getEpAttribs = task2.result;
                 if (![[getEpAttribs.attributes objectForKey:@"Enabled"] isEqualToString:@"true"]) {
