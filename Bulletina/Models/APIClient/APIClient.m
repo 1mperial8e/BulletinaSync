@@ -115,6 +115,21 @@
     return parameters;
 }
 
+- (id)multipartFileWithContents:(NSData *)contents fileName:(NSString *)fileName mimeType:(NSString *)mimeType parameterName:(NSString *)parameterName
+{
+    NSParameterAssert(contents);
+    NSParameterAssert(fileName.length);
+    NSParameterAssert(mimeType.length);
+    NSParameterAssert(parameterName.length);
+    
+    return @{
+             MultipartDataFileBytes : contents,
+             MultipartDataFileMimeType : mimeType,
+             MultipartDataFileName : fileName,
+             MultipartDataParameterName : parameterName
+             };
+}
+
 #pragma mark - Reachability
 
 - (void)startMonitoringNetwork
