@@ -83,12 +83,12 @@
 		[createParameters setObject:phone forKey:@"user[phone]"];
 	}
 	
-	NSData *imageData;
+	NSArray *dataArray;
 	if (avatar) {
-		imageData = UIImageJPEGRepresentation(avatar, 1.0f);
+        dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(avatar, 1.0f) fileName:@"avatar.jpg" mimeType:@"image/jpeg" parameterName:@"user[avatar]"]];
 	}
 	//implement sending image
-	return [self performPOST:@"api/v1/users.json" contentTypeJson:NO withParameters:createParameters multipartData:nil response:completion];
+	return [self performPOST:@"api/v1/users.json" contentTypeJson:NO withParameters:createParameters multipartData:dataArray response:completion];
 }
 
 - (NSURLSessionDataTask *)updateUserWithUsername:(NSString *)username
