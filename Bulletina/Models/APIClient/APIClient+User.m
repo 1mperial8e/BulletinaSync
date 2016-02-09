@@ -21,14 +21,8 @@
 
 - (NSURLSessionDataTask *)generateUserWithCompletion:(ResponseBlock)completion
 {
-	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? : @"" forKey:@"device[endpoint_arn]"];
-    [parameters setObject:self.pushToken ? : @"" forKey:@"device[device_token]"];
-    [parameters setObject:[Device.systemName stringByAppendingString:Device.systemVersion] forKey:@"device[operating_system]"];
-    [parameters setObject:Device.model forKey:@"device[device_type]"];
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self deviceParameters]];
     [parameters setObject:@1 forKey:@"generate"];
-    [parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"device[current_latitude]"];
-    [parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"device[current_longitude]"];
 
     return [self performPOST:@"api/v1/generate.json" contentTypeJson:NO withParameters:parameters response:completion];
 }
@@ -44,19 +38,11 @@
                                        avatar:(UIImage *)avatar
                                withCompletion:(ResponseBlock)completion
 {
-	NSMutableDictionary *createParameters = [[NSMutableDictionary alloc] init]; //]WithDictionary: @{@"email":email, @"login":username, @"password":password}];
-	
-	[createParameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? : @"" forKey:@"device[endpoint_arn]"];
-	[createParameters setObject:self.pushToken ? : @"" forKey:@"device[device_token]"];
-	[createParameters setObject:[Device.systemName stringByAppendingString:Device.systemVersion] forKey:@"device[operating_system]"];
-	[createParameters setObject:Device.model forKey:@"device[device_type]"];
-	[createParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"device[current_latitude]"];
-	[createParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"device[current_longitude]"];
+    NSMutableDictionary *createParameters = [[NSMutableDictionary alloc] initWithDictionary:[self deviceParameters]];
 	
 	[createParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"user[home_latitude]"];
 	[createParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"user[home_longitude]"];
 	
-//	[createParameters setObject:@"0" forKey:@"generate"];
 	[createParameters setObject:@"" forKey:@"user[login]"];
 	[createParameters setObject:@"" forKey:@"user[name]"];
 	[createParameters setObject:@"" forKey:@"user[cellphone]"];

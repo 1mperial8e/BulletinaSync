@@ -8,7 +8,10 @@
 
 #import "APIClient.h"
 #import "AFNetworking.h"
+
+// Models
 #import "UserModel.h"
+#import "LocationManager.h"
 
 @interface APIClient ()
 
@@ -104,6 +107,20 @@
 + (NSArray *)tempCategoriesList
 {
 	return  @[@"For sale", @"For rent", @"Give away", @"Job request", @"Services", @"Annoucement", @"Lost & found", @"Other"];
+}
+
+#pragma mark - Parameters
+
+- (NSDictionary *)deviceParameters
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? [Defaults valueForKey:SNSEndpointArnKey] : @"" forKey:@"device[endpoint_arn]"];
+    [parameters setObject:self.pushToken ? self.pushToken : @"" forKey:@"device[device_token]"];
+    [parameters setObject:[Device.systemName stringByAppendingFormat:@" %@", Device.systemVersion] forKey:@"device[operating_system]"];
+    [parameters setObject:Device.model forKey:@"device[device_type]"];
+    [parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"device[current_latitude]"];
+    [parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"device[current_longitude]"];
+    return parameters;
 }
 
 #pragma mark - Reachability

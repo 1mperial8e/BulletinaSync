@@ -10,10 +10,7 @@
 
 @interface APIClient (Session)
 
-- (NSURLSessionDataTask *)loginSessionWithUsername:(NSString *)username
-										  password:(NSString *)password
-									withCompletion:(ResponseBlock)completion;
-
+- (NSURLSessionDataTask *)loginSessionWithUsername:(NSString *)username password:(NSString *)password withCompletion:(ResponseBlock)completion;
 - (NSURLSessionDataTask *)logoutSessionWithCompletion:(ResponseBlock)completion;
 
 @end

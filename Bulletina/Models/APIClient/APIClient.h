@@ -33,6 +33,10 @@
 //temporary
 + (NSArray *)tempCategoriesList;
 
+#pragma mark - Parameters
+
+- (NSDictionary *)deviceParameters;
+
 #pragma mark - Reachability
 
 - (void)startMonitoringNetwork;

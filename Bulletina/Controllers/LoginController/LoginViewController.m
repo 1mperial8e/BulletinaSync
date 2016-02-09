@@ -6,9 +6,6 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-//temp
-#import "APITestTableViewController.h"
-
 // Controllers
 #import "LoginViewController.h"
 #import "MainPageController.h"
@@ -222,7 +219,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
             [Utils storeValue:response[@"user"] forKey:CurrentUserKey];
             [[APIClient sharedInstance] updateCurrentUser:generatedUser];
-            [[APIClient sharedInstance] updateUserPasswordWithDictionary:response];
             [[APIClient sharedInstance] updatePasstokenWithDictionary:response];
 			dispatch_async(dispatch_get_main_queue(), ^{
 				[weakSelf showMainPageAnimated:YES];
@@ -247,23 +243,20 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else {
 		__weak typeof(self) weakSelf = self;
 		[[APIClient sharedInstance]loginSessionWithUsername:self.usernameTextfield.text password:self.passwordTextfield.text withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-			[weakSelf.loader hide];
 			if (error) {
 				[Utils showErrorForStatusCode:statusCode];
-				DLog(@"Login: %@ \n %li",error, statusCode);
 			} else {
 				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
 				UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
 				[Utils storeValue:response[@"user"] forKey:CurrentUserKey];
 				[[APIClient sharedInstance] updateCurrentUser:generatedUser];
-				[[APIClient sharedInstance] updateUserPasswordWithDictionary:response];
 				[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
 				dispatch_async(dispatch_get_main_queue(), ^{
 					[weakSelf showMainPageAnimated:YES];
 				});
 			}
+            [weakSelf.loader hide];
 		}];
-
 	}
 }
 
@@ -288,13 +281,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.navigationController presentViewController:mainPageNavigationController animated:animated completion:^{
         [weakSelf.loader hide];
     }];
-}
-
-- (void)showAPITestVC
-{
-	//TEMP
-	APITestTableViewController *apiTestController = [APITestTableViewController new];
-	[self.navigationController pushViewController:apiTestController animated:YES];
 }
 
 #pragma mark - UITextFieldDelegate
