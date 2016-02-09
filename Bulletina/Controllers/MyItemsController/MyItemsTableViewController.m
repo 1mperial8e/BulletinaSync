@@ -84,7 +84,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 			NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
 			cell.logoImageView.image = [UIImage imageWithData:imageData];
 		}
-
 		return cell;
 	}
 	IndividualProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:IndividualProfileLogoTableViewCell.ID forIndexPath:indexPath];
@@ -93,8 +92,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.logoImageView.layer.borderWidth = 2.0f;
 	cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
 	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);	
-	cell.userFullNameLabel.text = ((UserModel *)[APIClient sharedInstance].currentUser).name;
-	cell.userNicknameLabel.text = ((UserModel *)[APIClient sharedInstance].currentUser).login;
+	cell.userFullNameLabel.text = [APIClient sharedInstance].currentUser.name ? : @"Fullname";
+	cell.userNicknameLabel.text = [APIClient sharedInstance].currentUser.login;
 	[cell.aboutMeTextView setEditable:YES];
 	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
 	[cell.aboutMeTextView setEditable:NO];

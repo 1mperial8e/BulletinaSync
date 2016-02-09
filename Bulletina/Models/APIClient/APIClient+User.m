@@ -103,39 +103,39 @@
 								  withCompletion:(ResponseBlock)completion
 {
 	NSMutableDictionary *updateParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken":self.passtoken,
-																							   @"email" : self.currentUser.email,
-																							   @"login" : username,
-																							   @"password":password,
-																							   @"name":fullname,
-																							   @"company_name":companyname,
-																							   @"customer_type_id":@(self.currentUser.customer_type_id),
-																							   @"home_latitude":self.currentUser.home_latitude ? self.currentUser.home_latitude : @0,
-																							   @"home_longitude":self.currentUser.home_longitude ? self.currentUser.home_longitude : @0}];	
+																							   @"user[email]" : self.currentUser.email,
+																							   @"user[login]" : username,
+																							   @"user[password]":password,
+																							   @"user[name]":fullname,
+																							   @"user[company_name]":companyname,
+																							   @"user[customer_type_id]":@(self.currentUser.customer_type_id),
+																							   @"user[home_latitude]":self.currentUser.home_latitude ? self.currentUser.home_latitude : @0,
+																							   @"user[home_longitude]":self.currentUser.home_longitude ? self.currentUser.home_longitude : @0}];
 	
 	if (website.length) {
-		[updateParameters setObject:website forKey:@"website"];
+		[updateParameters setObject:website forKey:@"user[website]"];
 	}
 	if (facebook.length) {
-		[updateParameters setObject:facebook forKey:@"facebook"];
+		[updateParameters setObject:facebook forKey:@"user[facebook]"];
 	}
 	if (linkedin.length) {
-		[updateParameters setObject:linkedin forKey:@"linkedin"];
+		[updateParameters setObject:linkedin forKey:@"user[linkedin]"];
 	}
 	if (phone.length) {
-		[updateParameters setObject:phone forKey:@"phone"];
+		[updateParameters setObject:phone forKey:@"user[phone]"];
 	}
 	if (description.length) {
-		[updateParameters setObject:description forKey:@"description"];
+		[updateParameters setObject:description forKey:@"user[description]"];
 	}
 	if (password.length) {
-		[updateParameters setObject:password forKey:@"password"];
+		[updateParameters setObject:password forKey:@"user[password]"];
 	} 
 	NSData *imageData;
 	if (avatar) {
 		imageData = UIImageJPEGRepresentation(avatar, 1.0f);
 	}
 	//implement sending image
-		NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.html", self.currentUser.userId];
+		NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.json", self.currentUser.userId];
 		return [self performPUT:query withParameters:updateParameters multipartData:nil response:completion];
 }
 

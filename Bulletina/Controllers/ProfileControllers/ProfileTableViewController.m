@@ -119,7 +119,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     cell.logoImageView.layer.borderWidth = 2.0f;
     cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
     cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-    cell.userFullNameLabel.text = [APIClient sharedInstance].currentUser.name;
+	cell.userFullNameLabel.text = [APIClient sharedInstance].currentUser.name ? : @"Fullname";
     cell.userNicknameLabel.text = [APIClient sharedInstance].currentUser.login;
     [cell.aboutMeTextView setEditable:YES];
     cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
