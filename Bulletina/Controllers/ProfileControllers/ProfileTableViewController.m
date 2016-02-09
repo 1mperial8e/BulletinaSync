@@ -83,39 +83,50 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (UITableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath
 {
 	if ([APIClient sharedInstance].currentUser.customer_type_id == BusinessAccount) {
-		BusinessProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessProfileLogoTableViewCell.ID forIndexPath:indexPath];
-		[self addCustomBorderToButton:cell.websiteButton];
-		[self addCustomBorderToButton:cell.facebookButton];
-		[self addCustomBorderToButton:cell.instagramButton];
-		[self addCustomBorderToButton:cell.linkedInButton];
-		cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-		cell.companyNameLabel.text = [APIClient sharedInstance].currentUser.company_name;
-		cell.companyPhoneLabel.text = [NSString stringWithFormat:@"Phone:%@", [APIClient sharedInstance].currentUser.phone];
-		[cell.companyDescriptionTextView setEditable:YES];
-		cell.companyDescriptionTextView.text = [APIClient sharedInstance].currentUser.about;
-		[cell.companyDescriptionTextView setEditable:NO];
-		if ([APIClient sharedInstance].currentUser.avatar_url.length) {
-			NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
-			cell.logoImageView.image = [UIImage imageWithData:imageData];
-		}
-		return cell;
-	}
-	IndividualProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:IndividualProfileLogoTableViewCell.ID forIndexPath:indexPath];
-	cell.aboutMeTextView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-	cell.logoImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-	cell.logoImageView.layer.borderWidth = 2.0f;
-	cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
-	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);	
-	cell.userFullNameLabel.text = [APIClient sharedInstance].currentUser.name;
-	cell.userNicknameLabel.text = [APIClient sharedInstance].currentUser.login;
-	[cell.aboutMeTextView setEditable:YES];
-	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
-	[cell.aboutMeTextView setEditable:NO];
-	if ([APIClient sharedInstance].currentUser.avatar_url.length) {
-		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
-		cell.logoImageView.image = [UIImage imageWithData:imageData];
-	}
-	return cell;
+        return [self businessLogoCellForIndexPath:indexPath];
+    } else {
+        return [self individualLogoCellForIndexPath:indexPath];
+    }
+}
+
+- (BusinessProfileLogoTableViewCell *)businessLogoCellForIndexPath:(NSIndexPath *)indexPath
+{
+    BusinessProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessProfileLogoTableViewCell.ID forIndexPath:indexPath];
+    [self addCustomBorderToButton:cell.websiteButton];
+    [self addCustomBorderToButton:cell.facebookButton];
+    [self addCustomBorderToButton:cell.instagramButton];
+    [self addCustomBorderToButton:cell.linkedInButton];
+    cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+    cell.companyNameLabel.text = [APIClient sharedInstance].currentUser.company_name;
+    cell.companyPhoneLabel.text = [NSString stringWithFormat:@"Phone:%@", [APIClient sharedInstance].currentUser.phone];
+    [cell.companyDescriptionTextView setEditable:YES];
+    cell.companyDescriptionTextView.text = [APIClient sharedInstance].currentUser.about;
+    [cell.companyDescriptionTextView setEditable:NO];
+    if ([APIClient sharedInstance].currentUser.avatar_url.length) {
+        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
+        cell.logoImageView.image = [UIImage imageWithData:imageData];
+    }
+    return cell;
+}
+
+- (IndividualProfileLogoTableViewCell *)individualLogoCellForIndexPath:(NSIndexPath *)indexPath
+{
+    IndividualProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:IndividualProfileLogoTableViewCell.ID forIndexPath:indexPath];
+    cell.aboutMeTextView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    cell.logoImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    cell.logoImageView.layer.borderWidth = 2.0f;
+    cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
+    cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+    cell.userFullNameLabel.text = [APIClient sharedInstance].currentUser.name;
+    cell.userNicknameLabel.text = [APIClient sharedInstance].currentUser.login;
+    [cell.aboutMeTextView setEditable:YES];
+    cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
+    [cell.aboutMeTextView setEditable:NO];
+    if ([APIClient sharedInstance].currentUser.avatar_url.length) {
+        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
+        cell.logoImageView.image = [UIImage imageWithData:imageData];
+    }
+    return cell;
 }
 
 - (ProfileDefaultTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath
