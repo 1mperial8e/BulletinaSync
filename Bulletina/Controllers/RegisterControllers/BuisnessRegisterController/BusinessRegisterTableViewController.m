@@ -241,7 +241,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
         [self.tableView endEditing:YES];
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
-		[[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:@"" password:self.passwordTextfield.text languageId:@"" customerTypeId:BusinessAccount companyname:self.companyNameTextfield.text website:self.websiteTextfield.text phone:self.phoneTextfield.text avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:self.emailTextfield.text password:self.passwordTextfield.text languageId:@"" customerTypeId:BusinessAccount companyname:self.companyNameTextfield.text website:self.websiteTextfield.text phone:self.phoneTextfield.text avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
                 if (response[@"error_message"]) {
                     [Utils showErrorWithMessage:response[@"error_message"]];
@@ -251,17 +251,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             } else {
 				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
 				UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
-				if (generatedUser.userId) {
-					[Utils storeValue:response[@"user"] forKey:CurrentUserKey];
-					[[APIClient sharedInstance] updateCurrentUser:generatedUser];
-					[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
-					dispatch_async(dispatch_get_main_queue(), ^{
-						[((LoginViewController *)weakSelf.navigationController.viewControllers.firstObject) showMainPageAnimated:YES];
-						[weakSelf.navigationController popToRootViewControllerAnimated:NO];
-					});
-				} else {
-					[Utils showErrorWithMessage:@"Can't create user. Try again."];
-				}				
+                [Utils storeValue:response[@"user"] forKey:CurrentUserKey];
+                [[APIClient sharedInstance] updateCurrentUser:generatedUser];
+                [[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [((LoginViewController *)weakSelf.navigationController.viewControllers.firstObject) showMainPageAnimated:YES];
+                    [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                });
 			}
             [weakSelf.loader hide];
 		}];
