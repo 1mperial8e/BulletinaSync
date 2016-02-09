@@ -97,8 +97,6 @@
 				[self destroyUser];
 	} else if ([cell.textLabel.text isEqualToString:@"SessionCreate - Login"]) {
 		NSString *userEmail = [APIClient sharedInstance].currentUser ? [APIClient sharedInstance].currentUser.email : @"myemail@bulletina.net";
-		NSString *password = [APIClient sharedInstance].userPassword ? [APIClient sharedInstance].userPassword : @"123";
-		[self createLoginSessionWithEmail:userEmail password:password];
 	} if ([cell.textLabel.text isEqualToString:@"SessionDestroy - Logout"]) {
 		[self logoutSession];
 	}
@@ -127,7 +125,6 @@
 			DLog(@"Generate user: %@",response);
 			UserModel *generatedUser = [UserModel modelWithDictionary:response];
 			[[APIClient sharedInstance] updateCurrentUser:generatedUser];
-			[[APIClient sharedInstance] updateUserPasswordWithDictionary:response];
 			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
 			[Utils showWarningWithMessage:[NSString stringWithFormat:@"User with id:%li successfully generated. And Logined. Now you have passtoken",generatedUser.userId]];
 		}

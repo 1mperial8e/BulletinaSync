@@ -10,6 +10,7 @@
 #import "PersonalRegisterTableViewController.h"
 #import "ImageActionSheetController.h"
 #import "MainPageController.h"
+#import "LoginViewController.h"
 
 //Cells
 #import "AvatarTableViewCell.h"
@@ -235,11 +236,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 				if (generatedUser.userId) {
 					[Utils storeValue:response[@"user"] forKey:CurrentUserKey];
 					[[APIClient sharedInstance] updateCurrentUser:generatedUser];
-					[[APIClient sharedInstance] updateUserPasswordWithDictionary:response];
 					[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
 					dispatch_async(dispatch_get_main_queue(), ^{
+						[((LoginViewController *)weakSelf.navigationController.viewControllers.firstObject) showMainPageAnimated:YES];
 						[weakSelf.navigationController popToRootViewControllerAnimated:NO];
-						[weakSelf showMainPageAnimated:YES];
 					});
 				} else {
 					[Utils showErrorWithMessage:@"Can't create user. Try again."];
@@ -255,20 +255,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	self.logoImage = image;
 	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:AvatarCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)showMainPageAnimated:(BOOL)animated
-{
-	if (!animated) {
-		[self.loader show];
-		animated = YES;
-	}
-	MainPageController *mainPageController = [MainPageController new];
-	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
-	__weak typeof(self) weakSelf = self;
-	[self.navigationController presentViewController:mainPageNavigationController animated:animated completion:^{
-		[weakSelf.loader hide];
-	}];
 }
 
 @end
