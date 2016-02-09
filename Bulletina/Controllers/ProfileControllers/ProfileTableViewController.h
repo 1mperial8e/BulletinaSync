@@ -9,4 +9,6 @@
 
 @interface ProfileTableViewController : UITableViewController
 
+@property (weak, nonatomic) UserModel *user;
+
 @end

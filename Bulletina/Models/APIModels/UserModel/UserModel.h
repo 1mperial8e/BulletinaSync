@@ -40,20 +40,4 @@ typedef NS_ENUM(NSInteger, UserAccountType) {
 @property (strong, nonatomic) NSString *facebook;
 @property (strong, nonatomic) NSString *linkedin;
 
-//@property (strong, nonatomic) NSString *address;
-//@property (strong, nonatomic) NSString *cellphone;
-//@property (strong, nonatomic) NSString *country_id;
-//@property (strong, nonatomic) NSString *created_at;
-//@property (strong, nonatomic) NSString *email_confirmation_sent_at;
-//@property (strong, nonatomic) NSString *email_confirmation_token;
-//@property (strong, nonatomic) NSString *email_confirmed_at;
-//@property (strong, nonatomic) NSString *hours;
-//@property (strong, nonatomic) NSString *language_id;
-//@property (strong, nonatomic) NSString *password_digest; //not present at generated user
-//@property (strong, nonatomic) NSString *reset_password_sent_at;
-//@property (strong, nonatomic) NSString *reset_password_token; //not present at generated user
-//@property (strong, nonatomic) NSString *twitter;
-//@property (strong, nonatomic) NSString *unconfirmed_email;
-//@property (strong, nonatomic) NSString *updated_at;
-
 @end

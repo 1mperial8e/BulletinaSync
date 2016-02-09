@@ -18,6 +18,7 @@
 
 - (NSURLSessionDataTask *)showUserWithUserId:(NSInteger)userId withCompletion:(ResponseBlock)completion
 {
+    NSParameterAssert(userId);
 	NSDictionary *parameters = @{@"id":@(userId), @"passtoken":self.passtoken};
 	
 	NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.html",userId];
