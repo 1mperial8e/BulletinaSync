@@ -233,13 +233,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             [Defaults synchronize];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.navigationController dismissViewControllerAnimated:NO completion:nil];
-                [weakSelf.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+                __block UIViewController *rootVC = weakSelf.navigationController.presentingViewController;
+                [weakSelf.navigationController dismissViewControllerAnimated:NO completion:^{
+                    [rootVC dismissViewControllerAnimated:YES completion:nil];
+                }];
 			});
         }
-		dispatch_async(dispatch_get_main_queue(), ^{
-		 [weakSelf.loader hide];
-		});
+        [weakSelf.loader hide];
     }];
 }
 
