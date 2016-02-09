@@ -60,8 +60,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [super viewDidLoad];
 	[self tableViewSetup];
 	[self setupNavBar];
-	self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
-	self.title = @"My Bulletina";
+    
+    self.user = [APIClient sharedInstance].currentUser;
+    self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
+
 	[self reloadUser];
 }
 
@@ -84,7 +86,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (UITableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath
 {
-	if ([APIClient sharedInstance].currentUser.customer_type_id == BusinessAccount) {
+	if (self.user.customer_type_id == BusinessAccount) {
         return [self businessLogoCellForIndexPath:indexPath];
     } else {
         return [self individualLogoCellForIndexPath:indexPath];
@@ -99,13 +101,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [self addCustomBorderToButton:cell.instagramButton];
     [self addCustomBorderToButton:cell.linkedInButton];
     cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-    cell.companyNameLabel.text = [APIClient sharedInstance].currentUser.company_name;
-    cell.companyPhoneLabel.text = [NSString stringWithFormat:@"Phone:%@", [APIClient sharedInstance].currentUser.phone];
+    cell.companyNameLabel.text = self.user.company_name;
+    cell.companyPhoneLabel.text = [NSString stringWithFormat:@"Phone:%@", self.user.phone];
     [cell.companyDescriptionTextView setEditable:YES];
-    cell.companyDescriptionTextView.text = [APIClient sharedInstance].currentUser.about;
+    cell.companyDescriptionTextView.text = self.user.about;
     [cell.companyDescriptionTextView setEditable:NO];
-    if ([APIClient sharedInstance].currentUser.avatar_url.length) {
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
+    if (self.user.avatar_url.length) {
+        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.user.avatar_url]];
         cell.logoImageView.image = [UIImage imageWithData:imageData];
     }
     return cell;
@@ -119,14 +121,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     cell.logoImageView.layer.borderWidth = 2.0f;
     cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
     cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-    cell.userFullNameLabel.text = [APIClient sharedInstance].currentUser.name;
-    cell.userNicknameLabel.text = [APIClient sharedInstance].currentUser.login;
-    [cell.aboutMeTextView setEditable:YES];
-    cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
-    [cell.aboutMeTextView setEditable:NO];
-    if ([APIClient sharedInstance].currentUser.avatar_url.length) {
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
-        cell.logoImageView.image = [UIImage imageWithData:imageData];
+    if (self.user.customer_type_id == AnonymousAccount) {
+        cell.userFullNameLabel.text = @"Anonymus";
+    } else {
+        cell.userFullNameLabel.text = self.user.name;
+        cell.userNicknameLabel.text = self.user.login;
+        [cell.aboutMeTextView setEditable:YES];
+        cell.aboutMeTextView.text = self.user.about;
+        [cell.aboutMeTextView setEditable:NO];
+        if (self.user.avatar_url.length) {
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.user.avatar_url]];
+            cell.logoImageView.image = [UIImage imageWithData:imageData];
+        }
     }
     return cell;
 }
@@ -177,7 +183,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 	if (indexPath.item == EditProfileCellIndex) {
-		if ([APIClient sharedInstance].currentUser.customer_type_id == BusinessAccount) {
+		if (self.user.customer_type_id == BusinessAccount) {
 			BusinessProfileEditTableViewController *businessProfileEditTableViewController = [BusinessProfileEditTableViewController new];
 			[self.navigationController pushViewController:businessProfileEditTableViewController animated:YES];
 		} else {
@@ -233,12 +239,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (CGFloat)heightForTopCell
 {
-	if ([APIClient sharedInstance].currentUser.customer_type_id == BusinessAccount) {
+	if (self.user.customer_type_id == BusinessAccount) {
 		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
 		BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
 		CGSize size = CGSizeZero;
 		[cell.companyDescriptionTextView setEditable:YES];
-		cell.companyDescriptionTextView.text = [APIClient sharedInstance].currentUser.about;
+		cell.companyDescriptionTextView.text = self.user.about;
 		[cell.companyDescriptionTextView setEditable:NO];
 		if (cell.companyDescriptionTextView.text.length) {
 			size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
@@ -251,7 +257,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	IndividualProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
 	CGSize size = CGSizeZero;
 	[cell.aboutMeTextView setEditable:YES];
-	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
+	cell.aboutMeTextView.text = self.user.about;
 	[cell.aboutMeTextView setEditable:NO];
 	if (cell.aboutMeTextView.text.length) {
 		size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
@@ -270,9 +276,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)reloadUser
 {
-	[self.loader show];
 	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] showCurrentUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+	[[APIClient sharedInstance] showUserWithUserId:self.user.userId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
 			if (response[@"error_message"]) {
 				[Utils showErrorWithMessage:response[@"error_message"]];
@@ -281,15 +286,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 			}
 		} else {
 			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
-			UserModel *generatedUser = [UserModel modelWithDictionary:response];
+			UserModel *user = [UserModel modelWithDictionary:response];
+            weakSelf.user = user;
 			[Utils storeValue:response forKey:CurrentUserKey];
-			[[APIClient sharedInstance] updateCurrentUser:generatedUser];
+			[[APIClient sharedInstance] updateCurrentUser:user];
 			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
 			dispatch_async(dispatch_get_main_queue(), ^{
-				[self.tableView reloadData];
+				[weakSelf.tableView reloadData];
 			});
 		}
-		[weakSelf.loader hide];
 	}];
 }
 
@@ -304,7 +309,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTap:)];
     
-    self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.title = @"My Bulletina";
 }
 
 - (void)tableViewSetup
