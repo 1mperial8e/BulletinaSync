@@ -18,6 +18,7 @@
 
 // Helpers
 #import "TextInputNavigationCollection.h"
+#import "BulletinaLoaderView.h"
 
 //Models
 #import "APIClient+User.h"
@@ -47,6 +48,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 @property (strong, nonatomic) EditProfileAboutTableViewCell *aboutCell;
 @property (strong,nonatomic) UIImage *logoImage;
+@property (strong, nonatomic) BulletinaLoaderView *loader;
 
 @end
 
@@ -197,6 +199,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)setupDefaults
 {
 	self.inputViewsCollection = [TextInputNavigationCollection new];
+	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -306,7 +309,27 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![Utils isValidPassword:self.passwordTextfield.text] && self.passwordTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Password is not valid."];
 	} else {
-		//Update user
+		[self.loader show];
+		__weak typeof(self) weakSelf = self;
+		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:@"" companyname:@"" password:self.passwordTextfield.text website:@"" facebook:@"" linkedin:@"" phone:@"" description:self.aboutMeTextView.text avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			if (error) {
+				if (response[@"error_message"]) {
+					[Utils showErrorWithMessage:response[@"error_message"]];
+				} else {
+					[Utils showErrorForStatusCode:statusCode];
+				}
+			} else {
+				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+				UserModel *generatedUser = [UserModel modelWithDictionary:response];
+				[Utils storeValue:response forKey:CurrentUserKey];
+				[[APIClient sharedInstance] updateCurrentUser:generatedUser];
+				[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[self.navigationController popViewControllerAnimated:YES];
+				});
+			}
+			[weakSelf.loader hide];
+		}];
 	}
 }
 

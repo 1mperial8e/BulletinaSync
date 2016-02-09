@@ -18,6 +18,7 @@
 
 // Helpers
 #import "TextInputNavigationCollection.h"
+#import "BulletinaLoaderView.h"
 
 //Models
 #import "APIClient+User.h"
@@ -58,6 +59,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 @property (strong, nonatomic) EditProfileAboutTableViewCell *aboutCell;
 @property (strong,nonatomic) UIImage *logoImage;
+@property (strong, nonatomic) BulletinaLoaderView *loader;
 
 @end
 
@@ -231,6 +233,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)setupDefaults
 {
 	self.inputViewsCollection = [TextInputNavigationCollection new];
+	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 }
 
 #pragma mark - UITextFieldDelegate
