@@ -98,6 +98,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[cell.aboutMeTextView setEditable:YES];
 	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
 	[cell.aboutMeTextView setEditable:NO];
+	if (!cell.aboutMeTextView.text.length) {
+		cell.bottomTextViewConstraint.constant = 0;
+		[cell layoutIfNeeded];
+	}
 	if ([APIClient sharedInstance].currentUser.avatar_url.length) {
 		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
 		cell.logoImageView.image = [UIImage imageWithData:imageData];
@@ -159,7 +163,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[cell.companyDescriptionTextView setEditable:YES];
 		cell.companyDescriptionTextView.text = [APIClient sharedInstance].currentUser.about;
 		[cell.companyDescriptionTextView setEditable:NO];
-		size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
+		if (cell.companyDescriptionTextView.text.length) {
+			size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
+		} else {
+			size = CGSizeMake(0, 0);
+		}
 		return (size.height + BusinessLogoCellHeigth);
 	}
 	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:IndividualProfileLogoTableViewCell.ID owner:self options:nil];
@@ -168,7 +176,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[cell.aboutMeTextView setEditable:YES];
 	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
 	[cell.aboutMeTextView setEditable:NO];
-	size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
+	if (cell.aboutMeTextView.text.length) {
+		size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
+	} else {
+		size = CGSizeMake(0, -21);
+	}
 	return (size.height + PersonalLogoCellHeigth);
 }
 

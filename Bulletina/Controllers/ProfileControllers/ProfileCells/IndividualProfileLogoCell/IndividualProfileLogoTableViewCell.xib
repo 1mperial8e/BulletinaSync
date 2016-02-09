@@ -41,7 +41,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@Niycknagme" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKf-6s-Aj4">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@Nickname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKf-6s-Aj4">
                                 <rect key="frame" x="0.0" y="34" width="375" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="nIK-vr-nSW"/>
@@ -78,6 +78,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="aboutMeTextView" destination="mOl-1S-C93" id="zLv-tz-8tt"/>
+                <outlet property="bottomTextViewConstraint" destination="lia-9c-VXh" id="cL0-1e-P4c"/>
                 <outlet property="logoImageView" destination="PKy-kc-odS" id="hde-rw-sds"/>
                 <outlet property="userFullNameLabel" destination="l9d-N3-qH3" id="cU3-0F-Bja"/>
                 <outlet property="userNicknameLabel" destination="oKf-6s-Aj4" id="UKU-Kx-5Bb"/>
