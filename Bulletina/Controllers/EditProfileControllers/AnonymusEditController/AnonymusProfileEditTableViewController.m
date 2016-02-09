@@ -29,6 +29,8 @@ static CGFloat const ButtonCellHeigth = 52;
 
 static NSInteger const CellsCount = 7;
 
+static NSString * const TextViewPlaceholderText = @"About:";
+
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	AvatarCellIndex,
 	EmailCellIndex,
@@ -164,6 +166,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.aboutMeTextView = self.aboutCell.aboutTextView;
 	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyNext;
 	self.aboutCell.aboutTextView.delegate = self;
+	self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
 	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(5, 7, 5, 7)];
 	self.aboutCell.aboutTextView.layer.borderColor = [UIColor colorWithRed:225 / 255.0f green:225 / 255.0f  blue:225 / 255.0f  alpha:1].CGColor;
 	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
@@ -223,11 +226,24 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 #pragma mark - UITextViewDelegate
 
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+	if ([self.aboutCell.aboutTextView.text isEqualToString:@""])
+	{
+		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+	}
+}
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
 {
 	if ([string isEqualToString:@"\n"]) {
 		[self.inputViewsCollection next];
 		return  NO;
+	} else if ([textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
+		textView.text = @"";
+		textView.textColor = [UIColor blackColor];
 	}
 	return YES;
 }
@@ -240,6 +256,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)textViewDidChange:(UITextView *)textView
 {
+	if ([self.aboutCell.aboutTextView.text isEqualToString:@""])
+	{
+		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+	} else if ([textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
+		textView.text = @"";
+		textView.textColor = [UIColor blackColor];
+	}
 	CGFloat height = ceil([textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
 	if (textView.contentSize.height > height + 1 || textView.contentSize.height < height - 1) {
 		[self.tableView beginUpdates];

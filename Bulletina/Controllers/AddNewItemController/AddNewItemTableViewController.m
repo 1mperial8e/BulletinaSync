@@ -21,7 +21,7 @@
 static CGFloat const PriceCellHeigth = 44;
 
 static NSInteger const CellsCount = 4;
-NSString * const TextViewPlaceholderText = @"Write your description here. Use #hashtags for making your ad more searchable.";
+static NSString * const TextViewPlaceholderText = @"Write your description here. Use #hashtags for making your ad more searchable.";
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	CameraButtonCellIndex,
@@ -201,17 +201,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 #pragma mark - UITextViewDelegate
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-	if ([textView.text isEqualToString:TextViewPlaceholderText]) {
-		textView.text = @"";
-		textView.textColor = [UIColor blackColor];
-	}
-}
-
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-	[self performTextViewText];
+	if ([self.textCell.textView.text isEqualToString:@""])
+	{
+		self.textCell.textView.text = TextViewPlaceholderText;
+		self.textCell.textView.textColor = [UIColor lightGrayColor];
+	}
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
@@ -219,6 +215,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if ([string isEqualToString:@"\n"]) {
 		[self.view endEditing:YES];
 		return  NO;
+	} else if ([self.textCell.textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
+		self.textCell.textView.text = @"";
+		self.textCell.textView.textColor = [UIColor blackColor];
 	}
 	return YES;
 }
@@ -268,6 +267,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	{
 		self.textCell.textView.text = TextViewPlaceholderText;
 		self.textCell.textView.textColor = [UIColor lightGrayColor];
+	} else if ([self.textCell.textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
+		self.textCell.textView.text = @"";
+		self.textCell.textView.textColor = [UIColor blackColor];
 	}
 	
 	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
