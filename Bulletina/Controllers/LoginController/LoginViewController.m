@@ -222,7 +222,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
             [Utils storeValue:response[@"user"] forKey:CurrentUserKey];
             [[APIClient sharedInstance] updateCurrentUser:generatedUser];
-            [[APIClient sharedInstance] updateUserPasswordWithDictionary:response];
             [[APIClient sharedInstance] updatePasstokenWithDictionary:response];
 			dispatch_async(dispatch_get_main_queue(), ^{
 				[weakSelf showMainPageAnimated:YES];
@@ -256,7 +255,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 				UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
 				[Utils storeValue:response[@"user"] forKey:CurrentUserKey];
 				[[APIClient sharedInstance] updateCurrentUser:generatedUser];
-				[[APIClient sharedInstance] updateUserPasswordWithDictionary:response];
 				[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
 				dispatch_async(dispatch_get_main_queue(), ^{
 					[weakSelf showMainPageAnimated:YES];

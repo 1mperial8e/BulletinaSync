@@ -83,14 +83,6 @@
 	}
 }
 
-- (void)updateUserPasswordWithDictionary:(NSDictionary *)newDictionary
-{
-	id newObject = [newDictionary objectForKey:@"passwd"];
-	if (newObject && (NSNull *)newObject != [NSNull null]) {
-		_userPassword =  (NSString *)newObject;
-	}
-}
-
 - (void)loadCurrentUser
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
