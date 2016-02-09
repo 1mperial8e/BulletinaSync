@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -20,7 +21,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BusinessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="9vA-bO-hhW">
                                 <rect key="frame" x="0.0" y="5" width="341" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="R8s-74-umE"/>
+                                    <constraint firstAttribute="width" secondItem="9vA-bO-hhW" secondAttribute="height" multiplier="341:100" id="3QL-xP-PP6"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add/edit logo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fEW-Zv-zfB">
@@ -33,22 +34,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQy-qK-Ep8" userLabel="LogoButton">
-                                <rect key="frame" x="0.0" y="0.0" width="341" height="154"/>
+                                <rect key="frame" x="0.0" y="0.0" width="341" height="130"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9vA-bO-hhW" firstAttribute="leading" secondItem="4ln-3T-F5d" secondAttribute="leading" id="0za-bS-jUs"/>
                             <constraint firstItem="9vA-bO-hhW" firstAttribute="top" secondItem="4ln-3T-F5d" secondAttribute="top" constant="5" id="2JG-fp-hqf"/>
+                            <constraint firstItem="fEW-Zv-zfB" firstAttribute="bottom" secondItem="vQy-qK-Ep8" secondAttribute="bottom" id="4lk-sa-esw"/>
                             <constraint firstItem="vQy-qK-Ep8" firstAttribute="leading" secondItem="4ln-3T-F5d" secondAttribute="leading" id="AN9-8V-VUR"/>
                             <constraint firstAttribute="trailing" secondItem="fEW-Zv-zfB" secondAttribute="trailing" id="G2b-8V-gn7"/>
                             <constraint firstAttribute="trailing" secondItem="vQy-qK-Ep8" secondAttribute="trailing" id="Ggz-cB-wI6"/>
                             <constraint firstAttribute="height" constant="154" id="Iqx-tD-oHw"/>
-                            <constraint firstAttribute="bottom" secondItem="vQy-qK-Ep8" secondAttribute="bottom" id="JSr-S4-wTF"/>
                             <constraint firstItem="vQy-qK-Ep8" firstAttribute="top" secondItem="4ln-3T-F5d" secondAttribute="top" id="Kys-O4-dgu"/>
                             <constraint firstItem="fEW-Zv-zfB" firstAttribute="top" secondItem="9vA-bO-hhW" secondAttribute="bottom" constant="10" id="NQU-qW-fFc"/>
                             <constraint firstAttribute="trailing" secondItem="9vA-bO-hhW" secondAttribute="trailing" id="UWD-EN-z0B"/>
-                            <constraint firstItem="9vA-bO-hhW" firstAttribute="leading" secondItem="4ln-3T-F5d" secondAttribute="leading" id="mHD-me-tkL"/>
                             <constraint firstItem="fEW-Zv-zfB" firstAttribute="leading" secondItem="4ln-3T-F5d" secondAttribute="leading" id="x4X-NX-3sw"/>
                         </constraints>
                     </view>

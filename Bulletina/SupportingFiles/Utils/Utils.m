@@ -44,12 +44,6 @@
         [self showErrorWithMessage:@"Could not connect to server"];
 	} else if (statusCode == NSURLErrorCancelled) {
 		// do nothing
-	} else if (statusCode == 401) {
-		 [self showErrorWithMessage:@"401 Not authorized"];
-	} else if (statusCode == 500) {
-        [self showErrorWithMessage:@"500 Server error / request failed"];
-	} else if (statusCode == 404) {
-		[self showErrorWithMessage:@"404 Not found"];
 	} else {
         [self showErrorUnknown];
     }

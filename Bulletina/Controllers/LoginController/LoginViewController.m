@@ -213,7 +213,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     __weak typeof(self) weakSelf = self;
     [[APIClient sharedInstance] generateUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
         if (error) {
-            [Utils showErrorForStatusCode:statusCode];
+            if (response[@"error_message"]) {
+                [Utils showErrorWithMessage:response[@"error_message"]];
+            } else {
+                [Utils showErrorForStatusCode:statusCode];
+            }
         } else {
             NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
             UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
@@ -241,10 +245,16 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (!self.passwordTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Password is required."];
 	} else {
+        [self.tableView endEditing:YES];
+        [self.loader show];
 		__weak typeof(self) weakSelf = self;
 		[[APIClient sharedInstance]loginSessionWithUsername:self.usernameTextfield.text password:self.passwordTextfield.text withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
-				[Utils showErrorForStatusCode:statusCode];
+                if (response[@"error_message"]) {
+                    [Utils showErrorWithMessage:response[@"error_message"]];
+                } else {
+                    [Utils showErrorForStatusCode:statusCode];
+                }
 			} else {
 				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
 				UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
