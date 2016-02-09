@@ -30,6 +30,17 @@
     return self;
 }
 
+#pragma mark - Accessors
+
+- (NSString *)pushToken
+{
+	if (_pushToken) {
+		return _pushToken;
+	} else {
+		return [[NSUUID UUID] UUIDString];
+	}
+}
+
 #pragma mark - Public
 
 + (instancetype)sharedInstance

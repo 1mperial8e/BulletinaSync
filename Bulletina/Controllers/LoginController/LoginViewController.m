@@ -253,10 +253,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 				DLog(@"Login: %@ \n %li",error, statusCode);
 			} else {
 				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+				UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
+				[Utils storeValue:response[@"user"] forKey:CurrentUserKey];
+				[[APIClient sharedInstance] updateCurrentUser:generatedUser];
+				[[APIClient sharedInstance] updateUserPasswordWithDictionary:response];
 				[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
-				[[APIClient sharedInstance] updateCurrentUser:[UserModel modelWithDictionary:response]];
-				DLog(@"Login: %@", response);
-				[Utils showWarningWithMessage:[NSString stringWithFormat:@"User with id:%li successfully login. Now you have passtoken",[APIClient sharedInstance].currentUser.userId]];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[weakSelf showMainPageAnimated:YES];
+				});
 			}
 		}];
 
