@@ -96,7 +96,7 @@
 	} else if ([cell.textLabel.text isEqualToString:@"UserDestroy"]) {
 				[self destroyUser];
 	} else if ([cell.textLabel.text isEqualToString:@"SessionCreate - Login"]) {
-		NSString *userEmail = [APIClient sharedInstance].currentUser ? [APIClient sharedInstance].currentUser.email : @"myemail@bulletina.net";
+//		NSString *userEmail = [APIClient sharedInstance].currentUser ? [APIClient sharedInstance].currentUser.email : @"myemail@bulletina.net";
 	} if ([cell.textLabel.text isEqualToString:@"SessionDestroy - Logout"]) {
 		[self logoutSession];
 	}

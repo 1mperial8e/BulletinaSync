@@ -24,6 +24,7 @@
 
 //Models
 #import "APIClient+Session.h"
+#import "APIClient+User.h"
 
 static CGFloat const PersonalLogoCellHeigth = 220;
 static CGFloat const BusinessLogoCellHeigth = 252;
@@ -61,6 +62,28 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self setupNavBar];
 	self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
 	self.title = @"My Bulletina";
+	
+	[self.loader show];
+	__weak typeof(self) weakSelf = self;
+	[[APIClient sharedInstance] showCurrentUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		if (error) {
+			if (response[@"error_message"]) {
+				[Utils showErrorWithMessage:response[@"error_message"]];
+			} else {
+				[Utils showErrorForStatusCode:statusCode];
+			}
+		} else {
+			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+			UserModel *generatedUser = [UserModel modelWithDictionary:response];
+			[Utils storeValue:response forKey:CurrentUserKey];
+			[[APIClient sharedInstance] updateCurrentUser:generatedUser];
+			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[self.tableView reloadData];
+			});
+		}
+		[weakSelf.loader hide];
+	}];
 }
 
 #pragma mark - Table view data source

@@ -13,6 +13,7 @@
 
 #pragma mark - Login
 
+- (NSURLSessionDataTask *)showCurrentUserWithCompletion:(ResponseBlock)completion;
 - (NSURLSessionDataTask *)showUserWithUserId:(NSInteger)userId withCompletion:(ResponseBlock)completion;
 - (NSURLSessionDataTask *)generateUserWithCompletion:(ResponseBlock)completion;
 

@@ -11,11 +11,16 @@
 
 @implementation APIClient (User)
 
+- (NSURLSessionDataTask *)showCurrentUserWithCompletion:(ResponseBlock)completion
+{
+	return [self showUserWithUserId:self.currentUser.userId withCompletion:completion];
+}
+
 - (NSURLSessionDataTask *)showUserWithUserId:(NSInteger)userId withCompletion:(ResponseBlock)completion
 {
 	NSDictionary *parameters = @{@"id":@(userId), @"passtoken":self.passtoken};
 	
-	NSString *query = [NSString stringWithFormat:@"api/v1/users"];
+	NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.html",userId];
 	return [self performGET:query withParameters:parameters response:completion];
 }
 
