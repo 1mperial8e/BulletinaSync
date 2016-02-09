@@ -63,8 +63,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self setupDefaults];
 	[self setupUI];
 	
-	if ([APIClient sharedInstance].currentUser.avatar_url.length) {
-		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
+	if ([APIClient sharedInstance].currentUser.avatarUrl.length) {
+		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatarUrl]];
 		self.logoImage = [UIImage imageWithData:imageData];
 	}
 }
@@ -156,14 +156,16 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	self.aboutCell = [self.tableView dequeueReusableCellWithIdentifier:EditProfileAboutTableViewCell.ID forIndexPath:indexPath];
 	self.aboutCell .backgroundColor = [UIColor mainPageBGColor];
-	self.aboutMeTextView = self.aboutCell .aboutTextView;
+	self.aboutMeTextView = self.aboutCell.aboutTextView;
 	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyNext;
 	self.aboutCell.aboutTextView.delegate = self;
 	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(5, 7, 5, 7)];
 	self.aboutCell.aboutTextView.layer.borderColor = [UIColor colorWithRed:225 / 255.0f green:225 / 255.0f  blue:225 / 255.0f  alpha:1].CGColor;
 	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
 	self.aboutCell.aboutTextView.layer.cornerRadius = 5;
-	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
+//	if ([APIClient sharedInstance].currentUser.about.length) {
+//		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
+//	}
 	return self.aboutCell ;
 }
 
@@ -253,7 +255,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (!self.aboutCell) {
 		self.aboutCell = [[NSBundle mainBundle] loadNibNamed:EditProfileAboutTableViewCell.ID owner:nil options:nil].firstObject;
 	}
-	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
+//	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
 	CGFloat height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
 	return height + 5.f;
 }
@@ -311,7 +313,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else {
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
-		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:@"" companyname:@"" password:self.passwordTextfield.text website:@"" facebook:@"" linkedin:@"" phone:@"" description:self.aboutMeTextView.text avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:@"" companyname:@"" password:self.passwordTextfield.text website:@"" facebook:@"" linkedin:@"" phone:@"" description:self.aboutMeTextView.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
 				if (response[@"error_message"]) {
 					[Utils showErrorWithMessage:response[@"error_message"]];

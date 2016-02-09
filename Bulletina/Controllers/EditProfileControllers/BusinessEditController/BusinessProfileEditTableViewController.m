@@ -74,8 +74,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self setupDefaults];
 	[self setupUI];
 	
-	if ([APIClient sharedInstance].currentUser.avatar_url.length) {
-		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
+	if ([APIClient sharedInstance].currentUser.avatarUrl.length) {
+		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatarUrl]];
 		self.logoImage = [UIImage imageWithData:imageData];
 	}
 }
@@ -152,7 +152,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.inputTextField.text = [APIClient sharedInstance].currentUser.login;
 	} else if (indexPath.item == CompanyNameCellIndex) {
 		cell.inputTextField.placeholder = @"Company Name:";
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.company_name;
+		cell.inputTextField.text = [APIClient sharedInstance].currentUser.companyName;
 		self.companyNameTextfield = cell.inputTextField;
 	} else if (indexPath.item == PhoneCellIndex) {
 		cell.inputTextField.placeholder = @"Phone:";
@@ -190,7 +190,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	self.aboutCell = [self.tableView dequeueReusableCellWithIdentifier:EditProfileAboutTableViewCell.ID forIndexPath:indexPath];
 	self.aboutCell.backgroundColor = [UIColor mainPageBGColor];
-	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
+//	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
 	self.aboutTextView = self.aboutCell.aboutTextView;
 	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyNext;
 	self.aboutCell.aboutTextView.delegate = self;
@@ -359,7 +359,27 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![Utils isValidPassword:self.passwordTextfield.text] && self.passwordTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Password is not valid."];
 	} else {
-		//Update user	
+		[self.loader show];
+		__weak typeof(self) weakSelf = self;
+		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:@"" companyname:self.companyNameTextfield.text password:self.passwordTextfield.text website:self.websiteTextfield.text facebook:self.facebookTextfield.text linkedin:self.linkedInTextfield.text phone:self.phoneTextfield.text	description:self.aboutTextView.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			if (error) {
+				if (response[@"error_message"]) {
+					[Utils showErrorWithMessage:response[@"error_message"]];
+				} else {
+					[Utils showErrorForStatusCode:statusCode];
+				}
+			} else {
+				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+				UserModel *generatedUser = [UserModel modelWithDictionary:response];
+				[Utils storeValue:response forKey:CurrentUserKey];
+				[[APIClient sharedInstance] updateCurrentUser:generatedUser];
+				[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[self.navigationController popViewControllerAnimated:YES];
+				});
+			}
+			[weakSelf.loader hide];
+		}];
 	}
 }
 

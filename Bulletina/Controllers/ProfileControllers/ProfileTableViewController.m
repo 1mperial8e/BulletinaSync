@@ -86,7 +86,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (UITableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath
 {
-	if (self.user.customer_type_id == BusinessAccount) {
+	if (self.user.customerTypeId == BusinessAccount) {
         return [self businessLogoCellForIndexPath:indexPath];
     } else {
         return [self individualLogoCellForIndexPath:indexPath];
@@ -101,13 +101,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [self addCustomBorderToButton:cell.instagramButton];
     [self addCustomBorderToButton:cell.linkedInButton];
     cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-    cell.companyNameLabel.text = self.user.company_name;
+    cell.companyNameLabel.text = self.user.companyName;
     cell.companyPhoneLabel.text = [NSString stringWithFormat:@"Phone:%@", self.user.phone];
     [cell.companyDescriptionTextView setEditable:YES];
     cell.companyDescriptionTextView.text = self.user.about;
     [cell.companyDescriptionTextView setEditable:NO];
-    if (self.user.avatar_url.length) {
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.user.avatar_url]];
+    if (self.user.avatarUrl.length) {
+        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.user.avatarUrl]];
         cell.logoImageView.image = [UIImage imageWithData:imageData];
     }
     return cell;
@@ -121,14 +121,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     cell.logoImageView.layer.borderWidth = 2.0f;
     cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
     cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-	cell.userFullNameLabel.text = [APIClient sharedInstance].currentUser.name ? : @"Fullname";
-    cell.userNicknameLabel.text = [APIClient sharedInstance].currentUser.login;
-    [cell.aboutMeTextView setEditable:YES];
-    cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
-    [cell.aboutMeTextView setEditable:NO];
-    if ([APIClient sharedInstance].currentUser.avatar_url.length) {
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
-        cell.logoImageView.image = [UIImage imageWithData:imageData];
+    if (self.user.customerTypeId == AnonymousAccount) {
+        cell.userFullNameLabel.text = @"Anonymus";
+    } else {
+        cell.userFullNameLabel.text = self.user.name;
+        cell.userNicknameLabel.text = self.user.login;
+        [cell.aboutMeTextView setEditable:YES];
+        cell.aboutMeTextView.text = self.user.about;
+        [cell.aboutMeTextView setEditable:NO];
+        if (self.user.avatarUrl.length) {
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.user.avatarUrl]];
+            cell.logoImageView.image = [UIImage imageWithData:imageData];
+        }
     }
     return cell;
 }
@@ -179,7 +183,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 	if (indexPath.item == EditProfileCellIndex) {
-		if (self.user.customer_type_id == BusinessAccount) {
+		if (self.user.customerTypeId == BusinessAccount) {
 			BusinessProfileEditTableViewController *businessProfileEditTableViewController = [BusinessProfileEditTableViewController new];
 			[self.navigationController pushViewController:businessProfileEditTableViewController animated:YES];
 		} else {
@@ -235,15 +239,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (CGFloat)heightForTopCell
 {
-	if (self.user.customer_type_id == BusinessAccount) {
+	if (self.user.customerTypeId == BusinessAccount) {
 		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
 		BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
 		CGSize size = CGSizeZero;
 		[cell.companyDescriptionTextView setEditable:YES];
 		cell.companyDescriptionTextView.text = self.user.about;
 		[cell.companyDescriptionTextView setEditable:NO];
-		if (cell.companyDescriptionTextView.text.length) {
-			size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
+		if (cell.companyDescriptionTextView.text.length) {			
+			size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];			
 		} else {
 			size = CGSizeMake(0, 0);
 		}

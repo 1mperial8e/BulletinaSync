@@ -109,9 +109,7 @@
 																							   @"user[password]":password,
 																							   @"user[name]":fullname,
 																							   @"user[company_name]":companyname,
-																							   @"user[customer_type_id]":@(self.currentUser.customer_type_id),
-																							   @"user[home_latitude]":self.currentUser.home_latitude ? self.currentUser.home_latitude : @0,
-																							   @"user[home_longitude]":self.currentUser.home_longitude ? self.currentUser.home_longitude : @0}];
+																							   @"user[customer_type_id]":@(self.currentUser.customerTypeId)}];
 	
 	if (website.length) {
 		[updateParameters setObject:website forKey:@"user[website]"];
@@ -138,6 +136,8 @@
 	//implement sending image
 		NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.json", self.currentUser.userId];
 		return [self performPUT:query withParameters:updateParameters multipartData:nil response:completion];
+//	return [self performPOST:query contentTypeJson:NO withParameters:updateParameters multipartData:nil response:completion];
+
 }
 
 - (NSURLSessionDataTask *)destroyUserWithCompletion:(ResponseBlock)completion

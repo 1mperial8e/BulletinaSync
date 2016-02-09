@@ -206,10 +206,9 @@ void(^PerformCompletionRecognition)(NSURLResponse *, id, NSError *, ResponseBloc
         completionHandler(nil, NoConnectionError(), NSURLErrorNotConnectedToInternet);
         return nil;
     }
-    
     NSError *requestError;
     NSURLRequest *request;
-	AFHTTPRequestSerializer *serializer = (isJson || dataArray) ? [AFJSONRequestSerializer serializer] : [AFHTTPRequestSerializer serializer];
+	AFHTTPRequestSerializer *serializer = isJson ? [AFJSONRequestSerializer serializer] : [AFHTTPRequestSerializer serializer];
 //	[serializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
 	
     if (dataArray) {
