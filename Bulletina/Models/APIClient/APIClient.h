@@ -34,6 +34,7 @@
 #pragma mark - Parameters
 
 - (NSDictionary *)deviceParameters;
+- (id)multipartFileWithContents:(NSData *)contents fileName:(NSString *)fileName mimeType:(NSString *)mimeType parameterName:(NSString *)parameterName;
 
 #pragma mark - Reachability
 
