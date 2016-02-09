@@ -12,7 +12,6 @@
 #import "MainPageController.h"
 #import "LoginViewController.h"
 
-
 //Cells
 #import "BusinessLogoTableViewCell.h"
 #import "InputTableViewCell.h"
@@ -144,7 +143,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == PhoneCellIndex) {
 		cell.inputTextField.placeholder = @"Phone:";
 		self.phoneTextfield = cell.inputTextField;
-		cell.inputTextField.keyboardType = UIKeyboardTypeNamePhonePad;
+		cell.inputTextField.keyboardType = UIKeyboardTypePhonePad;
 	} else if (indexPath.item == WebsiteCellIndex) {
 		cell.inputTextField.placeholder = @"Website:";
 		self.websiteTextfield = cell.inputTextField;
@@ -239,13 +238,17 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
 		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	} else {
+        [self.tableView endEditing:YES];
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
 		[[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:@"" password:self.passwordTextfield.text languageId:@"" customerTypeId:BusinessAccount companyname:self.companyNameTextfield.text website:self.websiteTextfield.text phone:self.phoneTextfield.text avatar:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-			[weakSelf.loader hide];
 			if (error) {
-				[Utils showErrorForStatusCode:statusCode];
-			} else {
+                if (response[@"error_message"]) {
+                    [Utils showErrorWithMessage:response[@"error_message"]];
+                } else {
+                    [Utils showErrorForStatusCode:statusCode];
+                }
+            } else {
 				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
 				UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
 				if (generatedUser.userId) {
@@ -260,7 +263,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 					[Utils showErrorWithMessage:@"Can't create user. Try again."];
 				}				
 			}
-		}];	
+            [weakSelf.loader hide];
+		}];
 	}
 }
 
