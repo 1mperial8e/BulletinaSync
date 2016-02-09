@@ -12,6 +12,8 @@
 #import "BusinessProfileEditTableViewController.h"
 #import "MyItemsTableViewController.h"
 #import "MessageTableViewController.h"
+#import "AnonymusProfileEditTableViewController.h"
+
 
 //Cells
 #import "ProfileDefaultTableViewCell.h"
@@ -186,9 +188,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		if (self.user.customerTypeId == BusinessAccount) {
 			BusinessProfileEditTableViewController *businessProfileEditTableViewController = [BusinessProfileEditTableViewController new];
 			[self.navigationController pushViewController:businessProfileEditTableViewController animated:YES];
-		} else {
+		} else if (self.user.customerTypeId == IndividualAccount) {
 			IndividualProfileEditTableViewController *individualProfileEditTableViewController = [IndividualProfileEditTableViewController new];
 			[self.navigationController pushViewController:individualProfileEditTableViewController animated:YES];
+		} else {
+			AnonymusProfileEditTableViewController *anonymusProfileEditTableViewController = [AnonymusProfileEditTableViewController new];
+			[self.navigationController pushViewController:anonymusProfileEditTableViewController animated:YES];
 		}
 	} else if (indexPath.item == LogOutCellIndex) {
         [self logout];
@@ -276,26 +281,28 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)reloadUser
 {
-	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] showUserWithUserId:self.user.userId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-		if (error) {
-			if (response[@"error_message"]) {
-				[Utils showErrorWithMessage:response[@"error_message"]];
+	if (self.user) {
+		__weak typeof(self) weakSelf = self;
+		[[APIClient sharedInstance] showUserWithUserId:self.user.userId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			if (error) {
+				if (response[@"error_message"]) {
+					[Utils showErrorWithMessage:response[@"error_message"]];
+				} else {
+					[Utils showErrorForStatusCode:statusCode];
+				}
 			} else {
-				[Utils showErrorForStatusCode:statusCode];
+				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+				UserModel *user = [UserModel modelWithDictionary:response];
+				weakSelf.user = user;
+				[Utils storeValue:response forKey:CurrentUserKey];
+				[[APIClient sharedInstance] updateCurrentUser:user];
+				[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[weakSelf.tableView reloadData];
+				});
 			}
-		} else {
-			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
-			UserModel *user = [UserModel modelWithDictionary:response];
-            weakSelf.user = user;
-			[Utils storeValue:response forKey:CurrentUserKey];
-			[[APIClient sharedInstance] updateCurrentUser:user];
-			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[weakSelf.tableView reloadData];
-			});
-		}
-	}];
+		}];
+	}
 }
 
 #pragma mark - Setup

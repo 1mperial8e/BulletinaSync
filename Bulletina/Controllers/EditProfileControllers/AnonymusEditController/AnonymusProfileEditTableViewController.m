@@ -1,5 +1,5 @@
 //
-//  IndividualProfileEditTableViewController.m
+//  AnonymusProfileEditTableViewController
 //  Bulletina
 //
 //  Created by Stas Volskyi on 1/11/16.
@@ -7,7 +7,7 @@
 //
 
 //Controllers
-#import "IndividualProfileEditTableViewController.h"
+#import "AnonymusProfileEditTableViewController.h"
 #import "ImageActionSheetController.h"
 
 //Cells
@@ -27,18 +27,21 @@ static CGFloat const AvatarCellHeigth = 218;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
 
-static NSInteger const CellsCount = 5;
+static NSInteger const CellsCount = 7;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	AvatarCellIndex,
 	EmailCellIndex,
 	UsernameCellIndex,
 	AboutMeCellIndex,
+	PasswordCellIndex,
+	RetypePasswordCellIndex,
 	SaveButtonCellIndex
 };
 
-@interface IndividualProfileEditTableViewController () <UITextFieldDelegate, UITextViewDelegate, ImageActionSheetControllerDelegate>
+@interface AnonymusProfileEditTableViewController () <UITextFieldDelegate, UITextViewDelegate, ImageActionSheetControllerDelegate>
 
+@property (weak, nonatomic) UITextField *emailTextfield;
 @property (weak, nonatomic) UITextField *usernameTextfield;
 @property (weak, nonatomic) UITextView *aboutMeTextView;
 @property (weak, nonatomic) UITextField *passwordTextfield;
@@ -51,7 +54,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @end
 
-@implementation IndividualProfileEditTableViewController
+@implementation AnonymusProfileEditTableViewController
 
 #pragma mark - Lifecycle
 
@@ -132,15 +135,23 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.inputTextField.returnKeyType = UIReturnKeyNext;
-	if (indexPath.item == UsernameCellIndex) {
+	if (indexPath.item == EmailCellIndex) {
+		cell.inputTextField.placeholder = @"Email:";
+		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
+		self.emailTextfield = cell.inputTextField;
+	} else if (indexPath.item == UsernameCellIndex) {
 		cell.inputTextField.placeholder = @"Username:";
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.login;
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
-	} else if (indexPath.item == EmailCellIndex) {
-		cell.inputTextField.placeholder = @"Email:";
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.email;
-		cell.inputTextField.enabled = NO;
+	} else if (indexPath.item == PasswordCellIndex) {
+		cell.inputTextField.placeholder = @"New password:";
+		cell.inputTextField.secureTextEntry = YES;
+		self.passwordTextfield = cell.inputTextField;
+	} else if (indexPath.item == RetypePasswordCellIndex) {
+		cell.inputTextField.placeholder = @"Retype new password:";
+		cell.inputTextField.secureTextEntry = YES;
+		cell.inputTextField.returnKeyType = UIReturnKeyDone;
+		self.retypePasswordTextfield = cell.inputTextField;
 	}
 	cell.inputTextField.delegate = self;
 	return cell;
@@ -157,10 +168,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.aboutCell.aboutTextView.layer.borderColor = [UIColor colorWithRed:225 / 255.0f green:225 / 255.0f  blue:225 / 255.0f  alpha:1].CGColor;
 	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
 	self.aboutCell.aboutTextView.layer.cornerRadius = 5;
-//	if ([APIClient sharedInstance].currentUser.about.length) {
-//		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
-//	}
-	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyDone;
+
 	return self.aboutCell ;
 }
 
@@ -218,8 +226,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
 {
 	if ([string isEqualToString:@"\n"]) {
-//		[self.inputViewsCollection next];
-		[self.view endEditing:YES];
+		[self.inputViewsCollection next];
 		return  NO;
 	}
 	return YES;
@@ -251,7 +258,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (!self.aboutCell) {
 		self.aboutCell = [[NSBundle mainBundle] loadNibNamed:EditProfileAboutTableViewCell.ID owner:nil options:nil].firstObject;
 	}
-//	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
 	CGFloat height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
 	return height + 5.f;
 }
@@ -259,11 +265,20 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)refreshInputViews
 {
 	NSMutableArray *views = [[NSMutableArray alloc] init];
+	if (self.emailTextfield) {
+		[views addObject:self.emailTextfield];
+	}
 	if (self.usernameTextfield) {
 		[views addObject:self.usernameTextfield];
 	}
 	if (self.aboutMeTextView) {
 		[views addObject:self.aboutMeTextView];
+	}
+	if (self.passwordTextfield) {
+		[views addObject:self.passwordTextfield];
+	}
+	if (self.retypePasswordTextfield) {
+		[views addObject:self.retypePasswordTextfield];
 	}
 	self.inputViewsCollection.textInputViews =  views;
 }
