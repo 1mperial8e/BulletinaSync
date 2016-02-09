@@ -57,6 +57,7 @@
 	[createParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"user[home_longitude]"];
 	
 //	[createParameters setObject:@"0" forKey:@"generate"];
+	[createParameters setObject:@"" forKey:@"user[login]"];
 	[createParameters setObject:@"" forKey:@"user[name]"];
 	[createParameters setObject:@"" forKey:@"user[cellphone]"];
 	[createParameters setObject:@"" forKey:@"user[language_id]"];

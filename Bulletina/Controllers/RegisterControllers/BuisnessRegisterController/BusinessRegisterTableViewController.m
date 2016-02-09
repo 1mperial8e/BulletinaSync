@@ -9,6 +9,7 @@
 //Controllers
 #import "BusinessRegisterTableViewController.h"
 #import "ImageActionSheetController.h"
+#import "MainPageController.h"
 
 //Cells
 #import "BusinessLogoTableViewCell.h"
@@ -245,7 +246,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 			} else {
 				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
 				UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
-				[Utils showWarningWithMessage:[NSString stringWithFormat:@"User with id:%li successfully created.",generatedUser.userId]];
+				if (generatedUser.userId) {
+					[Utils storeValue:response[@"user"] forKey:CurrentUserKey];
+					[[APIClient sharedInstance] updateCurrentUser:generatedUser];
+					[[APIClient sharedInstance] updateUserPasswordWithDictionary:response];
+					[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[weakSelf.navigationController popToRootViewControllerAnimated:NO];
+						[weakSelf showMainPageAnimated:YES];
+					});
+				} else {
+					[Utils showErrorWithMessage:@"Can't create user. Try again."];
+				}				
 			}
 		}];	
 	}
@@ -259,5 +271,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:LogoCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+- (void)showMainPageAnimated:(BOOL)animated
+{
+	if (!animated) {
+		[self.loader show];
+		animated = YES;
+	}
+	MainPageController *mainPageController = [MainPageController new];
+	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
+	__weak typeof(self) weakSelf = self;
+	[self.navigationController presentViewController:mainPageNavigationController animated:animated completion:^{
+		[weakSelf.loader hide];
+	}];
+}
 
 @end
