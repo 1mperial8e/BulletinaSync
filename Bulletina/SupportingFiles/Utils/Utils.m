@@ -127,4 +127,17 @@
     return controller;
 }
 
+#pragma mark - Image
+
++ (UIImage *)scaledImage:(UIImage *)srcImage
+{
+    CGFloat coef = 640.f / MAX(srcImage.size.width, srcImage.size.width);
+    CGSize drawSize = CGSizeMake(srcImage.size.width * coef, srcImage.size.height * coef);
+    UIGraphicsBeginImageContext(drawSize);
+    [srcImage drawInRect:CGRectMake(0, 0, (int)drawSize.width, (int)drawSize.height)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
+
 @end

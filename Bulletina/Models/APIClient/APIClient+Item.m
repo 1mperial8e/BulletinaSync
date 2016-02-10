@@ -32,7 +32,7 @@
     [itemParameters setValue:description ? description : @"" forKey:@"description"];
     [itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
     [itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
-//    [itemParameters setValue:@YES forKey:@"active"];
+    [itemParameters setValue:@YES forKey:@"active"];
     [itemParameters setValue:@(self.currentUser.userId) forKey:@"user_id"];
 
     NSArray *dataArray;
@@ -42,7 +42,7 @@
     
     [parameters setValue:itemParameters forKey:@"item"];
 
-    [self performPOST:@"/api/v1/items.json" withParameters:parameters multipartData:dataArray response:completion];
+    [self performPOST:@"api/v1/items.json" withParameters:parameters multipartData:dataArray response:completion];
 }
 
 @end
