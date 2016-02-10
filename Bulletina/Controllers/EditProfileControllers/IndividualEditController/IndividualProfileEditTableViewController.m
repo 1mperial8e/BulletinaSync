@@ -26,13 +26,15 @@
 static CGFloat const AvatarCellHeigth = 218;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
+static NSString * const TextViewPlaceholderText = @"About:";
 
-static NSInteger const CellsCount = 5;
+static NSInteger const CellsCount = 6;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	AvatarCellIndex,
 	EmailCellIndex,
 	UsernameCellIndex,
+	FullNameCellIndex,
 	AboutMeCellIndex,
 	SaveButtonCellIndex
 };
@@ -41,6 +43,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @property (weak, nonatomic) UITextField *usernameTextfield;
 @property (weak, nonatomic) UITextView *aboutMeTextView;
+@property (weak, nonatomic) UITextField *fullNameTextfield;
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
@@ -141,6 +144,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.inputTextField.placeholder = @"Email:";
 		cell.inputTextField.text = [APIClient sharedInstance].currentUser.email;
 		cell.inputTextField.enabled = NO;
+	} else if (indexPath.item == FullNameCellIndex) {
+		cell.inputTextField.placeholder = @"Fullname:";
+		cell.inputTextField.text = [APIClient sharedInstance].currentUser.name;
+		self.fullNameTextfield = cell.inputTextField;
 	}
 	cell.inputTextField.delegate = self;
 	return cell;
@@ -157,9 +164,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.aboutCell.aboutTextView.layer.borderColor = [UIColor colorWithRed:225 / 255.0f green:225 / 255.0f  blue:225 / 255.0f  alpha:1].CGColor;
 	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
 	self.aboutCell.aboutTextView.layer.cornerRadius = 5;
-//	if ([APIClient sharedInstance].currentUser.about.length) {
-//		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
-//	}
+	
+	if (![APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
+		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+	} else if ([APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
+		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
+		self.aboutCell.aboutTextView.textColor = [UIColor blackColor];
+	}
+	
 	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyDone;
 	return self.aboutCell ;
 }
@@ -215,12 +228,23 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 #pragma mark - UITextViewDelegate
 
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+	if ([self.aboutCell.aboutTextView.text isEqualToString:@""])
+	{
+		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+	}
+}
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
 {
 	if ([string isEqualToString:@"\n"]) {
-//		[self.inputViewsCollection next];
-		[self.view endEditing:YES];
+		[self.inputViewsCollection next];
 		return  NO;
+	} else if ([textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
+		textView.text = @"";
+		textView.textColor = [UIColor blackColor];
 	}
 	return YES;
 }
@@ -233,6 +257,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)textViewDidChange:(UITextView *)textView
 {
+	if ([self.aboutCell.aboutTextView.text isEqualToString:@""])
+	{
+		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+	} else if ([textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
+		textView.text = @"";
+		textView.textColor = [UIColor blackColor];
+	}
 	CGFloat height = ceil([textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
 	if (textView.contentSize.height > height + 1 || textView.contentSize.height < height - 1) {
 		[self.tableView beginUpdates];
@@ -241,7 +273,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		CGRect textViewRect = [self.tableView convertRect:textView.frame fromView:textView.superview];
 		textViewRect.origin.y += 5;
 		[self.tableView scrollRectToVisible:textViewRect animated:YES];
-	}	
+	}
 }
 
 #pragma mark - Utils
@@ -251,7 +283,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (!self.aboutCell) {
 		self.aboutCell = [[NSBundle mainBundle] loadNibNamed:EditProfileAboutTableViewCell.ID owner:nil options:nil].firstObject;
 	}
-//	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
+	if (![APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
+		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+	} else if ([APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
+		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
+		self.aboutCell.aboutTextView.textColor = [UIColor blackColor];
+	}
 	CGFloat height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
 	return height + 5.f;
 }
@@ -261,6 +299,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	NSMutableArray *views = [[NSMutableArray alloc] init];
 	if (self.usernameTextfield) {
 		[views addObject:self.usernameTextfield];
+	}
+	if (self.fullNameTextfield) {
+		[views addObject:self.fullNameTextfield];
 	}
 	if (self.aboutMeTextView) {
 		[views addObject:self.aboutMeTextView];

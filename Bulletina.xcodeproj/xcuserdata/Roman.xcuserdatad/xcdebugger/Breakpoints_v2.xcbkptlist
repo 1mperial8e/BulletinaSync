@@ -406,11 +406,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/EditProfileControllers/IndividualEditController/IndividualProfileEditTableViewController.m"
-            timestampString = "476721506.375897"
+            timestampString = "476786723.404898"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "307"
-            endingLineNumber = "307"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
             landmarkName = "-saveButtonTap:"
             landmarkType = "5">
          </BreakpointContent>
@@ -444,22 +444,6 @@
             startingLineNumber = "137"
             endingLineNumber = "137"
             landmarkName = "-updateUserWithUsername:fullname:companyname:password:website:facebook:linkedin:phone:description:avatar:withCompletion:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Bulletina/Controllers/EditProfileControllers/IndividualEditController/IndividualProfileEditTableViewController.m"
-            timestampString = "476721506.375897"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
-            landmarkName = "-textViewDidChange:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
