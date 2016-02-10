@@ -117,7 +117,6 @@
 	if (![APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
 		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
 		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
-		self.aboutCell.aboutTextView.selectedRange = NSMakeRange(0, 0);
 	} else if ([APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
 		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
 		self.aboutCell.aboutTextView.textColor = [UIColor blackColor];
@@ -168,7 +167,6 @@
 	if (![APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
 		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
 		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
-		self.aboutCell.aboutTextView.selectedRange = NSMakeRange(0, 0);
 	} else if ([APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
 		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
 		self.aboutCell.aboutTextView.textColor = [UIColor blackColor];
@@ -194,36 +192,35 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
 	[self.inputViewsCollection next];
-	return YES;
+	return NO;
 }
 
 #pragma mark - UITextViewDelegate
 
-- (void)textViewDidEndEditing:(UITextView *)textView
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-	if ([self.aboutCell.aboutTextView.text isEqualToString:@""]) {
-		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
-		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+	[self.inputViewsCollection inputViewWillBecomeFirstResponder:textView];
+	return YES;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+	if ([textView.text isEqualToString:TextViewPlaceholderText]) {
+		self.aboutCell.aboutTextView.selectedRange = NSMakeRange(0, 0);
 	}
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
 {
-	if ([string isEqualToString:@"\u200B"]) {
+	if ([string isEqualToString:@""] && [textView.text isEqualToString:TextViewPlaceholderText]) {
 		return  NO;
 	} else if ([string isEqualToString:@"\n"]) {
 		[self.inputViewsCollection next];
 		return  NO;
-	} else if ([textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
+	} else if ([textView.text isEqualToString:TextViewPlaceholderText]) {
 		textView.text = @"";
 		textView.textColor = [UIColor blackColor];
 	}
-	return YES;
-}
-
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
-	[self.inputViewsCollection inputViewWillBecomeFirstResponder:textView];
 	return YES;
 }
 
@@ -233,7 +230,7 @@
 		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
 		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
 		self.aboutCell.aboutTextView.selectedRange = NSMakeRange(0, 0);
-	} else if ([textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
+	} else if ([textView.text isEqualToString:TextViewPlaceholderText]) {
 		textView.text = @"";
 		textView.textColor = [UIColor blackColor];
 	}
@@ -241,13 +238,18 @@
 	if (textView.contentSize.height > height + 1 || textView.contentSize.height < height - 1) {
 		[self.tableView beginUpdates];
 		[self.tableView endUpdates];
-		
+	
 		CGRect textViewRect = [self.tableView convertRect:textView.frame fromView:textView.superview];
 		textViewRect.origin.y += 5;
 		[self.tableView scrollRectToVisible:textViewRect animated:YES];
 	}
-	if ([textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
-		self.aboutCell.aboutTextView.selectedRange = NSMakeRange(0, 0);
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+	if ([self.aboutCell.aboutTextView.text isEqualToString:@""]) {
+		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
 	}
 }
 
