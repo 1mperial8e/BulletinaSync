@@ -67,6 +67,8 @@
 		3099D47D1C4CFDFE0080C05B /* ImageActionSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3099D47A1C4CFDFE0080C05B /* ImageActionSheetController.m */; };
 		3099D48C1C4D4F080080C05B /* FullScreenImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3099D48A1C4D4F080080C05B /* FullScreenImageViewController.m */; };
 		3099D48D1C4D4F080080C05B /* FullScreenImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3099D48B1C4D4F080080C05B /* FullScreenImageViewController.xib */; };
+		309F12B61C6B430400C4D1A3 /* BaseEditProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309F12B41C6B430400C4D1A3 /* BaseEditProfileTableViewController.m */; };
+		309F12B71C6B430400C4D1A3 /* BaseEditProfileTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309F12B51C6B430400C4D1A3 /* BaseEditProfileTableViewController.xib */; };
 		30A074D41C4F809000BCE672 /* AddImageButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A074D21C4F809000BCE672 /* AddImageButtonTableViewCell.m */; };
 		30A074D51C4F809000BCE672 /* AddImageButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A074D31C4F809000BCE672 /* AddImageButtonTableViewCell.xib */; };
 		30A074DB1C4F96AD00BCE672 /* ForgotPasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A074D91C4F96AD00BCE672 /* ForgotPasswordTableViewController.m */; };
@@ -253,6 +255,9 @@
 		3099D4891C4D4F080080C05B /* FullScreenImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullScreenImageViewController.h; sourceTree = "<group>"; };
 		3099D48A1C4D4F080080C05B /* FullScreenImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullScreenImageViewController.m; sourceTree = "<group>"; };
 		3099D48B1C4D4F080080C05B /* FullScreenImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullScreenImageViewController.xib; sourceTree = "<group>"; };
+		309F12B31C6B430400C4D1A3 /* BaseEditProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEditProfileTableViewController.h; sourceTree = "<group>"; };
+		309F12B41C6B430400C4D1A3 /* BaseEditProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseEditProfileTableViewController.m; sourceTree = "<group>"; };
+		309F12B51C6B430400C4D1A3 /* BaseEditProfileTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseEditProfileTableViewController.xib; sourceTree = "<group>"; };
 		30A074D11C4F809000BCE672 /* AddImageButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddImageButtonTableViewCell.h; sourceTree = "<group>"; };
 		30A074D21C4F809000BCE672 /* AddImageButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddImageButtonTableViewCell.m; sourceTree = "<group>"; };
 		30A074D31C4F809000BCE672 /* AddImageButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddImageButtonTableViewCell.xib; sourceTree = "<group>"; };
@@ -593,6 +598,7 @@
 		3082B99E1C48E37400C4925D /* EditProfileControllers */ = {
 			isa = PBXGroup;
 			children = (
+				309F12B21C6B42CC00C4D1A3 /* BaseEditProfileController */,
 				30AC77761C6A1A7B0035BC06 /* AnonymusEditController */,
 				3082B9AC1C48F0F900C4925D /* BusinessEditController */,
 				3082B9AB1C48F0DD00C4925D /* IndividualEditController */,
@@ -842,6 +848,17 @@
 				3099D48B1C4D4F080080C05B /* FullScreenImageViewController.xib */,
 			);
 			path = FullScreenImageController;
+			sourceTree = "<group>";
+		};
+		309F12B21C6B42CC00C4D1A3 /* BaseEditProfileController */ = {
+			isa = PBXGroup;
+			children = (
+				309F12B31C6B430400C4D1A3 /* BaseEditProfileTableViewController.h */,
+				309F12B41C6B430400C4D1A3 /* BaseEditProfileTableViewController.m */,
+				309F12B51C6B430400C4D1A3 /* BaseEditProfileTableViewController.xib */,
+			);
+			name = BaseEditProfileController;
+			path = ../BaseEditProfileController;
 			sourceTree = "<group>";
 		};
 		30A074D01C4F807B00BCE672 /* AddImageButtonCell */ = {
@@ -1460,6 +1477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30928DEC1C465BD600041847 /* BusinessRegisterTableViewController.xib in Resources */,
+				309F12B71C6B430400C4D1A3 /* BaseEditProfileTableViewController.xib in Resources */,
 				30A074E31C4F986700BCE672 /* ResetPasswordTableViewCell.xib in Resources */,
 				30823DCD1C50D4C800609A0D /* ItemsListTableViewController.xib in Resources */,
 				B247CCA21C520E060064396E /* ChatViewController.xib in Resources */,
@@ -1526,6 +1544,7 @@
 				30928E031C465CDE00041847 /* BusinessLogoTableViewCell.m in Sources */,
 				30928DDC1C464F7200041847 /* IconCollectionViewCell.m in Sources */,
 				30D33AA01C57796D002AD94F /* APIClient+Item.m in Sources */,
+				309F12B61C6B430400C4D1A3 /* BaseEditProfileTableViewController.m in Sources */,
 				30ACE0C51C62024A0076108C /* APITestTableViewController.m in Sources */,
 				307E2EDC1C4A59950007A7CC /* NewItemPriceTableViewCell.m in Sources */,
 				307E2EE61C4A59E80007A7CC /* NewItemTextTableViewCell.m in Sources */,

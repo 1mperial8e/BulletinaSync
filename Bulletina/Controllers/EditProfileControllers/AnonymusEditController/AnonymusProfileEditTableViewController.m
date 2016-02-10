@@ -8,76 +8,31 @@
 
 //Controllers
 #import "AnonymusProfileEditTableViewController.h"
-#import "ImageActionSheetController.h"
 
-//Cells
-#import "AvatarTableViewCell.h"
-#import "InputTableViewCell.h"
-#import "ButtonTableViewCell.h"
-#import "EditProfileAboutTableViewCell.h"
-
-// Helpers
-#import "TextInputNavigationCollection.h"
-#import "BulletinaLoaderView.h"
-
-//Models
-#import "APIClient+User.h"
-
-static CGFloat const AvatarCellHeigth = 218;
-static CGFloat const InputCellHeigth = 48;
-static CGFloat const ButtonCellHeigth = 52;
-
-static NSInteger const CellsCount = 7;
-
-static NSString * const TextViewPlaceholderText = @"About:";
+static NSInteger const CellsCount = 8;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	AvatarCellIndex,
 	EmailCellIndex,
 	UsernameCellIndex,
+	FullNameCellIndex,
 	AboutMeCellIndex,
 	PasswordCellIndex,
 	RetypePasswordCellIndex,
 	SaveButtonCellIndex
 };
 
-@interface AnonymusProfileEditTableViewController () <UITextFieldDelegate, UITextViewDelegate, ImageActionSheetControllerDelegate>
+@interface AnonymusProfileEditTableViewController () 
 
 @property (weak, nonatomic) UITextField *emailTextfield;
 @property (weak, nonatomic) UITextField *usernameTextfield;
-@property (weak, nonatomic) UITextView *aboutMeTextView;
+@property (weak, nonatomic) UITextField *fullNameTextfield;
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
-
-@property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
-@property (strong, nonatomic) EditProfileAboutTableViewCell *aboutCell;
-@property (strong,nonatomic) UIImage *logoImage;
-@property (strong, nonatomic) BulletinaLoaderView *loader;
 
 @end
 
 @implementation AnonymusProfileEditTableViewController
-
-#pragma mark - Lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	[self tableViewSetup];
-	[self setupDefaults];
-	[self setupUI];
-	
-	if ([APIClient sharedInstance].currentUser.avatarUrl.length) {
-		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatarUrl]];
-		self.logoImage = [UIImage imageWithData:imageData];
-	}
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-	[super viewDidAppear:animated];
-	[self refreshInputViews];
-}
 
 #pragma mark - Table view data source
 
@@ -118,20 +73,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 #pragma mark - Cells
 
-- (AvatarTableViewCell *)avatarCellForIndexPath:(NSIndexPath *)indexPath
-{
-	AvatarTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:AvatarTableViewCell.ID forIndexPath:indexPath];
-	cell.backgroundColor = [UIColor mainPageBGColor];
-	cell.avatarImageView.layer.borderColor = [UIColor grayColor].CGColor;
-	cell.avatarImageView.layer.borderWidth = 5.0f;
-	cell.avatarImageView.layer.cornerRadius = CGRectGetHeight(cell.avatarImageView.frame) / 2;
-	if (self.logoImage) {
-		cell.avatarImageView.image = self.logoImage;
-	}	
-	[cell.selectImageButton addTarget:self action:@selector(selectImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
-	return cell;
-}
-
 - (InputTableViewCell *)inputCellForIndexPath:(NSIndexPath *)indexPath
 {
 	InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
@@ -145,6 +86,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.inputTextField.placeholder = @"Username:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
+	} else if (indexPath.item == FullNameCellIndex) {
+		cell.inputTextField.placeholder = @"Fullname:";
+		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
+		self.fullNameTextfield = cell.inputTextField;
 	} else if (indexPath.item == PasswordCellIndex) {
 		cell.inputTextField.placeholder = @"New password:";
 		cell.inputTextField.secureTextEntry = YES;
@@ -159,133 +104,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return cell;
 }
 
-- (EditProfileAboutTableViewCell *)aboutCellForIndexPath:(NSIndexPath *)indexPath
-{
-	self.aboutCell = [self.tableView dequeueReusableCellWithIdentifier:EditProfileAboutTableViewCell.ID forIndexPath:indexPath];
-	self.aboutCell .backgroundColor = [UIColor mainPageBGColor];
-	self.aboutMeTextView = self.aboutCell.aboutTextView;
-	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyNext;
-	self.aboutCell.aboutTextView.delegate = self;
-	self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
-	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(10, 5, 10, 5)];
-	self.aboutCell.aboutTextView.layer.borderColor = [UIColor colorWithRed:225 / 255.0f green:225 / 255.0f  blue:225 / 255.0f  alpha:1].CGColor;
-	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
-	self.aboutCell.aboutTextView.layer.cornerRadius = 5;
-
-	return self.aboutCell ;
-}
-
-- (ButtonTableViewCell *)buttonCellForIndexPath:(NSIndexPath *)indexPath
-{
-	ButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ButtonTableViewCell.ID forIndexPath:indexPath];
-	cell.backgroundColor = [UIColor mainPageBGColor];
-	cell.saveButton.layer.cornerRadius = 5;
-	[cell.saveButton addTarget:self action:@selector(saveButtonTap:) forControlEvents:UIControlEventTouchUpInside];
-	return cell;
-}
-
-#pragma mark - Setup
-
-- (void)setupUI
-{
-	self.title = @"Edit profile";	
-	
-	self.view.backgroundColor = [UIColor mainPageBGColor];
-}
-
-- (void)tableViewSetup
-{
-	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-	self.tableView.separatorColor = [UIColor clearColor];
-	[self.tableView registerNib:AvatarTableViewCell.nib forCellReuseIdentifier:AvatarTableViewCell.ID];
-	[self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
-	[self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
-	[self.tableView registerNib:EditProfileAboutTableViewCell.nib forCellReuseIdentifier:EditProfileAboutTableViewCell.ID];
-	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
-}
-
-- (void)setupDefaults
-{
-	self.inputViewsCollection = [TextInputNavigationCollection new];
-	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
-}
-
-#pragma mark - UITextFieldDelegate
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-	[self.inputViewsCollection inputViewWillBecomeFirstResponder:textField];
-	return YES;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-	[self.inputViewsCollection next];
-	return YES;
-}
-
-#pragma mark - UITextViewDelegate
-
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-	if ([self.aboutCell.aboutTextView.text isEqualToString:@""])
-	{
-		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
-		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
-	}
-}
-
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
-{
-	if ([string isEqualToString:@"\n"]) {
-		[self.inputViewsCollection next];
-		return  NO;
-	} else if ([textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
-		textView.text = @"";
-		textView.textColor = [UIColor blackColor];
-	}
-	return YES;
-}
-
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
-	[self.inputViewsCollection inputViewWillBecomeFirstResponder:textView];
-	return YES;
-}
-
-- (void)textViewDidChange:(UITextView *)textView
-{
-	if ([self.aboutCell.aboutTextView.text isEqualToString:@""])
-	{
-		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
-		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
-	} else if ([textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
-		textView.text = @"";
-		textView.textColor = [UIColor blackColor];
-	}
-	CGFloat height = ceil([textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
-	if (textView.contentSize.height > height + 1 || textView.contentSize.height < height - 1) {
-		[self.tableView beginUpdates];
-		[self.tableView endUpdates];
-		
-		CGRect textViewRect = [self.tableView convertRect:textView.frame fromView:textView.superview];
-		textViewRect.origin.y += 5;
-		[self.tableView scrollRectToVisible:textViewRect animated:YES];
-	}	
-}
-
 #pragma mark - Utils
-
-- (CGFloat)heightForAboutCell
-{
-	if (!self.aboutCell) {
-		self.aboutCell = [[NSBundle mainBundle] loadNibNamed:EditProfileAboutTableViewCell.ID owner:nil options:nil].firstObject;
-	}
-	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(10, 5, 10, 5)];
-	CGFloat height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
-	return height + 5.f;
-}
 
 - (void)refreshInputViews
 {
@@ -296,8 +115,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (self.usernameTextfield) {
 		[views addObject:self.usernameTextfield];
 	}
-	if (self.aboutMeTextView) {
-		[views addObject:self.aboutMeTextView];
+	if (self.fullNameTextfield) {
+		[views addObject:self.fullNameTextfield];
+	}
+	if (self.aboutCell.aboutTextView) {
+		[views addObject:self.aboutCell.aboutTextView];
 	}
 	if (self.passwordTextfield) {
 		[views addObject:self.passwordTextfield];
@@ -316,20 +138,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 #pragma mark - Actions
 
-- (void)selectImageButtonTap:(id)sender
-{
-	ImageActionSheetController *imageController = [ImageActionSheetController new];
-	imageController.delegate = self;
-	imageController.cancelButtonTintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
-	imageController.tintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
-	__weak typeof(self) weakSelf = self;
-	imageController.photoDidSelectImageInPreview = ^(UIImage *image) {
-		__strong typeof(weakSelf) strongSelf = weakSelf;
-		[strongSelf updateImage:image];
-	};
-	[self presentViewController:imageController animated:YES completion:nil];
-}
-
 - (void)saveButtonTap:(id)sender
 {
 	if (!self.usernameTextfield.text.length) {
@@ -343,7 +151,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else {
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
-		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:@"" companyname:@"" password:self.passwordTextfield.text website:@"" facebook:@"" linkedin:@"" phone:@"" description:self.aboutMeTextView.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:self.fullNameTextfield.text companyname:@"" password:self.passwordTextfield.text website:@"" facebook:@"" linkedin:@"" phone:@"" description:self.aboutCell.aboutTextView.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
 				if (response[@"error_message"]) {
 					[Utils showErrorWithMessage:response[@"error_message"]];

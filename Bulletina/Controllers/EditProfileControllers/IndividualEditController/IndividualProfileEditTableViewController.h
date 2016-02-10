@@ -5,7 +5,8 @@
 //  Created by Stas Volskyi on 1/11/16.
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
+#import "BaseEditProfileTableViewController.h"
 
-@interface IndividualProfileEditTableViewController : UITableViewController
+@interface IndividualProfileEditTableViewController : BaseEditProfileTableViewController
 
 @end
