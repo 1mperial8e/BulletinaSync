@@ -253,7 +253,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	}
 //	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
 	CGFloat height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
-	return height + 5.f;
+	return height + 10.f;
 }
 
 - (void)refreshInputViews
@@ -296,14 +296,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[Utils showErrorWithMessage:@"Username is required."];
 	} else if (![Utils isValidName:self.usernameTextfield.text] ) {
 		[Utils showErrorWithMessage:@"Username is not valid."];
-	}	else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
-		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
-	} else if (![Utils isValidPassword:self.passwordTextfield.text] && self.passwordTextfield.text.length) {
-		[Utils showErrorWithMessage:@"Password is not valid."];
 	} else {
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
-		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:@"" companyname:@"" password:self.passwordTextfield.text website:@"" facebook:@"" linkedin:@"" phone:@"" description:self.aboutMeTextView.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:@"" companyname:@"" password:@"" website:@"" facebook:@"" linkedin:@"" phone:@"" description:self.aboutMeTextView.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
 				if (response[@"error_message"]) {
 					[Utils showErrorWithMessage:response[@"error_message"]];

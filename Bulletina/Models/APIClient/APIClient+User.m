@@ -103,15 +103,22 @@
 										  avatar:(UIImage *)avatar
 								  withCompletion:(ResponseBlock)completion
 {
-	NSMutableDictionary *updateParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken":self.passtoken,
-																							   @"user[email]" : self.currentUser.email,
-																							   @"user[login]" : username,
-																							   @"user[password]":password,
-																							   @"user[name]":fullname,
-																							   @"user[company_name]":companyname,
-																							   @"user[customer_type_id]":@(self.currentUser.customerTypeId)}];
+	NSMutableDictionary *updateParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken,
+																							   @"user[customer_type_id]" : @(self.currentUser.customerTypeId)}];
 	
-	if (website.length) {
+    if (username.length) {
+        [updateParameters setObject:website forKey:@"user[login]"];
+    }
+    if (fullname.length) {
+        [updateParameters setObject:website forKey:@"user[name]"];
+    }
+    if (companyname.length) {
+        [updateParameters setObject:website forKey:@"user[company_name]"];
+    }
+    if (password.length) {
+        [updateParameters setObject:website forKey:@"user[password]"];
+    }
+    if (website.length) {
 		[updateParameters setObject:website forKey:@"user[website]"];
 	}
 	if (facebook.length) {
@@ -134,10 +141,8 @@
 		imageData = UIImageJPEGRepresentation(avatar, 1.0f);
 	}
 	//implement sending image
-		NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.json", self.currentUser.userId];
-		return [self performPUT:query withParameters:updateParameters multipartData:nil response:completion];
-//	return [self performPOST:query contentTypeJson:NO withParameters:updateParameters multipartData:nil response:completion];
-
+    NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.json", self.currentUser.userId];
+    return [self performPUT:query withParameters:updateParameters multipartData:nil response:completion];
 }
 
 - (NSURLSessionDataTask *)destroyUserWithCompletion:(ResponseBlock)completion

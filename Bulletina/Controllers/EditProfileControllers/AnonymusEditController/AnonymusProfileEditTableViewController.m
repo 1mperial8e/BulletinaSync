@@ -283,7 +283,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		self.aboutCell = [[NSBundle mainBundle] loadNibNamed:EditProfileAboutTableViewCell.ID owner:nil options:nil].firstObject;
 	}
 	CGFloat height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
-	return height + 5.f;
+	return height + 10.f;
 }
 
 - (void)refreshInputViews
