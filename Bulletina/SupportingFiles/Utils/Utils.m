@@ -131,6 +131,9 @@
 
 + (UIImage *)scaledImage:(UIImage *)srcImage
 {
+    if (!srcImage) {
+        return srcImage;
+    }
     CGFloat coef = 640.f / MAX(srcImage.size.width, srcImage.size.width);
     CGSize drawSize = CGSizeMake(srcImage.size.width * coef, srcImage.size.height * coef);
     UIGraphicsBeginImageContext(drawSize);

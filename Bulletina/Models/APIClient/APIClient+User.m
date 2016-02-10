@@ -86,7 +86,7 @@
     
 	NSArray *dataArray;
 	if (avatar) {
-        dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(avatar, 1.0f) fileName:@"avatar.jpg" mimeType:@"image/jpeg" parameterName:@"avatar"]];
+        dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(avatar, 1.0f) fileName:@"avatar.jpg" mimeType:@"image/jpeg" parameterName:@"user[avatar]"]];
 	}
 	return [self performPOST:@"api/v1/users.json" withParameters:parameters multipartData:dataArray response:completion];
 }
@@ -143,7 +143,7 @@
     
     NSArray *dataArray;
     if (avatar) {
-        dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(avatar, 1.0f) fileName:@"avatar.jpg" mimeType:@"image/jpeg" parameterName:@"avatar"]];
+        dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(avatar, 1.0f) fileName:@"avatar.jpg" mimeType:@"image/jpeg" parameterName:@"user[avatar]"]];
     }
     [updateParameters setValue:userParameters forKey:@"user"];
     

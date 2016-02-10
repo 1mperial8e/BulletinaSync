@@ -35,7 +35,14 @@
 	self.name = userWithInfo[@"name"];
 	self.phone = userWithInfo[@"phone"];
 	self.about = userWithInfo[@"description"];
-	self.avatarUrl = userWithInfo[@"avatar_url"];
+    NSString *avatarUrl = userWithInfo[@"avatar_url"];
+    if (avatarUrl.length) {
+        self.avatarUrl = [NSURL URLWithString:avatarUrl];
+    }
+    NSString *avatarUrlThumb = userWithInfo[@"avatar_thumb_url"];
+    if (avatarUrlThumb.length) {
+        self.avatarUrlThumb = [NSURL URLWithString:avatarUrlThumb];
+    }
 	self.facebook = userWithInfo[@"facebook"];
 	self.homeLatitude = userWithInfo[@"home_latitude"];
 	self.homeLongitude = userWithInfo[@"home_longitude"];

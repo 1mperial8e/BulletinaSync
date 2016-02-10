@@ -14,12 +14,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="309"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PersonalAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="PKy-kc-odS">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PersonalAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="PKy-kc-odS">
                         <rect key="frame" x="142" y="12" width="92" height="92"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="92" id="3Xh-KQ-acc"/>
                             <constraint firstAttribute="width" constant="92" id="YYm-xz-mgU"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="46"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jRc-T0-pKF">
                         <rect key="frame" x="0.0" y="122" width="375" height="188"/>
