@@ -78,6 +78,8 @@
 		30A3057D1C4FC7BC002A48D0 /* MyItemsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A3057B1C4FC7BC002A48D0 /* MyItemsTableViewController.m */; };
 		30A3057E1C4FC7BC002A48D0 /* MyItemsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A3057C1C4FC7BC002A48D0 /* MyItemsTableViewController.xib */; };
 		30A525951C5F5206000E1CBA /* APIClient+Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A525941C5F5206000E1CBA /* APIClient+Session.m */; };
+		30AC777A1C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30AC77781C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.m */; };
+		30AC777B1C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30AC77791C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.xib */; };
 		30ACB0911C5276D500A879D5 /* BulletinaLoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */; };
 		30ACE0C51C62024A0076108C /* APITestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ACE0C31C62024A0076108C /* APITestTableViewController.m */; };
 		30ACE0C61C62024A0076108C /* APITestTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30ACE0C41C62024A0076108C /* APITestTableViewController.xib */; };
@@ -268,6 +270,9 @@
 		30A3057C1C4FC7BC002A48D0 /* MyItemsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyItemsTableViewController.xib; sourceTree = "<group>"; };
 		30A525931C5F5206000E1CBA /* APIClient+Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "APIClient+Session.h"; sourceTree = "<group>"; };
 		30A525941C5F5206000E1CBA /* APIClient+Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "APIClient+Session.m"; sourceTree = "<group>"; };
+		30AC77771C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnonymusProfileEditTableViewController.h; sourceTree = "<group>"; };
+		30AC77781C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnonymusProfileEditTableViewController.m; sourceTree = "<group>"; };
+		30AC77791C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnonymusProfileEditTableViewController.xib; sourceTree = "<group>"; };
 		30ACB08F1C5276D500A879D5 /* BulletinaLoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletinaLoaderView.h; sourceTree = "<group>"; };
 		30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletinaLoaderView.m; sourceTree = "<group>"; };
 		30ACE0C21C62024A0076108C /* APITestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APITestTableViewController.h; sourceTree = "<group>"; };
@@ -588,6 +593,7 @@
 		3082B99E1C48E37400C4925D /* EditProfileControllers */ = {
 			isa = PBXGroup;
 			children = (
+				30AC77761C6A1A7B0035BC06 /* AnonymusEditController */,
 				3082B9AC1C48F0F900C4925D /* BusinessEditController */,
 				3082B9AB1C48F0DD00C4925D /* IndividualEditController */,
 				3082B9A41C48EA5300C4925D /* EditProfileCells */,
@@ -896,6 +902,16 @@
 				30A3057C1C4FC7BC002A48D0 /* MyItemsTableViewController.xib */,
 			);
 			path = MyItemsController;
+			sourceTree = "<group>";
+		};
+		30AC77761C6A1A7B0035BC06 /* AnonymusEditController */ = {
+			isa = PBXGroup;
+			children = (
+				30AC77771C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.h */,
+				30AC77781C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.m */,
+				30AC77791C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.xib */,
+			);
+			path = AnonymusEditController;
 			sourceTree = "<group>";
 		};
 		30ACB08E1C5276A900A879D5 /* BulletinaLoader */ = {
@@ -1468,6 +1484,7 @@
 				3082B9B61C48F1DE00C4925D /* BusinessProfileEditTableViewController.xib in Resources */,
 				30ACE0C61C62024A0076108C /* APITestTableViewController.xib in Resources */,
 				B2B5E0361C50C8C0000E5A4C /* MessageTableViewCell.xib in Resources */,
+				30AC777B1C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.xib in Resources */,
 				30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */,
 				30928DFF1C465CCC00041847 /* AvatarTableViewCell.xib in Resources */,
 				304359131C479F6F007B6959 /* ProfileDefaultTableViewCell.xib in Resources */,
@@ -1527,6 +1544,7 @@
 				4F637C001C4659A200DE7CCA /* UIColor+AppColor.m in Sources */,
 				307DD91F1C44F93200F59857 /* ItemTableViewCell.m in Sources */,
 				30928DF91C465CBA00041847 /* ButtonTableViewCell.m in Sources */,
+				30AC777A1C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.m in Sources */,
 				30D33A9D1C576BC7002AD94F /* APIClient+User.m in Sources */,
 				4FA19C221C46829000140343 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				4FA19C271C46829000140343 /* UIRefreshControl+AFNetworking.m in Sources */,

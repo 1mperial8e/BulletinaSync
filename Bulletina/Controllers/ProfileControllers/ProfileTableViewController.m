@@ -12,6 +12,8 @@
 #import "BusinessProfileEditTableViewController.h"
 #import "MyItemsTableViewController.h"
 #import "MessageTableViewController.h"
+#import "AnonymusProfileEditTableViewController.h"
+
 
 //Cells
 #import "ProfileDefaultTableViewCell.h"
@@ -58,13 +60,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	[self reloadUser];
+	self.user = [APIClient sharedInstance].currentUser;
+	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 	[self tableViewSetup];
 	[self setupNavBar];
-    
-    self.user = [APIClient sharedInstance].currentUser;
-    self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
-
-	[self reloadUser];
+	
 }
 
 #pragma mark - Table view data source
@@ -86,7 +87,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (UITableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath
 {
-	if (self.user.customer_type_id == BusinessAccount) {
+	if (self.user.customerTypeId == BusinessAccount) {
         return [self businessLogoCellForIndexPath:indexPath];
     } else {
         return [self individualLogoCellForIndexPath:indexPath];
@@ -101,13 +102,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [self addCustomBorderToButton:cell.instagramButton];
     [self addCustomBorderToButton:cell.linkedInButton];
     cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-    cell.companyNameLabel.text = self.user.company_name;
+    cell.companyNameLabel.text = self.user.companyName;
     cell.companyPhoneLabel.text = [NSString stringWithFormat:@"Phone:%@", self.user.phone];
     [cell.companyDescriptionTextView setEditable:YES];
     cell.companyDescriptionTextView.text = self.user.about;
     [cell.companyDescriptionTextView setEditable:NO];
-    if (self.user.avatar_url.length) {
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.user.avatar_url]];
+    if (self.user.avatarUrl.length) {
+        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.user.avatarUrl]];
         cell.logoImageView.image = [UIImage imageWithData:imageData];
     }
     return cell;
@@ -121,7 +122,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     cell.logoImageView.layer.borderWidth = 2.0f;
     cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
     cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-    if (self.user.customer_type_id == AnonymousAccount) {
+    if (self.user.customerTypeId == AnonymousAccount) {
         cell.userFullNameLabel.text = @"Anonymus";
     } else {
         cell.userFullNameLabel.text = self.user.name;
@@ -129,8 +130,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
         [cell.aboutMeTextView setEditable:YES];
         cell.aboutMeTextView.text = self.user.about;
         [cell.aboutMeTextView setEditable:NO];
-        if (self.user.avatar_url.length) {
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.user.avatar_url]];
+        if (self.user.avatarUrl.length) {
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.user.avatarUrl]];
             cell.logoImageView.image = [UIImage imageWithData:imageData];
         }
     }
@@ -183,12 +184,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 	if (indexPath.item == EditProfileCellIndex) {
-		if (self.user.customer_type_id == BusinessAccount) {
+		if (self.user.customerTypeId == BusinessAccount) {
 			BusinessProfileEditTableViewController *businessProfileEditTableViewController = [BusinessProfileEditTableViewController new];
 			[self.navigationController pushViewController:businessProfileEditTableViewController animated:YES];
-		} else {
+		} else if (self.user.customerTypeId == IndividualAccount) {
 			IndividualProfileEditTableViewController *individualProfileEditTableViewController = [IndividualProfileEditTableViewController new];
 			[self.navigationController pushViewController:individualProfileEditTableViewController animated:YES];
+		} else {
+			AnonymusProfileEditTableViewController *anonymusProfileEditTableViewController = [AnonymusProfileEditTableViewController new];
+			[self.navigationController pushViewController:anonymusProfileEditTableViewController animated:YES];
 		}
 	} else if (indexPath.item == LogOutCellIndex) {
         [self logout];
@@ -239,15 +243,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (CGFloat)heightForTopCell
 {
-	if (self.user.customer_type_id == BusinessAccount) {
+	if (self.user.customerTypeId == BusinessAccount) {
 		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
 		BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
 		CGSize size = CGSizeZero;
 		[cell.companyDescriptionTextView setEditable:YES];
 		cell.companyDescriptionTextView.text = self.user.about;
 		[cell.companyDescriptionTextView setEditable:NO];
-		if (cell.companyDescriptionTextView.text.length) {
-			size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
+		if (cell.companyDescriptionTextView.text.length) {			
+			size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];			
 		} else {
 			size = CGSizeMake(0, 0);
 		}
@@ -276,26 +280,28 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)reloadUser
 {
-	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] showUserWithUserId:self.user.userId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-		if (error) {
-			if (response[@"error_message"]) {
-				[Utils showErrorWithMessage:response[@"error_message"]];
+	if (self.user) {
+		__weak typeof(self) weakSelf = self;
+		[[APIClient sharedInstance] showUserWithUserId:self.user.userId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			if (error) {
+				if (response[@"error_message"]) {
+					[Utils showErrorWithMessage:response[@"error_message"]];
+				} else {
+					[Utils showErrorForStatusCode:statusCode];
+				}
 			} else {
-				[Utils showErrorForStatusCode:statusCode];
+				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+				UserModel *user = [UserModel modelWithDictionary:response];
+				weakSelf.user = user;
+				[Utils storeValue:response forKey:CurrentUserKey];
+				[[APIClient sharedInstance] updateCurrentUser:user];
+				[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[weakSelf.tableView reloadData];
+				});
 			}
-		} else {
-			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
-			UserModel *user = [UserModel modelWithDictionary:response];
-            weakSelf.user = user;
-			[Utils storeValue:response forKey:CurrentUserKey];
-			[[APIClient sharedInstance] updateCurrentUser:user];
-			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[weakSelf.tableView reloadData];
-			});
-		}
-	}];
+		}];
+	}
 }
 
 #pragma mark - Setup
@@ -317,9 +323,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {	
 	[self.tableView registerNib:ProfileDefaultTableViewCell.nib forCellReuseIdentifier:ProfileDefaultTableViewCell.ID];
 	[self.tableView registerNib:IndividualProfileLogoTableViewCell.nib forCellReuseIdentifier:IndividualProfileLogoTableViewCell.ID];
-	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];	
-	
+	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
+	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+	
 	UIView *backgroundView = [[UIView alloc] init];
 	UIImageView *backgroundImageView = [[UIImageView alloc] init];
 	[backgroundView addSubview:backgroundImageView];
@@ -334,7 +341,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	 
 	[backgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
 	self.topBackgroundImageView = backgroundImageView;
-	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 #pragma mark - UIScrollViewDelegate

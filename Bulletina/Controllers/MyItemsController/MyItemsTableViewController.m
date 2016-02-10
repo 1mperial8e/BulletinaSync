@@ -68,23 +68,22 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (UITableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath
 {
-	if ([APIClient sharedInstance].currentUser.customer_type_id == BusinessAccount) {
+	if ([APIClient sharedInstance].currentUser.customerTypeId == BusinessAccount) {
 		BusinessProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessProfileLogoTableViewCell.ID forIndexPath:indexPath];
 		[self addCustomBorderToButton:cell.websiteButton];
 		[self addCustomBorderToButton:cell.facebookButton];
 		[self addCustomBorderToButton:cell.instagramButton];
 		[self addCustomBorderToButton:cell.linkedInButton];
 		cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-		cell.companyNameLabel.text = [APIClient sharedInstance].currentUser.company_name;
+		cell.companyNameLabel.text = [APIClient sharedInstance].currentUser.companyName;
 		cell.companyPhoneLabel.text = [APIClient sharedInstance].currentUser.phone;
 		[cell.companyDescriptionTextView setEditable:YES];
 		cell.companyDescriptionTextView.text = [APIClient sharedInstance].currentUser.about;
 		[cell.companyDescriptionTextView setEditable:NO];
-		if ([APIClient sharedInstance].currentUser.avatar_url.length) {
-			NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
+		if ([APIClient sharedInstance].currentUser.avatarUrl.length) {
+			NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatarUrl]];
 			cell.logoImageView.image = [UIImage imageWithData:imageData];
 		}
-
 		return cell;
 	}
 	IndividualProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:IndividualProfileLogoTableViewCell.ID forIndexPath:indexPath];
@@ -93,8 +92,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.logoImageView.layer.borderWidth = 2.0f;
 	cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
 	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);	
-	cell.userFullNameLabel.text = ((UserModel *)[APIClient sharedInstance].currentUser).name;
-	cell.userNicknameLabel.text = ((UserModel *)[APIClient sharedInstance].currentUser).login;
+	cell.userFullNameLabel.text = [APIClient sharedInstance].currentUser.name ? : @"Fullname";
+	cell.userNicknameLabel.text = [APIClient sharedInstance].currentUser.login;
 	[cell.aboutMeTextView setEditable:YES];
 	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
 	[cell.aboutMeTextView setEditable:NO];
@@ -102,8 +101,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.bottomTextViewConstraint.constant = 0;
 		[cell layoutIfNeeded];
 	}
-	if ([APIClient sharedInstance].currentUser.avatar_url.length) {
-		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatar_url]];
+	if ([APIClient sharedInstance].currentUser.avatarUrl.length) {
+		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatarUrl]];
 		cell.logoImageView.image = [UIImage imageWithData:imageData];
 	}
 	return cell;
@@ -156,7 +155,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (CGFloat)heightForTopCell
 {
-	if ([APIClient sharedInstance].currentUser.customer_type_id == BusinessAccount) {
+	if ([APIClient sharedInstance].currentUser.customerTypeId == BusinessAccount) {
 		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
 		BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
 		CGSize size = CGSizeZero;
@@ -207,6 +206,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
 	[self.tableView registerNib:IndividualProfileLogoTableViewCell.nib forCellReuseIdentifier:IndividualProfileLogoTableViewCell.ID];
 	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];
+	
 	UIView *backgroundView = [[UIView alloc] init];
 	UIImageView *backgroundImageView = [[UIImageView alloc] init];
 	[backgroundView addSubview:backgroundImageView];
