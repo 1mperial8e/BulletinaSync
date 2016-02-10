@@ -16,10 +16,10 @@
     NSParameterAssert(username.length);
     NSParameterAssert(password.length);
     
-	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"session[email]" : username, @"session[password]" : password }];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"session" : @{@"email" : username, @"password" : password }}];
     [parameters addEntriesFromDictionary:[self deviceParameters]];
     
-	return [self performPOST:@"api/v1/sessions" contentTypeJson:NO withParameters:parameters response:completion];
+	return [self performPOST:@"api/v1/sessions" withParameters:parameters response:completion];
 }
 
 - (NSURLSessionDataTask *)logoutSessionWithCompletion:(ResponseBlock)completion

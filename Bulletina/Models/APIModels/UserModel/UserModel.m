@@ -40,24 +40,7 @@
 	self.homeLatitude = userWithInfo[@"home_latitude"];
 	self.homeLongitude = userWithInfo[@"home_longitude"];
 	self.linkedin = userWithInfo[@"linkedin"];
-	self.website = userWithInfo[@"website"];
-	
-//	self.countryId = userWithInfo[@"country_id"];	
-//	self.languageId = userWithInfo[@"language_id"] ;
-//	self.address = userWithInfo[@"address"];
-//	self.cellphone = userWithInfo[@"cellphone"];
-//	self.createdAt = userWithInfo[@"created_at"];
-//	self.emailConfirmationSentAt = userWithInfo[@"email_confirmation_sent_at"];
-//	self.emailConfirmationToken = userWithInfo[@"email_confirmation_token"];
-//	self.emailConfirmedAt = userWithInfo[@"email_confirmed_at"];
-//	self.hours = userWithInfo[@"hours"];
-//	self.password_digest = userWithInfo[@"password_digest"]; //not present at generated user
-//	self.resetPassword_sent_at = userWithInfo[@"reset_password_sent_at"];
-//	self.resetPassword_token = userWithInfo[@"reset_password_token"]; //not present at generated user
-//	self.twitter = userWithInfo[@"twitter"];
-//	self.unconfirmed_email = userWithInfo[@"unconfirmed_email"];
-//	self.updated_at = userWithInfo[@"updated_at"];
-
+    self.website = userWithInfo[@"website"];
 }
 
 @end

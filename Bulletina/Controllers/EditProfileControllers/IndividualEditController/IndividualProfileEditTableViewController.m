@@ -26,7 +26,7 @@
 static CGFloat const AvatarCellHeigth = 218;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
-static NSString * const TextViewPlaceholderText = @"About:";
+static NSString *const TextViewPlaceholderText = @"About:";
 
 static NSInteger const CellsCount = 6;
 
@@ -336,6 +336,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![Utils isValidName:self.usernameTextfield.text] ) {
 		[Utils showErrorWithMessage:@"Username is not valid."];
 	} else {
+        [self.tableView resignFirstResponder];
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
 		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:@"" companyname:@"" password:@"" website:@"" facebook:@"" linkedin:@"" phone:@"" description:self.aboutMeTextView.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {

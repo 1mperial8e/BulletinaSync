@@ -14,7 +14,6 @@
 #import "MessageTableViewController.h"
 #import "AnonymusProfileEditTableViewController.h"
 
-
 //Cells
 #import "ProfileDefaultTableViewCell.h"
 #import "IndividualProfileLogoTableViewCell.h"
@@ -60,8 +59,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.user = [APIClient sharedInstance].currentUser;
 	[self reloadUser];
-	self.user = [APIClient sharedInstance].currentUser;
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 	[self tableViewSetup];
 	[self setupNavBar];

@@ -30,7 +30,7 @@
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self deviceParameters]];
     [parameters setObject:@1 forKey:@"generate"];
 
-    return [self performPOST:@"api/v1/generate.json" contentTypeJson:NO withParameters:parameters response:completion];
+    return [self performPOST:@"api/v1/generate.json" withParameters:parameters response:completion];
 }
 
 - (NSURLSessionDataTask *)createUserWithEmail:(NSString *)email
@@ -44,51 +44,51 @@
                                        avatar:(UIImage *)avatar
                                withCompletion:(ResponseBlock)completion
 {
-    NSMutableDictionary *createParameters = [[NSMutableDictionary alloc] initWithDictionary:[self deviceParameters]];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self deviceParameters]];
+    NSMutableDictionary *userParameters = [NSMutableDictionary dictionary];
+	[userParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"home_latitude"];
+	[userParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"home_longitude"];
 	
-	[createParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"user[home_latitude]"];
-	[createParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"user[home_longitude]"];
-	
-	[createParameters setObject:@"" forKey:@"user[login]"];
-	[createParameters setObject:@"" forKey:@"user[name]"];
-	[createParameters setObject:@"" forKey:@"user[cellphone]"];
-	[createParameters setObject:@"" forKey:@"user[language_id]"];
-	[createParameters setObject:@"" forKey:@"user[country_id]"];
-	[createParameters setObject:@"" forKey:@"user[address]"];
-	[createParameters setObject:@"" forKey:@"user[facebook]"];
-	[createParameters setObject:@"" forKey:@"user[linkedin]"];
-	[createParameters setObject:@"" forKey:@"user[hours]"];
-	[createParameters setObject:@"" forKey:@"user[description]"];
+	[userParameters setObject:@"" forKey:@"login"];
+	[userParameters setObject:@"" forKey:@"name"];
+	[userParameters setObject:@"" forKey:@"cellphone"];
+	[userParameters setObject:@"" forKey:@"language_id"];
+	[userParameters setObject:@"" forKey:@"country_id"];
+	[userParameters setObject:@"" forKey:@"address"];
+	[userParameters setObject:@"" forKey:@"facebook"];
+	[userParameters setObject:@"" forKey:@"linkedin"];
+	[userParameters setObject:@"" forKey:@"hours"];
+	[userParameters setObject:@"" forKey:@"description"];
 	
 	if (email.length) {
-		[createParameters setObject:email forKey:@"user[email]"];
+		[userParameters setObject:email forKey:@"email"];
 	}
 	if (username.length) {
-		[createParameters setObject:username forKey:@"user[login]"];
+		[userParameters setObject:username forKey:@"login"];
 	}
 	if (password.length) {
-		[createParameters setObject:password forKey:@"user[password]"];
-		[createParameters setObject:password forKey:@"user[password_confirmation]"];
+		[userParameters setObject:password forKey:@"password"];
+		[userParameters setObject:password forKey:@"password_confirmation"];
 	}
 	if (customerTypeId) {
-		[createParameters setObject:@(customerTypeId) forKey:@"user[customer_type_id]"];
+		[userParameters setObject:@(customerTypeId) forKey:@"customer_type_id"];
 	}
 	if (companyname) {
-		[createParameters setObject:companyname forKey:@"user[company_name]"];
+		[userParameters setObject:companyname forKey:@"company_name"];
 	}
 	if (website.length) {
-		[createParameters setObject:website forKey:@"user[website]"];
+		[userParameters setObject:website forKey:@"website"];
 	}
 	if (phone.length) {
-		[createParameters setObject:phone forKey:@"user[phone]"];
+		[userParameters setObject:phone forKey:@"phone"];
 	}
-	
+    [parameters setValue:userParameters forKey:@"user"];
+    
 	NSArray *dataArray;
 	if (avatar) {
-        dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(avatar, 1.0f) fileName:@"avatar.jpg" mimeType:@"image/jpeg" parameterName:@"user[avatar]"]];
+        dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(avatar, 1.0f) fileName:@"avatar.jpg" mimeType:@"image/jpeg" parameterName:@"avatar"]];
 	}
-	//implement sending image
-	return [self performPOST:@"api/v1/users.json" contentTypeJson:NO withParameters:createParameters multipartData:dataArray response:completion];
+	return [self performPOST:@"api/v1/users.json" withParameters:parameters multipartData:dataArray response:completion];
 }
 
 - (NSURLSessionDataTask *)updateUserWithUsername:(NSString *)username
@@ -103,51 +103,56 @@
 										  avatar:(UIImage *)avatar
 								  withCompletion:(ResponseBlock)completion
 {
-	NSMutableDictionary *updateParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken,
-																							   @"user[customer_type_id]" : @(self.currentUser.customerTypeId)}];
+	NSMutableDictionary *updateParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	
-    if (username.length) {
-        [updateParameters setObject:website forKey:@"user[login]"];
+    NSMutableDictionary *userParameters = [NSMutableDictionary dictionary];
+    [userParameters setValue:@(self.currentUser.customerTypeId) forKey:@"customer_type_id"];
+    if (username) {
+        [userParameters setObject:username forKey:@"login"];
     }
-    if (fullname.length) {
-        [updateParameters setObject:website forKey:@"user[name]"];
+    if (fullname) {
+        [userParameters setObject:fullname forKey:@"name"];
     }
-    if (companyname.length) {
-        [updateParameters setObject:website forKey:@"user[company_name]"];
+    if (companyname) {
+        [userParameters setObject:companyname forKey:@"company_name"];
     }
-    if (password.length) {
-        [updateParameters setObject:website forKey:@"user[password]"];
+    if (password) {
+        [userParameters setObject:password forKey:@"password"];
     }
-    if (website.length) {
-		[updateParameters setObject:website forKey:@"user[website]"];
+    if (website) {
+		[userParameters setObject:website forKey:@"website"];
 	}
-	if (facebook.length) {
-		[updateParameters setObject:facebook forKey:@"user[facebook]"];
+	if (facebook) {
+		[userParameters setObject:facebook forKey:@"facebook"];
 	}
-	if (linkedin.length) {
-		[updateParameters setObject:linkedin forKey:@"user[linkedin]"];
+	if (linkedin) {
+		[userParameters setObject:linkedin forKey:@"linkedin"];
 	}
-	if (phone.length) {
-		[updateParameters setObject:phone forKey:@"user[phone]"];
+	if (phone) {
+		[userParameters setObject:phone forKey:@"phone"];
 	}
-	if (description.length) {
-		[updateParameters setObject:description forKey:@"user[description]"];
+	if (description) {
+		[userParameters setObject:description forKey:@"description"];
 	}
 	if (password.length) {
-		[updateParameters setObject:password forKey:@"user[password]"];
-	} 
-	NSData *imageData;
-	if (avatar) {
-		imageData = UIImageJPEGRepresentation(avatar, 1.0f);
+		[userParameters setObject:password forKey:@"password"];
 	}
-	//implement sending image
+    [userParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"home_latitude"];
+    [userParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"home_longitude"];
+    
+    NSArray *dataArray;
+    if (avatar) {
+        dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(avatar, 1.0f) fileName:@"avatar.jpg" mimeType:@"image/jpeg" parameterName:@"avatar"]];
+    }
+    [updateParameters setValue:userParameters forKey:@"user"];
+    
     NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.json", self.currentUser.userId];
-    return [self performPUT:query withParameters:updateParameters multipartData:nil response:completion];
+    return [self performPUT:query withParameters:updateParameters multipartData:dataArray response:completion];
 }
 
 - (NSURLSessionDataTask *)destroyUserWithCompletion:(ResponseBlock)completion
 {
-	NSDictionary *parameters = @{@"passtoken":self.passtoken};
+	NSDictionary *parameters = @{@"passtoken" : self.passtoken};
 	
 	NSString *query = [NSString stringWithFormat:@"api/v1/users"];
 	return [self performDELETE:query withParameters:parameters response:completion];

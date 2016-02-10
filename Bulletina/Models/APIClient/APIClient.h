@@ -43,9 +43,9 @@
 
 #pragma mark - API
 
-- (NSURLSessionDataTask *)performPOST:(NSString *)path contentTypeJson:(BOOL)isJson withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler;
-- (NSURLSessionDataTask *)performPOST:(NSString *)path contentTypeJson:(BOOL)isJson withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler;
-- (NSURLSessionDataTask *)performPUT:(NSString *)path  withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler;
+- (NSURLSessionDataTask *)performPOST:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler;
+- (NSURLSessionDataTask *)performPOST:(NSString *)path withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler;
+- (NSURLSessionDataTask *)performPUT:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler;
 - (NSURLSessionDataTask *)performPUT:(NSString *)path withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler;
 - (NSURLSessionDataTask *)performGET:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler;
 - (NSURLSessionDataTask *)performDELETE:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler;

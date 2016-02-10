@@ -106,13 +106,13 @@
 - (NSDictionary *)deviceParameters
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? [Defaults valueForKey:SNSEndpointArnKey] : @"" forKey:@"device[endpoint_arn]"];
-    [parameters setObject:self.pushToken ? self.pushToken : @"" forKey:@"device[device_token]"];
-    [parameters setObject:[Device.systemName stringByAppendingFormat:@" %@", Device.systemVersion] forKey:@"device[operating_system]"];
-    [parameters setObject:Device.model forKey:@"device[device_type]"];
-    [parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"device[current_latitude]"];
-    [parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"device[current_longitude]"];
-    return parameters;
+    [parameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? [Defaults valueForKey:SNSEndpointArnKey] : @"" forKey:@"endpoint_arn"];
+    [parameters setObject:self.pushToken ? self.pushToken : @"" forKey:@"device_token"];
+    [parameters setObject:[Device.systemName stringByAppendingFormat:@" %@", Device.systemVersion] forKey:@"operating_system"];
+    [parameters setObject:Device.model forKey:@"device_type"];
+    [parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"current_latitude"];
+    [parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"current_longitude"];
+    return @{@"device" : parameters};
 }
 
 - (id)multipartFileWithContents:(NSData *)contents fileName:(NSString *)fileName mimeType:(NSString *)mimeType parameterName:(NSString *)parameterName
@@ -185,14 +185,14 @@ void(^PerformCompletionRecognition)(NSURLResponse *, id, NSError *, ResponseBloc
     }
 };
 
-- (NSURLSessionDataTask *)performPOST:(NSString *)path contentTypeJson:(BOOL)isJson withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler
+- (NSURLSessionDataTask *)performPOST:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler
 {
-	return [self performPOST:path contentTypeJson:isJson withParameters:parameters multipartData:nil response:completionHandler];
+	return [self performPOST:path withParameters:parameters multipartData:nil response:completionHandler];
 }
 
-- (NSURLSessionDataTask *)performPOST:(NSString *)path contentTypeJson:(BOOL)isJson withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler
+- (NSURLSessionDataTask *)performPOST:(NSString *)path  withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler
 {
-    return [self performRequestWithMethod:@"POST" contentTypeJson:isJson withPath:path withParameters:parameters multipartData:dataArray response:completionHandler];
+    return [self performRequestWithMethod:@"POST" withPath:path withParameters:parameters multipartData:dataArray response:completionHandler];
 }
 
 - (NSURLSessionDataTask *)performPUT:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler
@@ -202,20 +202,20 @@ void(^PerformCompletionRecognition)(NSURLResponse *, id, NSError *, ResponseBloc
 
 - (NSURLSessionDataTask *)performPUT:(NSString *)path withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler
 {
-    return [self performRequestWithMethod:@"PUT" contentTypeJson:YES withPath:path withParameters:parameters multipartData:dataArray response:completionHandler];
+    return [self performRequestWithMethod:@"PUT" withPath:path withParameters:parameters multipartData:dataArray response:completionHandler];
 }
 
 - (NSURLSessionDataTask *)performGET:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler
 {
-    return [self performRequestWithMethod:@"GET" contentTypeJson:NO withPath:path withParameters:parameters multipartData:nil response:completionHandler];
+    return [self performRequestWithMethod:@"GET" withPath:path withParameters:parameters multipartData:nil response:completionHandler];
 }
 
 - (NSURLSessionDataTask *)performDELETE:(NSString *)path withParameters:(NSDictionary *)parameters response:(ResponseBlock)completionHandler
 {
-    return [self performRequestWithMethod:@"DELETE" contentTypeJson:YES  withPath:path withParameters:parameters multipartData:nil response:completionHandler];
+    return [self performRequestWithMethod:@"DELETE" withPath:path withParameters:parameters multipartData:nil response:completionHandler];
 }
 
-- (NSURLSessionDataTask *)performRequestWithMethod:(NSString *)method contentTypeJson:(BOOL)isJson withPath:(NSString *)path withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler
+- (NSURLSessionDataTask *)performRequestWithMethod:(NSString *)method withPath:(NSString *)path withParameters:(NSDictionary *)parameters multipartData:(NSArray *)dataArray response:(ResponseBlock)completionHandler
 {
     if (self.networkStatus <= NetworkStatusNotReachable && completionHandler) {
         completionHandler(nil, NoConnectionError(), NSURLErrorNotConnectedToInternet);
@@ -223,8 +223,7 @@ void(^PerformCompletionRecognition)(NSURLResponse *, id, NSError *, ResponseBloc
     }
     NSError *requestError;
     NSURLRequest *request;
-	AFHTTPRequestSerializer *serializer = isJson ? [AFJSONRequestSerializer serializer] : [AFHTTPRequestSerializer serializer];
-//	[serializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
+	AFHTTPRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
 	
     if (dataArray) {
         request = [serializer multipartFormRequestWithMethod:method URLString:URLWithPath(path) parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
