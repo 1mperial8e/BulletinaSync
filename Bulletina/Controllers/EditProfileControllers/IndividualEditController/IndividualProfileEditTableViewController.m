@@ -44,8 +44,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UITextField *usernameTextfield;
 @property (weak, nonatomic) UITextView *aboutMeTextView;
 @property (weak, nonatomic) UITextField *fullNameTextfield;
-@property (weak, nonatomic) UITextField *passwordTextfield;
-@property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 @property (strong, nonatomic) EditProfileAboutTableViewCell *aboutCell;
@@ -337,14 +335,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[Utils showErrorWithMessage:@"Username is required."];
 	} else if (![Utils isValidName:self.usernameTextfield.text] ) {
 		[Utils showErrorWithMessage:@"Username is not valid."];
-	}	else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
-		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
-	} else if (![Utils isValidPassword:self.passwordTextfield.text] && self.passwordTextfield.text.length) {
-		[Utils showErrorWithMessage:@"Password is not valid."];
 	} else {
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
-		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:@"" companyname:@"" password:self.passwordTextfield.text website:@"" facebook:@"" linkedin:@"" phone:@"" description:self.aboutMeTextView.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:@"" companyname:@"" password:@"" website:@"" facebook:@"" linkedin:@"" phone:@"" description:self.aboutMeTextView.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
 				if (response[@"error_message"]) {
 					[Utils showErrorWithMessage:response[@"error_message"]];
