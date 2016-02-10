@@ -26,9 +26,10 @@
 static CGFloat const LogoCellHeigth = 178;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
+static NSString * const TextViewPlaceholderText = @"About:";
 
-static NSInteger const CellsCount = 11;
-static CGFloat const AdditionalBottomInset = 36;
+static NSInteger const CellsCount = 9;
+//static CGFloat const AdditionalBottomInset = 36;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex,
@@ -39,8 +40,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	FacebookCellIndex,
 	LinkedInCellIndex,
 	AboutCellIndex,
-	PasswordCellIndex,
-	RetypePasswordCellIndex,
 	SaveButtonCellIndex
 };
 
@@ -53,8 +52,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UITextField *facebookTextfield;
 @property (weak, nonatomic) UITextField *linkedInTextfield;
 @property (weak, nonatomic) UITextView *aboutTextView;
-@property (weak, nonatomic) UITextField *passwordTextfield;
-@property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 @property (strong, nonatomic) EditProfileAboutTableViewCell *aboutCell;
@@ -156,7 +153,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		self.companyNameTextfield = cell.inputTextField;
 	} else if (indexPath.item == PhoneCellIndex) {
 		cell.inputTextField.placeholder = @"Phone:";
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.phone;
+		cell.inputTextField.text = [APIClient sharedInstance].currentUser.phone ?:@"";
 		self.phoneTextfield = cell.inputTextField;
 		cell.inputTextField.keyboardType = UIKeyboardTypePhonePad;
 	} else if (indexPath.item == WebsiteCellIndex) {
@@ -171,15 +168,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.inputTextField.placeholder = @"LinkedIn:";
 		cell.inputTextField.text = [APIClient sharedInstance].currentUser.linkedin;
 		self.linkedInTextfield = cell.inputTextField;
-	}  else if (indexPath.item == PasswordCellIndex) {
-		cell.inputTextField.placeholder = @"New password:";
-		cell.inputTextField.secureTextEntry = YES;
-		self.passwordTextfield = cell.inputTextField;
-	} else if (indexPath.item == RetypePasswordCellIndex) {
-		cell.inputTextField.placeholder = @"Retype New password:";
-		cell.inputTextField.secureTextEntry = YES;
-		cell.inputTextField.returnKeyType = UIReturnKeyDone;
-		self.retypePasswordTextfield = cell.inputTextField;
 	}
 	cell.inputTextField.delegate = self;
 	return cell;
@@ -190,15 +178,22 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	self.aboutCell = [self.tableView dequeueReusableCellWithIdentifier:EditProfileAboutTableViewCell.ID forIndexPath:indexPath];
 	self.aboutCell.backgroundColor = [UIColor mainPageBGColor];
-//	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
 	self.aboutTextView = self.aboutCell.aboutTextView;
 	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyNext;
 	self.aboutCell.aboutTextView.delegate = self;
 	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(5, 7, 5, 7)];
-	self.aboutCell.bottomInsetConstraint.constant = AdditionalBottomInset * HeigthCoefficient;
 	self.aboutCell.aboutTextView.layer.borderColor = [UIColor colorWithRed:225 / 255.0f green:225 / 255.0f  blue:225 / 255.0f  alpha:1].CGColor;
+	if (![APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
+		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+	} else if ([APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
+		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
+		self.aboutCell.aboutTextView.textColor = [UIColor blackColor];
+	}
 	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
 	self.aboutCell.aboutTextView.layer.cornerRadius = 5;
+	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyDone;
+
 	return self.aboutCell ;
 }
 
@@ -252,11 +247,23 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 #pragma mark - UITextViewDelegate
 
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+	if ([self.aboutCell.aboutTextView.text isEqualToString:@""])
+	{
+		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+	}
+}
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
 {
 	if ([string isEqualToString:@"\n"]) {
 		[self.inputViewsCollection next];
 		return  NO;
+	} else if ([textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
+		textView.text = @"";
+		textView.textColor = [UIColor blackColor];
 	}
 	return YES;
 }
@@ -269,6 +276,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)textViewDidChange:(UITextView *)textView
 {
+	if ([self.aboutCell.aboutTextView.text isEqualToString:@""])
+	{
+		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+	} else if ([textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
+		textView.text = @"";
+		textView.textColor = [UIColor blackColor];
+	}
 	CGFloat height = ceil([textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
 	if (textView.contentSize.height > height + 1 || textView.contentSize.height < height - 1) {
 		[self.tableView beginUpdates];
@@ -287,9 +302,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (!self.aboutCell) {
 		self.aboutCell = [[NSBundle mainBundle] loadNibNamed:EditProfileAboutTableViewCell.ID owner:nil options:nil].firstObject;
 	}
-	self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
+	if (![APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
+		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+	} else if ([APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
+		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
+		self.aboutCell.aboutTextView.textColor = [UIColor blackColor];
+	}
 	CGFloat height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
-	return height + 5.f + AdditionalBottomInset*HeigthCoefficient;
+	return height + 5.f;
 }
 
 - (void)refreshInputViews
@@ -316,12 +337,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	}
 	if (self.aboutTextView) {
 		[views addObject:self.aboutTextView];
-	}
-	if (self.passwordTextfield) {
-		[views addObject:self.passwordTextfield];
-	}
-	if (self.retypePasswordTextfield) {
-		[views addObject:self.retypePasswordTextfield];
 	}
 	self.inputViewsCollection.textInputViews =  views;
 }
@@ -354,14 +369,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[Utils showErrorWithMessage:@"Company name is required."];
 	} else if (![Utils isValidName:self.companyNameTextfield.text] ) {
 		[Utils showErrorWithMessage:@"Company name is not valid."];
-	}	else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
-		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
-	} else if (![Utils isValidPassword:self.passwordTextfield.text] && self.passwordTextfield.text.length) {
-		[Utils showErrorWithMessage:@"Password is not valid."];
 	} else {
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
-		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:@"" companyname:self.companyNameTextfield.text password:self.passwordTextfield.text website:self.websiteTextfield.text facebook:self.facebookTextfield.text linkedin:self.linkedInTextfield.text phone:self.phoneTextfield.text	description:self.aboutTextView.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:@"" companyname:self.companyNameTextfield.text password:@"" website:self.websiteTextfield.text facebook:self.facebookTextfield.text linkedin:self.linkedInTextfield.text phone:self.phoneTextfield.text	description:self.aboutTextView.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
 				if (response[@"error_message"]) {
 					[Utils showErrorWithMessage:response[@"error_message"]];
