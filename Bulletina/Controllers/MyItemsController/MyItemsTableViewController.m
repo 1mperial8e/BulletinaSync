@@ -27,10 +27,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UIImageView *topBackgroundImageView;
 @property (weak, nonatomic) NSLayoutConstraint *backgroundTopConstraint;
 
-//Temp
-@property (strong, nonatomic) NSString *itemText;
-@property (strong, nonatomic) UIImage *itemImage;
-
 @end
 
 @implementation MyItemsTableViewController
@@ -42,11 +38,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self setupNavigationBar];
 	
 	self.title = @"My Bulletina";
-	
-	//Temp
-	self.itemText = @"Lorem ipsum dolor sit er elit lamet, consectetaur ci l li um adi pis ici ng pe cu, sed do eiu smod tempor.	ipsum dolor sit er elit lamet, consectetaur c i ll iu m adipisicing pecu, sed do eiusmod tempor dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor. sed do eiusmod tempor.";
-	
-	self.itemImage = [UIImage imageNamed:@"ItemExample"];
 }
 
 #pragma mark - Table view data source
@@ -100,31 +91,31 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return cell;
 }
 
-- (ItemTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath
-{
-	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
-	cell.backgroundColor = [UIColor mainPageBGColor];
-	
-	cell.itemImageView.image = self.itemImage;
-	cell.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];
-	[self.view layoutIfNeeded];
-	
-	if (indexPath.item % 2) {
-		[cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
-		cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
-		cell.itemStateButton.hidden = NO;
-	}
-	
-	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-    cell.itemTextView.editable = YES;
-    cell.itemTextView.text = self.itemText;
-    cell.itemTextView.editable = NO;
-	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
-	[cell.itemImageView addGestureRecognizer:imageTapGesture];
-	
-	cell.itemStateButton.layer.cornerRadius = 7;
-	return cell;
-}
+//- (ItemTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath
+//{
+//	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
+//	cell.backgroundColor = [UIColor mainPageBGColor];
+//	
+//	cell.itemImageView.image = self.itemImage;
+//	cell.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];
+//	[self.view layoutIfNeeded];
+//	
+//	if (indexPath.item % 2) {
+//		[cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
+//		cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
+//		cell.itemStateButton.hidden = NO;
+//	}
+//	
+//	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+//    cell.itemTextView.editable = YES;
+//    cell.itemTextView.text = self.itemText;
+//    cell.itemTextView.editable = NO;
+//	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
+//	[cell.itemImageView addGestureRecognizer:imageTapGesture];
+//	
+//	cell.itemStateButton.layer.cornerRadius = 7;
+//	return cell;
+//}
 
 #pragma mark - UITableViewDelegate
 

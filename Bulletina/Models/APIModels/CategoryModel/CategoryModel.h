@@ -12,5 +12,6 @@
 
 @property (strong, nonatomic) NSString *name;
 @property (assign, nonatomic) NSInteger categoryId;
+@property (assign, nonatomic) BOOL hasPrice;
 
 @end

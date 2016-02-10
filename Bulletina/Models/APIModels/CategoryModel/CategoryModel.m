@@ -14,6 +14,7 @@
 {
     _name = dictionary[@"name"];
     _categoryId = [dictionary[@"id"] integerValue];
+	_hasPrice = [dictionary[@"has_price"]boolValue];
 }
 
 @end

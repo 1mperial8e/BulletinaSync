@@ -11,7 +11,8 @@
 #import "SelectNewAdCategoryTableViewController.h"
 #import "FullScreenImageViewController.h"
 
-static CGFloat const ItemTableViewCellHeigth = 148.0f;
+static CGFloat const ItemTableViewCellHeigth = 105.0f;
+static CGFloat const priceContainerHeigth = 43.0f;
 
 @interface ItemsListTableViewController ()
 
@@ -22,6 +23,45 @@ static CGFloat const ItemTableViewCellHeigth = 148.0f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	//Temp
+	self.itemText = @"Lorem ipsum dolor sit er elit lamet, consectetaur ci l li um adi pis ici ng pe cu, sed do eiu smod tempor.	ipsum dolor sit er elit lamet, consectetaur c i ll iu m adipisicing pecu, sed do eiusmod tempor dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor. sed do eiusmod tempor.";
+	
+	self.itemImage = [UIImage imageNamed:@"ItemExample"];
+	self.itemHasPrice = YES;
+}
+
+#pragma mark - Cells
+
+- (ItemTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath
+{
+	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
+	cell.backgroundColor = [UIColor mainPageBGColor];
+	
+	cell.itemImageView.image = self.itemImage;
+	cell.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];
+	[self.view layoutIfNeeded];
+	
+	if (indexPath.item % 2) {
+		[cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
+		cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
+		cell.itemStateButton.hidden = NO;
+	}
+	if (self.itemHasPrice) {
+		cell.priceContainerHeightConstraint.constant = priceContainerHeigth;
+	} else {
+		cell.priceContainerHeightConstraint.constant = 0.0;
+	}
+	
+	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+	cell.itemTextView.editable = YES;
+	cell.itemTextView.text = self.itemText;
+	cell.itemTextView.editable = NO;
+	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
+	[cell.itemImageView addGestureRecognizer:imageTapGesture];
+	
+	cell.itemStateButton.layer.cornerRadius = 7;
+	return cell;
 }
 
 #pragma mark - Actions
@@ -53,7 +93,7 @@ static CGFloat const ItemTableViewCellHeigth = 148.0f;
     cell.itemTextView.editable = NO;
 	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
 	textViewHeigth = ceil([cell.itemTextView sizeThatFits:CGSizeMake(ScreenWidth - 32, MAXFLOAT)].height);
-	return ItemTableViewCellHeigth + [self heighOfImageViewForImage:image] + textViewHeigth;
+	return ItemTableViewCellHeigth + [self priceContainerHeight] + [self heighOfImageViewForImage:image] + textViewHeigth;
 }
 
 - (CGFloat)heighOfImageViewForImage:(UIImage *)image
@@ -64,6 +104,13 @@ static CGFloat const ItemTableViewCellHeigth = 148.0f;
 		imageViewHeigth = (ScreenWidth - 32) * ratio;
 	}
 	return imageViewHeigth;
+}
+
+- (CGFloat)priceContainerHeight
+{
+	if (self.itemHasPrice) {
+		return priceContainerHeigth;
+	} return 0.0;
 }
 
 #pragma mark - Setup

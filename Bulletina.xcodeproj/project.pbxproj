@@ -509,20 +509,11 @@
 		307DD90F1C44F65400F59857 /* MainPageController */ = {
 			isa = PBXGroup;
 			children = (
-				307DD9151C44F75E00F59857 /* MainPageCells */,
 				307DD9101C44F68A00F59857 /* MainPageController.h */,
 				307DD9111C44F68A00F59857 /* MainPageController.m */,
 				307DD9121C44F68A00F59857 /* MainPageController.xib */,
 			);
 			path = MainPageController;
-			sourceTree = "<group>";
-		};
-		307DD9151C44F75E00F59857 /* MainPageCells */ = {
-			isa = PBXGroup;
-			children = (
-				307DD91B1C44F93200F59857 /* ItemCell */,
-			);
-			path = MainPageCells;
 			sourceTree = "<group>";
 		};
 		307DD91B1C44F93200F59857 /* ItemCell */ = {
@@ -533,7 +524,8 @@
 				307DD91D1C44F93200F59857 /* ItemTableViewCell.m */,
 				307DD91E1C44F93200F59857 /* ItemTableViewCell.xib */,
 			);
-			path = ItemCell;
+			name = ItemCell;
+			path = ../MainPageController/MainPageCells/ItemCell;
 			sourceTree = "<group>";
 		};
 		307E2ED11C4A59170007A7CC /* NewImageCell */ = {
@@ -591,6 +583,7 @@
 		30823DC81C50D4A000609A0D /* ItemsListController */ = {
 			isa = PBXGroup;
 			children = (
+				307DD91B1C44F93200F59857 /* ItemCell */,
 				30823DC91C50D4C800609A0D /* ItemsListTableViewController.h */,
 				30823DCA1C50D4C800609A0D /* ItemsListTableViewController.m */,
 				30823DCB1C50D4C800609A0D /* ItemsListTableViewController.xib */,
