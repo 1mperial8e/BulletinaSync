@@ -13,10 +13,6 @@
 
 @property (strong, nonatomic) UISearchController *searchController;
 
-//Temp
-@property (strong, nonatomic) NSString *itemText;
-@property (strong, nonatomic) UIImage *itemImage;
-
 @end
 
 @implementation MainPageController
@@ -26,12 +22,7 @@
     [super viewDidLoad];	
 	[self tableViewSetup];
 	[self setupNavigationBar];
-	[self addSearchBar];
-	
-	//Temp
-	self.itemText = @"Lorem ipsum dolor sit er elit lamet, consectetaur ci l li um adi pis ici ng pe cu, sed do eiu smod tempor.	ipsum dolor sit er elit lamet, consectetaur c i ll iu m adipisicing pecu, sed do eiusmod tempor dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor. sed do eiusmod tempor.";
-	
-	self.itemImage = [UIImage imageNamed:@"ItemExample"];
+	[self addSearchBar];	
 }
 
 #pragma mark - Table view data source
@@ -43,25 +34,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
-	cell.backgroundColor = [UIColor mainPageBGColor];
-	cell.itemImageView.image = self.itemImage;
-	cell.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];
-	[self.view layoutIfNeeded];
-	if (indexPath.item % 2) {
-        [cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
-        cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
-        cell.itemStateButton.hidden = NO;
-	}
-	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-    cell.itemTextView.editable = YES;
-	cell.itemTextView.text = self.itemText;
-    cell.itemTextView.editable = NO;
-	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
-	[cell.itemImageView addGestureRecognizer:imageTapGesture];
-	
-	cell.itemStateButton.layer.cornerRadius = 7;
-	return cell;
+	return [self defaultCellForIndexPath:indexPath];
 }
 
 #pragma mark - Table view delegate

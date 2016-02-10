@@ -11,7 +11,10 @@
 
 @interface ItemsListTableViewController : UITableViewController
 
-//@property (assign, nonatomic) UserAccountType profileType;
+//Temp
+@property (strong, nonatomic) NSString *itemText;
+@property (strong, nonatomic) UIImage *itemImage;
+@property (assign, nonatomic) BOOL itemHasPrice;
 
 - (CGFloat)itemCellHeightForText:(NSString *)text andImage:(UIImage *)image;
 - (CGFloat)heighOfImageViewForImage:(UIImage *)image;
@@ -20,5 +23,7 @@
 - (void)setupNavigationBar;
 
 - (void)itemImageTap:(UITapGestureRecognizer *)sender;
+- (ItemTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath;
+
 
 @end

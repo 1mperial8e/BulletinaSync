@@ -15,5 +15,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *itemImageView;
 @property (weak, nonatomic) IBOutlet UITextView *itemTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *itemViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *priceTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceValueLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *priceContainerHeightConstraint;
 
 @end
