@@ -23,11 +23,6 @@
 //Models
 #import "APIClient+User.h"
 
-static CGFloat const AvatarCellHeigth = 218;
-static CGFloat const InputCellHeigth = 48;
-static CGFloat const ButtonCellHeigth = 52;
-static NSString *const TextViewPlaceholderText = @"About:";
-
 static NSInteger const CellsCount = 6;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
@@ -93,7 +88,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == UsernameCellIndex) {
-		cell.inputTextField.placeholder = @"Username:";
+		cell.inputTextField.placeholder = @"Nickname:";
 		cell.inputTextField.text = [APIClient sharedInstance].currentUser.login;
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
@@ -138,9 +133,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)saveButtonTap:(id)sender
 {
 	if (!self.usernameTextfield.text.length) {
-		[Utils showErrorWithMessage:@"Username is required."];
+		[Utils showErrorWithMessage:@"Nickname is required."];
 	} else if (![Utils isValidName:self.usernameTextfield.text] ) {
-		[Utils showErrorWithMessage:@"Username is not valid."];
+		[Utils showErrorWithMessage:@"Nickname is not valid."];
 	} else {
         [self.tableView resignFirstResponder];
 		[self.loader show];

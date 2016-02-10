@@ -64,7 +64,7 @@
 		[userParameters setObject:email forKey:@"email"];
 	}
 	if (username.length) {
-		[userParameters setObject:username forKey:@"login"];
+		[userParameters setObject:username forKey:@"nickname"];
 	}
 	if (password.length) {
 		[userParameters setObject:password forKey:@"password"];
@@ -106,9 +106,10 @@
 	NSMutableDictionary *updateParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	
     NSMutableDictionary *userParameters = [NSMutableDictionary dictionary];
-    [userParameters setValue:@(self.currentUser.customerTypeId) forKey:@"customer_type_id"];
+    UserAccountType customerId = self.currentUser.customerTypeId == AnonymousAccount ? IndividualAccount : self.currentUser.customerTypeId;
+    [userParameters setValue:@(customerId) forKey:@"customer_type_id"];
     if (username) {
-        [userParameters setObject:username forKey:@"login"];
+        [userParameters setObject:username forKey:@"nickname"];
     }
     if (fullname) {
         [userParameters setObject:fullname forKey:@"name"];

@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.inputTextField.keyboardType = UIKeyboardTypeEmailAddress;
 		self.emailTextfield = cell.inputTextField;
 	} else if (indexPath.item == UsernameCellIndex) {
-		cell.inputTextField.placeholder = @"Username:";
+		cell.inputTextField.placeholder = @"Nickname:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
 	} else if (indexPath.item == FullNameCellIndex) {
@@ -141,14 +141,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)saveButtonTap:(id)sender
 {
 	if (!self.usernameTextfield.text.length) {
-		[Utils showErrorWithMessage:@"Username is required."];
+		[Utils showErrorWithMessage:@"Nickname is required."];
 	} else if (![Utils isValidName:self.usernameTextfield.text] ) {
-		[Utils showErrorWithMessage:@"Username is not valid."];
+		[Utils showErrorWithMessage:@"Nickname is not valid."];
 	}	else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
 		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	} else if (![Utils isValidPassword:self.passwordTextfield.text] && self.passwordTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Password is not valid."];
 	} else {
+        [self.tableView endEditing:YES];
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
 		NSString *aboutText = [self.aboutCell.aboutTextView.text isEqualToString:TextViewPlaceholderText] ? @"" : self.aboutCell.aboutTextView.text;

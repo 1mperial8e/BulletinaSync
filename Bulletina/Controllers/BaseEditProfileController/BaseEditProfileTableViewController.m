@@ -7,6 +7,7 @@
 //
 
 #import "BaseEditProfileTableViewController.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface BaseEditProfileTableViewController ()
 
@@ -22,11 +23,6 @@
 	[self tableViewSetup];
 	[self setupDefaults];
 	[self setupUI];
-	
-	if ([APIClient sharedInstance].currentUser.avatarUrl.length) {
-		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatarUrl]];
-		self.logoImage = [UIImage imageWithData:imageData];
-	}
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -39,7 +35,7 @@
 
 - (void)setupUI
 {
-	self.title = @"Edit profile";
+	self.navigationItem.title = @"Edit profile";
 	self.view.backgroundColor = [UIColor mainPageBGColor];
 }
 
@@ -76,9 +72,14 @@
 	cell.avatarImageView.layer.borderColor = [UIColor grayColor].CGColor;
 	cell.avatarImageView.layer.borderWidth = 5.0f;
 	cell.avatarImageView.layer.cornerRadius = CGRectGetHeight(cell.avatarImageView.frame) / 2;
-	if (self.logoImage) {
-		cell.avatarImageView.image = self.logoImage;
-	}
+	if (!self.logoImage) {
+        if ([APIClient sharedInstance].currentUser.avatarUrl) {
+            [cell.avatarImageView setImageWithURL:[APIClient sharedInstance].currentUser.avatarUrl];
+        }
+    } else {
+        cell.avatarImageView.image = self.logoImage;
+    }
+    
 	[cell.selectImageButton addTarget:self action:@selector(selectImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	return cell;
 }
@@ -87,9 +88,13 @@
 {
 	BusinessLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessLogoTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
-	if (self.logoImage) {
-		cell.logoImageView.image = self.logoImage;
-	}
+    if (!self.logoImage) {
+        if ([APIClient sharedInstance].currentUser.avatarUrl) {
+            [cell.logoImageView setImageWithURL:[APIClient sharedInstance].currentUser.avatarUrl];
+        }
+    } else {
+        cell.logoImageView.image = self.logoImage;
+    }
 	cell.logoImageView.layer.borderColor = [UIColor grayColor].CGColor;
 	cell.logoImageView.layer.borderWidth = 2.0f;
 	cell.logoImageView.layer.cornerRadius = 10;
@@ -118,7 +123,7 @@
 		self.aboutCell.aboutTextView.textColor = [UIColor blackColor];
 	}
 	if ([APIClient sharedInstance].currentUser.customerTypeId != AnonymousAccount) {
-			self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyDone;
+        self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyDone;
 	}
 	return self.aboutCell ;
 }
@@ -196,8 +201,7 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-	if ([self.aboutCell.aboutTextView.text isEqualToString:@""])
-	{
+	if ([self.aboutCell.aboutTextView.text isEqualToString:@""]) {
 		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
 		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
 	}
@@ -225,8 +229,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-	if ([self.aboutCell.aboutTextView.text isEqualToString:@""])
-	{
+	if ([self.aboutCell.aboutTextView.text isEqualToString:@""]) {
 		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
 		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
 		self.aboutCell.aboutTextView.selectedRange = NSMakeRange(0, 0);

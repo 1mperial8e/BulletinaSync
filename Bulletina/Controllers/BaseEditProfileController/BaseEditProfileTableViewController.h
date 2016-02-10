@@ -27,13 +27,13 @@ static CGFloat const AvatarCellHeigth = 218;
 static CGFloat const LogoCellHeigth = 178;
 static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
-static NSString * const TextViewPlaceholderText = @"About:";
+static NSString *const TextViewPlaceholderText = @"About:";
 
 @interface BaseEditProfileTableViewController : UITableViewController <UITextFieldDelegate, UITextViewDelegate, ImageActionSheetControllerDelegate>
 
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 @property (strong, nonatomic) EditProfileAboutTableViewCell *aboutCell;
-@property (strong,nonatomic) UIImage *logoImage;
+@property (strong, nonatomic) UIImage *logoImage;
 @property (strong, nonatomic) BulletinaLoaderView *loader;
 
 #pragma mark - Setup
@@ -71,11 +71,5 @@ static NSString * const TextViewPlaceholderText = @"About:";
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string;
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView;
 - (void)textViewDidChange:(UITextView *)textView;
-
-
-
-
-
-
 
 @end

@@ -29,7 +29,7 @@
 	self.userId = [userWithInfo[@"id"] integerValue];
 	
 	self.email = userWithInfo[@"email"];
-	self.login = userWithInfo[@"login"];
+	self.login = userWithInfo[@"nickname"];
 	
 	self.companyName = userWithInfo[@"company_name"];
 	self.name = userWithInfo[@"name"];

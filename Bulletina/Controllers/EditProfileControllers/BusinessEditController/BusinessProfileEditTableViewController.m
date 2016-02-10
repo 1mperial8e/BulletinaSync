@@ -160,9 +160,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	if (!self.companyNameTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Company name is required."];
-	} else if (![Utils isValidName:self.companyNameTextfield.text] ) {
-		[Utils showErrorWithMessage:@"Company name is not valid."];
 	} else {
+        [self.tableView endEditing:YES];
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
 		NSString *aboutText = [self.aboutCell.aboutTextView.text isEqualToString:TextViewPlaceholderText] ? @"" : self.aboutCell.aboutTextView.text;

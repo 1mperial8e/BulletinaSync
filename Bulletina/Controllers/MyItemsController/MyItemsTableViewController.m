@@ -80,10 +80,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[cell.companyDescriptionTextView setEditable:YES];
 		cell.companyDescriptionTextView.text = [APIClient sharedInstance].currentUser.about;
 		[cell.companyDescriptionTextView setEditable:NO];
-		if ([APIClient sharedInstance].currentUser.avatarUrl.length) {
-			NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatarUrl]];
-			cell.logoImageView.image = [UIImage imageWithData:imageData];
-		}
 		return cell;
 	}
 	IndividualProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:IndividualProfileLogoTableViewCell.ID forIndexPath:indexPath];
@@ -100,10 +96,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (!cell.aboutMeTextView.text.length) {
 		cell.bottomTextViewConstraint.constant = 0;
 		[cell layoutIfNeeded];
-	}
-	if ([APIClient sharedInstance].currentUser.avatarUrl.length) {
-		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[APIClient sharedInstance].currentUser.avatarUrl]];
-		cell.logoImageView.image = [UIImage imageWithData:imageData];
 	}
 	return cell;
 }

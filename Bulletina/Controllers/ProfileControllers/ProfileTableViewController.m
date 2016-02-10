@@ -27,6 +27,8 @@
 #import "APIClient+Session.h"
 #import "APIClient+User.h"
 
+#import "UIImageView+AFNetworking.h"
+
 static CGFloat const PersonalLogoCellHeigth = 220;
 static CGFloat const BusinessLogoCellHeigth = 252;
 static CGFloat const DefaultCellHeigth = 44;
@@ -48,6 +50,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @property (weak, nonatomic) UIImageView *topBackgroundImageView;
 @property (weak, nonatomic) NSLayoutConstraint *backgroundTopConstraint;
+@property (weak, nonatomic) NSLayoutConstraint *backgroundHeightConstraint;
+
 @property (strong, nonatomic) BulletinaLoaderView *loader;
 
 @end
@@ -59,12 +63,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.user = [APIClient sharedInstance].currentUser;
-	[self reloadUser];
-	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
+
+    self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 	[self tableViewSetup];
 	[self setupNavBar];
-	
+    [self reloadUser];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.user = [APIClient sharedInstance].currentUser;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -106,9 +116,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [cell.companyDescriptionTextView setEditable:YES];
     cell.companyDescriptionTextView.text = self.user.about;
     [cell.companyDescriptionTextView setEditable:NO];
-    if (self.user.avatarUrl.length) {
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.user.avatarUrl]];
-        cell.logoImageView.image = [UIImage imageWithData:imageData];
+    if (self.user.avatarUrl) {
+        [cell.logoImageView setImageWithURL:self.user.avatarUrl];;
     }
     return cell;
 }
@@ -129,9 +138,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
         [cell.aboutMeTextView setEditable:YES];
         cell.aboutMeTextView.text = self.user.about;
         [cell.aboutMeTextView setEditable:NO];
-        if (self.user.avatarUrl.length) {
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.user.avatarUrl]];
-            cell.logoImageView.image = [UIImage imageWithData:imageData];
+        if (self.user.avatarUrl) {
+            [cell.logoImageView setImageWithURL:self.user.avatarUrl];;
         }
     }
     return cell;
@@ -174,7 +182,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	CGFloat height = DefaultCellHeigth * HeigthCoefficient;
 	if (indexPath.row == LogoCellIndex) {
-		return [self heightForTopCell];
+        height = [self heightForTopCell];
+        self.backgroundHeightConstraint.constant = height;
 	}
 	return height;
 }
@@ -336,7 +345,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.backgroundTopConstraint = [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeTop multiplier:1.0f constant:64];
 	[backgroundView addConstraint:self.backgroundTopConstraint];
 	
-	[backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:[self heightForTopCell]]];
+    self.backgroundHeightConstraint = [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:[self heightForTopCell]];
+	[backgroundImageView addConstraint:self.backgroundHeightConstraint];
 	 
 	[backgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
 	self.topBackgroundImageView = backgroundImageView;
