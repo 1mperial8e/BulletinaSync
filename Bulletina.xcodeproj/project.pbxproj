@@ -67,6 +67,7 @@
 		3099D47D1C4CFDFE0080C05B /* ImageActionSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3099D47A1C4CFDFE0080C05B /* ImageActionSheetController.m */; };
 		3099D48C1C4D4F080080C05B /* FullScreenImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3099D48A1C4D4F080080C05B /* FullScreenImageViewController.m */; };
 		3099D48D1C4D4F080080C05B /* FullScreenImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3099D48B1C4D4F080080C05B /* FullScreenImageViewController.xib */; };
+		309A5C901C6B9A26009BA96D /* ItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 309A5C8F1C6B9A26009BA96D /* ItemModel.m */; };
 		309F12B61C6B430400C4D1A3 /* BaseEditProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309F12B41C6B430400C4D1A3 /* BaseEditProfileTableViewController.m */; };
 		309F12B71C6B430400C4D1A3 /* BaseEditProfileTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309F12B51C6B430400C4D1A3 /* BaseEditProfileTableViewController.xib */; };
 		30A074D41C4F809000BCE672 /* AddImageButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A074D21C4F809000BCE672 /* AddImageButtonTableViewCell.m */; };
@@ -256,6 +257,8 @@
 		3099D4891C4D4F080080C05B /* FullScreenImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullScreenImageViewController.h; sourceTree = "<group>"; };
 		3099D48A1C4D4F080080C05B /* FullScreenImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullScreenImageViewController.m; sourceTree = "<group>"; };
 		3099D48B1C4D4F080080C05B /* FullScreenImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullScreenImageViewController.xib; sourceTree = "<group>"; };
+		309A5C8E1C6B9A26009BA96D /* ItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemModel.h; sourceTree = "<group>"; };
+		309A5C8F1C6B9A26009BA96D /* ItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemModel.m; sourceTree = "<group>"; };
 		309F12B31C6B430400C4D1A3 /* BaseEditProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEditProfileTableViewController.h; sourceTree = "<group>"; };
 		309F12B41C6B430400C4D1A3 /* BaseEditProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseEditProfileTableViewController.m; sourceTree = "<group>"; };
 		309F12B51C6B430400C4D1A3 /* BaseEditProfileTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseEditProfileTableViewController.xib; sourceTree = "<group>"; };
@@ -846,6 +849,15 @@
 			path = FullScreenImageController;
 			sourceTree = "<group>";
 		};
+		309A5C8D1C6B99FB009BA96D /* ItemModel */ = {
+			isa = PBXGroup;
+			children = (
+				309A5C8E1C6B9A26009BA96D /* ItemModel.h */,
+				309A5C8F1C6B9A26009BA96D /* ItemModel.m */,
+			);
+			path = ItemModel;
+			sourceTree = "<group>";
+		};
 		309F12B21C6B42CC00C4D1A3 /* BaseEditProfileController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1236,6 +1248,7 @@
 		4F8607BC1C5769EF00EAAC9B /* APIModels */ = {
 			isa = PBXGroup;
 			children = (
+				309A5C8D1C6B99FB009BA96D /* ItemModel */,
 				4FB667311C6B6A57005F758C /* CategoryModel */,
 				30C1659F1C5E0F6000005525 /* UserModel */,
 				4F8607BD1C5769EF00EAAC9B /* BaseModel */,
@@ -1574,6 +1587,7 @@
 				4FA19C221C46829000140343 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				4FA19C271C46829000140343 /* UIRefreshControl+AFNetworking.m in Sources */,
 				30A074E71C4F988000BCE672 /* SuccessPasswordTableViewCell.m in Sources */,
+				309A5C901C6B9A26009BA96D /* ItemModel.m in Sources */,
 				3082B9A91C48F00A00C4925D /* EditProfileAboutTableViewCell.m in Sources */,
 				4F49DDC61C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.m in Sources */,
 				3082EE241C4E5852004DAB08 /* CategoryHeaderView.m in Sources */,
