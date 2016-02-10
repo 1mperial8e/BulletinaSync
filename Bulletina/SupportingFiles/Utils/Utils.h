@@ -35,4 +35,8 @@
 
 + (UIViewController *)topViewController;
 
+#pragma mark - Image
+
++ (UIImage *)scaledImage:(UIImage *)srcImage;
+
 @end

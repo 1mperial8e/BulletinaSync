@@ -179,7 +179,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 				[[APIClient sharedInstance] updateCurrentUser:generatedUser];
 				[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
 				dispatch_async(dispatch_get_main_queue(), ^{
-					[self.navigationController popViewControllerAnimated:YES];
+					[weakSelf.navigationController popViewControllerAnimated:YES];
 				});
 			}
 			[weakSelf.loader hide];

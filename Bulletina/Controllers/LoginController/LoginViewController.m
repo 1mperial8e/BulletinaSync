@@ -167,7 +167,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (TextFieldTableViewCell *)textFieldCellForIndexPath:(NSIndexPath *)indexPath
 {
 	TextFieldTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:TextFieldTableViewCell.ID forIndexPath:indexPath];
-	cell.textField.placeholder = @"Nickname / email:";
+	cell.textField.placeholder = @"Email:";
 	
 	if (indexPath.row == PasswordTextfieldIndex) {
 		cell.textField.placeholder = @"Password:";
@@ -244,7 +244,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)loginButtonTap:(id)sender
 {
 	if (!self.usernameTextfield.text.length) {
-		[Utils showErrorWithMessage:@"Nickname / email is required."];
+		[Utils showErrorWithMessage:@"Email is required."];
 	} else if (!self.passwordTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Password is required."];
 	} else {
