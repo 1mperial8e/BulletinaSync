@@ -8,13 +8,14 @@
 
 #import "ProfileTableViewController.h"
 #import "ItemTableViewCell.h"
+#import "ItemModel.h"
+
 
 @interface ItemsListTableViewController : UITableViewController
 
 //Temp
-@property (strong, nonatomic) NSString *itemText;
+@property (strong, nonatomic) ItemModel *cellItem;
 @property (strong, nonatomic) UIImage *itemImage;
-@property (assign, nonatomic) BOOL itemHasPrice;
 
 - (CGFloat)itemCellHeightForText:(NSString *)text andImage:(UIImage *)image;
 - (CGFloat)heighOfImageViewForImage:(UIImage *)image;

@@ -10,4 +10,36 @@
 
 @implementation ItemModel
 
+- (instancetype)init
+{
+	self = [super init];
+	if (self) {
+		_category = [CategoryModel new];
+	}
+	return self;
+}
+
+- (void)parseDictionary:(NSDictionary *)dictionary
+{
+	self.active = [dictionary[@"active"] boolValue];
+	self.adTypeId = [dictionary[@"ad_type_id"] integerValue];
+	self.banned =  [dictionary[@"banned"] boolValue];
+	self.city = dictionary[@"city"];
+	self.countryId = [dictionary[@"country_id"] integerValue];
+	self.createdAt = dictionary[@"created_at"];
+	self.deleted = [dictionary[@"deleted"] boolValue];
+	self.text = dictionary[@"description"];
+	self.hashtags = dictionary[@"hashtags"];
+	self.itemId = [dictionary[@"id"] integerValue];
+	self.ignoreReports = [dictionary[@"ignore_reports"] boolValue];
+	self.imageThumbUrl = dictionary[@"image_thumb_url"];
+	self.imagesUrl = dictionary[@"images_url"];
+	self.latitude = dictionary[@"latitude"];
+	self.longitude = dictionary[@"longitude"];
+	self.name = dictionary[@"name"];
+	self.price = dictionary[@"price"];
+	self.updatedAt = dictionary[@"updated_at"];
+	self.userId = [dictionary[@"user_id"] integerValue];
+}
+
 @end

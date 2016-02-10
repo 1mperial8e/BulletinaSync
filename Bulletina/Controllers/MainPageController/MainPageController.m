@@ -41,7 +41,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return [self itemCellHeightForText:self.itemText andImage:self.itemImage];
+	return [self itemCellHeightForText:self.cellItem.text andImage:self.itemImage];
 }
 
 #pragma mark - Setup

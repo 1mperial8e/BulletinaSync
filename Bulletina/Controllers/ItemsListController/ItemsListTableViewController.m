@@ -25,10 +25,11 @@ static CGFloat const priceContainerHeigth = 43.0f;
     [super viewDidLoad];
 	
 	//Temp
-	self.itemText = @"Lorem ipsum dolor sit er elit lamet, consectetaur ci l li um adi pis ici ng pe cu, sed do eiu smod tempor.	ipsum dolor sit er elit lamet, consectetaur c i ll iu m adipisicing pecu, sed do eiusmod tempor dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor. sed do eiusmod tempor.";
+	self.cellItem = [ItemModel new];	
+	self.cellItem.text = @"Lorem ipsum dolor sit er elit lamet, consectetaur ci l li um adi pis ici ng pe cu, sed do eiu smod tempor.	ipsum dolor sit er elit lamet, consectetaur c i ll iu m adipisicing pecu, sed do eiusmod tempor dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor. sed do eiusmod tempor.";
+	self.cellItem.category.hasPrice = YES;
 	
-	self.itemImage = [UIImage imageNamed:@"ItemExample"];
-	self.itemHasPrice = YES;
+	self.itemImage = [UIImage imageNamed:@"ItemExample"];	
 }
 
 #pragma mark - Cells
@@ -47,7 +48,7 @@ static CGFloat const priceContainerHeigth = 43.0f;
 		cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
 		cell.itemStateButton.hidden = NO;
 	}
-	if (self.itemHasPrice) {
+	if (self.cellItem.category.hasPrice) {
 		cell.priceContainerHeightConstraint.constant = priceContainerHeigth;
 	} else {
 		cell.priceContainerHeightConstraint.constant = 0.0;
@@ -55,7 +56,7 @@ static CGFloat const priceContainerHeigth = 43.0f;
 	
 	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
 	cell.itemTextView.editable = YES;
-	cell.itemTextView.text = self.itemText;
+	cell.itemTextView.text = self.cellItem.text;
 	cell.itemTextView.editable = NO;
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
 	[cell.itemImageView addGestureRecognizer:imageTapGesture];
@@ -108,7 +109,7 @@ static CGFloat const priceContainerHeigth = 43.0f;
 
 - (CGFloat)priceContainerHeight
 {
-	if (self.itemHasPrice) {
+	if (self.cellItem.category.hasPrice) {
 		return priceContainerHeigth;
 	} return 0.0;
 }
