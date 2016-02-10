@@ -167,7 +167,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyNext;
 	self.aboutCell.aboutTextView.delegate = self;
 	self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
-	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(5, 7, 5, 7)];
+	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(10, 5, 10, 5)];
 	self.aboutCell.aboutTextView.layer.borderColor = [UIColor colorWithRed:225 / 255.0f green:225 / 255.0f  blue:225 / 255.0f  alpha:1].CGColor;
 	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
 	self.aboutCell.aboutTextView.layer.cornerRadius = 5;
@@ -232,7 +232,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if ([self.aboutCell.aboutTextView.text isEqualToString:@""])
 	{
 		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
-		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
 	}
 }
 
@@ -259,7 +259,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if ([self.aboutCell.aboutTextView.text isEqualToString:@""])
 	{
 		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
-		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
 	} else if ([textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
 		textView.text = @"";
 		textView.textColor = [UIColor blackColor];
@@ -282,8 +282,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (!self.aboutCell) {
 		self.aboutCell = [[NSBundle mainBundle] loadNibNamed:EditProfileAboutTableViewCell.ID owner:nil options:nil].firstObject;
 	}
+	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(10, 5, 10, 5)];
 	CGFloat height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
-	return height + 10.f;
+	return height + 5.f;
 }
 
 - (void)refreshInputViews
