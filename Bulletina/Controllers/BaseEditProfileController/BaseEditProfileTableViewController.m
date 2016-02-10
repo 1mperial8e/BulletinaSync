@@ -117,7 +117,9 @@
 		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
 		self.aboutCell.aboutTextView.textColor = [UIColor blackColor];
 	}
-	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyDone;
+	if ([APIClient sharedInstance].currentUser.customerTypeId != AnonymousAccount) {
+			self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyDone;
+	}
 	return self.aboutCell ;
 }
 

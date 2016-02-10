@@ -125,7 +125,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else {
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
-		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:self.fullNameTextfield.text companyname:@"" password:@"" website:@"" facebook:@"" linkedin:@"" phone:@"" description:self.aboutCell.aboutTextView.text avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		NSString *aboutText = [self.aboutCell.aboutTextView.text isEqualToString:TextViewPlaceholderText] ? @"" : self.aboutCell.aboutTextView.text;
+		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text fullname:self.fullNameTextfield.text companyname:@"" password:@"" website:@"" facebook:@"" linkedin:@"" phone:@"" description:aboutText avatar:self.logoImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
 				if (response[@"error_message"]) {
 					[Utils showErrorWithMessage:response[@"error_message"]];
