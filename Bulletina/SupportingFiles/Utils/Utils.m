@@ -111,6 +111,9 @@
     if ([value isKindOfClass:[NSDictionary class]]) {
         value = ((NSDictionary *)value).nonnullDictionary;
     }
+    if ([value isKindOfClass:[NSArray class]]) {
+        value = [NSDictionary arrayByRemovingNulls:value];
+    }
     [[NSUserDefaults standardUserDefaults] setValue:value forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

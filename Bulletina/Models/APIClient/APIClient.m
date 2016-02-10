@@ -95,12 +95,6 @@
     }
 }
 
-//temporary
-+ (NSArray *)tempCategoriesList
-{
-	return  @[@"For sale", @"For rent", @"Give away", @"Job request", @"Services", @"Annoucement", @"Lost & found", @"Other"];
-}
-
 #pragma mark - Parameters
 
 - (NSDictionary *)deviceParameters

@@ -28,9 +28,6 @@
 - (void)updatePasstoken:(NSString *)newPasstoken;
 - (void)updatePasstokenWithDictionary:(NSDictionary *)newDictionary;
 
-//temporary
-+ (NSArray *)tempCategoriesList;
-
 #pragma mark - Parameters
 
 - (NSDictionary *)deviceParameters;

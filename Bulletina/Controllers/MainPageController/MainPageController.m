@@ -145,9 +145,13 @@
 
 - (void)addNewButtonAction:(id)sender
 {
-	SelectNewAdCategoryTableViewController *selectCategoryTableViewController = [SelectNewAdCategoryTableViewController new];
-	UINavigationController *selectCategoryNavigationController = [[UINavigationController alloc] initWithRootViewController:selectCategoryTableViewController];
-	[self.navigationController presentViewController:selectCategoryNavigationController animated:YES completion:nil];
+    if ([APIClient sharedInstance].currentUser.customerTypeId == AnonymousAccount) {
+        [Utils showWarningWithMessage:@"Only registered users can post new items. Please update your account."];
+    } else {
+        SelectNewAdCategoryTableViewController *selectCategoryTableViewController = [SelectNewAdCategoryTableViewController new];
+        UINavigationController *selectCategoryNavigationController = [[UINavigationController alloc] initWithRootViewController:selectCategoryTableViewController];
+        [self.navigationController presentViewController:selectCategoryNavigationController animated:YES completion:nil];
+    }
 }
 
 - (void)profileButtonAction:(id)sender

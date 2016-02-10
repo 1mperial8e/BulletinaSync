@@ -6,13 +6,17 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-//Controllers
+// Controllers
 #import "SelectNewAdCategoryTableViewController.h"
 #import "AddNewItemTableViewController.h"
 #import "APIClient.h"
 
-//View
+// View
 #import "CategoryHeaderView.h"
+
+// Models
+#import "APIClient+Item.h"
+#import "CategoryModel.h"
 
 @interface SelectNewAdCategoryTableViewController ()
 
@@ -27,11 +31,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.categoriesArray = [CategoryModel arrayWithDictionariesArray:[Defaults objectForKey:CategoriesListKey]];
+    
+    [self loadCategories];
 	[self setupUI];
 	[self setupNavBar];
 	[self setupTableView];
-	
-	self.categoriesArray = [APIClient tempCategoriesList];
 }
 
 #pragma mark - Setup
@@ -46,8 +51,7 @@
 {
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
 	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
-	[self.navigationController.navigationBar
-	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
+	[self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelNavBarAction:)];
 }
 
@@ -56,6 +60,19 @@
 	self.tableView.tableHeaderView = [[CategoryHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 39)];
 	self.tableView.tableHeaderView.backgroundColor = [UIColor mainPageBGColor];
 	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+- (void)loadCategories
+{
+    __weak typeof(self) weakSelf = self;
+    [[APIClient sharedInstance] categoriesListWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+        if (!error) {
+            NSParameterAssert([response isKindOfClass:[NSArray class]]);
+            weakSelf.categoriesArray = [CategoryModel arrayWithDictionariesArray:response];
+            [weakSelf.tableView reloadData];
+            [Utils storeValue:response forKey:CategoriesListKey];
+        }
+    }];
 }
 
 #pragma mark - Table view data source
@@ -71,7 +88,7 @@
 	if (cell == nil) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
 	}
-	cell.textLabel.text = self.categoriesArray[indexPath.item];
+	cell.textLabel.text = ((CategoryModel *)self.categoriesArray[indexPath.item]).name;
 	cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
 	cell.textLabel.font = [UIFont systemFontOfSize:17];
 	cell.selectionStyle =  UITableViewCellSelectionStyleNone;

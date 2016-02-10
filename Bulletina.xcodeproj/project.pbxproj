@@ -143,6 +143,7 @@
 		4FA19C271C46829000140343 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C1D1C46829000140343 /* UIRefreshControl+AFNetworking.m */; };
 		4FA19C281C46829000140343 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C1F1C46829000140343 /* UIWebView+AFNetworking.m */; };
 		4FA19C2C1C46831C00140343 /* APIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA19C2B1C46831C00140343 /* APIClient.m */; };
+		4FB667341C6B6A67005F758C /* CategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB667331C6B6A67005F758C /* CategoryModel.m */; };
 		B22AF4C61C53C821008D1708 /* ChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B22AF4C31C53C821008D1708 /* ChatMessageTableViewCell.m */; };
 		B23EC3C01C56181600C15B14 /* MessagePostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23EC3BE1C56181600C15B14 /* MessagePostTableViewCell.m */; };
 		B23EC3C11C56181600C15B14 /* MessagePostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B23EC3BF1C56181600C15B14 /* MessagePostTableViewCell.xib */; };
@@ -378,6 +379,8 @@
 		4FA19C2A1C46831C00140343 /* APIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIClient.h; sourceTree = "<group>"; };
 		4FA19C2B1C46831C00140343 /* APIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIClient.m; sourceTree = "<group>"; };
 		4FA19C2D1C46838800140343 /* APIClientConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIClientConstants.h; sourceTree = "<group>"; };
+		4FB667321C6B6A67005F758C /* CategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryModel.h; sourceTree = "<group>"; };
+		4FB667331C6B6A67005F758C /* CategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryModel.m; sourceTree = "<group>"; };
 		B22AF4C31C53C821008D1708 /* ChatMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessageTableViewCell.m; sourceTree = "<group>"; };
 		B22AF4C41C53C821008D1708 /* ChatMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageTableViewCell.h; sourceTree = "<group>"; };
 		B23EC3BD1C56181600C15B14 /* MessagePostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePostTableViewCell.h; sourceTree = "<group>"; };
@@ -1223,6 +1226,7 @@
 		4F8607BC1C5769EF00EAAC9B /* APIModels */ = {
 			isa = PBXGroup;
 			children = (
+				4FB667311C6B6A57005F758C /* CategoryModel */,
 				30C1659F1C5E0F6000005525 /* UserModel */,
 				4F8607BD1C5769EF00EAAC9B /* BaseModel */,
 			);
@@ -1309,6 +1313,15 @@
 				30A525941C5F5206000E1CBA /* APIClient+Session.m */,
 			);
 			path = APIClient;
+			sourceTree = "<group>";
+		};
+		4FB667311C6B6A57005F758C /* CategoryModel */ = {
+			isa = PBXGroup;
+			children = (
+				4FB667321C6B6A67005F758C /* CategoryModel.h */,
+				4FB667331C6B6A67005F758C /* CategoryModel.m */,
+			);
+			path = CategoryModel;
 			sourceTree = "<group>";
 		};
 		B23EC3BC1C56181600C15B14 /* MessagePostTableViewCell */ = {
@@ -1578,6 +1591,7 @@
 				B251B3A91C5227650052B9E9 /* ChatViewController.m in Sources */,
 				3099D47D1C4CFDFE0080C05B /* ImageActionSheetController.m in Sources */,
 				4FA19C0A1C46828600140343 /* AFURLSessionManager.m in Sources */,
+				4FB667341C6B6A67005F758C /* CategoryModel.m in Sources */,
 				3082B9B51C48F1DE00C4925D /* BusinessProfileEditTableViewController.m in Sources */,
 				30928DF41C465CA700041847 /* InputTableViewCell.m in Sources */,
 				4F79B91F1C43DC2D0082740E /* AppDelegate.m in Sources */,

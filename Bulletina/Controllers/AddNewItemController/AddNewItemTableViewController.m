@@ -8,20 +8,20 @@
 
 #import "AddNewItemTableViewController.h"
 
-//Cells
+// Cells
 #import "NewItemTextTableViewCell.h"
 #import "NewItemPriceTableViewCell.h"
 #import "NewItemImageTableViewCell.h"
 #import "ImageActionSheetController.h"
 #import "AddImageButtonTableViewCell.h"
 
-//Models
+// Models
 #import "APIClient+Item.h"
 
 static CGFloat const PriceCellHeigth = 44;
 
 static NSInteger const CellsCount = 4;
-static NSString * const TextViewPlaceholderText = @"Write your description here. Use #hashtags for making your ad more searchable.";
+static NSString *const TextViewPlaceholderText = @"Write your description here. Use #hashtags for making your ad more searchable.";
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	CameraButtonCellIndex,
@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @interface AddNewItemTableViewController () <UITextViewDelegate, ImageActionSheetControllerDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) NewItemTextTableViewCell *textCell;
-@property (strong,nonatomic) UIImage *itemImage;
+@property (strong, nonatomic) UIImage *itemImage;
 @property (strong, nonatomic) UITextField *priceTextField;;
 
 @end
@@ -151,7 +151,17 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if ([self.textCell.textView.text isEqualToString:TextViewPlaceholderText]) {
 		[Utils showWarningWithMessage:@"Description is requied"];	
 	} else {
-		[[APIClient sharedInstance] addNewItemWithCategory:self.category description:self.textCell.textView.text price:self.priceTextField.text image:self.itemImage withCompletion:^(id response, NSError *error, NSInteger statusCode){ DLog(@"Not implemented"); }];
+        [[APIClient sharedInstance] addNewItemWithName:@"" description:self.textCell.textView.text price:self.priceTextField.text adType:self.category.categoryId image:self.itemImage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+            if (error) {
+                if (response[@"error_message"]) {
+                    [Utils showErrorWithMessage:response[@"error_message"]];
+                } else {
+                    [Utils showErrorForStatusCode:statusCode];
+                }
+            } else {
+                
+            }
+        }];
 	}
 }
 
@@ -178,10 +188,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)setupUI
 {
-	self.title = self.category;
-	
+	self.navigationItem.title = self.category.name;
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelNavBarAction:)];
-	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStylePlain target:self action:@selector(publishNavBarAction:)];
 }
 

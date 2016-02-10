@@ -6,8 +6,10 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
+#import "CategoryModel.h"
+
 @interface AddNewItemTableViewController : UITableViewController
 
-@property (strong, nonatomic) NSString *category;
+@property (strong, nonatomic) CategoryModel *category;
 
 @end

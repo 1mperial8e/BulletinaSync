@@ -15,6 +15,10 @@
 #import "DefaultSettingsTableViewCell.h"
 #import "SearchAreaTableViewCell.h"
 
+// Models
+#import "APIClient+Item.h"
+#import "CategoryModel.h"
+
 static NSInteger const SectionsCount = 3;
 static NSInteger const UserTypesCount = 2;
 
@@ -36,10 +40,12 @@ static NSInteger const UserTypeSectionsIndex = 2;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.categoriesArray = [CategoryModel arrayWithDictionariesArray:[Defaults objectForKey:CategoriesListKey]];
+    self.navigationItem.title = @"Search filter";
+
+    [self loadCategories];
 	[self tableViewSetup];
-	self.categoriesArray = [APIClient tempCategoriesList];
-	
-	self.title = @"Search filter";	
 }
 
 #pragma mark - UITableView data source
@@ -93,7 +99,7 @@ static NSInteger const UserTypeSectionsIndex = 2;
 - (UITableViewCell *)categoryFilterCellForIndexPath:(NSIndexPath *)indexPath
 {
 	DefaultSettingsTableViewCell *settingCell = [self.tableView dequeueReusableCellWithIdentifier:DefaultSettingsTableViewCell.ID forIndexPath:indexPath];
-	settingCell.settingTitleLabel.text = self.categoriesArray[indexPath.row];
+	settingCell.settingTitleLabel.text = ((CategoryModel *)self.categoriesArray[indexPath.row]).name;
 	return settingCell;
 }
 
@@ -141,6 +147,19 @@ static NSInteger const UserTypeSectionsIndex = 2;
 	
 	[self.tableView registerNib:DefaultSettingsTableViewCell.nib forCellReuseIdentifier:DefaultSettingsTableViewCell.ID];
 	[self.tableView registerNib:SearchAreaTableViewCell.nib forCellReuseIdentifier:SearchAreaTableViewCell.ID];
+}
+
+- (void)loadCategories
+{
+    __weak typeof(self) weakSelf = self;
+    [[APIClient sharedInstance] categoriesListWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+        if (!error) {
+            NSParameterAssert([response isKindOfClass:[NSArray class]]);
+            weakSelf.categoriesArray = [CategoryModel arrayWithDictionariesArray:response];
+            [weakSelf.tableView reloadData];
+            [Utils storeValue:response forKey:CategoriesListKey];
+        }
+    }];
 }
 
 #pragma mark - Actions

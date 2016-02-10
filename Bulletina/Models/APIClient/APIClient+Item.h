@@ -10,8 +10,12 @@
 
 @interface APIClient (Item)
 
+#pragma mark - Categories
+
+- (void)categoriesListWithCompletion:(ResponseBlock)completion;
+
 #pragma mark - AddNew
 
-- (void)addNewItemWithCategory:(NSString *)category description:(NSString *)description price:(NSString *)price image:(UIImage *)image withCompletion:(ResponseBlock)completion;
+- (void)addNewItemWithName:(NSString *)name description:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion;
 
 @end

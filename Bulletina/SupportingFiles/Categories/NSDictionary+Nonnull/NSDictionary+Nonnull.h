@@ -9,5 +9,6 @@
 @interface NSDictionary (Nonnull)
 
 - (instancetype)nonnullDictionary;
++ (NSArray *)arrayByRemovingNulls:(NSArray *)array;
 
 @end
