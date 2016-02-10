@@ -206,6 +206,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
 	[self.tableView registerNib:IndividualProfileLogoTableViewCell.nib forCellReuseIdentifier:IndividualProfileLogoTableViewCell.ID];
 	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];
+	
 	UIView *backgroundView = [[UIView alloc] init];
 	UIImageView *backgroundImageView = [[UIImageView alloc] init];
 	[backgroundView addSubview:backgroundImageView];

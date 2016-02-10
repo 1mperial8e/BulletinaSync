@@ -60,13 +60,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	[self reloadUser];
+	self.user = [APIClient sharedInstance].currentUser;
+	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 	[self tableViewSetup];
 	[self setupNavBar];
-    
-    self.user = [APIClient sharedInstance].currentUser;
-    self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
-
-	[self reloadUser];
+	
 }
 
 #pragma mark - Table view data source
@@ -324,9 +323,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {	
 	[self.tableView registerNib:ProfileDefaultTableViewCell.nib forCellReuseIdentifier:ProfileDefaultTableViewCell.ID];
 	[self.tableView registerNib:IndividualProfileLogoTableViewCell.nib forCellReuseIdentifier:IndividualProfileLogoTableViewCell.ID];
-	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];	
-	
+	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
+	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+	
 	UIView *backgroundView = [[UIView alloc] init];
 	UIImageView *backgroundImageView = [[UIImageView alloc] init];
 	[backgroundView addSubview:backgroundImageView];
@@ -341,7 +341,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	 
 	[backgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
 	self.topBackgroundImageView = backgroundImageView;
-	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 #pragma mark - UIScrollViewDelegate

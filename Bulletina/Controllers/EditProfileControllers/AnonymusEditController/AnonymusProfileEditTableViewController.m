@@ -139,7 +139,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == EmailCellIndex) {
 		cell.inputTextField.placeholder = @"Email:";
-		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
+		cell.inputTextField.keyboardType = UIKeyboardTypeEmailAddress;
 		self.emailTextfield = cell.inputTextField;
 	} else if (indexPath.item == UsernameCellIndex) {
 		cell.inputTextField.placeholder = @"Username:";
