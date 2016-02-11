@@ -32,17 +32,18 @@
 
 #pragma mark - Edit profile (Update)
 
-- (NSURLSessionDataTask *)updateUserWithUsername:(NSString *)username
-										fullname:(NSString *)fullname
-									 companyname:(NSString *)companyname
-										password:(NSString *)password
-										 website:(NSString *)website
-										facebook:(NSString *)facebook
-										linkedin:(NSString *)linkedin
-										   phone:(NSString *)phone
-									 description:(NSString *)description
-										  avatar:(UIImage *)avatar
-								  withCompletion:(ResponseBlock)completion;
+- (NSURLSessionDataTask *)updateUserWithEmail:(NSString *)email
+                                     username:(NSString *)username
+                                     fullname:(NSString *)fullname
+                                  companyname:(NSString *)companyname
+                                     password:(NSString *)password
+                                      website:(NSString *)website
+                                     facebook:(NSString *)facebook
+                                     linkedin:(NSString *)linkedin
+                                        phone:(NSString *)phone
+                                  description:(NSString *)description
+                                       avatar:(UIImage *)avatar
+                               withCompletion:(ResponseBlock)completion;
 
 
 - (NSURLSessionDataTask *)destroyUserWithCompletion:(ResponseBlock)completion;
