@@ -39,7 +39,7 @@ static CGFloat const priceContainerHeigth = 43.0f;
 {
 	[self.loader show];
 	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] fetchItemsWithOffset:@25 limit:@35 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+	[[APIClient sharedInstance] fetchItemsWithOffset:@55 limit:@35 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
 			if (response[@"error_message"]) {
 				[Utils showErrorWithMessage:response[@"error_message"]];
@@ -81,17 +81,12 @@ static CGFloat const priceContainerHeigth = 43.0f;
 	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	
-//	cell.itemImageView.image = self.itemImage;
 	if (((ItemModel *)self.itemsList[indexPath.item]).imagesUrl.length) {
 		[cell.itemImageView setImageWithURL:[NSURL URLWithString:((ItemModel *)self.itemsList[indexPath.item]).imagesUrl]];
-	}
-	cell.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:cell.itemImageView.image];
-	[self.view layoutIfNeeded];
-	
-	if (indexPath.item % 2) {
-		[cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
-		cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
-		cell.itemStateButton.hidden = NO;
+//		cell.itemImageView.image = self.itemImage;
+		cell.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];//cell.itemImageView.image
+	} else {
+		cell.itemViewHeightConstraint.constant = 0.0;
 	}
 	if (((ItemModel *)self.itemsList[indexPath.item]).category.hasPrice) {
 		cell.priceContainerHeightConstraint.constant = priceContainerHeigth;
@@ -101,6 +96,13 @@ static CGFloat const priceContainerHeigth = 43.0f;
 		cell.priceContainerHeightConstraint.constant = 0.0;
 	}
 	
+	[self.view layoutIfNeeded];
+	
+	if (indexPath.item % 2) {
+		[cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
+		cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
+		cell.itemStateButton.hidden = NO;
+	}
 	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
 	cell.itemTextView.editable = YES;
 	cell.itemTextView.text = ((ItemModel *)self.itemsList[indexPath.item]).text;
@@ -141,7 +143,8 @@ static CGFloat const priceContainerHeigth = 43.0f;
     cell.itemTextView.editable = NO;
 	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
 	textViewHeigth = ceil([cell.itemTextView sizeThatFits:CGSizeMake(ScreenWidth - 32, MAXFLOAT)].height);
-	return ItemTableViewCellHeigth + [self heighOfImageViewForImage:image] + textViewHeigth + (hasPrice ? priceContainerHeigth : 0.0);
+	CGFloat priceHeight = (hasPrice ? priceContainerHeigth : 0.0);
+	return ItemTableViewCellHeigth + [self heighOfImageViewForImage:image] + textViewHeigth + priceHeight;
 }
 
 - (CGFloat)heighOfImageViewForImage:(UIImage *)image
