@@ -103,32 +103,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return cell;
 }
 
-//- (ItemTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath
-//{
-//	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
-//	cell.backgroundColor = [UIColor mainPageBGColor];
-//	
-//	cell.itemImageView.image = self.itemImage;
-//	cell.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];
-//	[self.view layoutIfNeeded];
-//	
-//	if (indexPath.item % 2) {
-//		[cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
-//		cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
-//		cell.itemStateButton.hidden = NO;
-//	}
-//	
-//	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-//    cell.itemTextView.editable = YES;
-//    cell.itemTextView.text = self.itemText;
-//    cell.itemTextView.editable = NO;
-//	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
-//	[cell.itemImageView addGestureRecognizer:imageTapGesture];
-//	
-//	cell.itemStateButton.layer.cornerRadius = 7;
-//	return cell;
-//}
-
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

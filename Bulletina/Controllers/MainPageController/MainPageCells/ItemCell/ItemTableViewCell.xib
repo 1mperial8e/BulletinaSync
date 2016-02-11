@@ -97,7 +97,6 @@
                     </view>
                     <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="225" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Kci-hm-SRD">
                         <rect key="frame" x="16" y="52" width="343" height="200"/>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.6588235294" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="4Z3-5w-Nvj"/>
                         </constraints>

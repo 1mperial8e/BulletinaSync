@@ -5,11 +5,7 @@
 //  Created by Stas Volskyi on 1/11/16.
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
-
 #import "ItemsListTableViewController.h"
-#import "ProfileTableViewController.h"
-#import "SelectNewAdCategoryTableViewController.h"
-#import "FullScreenImageViewController.h"
 
 static CGFloat const ItemTableViewCellHeigth = 105.0f;
 static CGFloat const priceContainerHeigth = 43.0f;
@@ -20,11 +16,13 @@ static CGFloat const priceContainerHeigth = 43.0f;
 
 @implementation ItemsListTableViewController
 
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
-	[self fetchItemList];
+	[self fetchItemListWithLoader:YES];
 //	//Temp
 //	self.cellItem = [ItemModel new];	
 //	self.cellItem.text = @"Lorem ipsum dolor sit er elit lamet, consectetaur ci l li um adi pis ici ng pe cu, sed do eiu smod tempor.	ipsum dolor sit er elit lamet, consectetaur c i ll iu m adipisicing pecu, sed do eiusmod tempor dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor. sed do eiusmod tempor.";
@@ -35,11 +33,13 @@ static CGFloat const priceContainerHeigth = 43.0f;
 	
 #pragma mark - API
 
-- (void)fetchItemList
+- (void)fetchItemListWithLoader:(BOOL)needLoader
 {
-	[self.loader show];
+	if (needLoader) {
+		[self.loader show];
+	}
 	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] fetchItemsWithOffset:@65 limit:@35 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@80 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
 			if (response[@"error_message"]) {
 				[Utils showErrorWithMessage:response[@"error_message"]];
@@ -49,7 +49,7 @@ static CGFloat const priceContainerHeigth = 43.0f;
 		} else {
 			NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
 			self.itemsList = [ItemModel arrayWithDictionariesArray:response];
-			[self.tableView reloadData];
+			[weakSelf.tableView reloadData];
 		}
 		[weakSelf.loader hide];
 	}];
@@ -88,7 +88,6 @@ static CGFloat const priceContainerHeigth = 43.0f;
 	} else {
 		cell.priceValueLabel.text = @"";
 	}
-	
 	[self.view layoutIfNeeded];
 	
 	if (indexPath.item % 2) {
