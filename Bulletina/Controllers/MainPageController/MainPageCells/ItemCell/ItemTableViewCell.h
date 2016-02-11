@@ -18,5 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceValueLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *priceContainerHeightConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeAgoLabel;
+
 
 @end

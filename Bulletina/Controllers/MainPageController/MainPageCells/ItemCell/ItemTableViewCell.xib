@@ -54,10 +54,9 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KdF-U6-B2L">
-                                <rect key="frame" x="92" y="20" width="40" height="10"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="2 km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KdF-U6-B2L">
+                                <rect key="frame" x="92" y="20" width="193" height="10"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="6Oy-lO-Zdn"/>
                                     <constraint firstAttribute="height" constant="10" id="wR0-sN-t5K"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -82,6 +81,7 @@
                             <constraint firstAttribute="height" constant="30" id="6oB-Bf-l2T"/>
                             <constraint firstItem="bSR-2N-jRM" firstAttribute="top" secondItem="xrI-HY-gd7" secondAttribute="top" id="9gM-FO-M8K"/>
                             <constraint firstItem="bSR-2N-jRM" firstAttribute="leading" secondItem="xrI-HY-gd7" secondAttribute="leading" id="Bdr-IN-3he"/>
+                            <constraint firstItem="JUU-Wx-9pn" firstAttribute="leading" secondItem="KdF-U6-B2L" secondAttribute="trailing" id="LlD-Ag-x6k"/>
                             <constraint firstAttribute="trailing" secondItem="JUU-Wx-9pn" secondAttribute="trailing" id="LpM-AK-CfQ"/>
                             <constraint firstItem="JUU-Wx-9pn" firstAttribute="centerY" secondItem="xrI-HY-gd7" secondAttribute="centerY" id="XP6-Lj-qBJ"/>
                             <constraint firstAttribute="bottom" secondItem="7f9-qM-7J5" secondAttribute="bottom" id="cpe-WF-mvg"/>
@@ -187,6 +187,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="distanceLabel" destination="KdF-U6-B2L" id="i3z-uN-GUB"/>
                 <outlet property="iconsCollectionView" destination="ngT-i0-Znh" id="QNt-1G-NNS"/>
                 <outlet property="itemImageView" destination="Kci-hm-SRD" id="P7c-qn-nCj"/>
                 <outlet property="itemStateButton" destination="JUU-Wx-9pn" id="v1f-l8-sZ6"/>
@@ -195,6 +196,7 @@
                 <outlet property="priceContainerHeightConstraint" destination="1Ec-7F-0WC" id="Pum-Vn-QWh"/>
                 <outlet property="priceTitleLabel" destination="uOd-cE-2gI" id="JVa-Sm-CEF"/>
                 <outlet property="priceValueLabel" destination="6kQ-if-daB" id="zYF-nh-qQM"/>
+                <outlet property="timeAgoLabel" destination="JmP-yc-q57" id="u1m-O0-Aim"/>
             </connections>
             <point key="canvasLocation" x="280.5" y="295"/>
         </tableViewCell>
