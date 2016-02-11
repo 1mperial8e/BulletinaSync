@@ -19,29 +19,36 @@
 
 - (void)viewDidLoad
 {
+	[self loadCategories];
     [super viewDidLoad];	
 	[self tableViewSetup];
 	[self setupNavigationBar];
-	[self addSearchBar];	
+	[self addSearchBar];
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 3;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	return [self defaultCellForIndexPath:indexPath];
-}
+//#pragma mark - Table view data source
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//    return 3;
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//	return [self defaultCellForIndexPath:indexPath];
+//}
 
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return [self itemCellHeightForText:self.cellItem.text andImage:self.itemImage];
+	UIImage *testImage;
+	if (((ItemModel *)self.itemsList[indexPath.item]).imagesUrl.length) {
+		testImage = self.itemImage;
+	} else {
+		testImage = nil;
+	}
+	return [self itemCellHeightForText:((ItemModel *)self.itemsList[indexPath.item]).text andImage:testImage hasPrice:((ItemModel *)self.itemsList[indexPath.item]).category.hasPrice];
 }
 
 #pragma mark - Setup
@@ -144,6 +151,16 @@
 - (void)refreshTable:(id)sender
 {	
 	[(UIRefreshControl *)sender endRefreshing];
+}
+
+- (void)loadCategories
+{
+	[[APIClient sharedInstance] categoriesListWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		if (!error) {
+			NSParameterAssert([response isKindOfClass:[NSArray class]]);
+			[Utils storeValue:response forKey:CategoriesListKey];
+		}
+	}];
 }
 
 @end

@@ -9,15 +9,19 @@
 #import "ProfileTableViewController.h"
 #import "ItemTableViewCell.h"
 #import "ItemModel.h"
-
+#import "BulletinaLoaderView.h"
+#import "APIClient+Item.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface ItemsListTableViewController : UITableViewController
 
-//Temp
-@property (strong, nonatomic) ItemModel *cellItem;
+@property (strong, nonatomic) BulletinaLoaderView *loader;
+@property (strong, nonatomic) NSArray *itemsList;
+////Temp
+//@property (strong, nonatomic) ItemModel *cellItem;
 @property (strong, nonatomic) UIImage *itemImage;
 
-- (CGFloat)itemCellHeightForText:(NSString *)text andImage:(UIImage *)image;
+- (CGFloat)itemCellHeightForText:(NSString *)text andImage:(UIImage *)image hasPrice:(BOOL)hasPrice;
 - (CGFloat)heighOfImageViewForImage:(UIImage *)image;
 
 - (void)tableViewSetup;

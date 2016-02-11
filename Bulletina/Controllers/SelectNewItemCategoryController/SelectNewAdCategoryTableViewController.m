@@ -64,15 +64,12 @@
 
 - (void)loadCategories
 {
-    __weak typeof(self) weakSelf = self;
-    [[APIClient sharedInstance] categoriesListWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
-        if (!error) {
-            NSParameterAssert([response isKindOfClass:[NSArray class]]);
-            weakSelf.categoriesArray = [CategoryModel arrayWithDictionariesArray:response];
-            [weakSelf.tableView reloadData];
-            [Utils storeValue:response forKey:CategoriesListKey];
-        }
-    }];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	if ([defaults objectForKey:CategoriesListKey]) {
+		NSArray *categoriesArray = [defaults objectForKey:CategoriesListKey];
+		 self.categoriesArray = [CategoryModel arrayWithDictionariesArray:categoriesArray];
+		[self.tableView reloadData];
+	}
 }
 
 #pragma mark - Table view data source

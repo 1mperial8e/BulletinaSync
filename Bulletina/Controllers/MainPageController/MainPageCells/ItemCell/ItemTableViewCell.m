@@ -41,6 +41,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 - (void)prepareForReuse
 {
 	self.itemStateButton.hidden = YES;
+	self.itemImageView.image = nil;
 }
 
 #pragma mark - UICollectionViewDataSource

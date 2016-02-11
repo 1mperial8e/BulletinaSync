@@ -40,6 +40,16 @@
 	self.price = dictionary[@"price"];
 	self.updatedAt = dictionary[@"updated_at"];
 	self.userId = [dictionary[@"user_id"] integerValue];
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	if ([defaults objectForKey:CategoriesListKey]) {
+		NSArray *categoriesArray = [CategoryModel arrayWithDictionariesArray:[defaults objectForKey:CategoriesListKey]];
+		for (CategoryModel *category in categoriesArray) {
+			if (category.categoryId == self.adTypeId) {
+				self.category = category;
+			}
+		}
+	}
 }
 
 @end

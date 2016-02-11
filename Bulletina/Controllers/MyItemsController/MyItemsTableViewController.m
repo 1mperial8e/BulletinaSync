@@ -124,7 +124,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (indexPath.row == LogoCellIndex) {
 		return [self heightForTopCell];
 	}
-	return [self itemCellHeightForText:self.cellItem.text andImage:self.itemImage];
+	return [self itemCellHeightForText:((ItemModel *)self.itemsList[indexPath.item]).text andImage:self.itemImage hasPrice:((ItemModel *)self.itemsList[indexPath.item]).category.hasPrice];
 }
 
 #pragma mark - Actions

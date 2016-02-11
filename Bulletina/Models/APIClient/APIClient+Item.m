@@ -45,4 +45,15 @@
     [self performPOST:@"api/v1/items.json" withParameters:parameters multipartData:dataArray response:completion];
 }
 
+#pragma mark - Items List
+
+- (void)fetchItemsWithOffset:(NSNumber *)offset limit:(NSNumber *)limit withCompletion:(ResponseBlock)completion
+{
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
+	[parameters setValue:offset forKey:@"offset"];
+	[parameters setValue:limit forKey:@"limit"];
+	
+	[self performGET:@"api/v1/items.json" withParameters:parameters response:completion];
+}
+
 @end

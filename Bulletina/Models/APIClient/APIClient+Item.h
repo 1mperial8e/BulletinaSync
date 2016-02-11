@@ -18,4 +18,8 @@
 
 - (void)addNewItemWithName:(NSString *)name description:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion;
 
+#pragma mark - Items List
+
+- (void)fetchItemsWithOffset:(NSNumber *)offset limit:(NSNumber *)limit withCompletion:(ResponseBlock)completion;
+
 @end
