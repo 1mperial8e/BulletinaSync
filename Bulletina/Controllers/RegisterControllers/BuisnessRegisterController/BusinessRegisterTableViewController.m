@@ -6,13 +6,13 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-//Controllers
+// Controllers
 #import "BusinessRegisterTableViewController.h"
 #import "ImageActionSheetController.h"
 #import "MainPageController.h"
 #import "LoginViewController.h"
 
-//Cells
+// Cells
 #import "BusinessLogoTableViewCell.h"
 #import "InputTableViewCell.h"
 #import "ButtonTableViewCell.h"
@@ -21,7 +21,7 @@
 #import "TextInputNavigationCollection.h"
 #import "BulletinaLoaderView.h"
 
-//Models
+// Models
 #import "APIClient+User.h"
 
 static CGFloat const LogoCellHeigth = 178;
@@ -225,8 +225,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	if (!self.companyNameTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Company name is required."];
-	} else if (![Utils isValidName:self.companyNameTextfield.text] ) {
-		[Utils showErrorWithMessage:@"Company name is not valid."];
 	} else if (!self.emailTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Email is required."];
 	} else if (![Utils isValidEmail:self.emailTextfield.text UseHardFilter:NO]) {

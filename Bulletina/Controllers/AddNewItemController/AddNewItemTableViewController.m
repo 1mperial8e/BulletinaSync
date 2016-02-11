@@ -156,6 +156,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if ([self.textCell.textView.text isEqualToString:TextViewPlaceholderText]) {
 		[Utils showWarningWithMessage:@"Description is requied"];	
 	} else {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         [[APIClient sharedInstance] addNewItemWithName:@"" description:self.textCell.textView.text price:self.priceTextField.text adType:self.category.categoryId image:[Utils scaledImage:self.itemImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
             if (error) {
                 if (response[@"error_message"]) {
@@ -163,8 +164,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
                 } else {
                     [Utils showErrorForStatusCode:statusCode];
                 }
-            } else {
-                
             }
         }];
 	}
