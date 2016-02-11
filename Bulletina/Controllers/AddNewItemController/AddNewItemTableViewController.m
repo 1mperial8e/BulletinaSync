@@ -78,7 +78,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (indexPath.row == ImageCellIndex) {
 		return [self heightForImageCell];
 	} else if (indexPath.row == PriceCellIndex) {
-		return PriceCellHeigth * HeigthCoefficient;
+		if (self.category.hasPrice) {
+			return PriceCellHeigth * HeigthCoefficient;
+		} else {
+			return 0.0;
+		}		
 	} else if (indexPath.row == TextCellIndex) {
 		return [self heightForTextCell];
 	}

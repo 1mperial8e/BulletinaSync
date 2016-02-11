@@ -149,7 +149,8 @@
 #pragma mark - Utils
 
 - (void)refreshTable:(id)sender
-{	
+{	[self loadCategories];
+	[self fetchItemList];
 	[(UIRefreshControl *)sender endRefreshing];
 }
 

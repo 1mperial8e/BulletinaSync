@@ -14,7 +14,7 @@
 {
 	self = [super init];
 	if (self) {
-		_category = [CategoryModel new];
+//		_category = [CategoryModel new];
 	}
 	return self;
 }

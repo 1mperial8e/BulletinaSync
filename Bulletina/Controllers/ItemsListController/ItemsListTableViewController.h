@@ -29,6 +29,7 @@
 
 - (void)itemImageTap:(UITapGestureRecognizer *)sender;
 - (ItemTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath;
+- (void)fetchItemList;
 
 
 @end
