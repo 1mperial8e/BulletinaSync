@@ -40,11 +40,11 @@ static CGFloat const priceContainerHeigth = 43.0f;
 			if (response[@"error_message"]) {
 				[Utils showErrorWithMessage:response[@"error_message"]];
 			} else {
-				[Utils showErrorForStatusCode:statusCode];
+                DLog(@"%@", error);
 			}
 		} else {
 			NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
-			self.itemsList = [ItemModel arrayWithDictionariesArray:response];
+			weakSelf.itemsList = [ItemModel arrayWithDictionariesArray:response];
 			[weakSelf.tableView reloadData];
 		}
 		[weakSelf.loader hide];

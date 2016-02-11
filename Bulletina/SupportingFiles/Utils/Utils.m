@@ -134,10 +134,10 @@
     if (!srcImage) {
         return srcImage;
     }
-    CGFloat coef = 640.f / MAX(srcImage.size.width, srcImage.size.width);
+    CGFloat coef = 640.f / MAX(srcImage.size.width, srcImage.size.height);
     CGSize drawSize = CGSizeMake(srcImage.size.width * coef, srcImage.size.height * coef);
     UIGraphicsBeginImageContext(drawSize);
-    [srcImage drawInRect:CGRectMake(0, 0, (int)drawSize.width, (int)drawSize.height)];
+    [srcImage drawInRect:CGRectMake(0, 0, drawSize.width + 1, drawSize.height + 1)];
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return scaledImage;
