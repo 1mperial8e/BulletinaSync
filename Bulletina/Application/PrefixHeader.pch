@@ -16,5 +16,7 @@
 #import "UIColor+AppColor.h"
 #import "Constants.h"
 #import "NSDictionary+Nonnull.h"
+#import <CoreLocation/CLAvailability.h>
+#import "LocationManager.h"
 
 #endif /* PrefixHeader_pch */

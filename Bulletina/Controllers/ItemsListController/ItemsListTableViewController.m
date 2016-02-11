@@ -23,11 +23,7 @@ static CGFloat const priceContainerHeigth = 43.0f;
     [super viewDidLoad];
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 	[self fetchItemListWithLoader:YES];
-//	//Temp
-//	self.cellItem = [ItemModel new];	
-//	self.cellItem.text = @"Lorem ipsum dolor sit er elit lamet, consectetaur ci l li um adi pis ici ng pe cu, sed do eiu smod tempor.	ipsum dolor sit er elit lamet, consectetaur c i ll iu m adipisicing pecu, sed do eiusmod tempor dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor. sed do eiusmod tempor.";
-//	self.cellItem.category.hasPrice = YES;
-//	
+
 	self.itemImage = [UIImage imageNamed:@"ItemExample"];
 }
 	
@@ -73,6 +69,24 @@ static CGFloat const priceContainerHeigth = 43.0f;
 {
 	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
+	
+	CLLocation *homeLocation = [[CLLocation alloc] initWithLatitude:[LocationManager sharedManager].currentLocation.coordinate.latitude longitude:[LocationManager sharedManager].currentLocation.coordinate.longitude];
+	CGFloat itemLatitude = [((ItemModel *)self.itemsList[indexPath.item]).latitude floatValue];
+	CGFloat itemLongitude = [((ItemModel *)self.itemsList[indexPath.item]).longitude floatValue];
+	CLLocation *itemLocation = [[CLLocation alloc] initWithLatitude:itemLatitude longitude:itemLongitude];
+	
+	CLLocationDistance distance = [homeLocation distanceFromLocation:itemLocation];
+	cell.distanceLabel.text = [NSString stringWithFormat:@"%0.1f km", (distance / 1000.0)];
+	
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'.'SSS'Z'"];
+	NSDate *itemDate = [[NSDate alloc] init];
+	itemDate = [dateFormatter dateFromString:((ItemModel *)self.itemsList[indexPath.item]).createdAt];
+	
+	NSTimeInterval diff = [[NSDate date] timeIntervalSinceDate: itemDate];
+	
+	cell.timeAgoLabel.text = [NSString stringWithFormat:@"%.f d", diff / (60 * 60 * 24)];
+
 	
 	if (((ItemModel *)self.itemsList[indexPath.item]).imagesUrl.length) {
 		[cell.itemImageView setImageWithURL:[NSURL URLWithString:((ItemModel *)self.itemsList[indexPath.item]).imagesUrl]];
