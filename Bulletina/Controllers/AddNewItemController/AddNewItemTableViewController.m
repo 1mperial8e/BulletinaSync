@@ -164,7 +164,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
                     [Utils showErrorForStatusCode:statusCode];
                 }
             } else {
-                
+				[self.navigationController dismissViewControllerAnimated:YES completion:nil];
             }
         }];
 	}

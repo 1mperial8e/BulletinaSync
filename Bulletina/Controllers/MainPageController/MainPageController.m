@@ -48,7 +48,7 @@
 	} else {
 		testImage = nil;
 	}
-	return [self itemCellHeightForText:((ItemModel *)self.itemsList[indexPath.item]).text andImage:testImage hasPrice:((ItemModel *)self.itemsList[indexPath.item]).category.hasPrice];
+	return [self itemCellHeightForText:((ItemModel *)self.itemsList[indexPath.item]).text andImage:testImage];
 }
 
 #pragma mark - Setup

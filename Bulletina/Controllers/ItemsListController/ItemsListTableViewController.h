@@ -21,7 +21,7 @@
 //@property (strong, nonatomic) ItemModel *cellItem;
 @property (strong, nonatomic) UIImage *itemImage;
 
-- (CGFloat)itemCellHeightForText:(NSString *)text andImage:(UIImage *)image hasPrice:(BOOL)hasPrice;
+- (CGFloat)itemCellHeightForText:(NSString *)text andImage:(UIImage *)image;
 - (CGFloat)heighOfImageViewForImage:(UIImage *)image;
 
 - (void)tableViewSetup;

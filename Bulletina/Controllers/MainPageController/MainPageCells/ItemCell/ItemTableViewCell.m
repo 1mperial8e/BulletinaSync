@@ -42,7 +42,6 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 {
 	self.itemStateButton.hidden = YES;
 	self.itemImageView.image = nil;
-	self.priceContainerHeightConstraint.constant = 0.0;
 	self.itemViewHeightConstraint.constant = 0.0;	
 }
 
