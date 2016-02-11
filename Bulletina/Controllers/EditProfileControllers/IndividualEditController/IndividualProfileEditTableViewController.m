@@ -36,6 +36,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @interface IndividualProfileEditTableViewController () 
 
+@property (weak, nonatomic) UITextField *emailTextfield;
 @property (weak, nonatomic) UITextField *usernameTextfield;
 @property (weak, nonatomic) UITextField *fullNameTextfield;
 
@@ -94,6 +95,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		self.usernameTextfield = cell.inputTextField;
 	} else if (indexPath.item == EmailCellIndex) {
 		cell.inputTextField.placeholder = @"Email:";
+		self.emailTextfield = cell.inputTextField;
 		cell.inputTextField.text = [APIClient sharedInstance].currentUser.email;
 		cell.inputTextField.enabled = NO;
 	} else if (indexPath.item == FullNameCellIndex) {

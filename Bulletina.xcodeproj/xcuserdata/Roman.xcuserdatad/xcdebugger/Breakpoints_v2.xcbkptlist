@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ItemsListController/ItemsListTableViewController.m"
-            timestampString = "476891367.947574"
+            timestampString = "476894919.856494"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
-            landmarkName = "-fetchItemListWithLoader:"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "-heighOfImageViewForImage:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ItemsListController/ItemsListTableViewController.m"
-            timestampString = "476891367.947574"
+            timestampString = "476894919.856494"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "-fetchItemListWithLoader:"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "-itemCellHeightForText:andImage:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ItemsListController/ItemsListTableViewController.m"
-            timestampString = "476884556.272605"
+            timestampString = "476891660.695173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "-fetchItemListWithLoader:"
             landmarkType = "5">
          </BreakpointContent>

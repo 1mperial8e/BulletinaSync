@@ -164,9 +164,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)setupNavigationBar
 {
 	[super setupNavigationBar];
-	
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTap:)];
-	self.navigationItem.hidesBackButton = YES;
 }
 
 - (void)tableViewSetup
