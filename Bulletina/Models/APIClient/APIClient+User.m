@@ -109,10 +109,12 @@
     NSMutableDictionary *userParameters = [NSMutableDictionary dictionary];
     UserAccountType customerId = self.currentUser.customerTypeId == AnonymousAccount ? IndividualAccount : self.currentUser.customerTypeId;
     [userParameters setValue:@(customerId) forKey:@"customer_type_id"];
-    if (email.length) {
+    
+    UserModel *me = self.currentUser;
+    if (email.length && ![email isEqualToString:me.email]) {
         [userParameters setObject:email forKey:@"email"];
     }
-    if (username) {
+    if (username.length && ![username isEqualToString:me.login]) {
         [userParameters setObject:username forKey:@"nickname"];
     }
     if (fullname) {

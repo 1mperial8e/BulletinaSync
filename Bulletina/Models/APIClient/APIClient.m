@@ -143,7 +143,7 @@
 
 #pragma mark - Private
 
-void PerformFailureRecognition(NSURLResponse * response, id responseObject, NSError * error, ResponseBlock handler) {
+void PerformFailureRecognition(NSURLResponse *response, id responseObject, NSError *error, ResponseBlock handler) {
     NSDictionary *responseDict;
     NSInteger statusCode = error.code;
     if (response) {
@@ -156,10 +156,11 @@ void PerformFailureRecognition(NSURLResponse * response, id responseObject, NSEr
 			responseDict = (NSDictionary *)responseObject;
 		}
 	}
+    DLog(@"%@, %li \n %@", responseDict, statusCode, response.URL);
     handler(responseDict, error, statusCode);
 };
 
-void PerformSuccessRecognition(NSURLResponse * response, id responseObject, ResponseBlock handler) {
+void PerformSuccessRecognition(NSURLResponse *response, id responseObject, ResponseBlock handler) {
     id value = nil;
     if (responseObject) {
 		if ([responseObject isKindOfClass:[NSData class]]) {
