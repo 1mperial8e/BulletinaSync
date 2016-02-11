@@ -42,6 +42,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 {
 	self.itemStateButton.hidden = YES;
 	self.itemImageView.image = nil;
+	self.itemViewHeightConstraint.constant = 0.0;	
 }
 
 #pragma mark - UICollectionViewDataSource

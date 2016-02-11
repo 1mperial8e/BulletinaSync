@@ -13,15 +13,18 @@
 #import "APIClient+Item.h"
 #import "UIImageView+AFNetworking.h"
 
+#import "ProfileTableViewController.h"
+#import "SelectNewAdCategoryTableViewController.h"
+#import "FullScreenImageViewController.h"
+
 @interface ItemsListTableViewController : UITableViewController
 
 @property (strong, nonatomic) BulletinaLoaderView *loader;
 @property (strong, nonatomic) NSArray *itemsList;
 ////Temp
-//@property (strong, nonatomic) ItemModel *cellItem;
 @property (strong, nonatomic) UIImage *itemImage;
 
-- (CGFloat)itemCellHeightForText:(NSString *)text andImage:(UIImage *)image hasPrice:(BOOL)hasPrice;
+- (CGFloat)itemCellHeightForText:(NSString *)text andImage:(UIImage *)image;
 - (CGFloat)heighOfImageViewForImage:(UIImage *)image;
 
 - (void)tableViewSetup;
@@ -29,7 +32,10 @@
 
 - (void)itemImageTap:(UITapGestureRecognizer *)sender;
 - (ItemTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath;
-- (void)fetchItemList;
+
+#pragma mark - API
+
+- (void)fetchItemListWithLoader:(BOOL)needLoader;
 
 
 @end

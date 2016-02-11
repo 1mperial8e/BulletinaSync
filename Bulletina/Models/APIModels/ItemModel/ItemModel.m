@@ -14,7 +14,7 @@
 {
 	self = [super init];
 	if (self) {
-//		_category = [CategoryModel new];
+		_category = [CategoryModel new];
 	}
 	return self;
 }
@@ -22,7 +22,7 @@
 - (void)parseDictionary:(NSDictionary *)dictionary
 {
 	self.active = [dictionary[@"active"] boolValue];
-	self.adTypeId = [dictionary[@"ad_type_id"] integerValue];
+	self.adTypeId = [dictionary[@"ad_type_id"] longValue];
 	self.banned =  [dictionary[@"banned"] boolValue];
 	self.city = dictionary[@"city"];
 	self.countryId = [dictionary[@"country_id"] integerValue];

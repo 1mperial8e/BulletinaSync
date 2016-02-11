@@ -1195,8 +1195,9 @@
 				4F49DDC21C50D82F002E2F24 /* SelectNewItemCategoryController */,
 				30823DC81C50D4A000609A0D /* ItemsListController */,
 				30A305791C4FC77A002A48D0 /* MyItemsController */,
-				B2B5E02B1C50C847000E5A4C /* MessageViewController */,
+				307DD90F1C44F65400F59857 /* MainPageController */,
 				30A074D61C4F960600BCE672 /* ForgotPasswordController */,
+				B2B5E02B1C50C847000E5A4C /* MessageViewController */,
 				3082EE121C4E43DF004DAB08 /* SearchSettingsController */,
 				3099D47E1C4D2BE10080C05B /* FullScreenImageController */,
 				3099D4741C4CFDFE0080C05B /* ImageActionSheetController */,
@@ -1205,7 +1206,6 @@
 				304359051C479B2D007B6959 /* ProfileControllers */,
 				30928DDF1C465B8000041847 /* RegisterControllers */,
 				4F79B9161C43DC2D0082740E /* LoginController */,
-				307DD90F1C44F65400F59857 /* MainPageController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

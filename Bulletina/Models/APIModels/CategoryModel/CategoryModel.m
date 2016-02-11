@@ -13,7 +13,7 @@
 - (void)parseDictionary:(NSDictionary *)dictionary
 {
     _name = dictionary[@"name"];
-    _categoryId = [dictionary[@"id"] integerValue];
+    _categoryId = [dictionary[@"id"] longValue];
 	_hasPrice = [dictionary[@"has_price"]boolValue];
 }
 
