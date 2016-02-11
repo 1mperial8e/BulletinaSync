@@ -64,6 +64,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
     [super viewDidLoad];
 
+    self.user = [APIClient sharedInstance].currentUser;
     self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 	[self tableViewSetup];
 	[self setupNavBar];

@@ -91,23 +91,27 @@
 	return [self performPOST:@"api/v1/users.json" withParameters:parameters multipartData:dataArray response:completion];
 }
 
-- (NSURLSessionDataTask *)updateUserWithUsername:(NSString *)username
-										fullname:(NSString *)fullname
-                                     companyname:(NSString *)companyname
-										password:(NSString *)password
-										 website:(NSString *)website
-										facebook:(NSString *)facebook
-										linkedin:(NSString *)linkedin
-										   phone:(NSString *)phone
-									 description:(NSString *)description
-										  avatar:(UIImage *)avatar
-								  withCompletion:(ResponseBlock)completion
+- (NSURLSessionDataTask *)updateUserWithEmail:(NSString *)email
+                                     username:(NSString *)username
+                                     fullname:(NSString *)fullname
+                                  companyname:(NSString *)companyname
+                                     password:(NSString *)password
+                                      website:(NSString *)website
+                                     facebook:(NSString *)facebook
+                                     linkedin:(NSString *)linkedin
+                                        phone:(NSString *)phone
+                                  description:(NSString *)description
+                                       avatar:(UIImage *)avatar
+                               withCompletion:(ResponseBlock)completion
 {
 	NSMutableDictionary *updateParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	
     NSMutableDictionary *userParameters = [NSMutableDictionary dictionary];
     UserAccountType customerId = self.currentUser.customerTypeId == AnonymousAccount ? IndividualAccount : self.currentUser.customerTypeId;
     [userParameters setValue:@(customerId) forKey:@"customer_type_id"];
+    if (email.length) {
+        [userParameters setObject:email forKey:@"email"];
+    }
     if (username) {
         [userParameters setObject:username forKey:@"nickname"];
     }

@@ -6,12 +6,16 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
+// Controllers
 #import "MyItemsTableViewController.h"
 #import "FullScreenImageViewController.h"
 
-//Cells
+// Cells
 #import "IndividualProfileLogoTableViewCell.h"
 #import "BusinessProfileLogoTableViewCell.h"
+
+// Categories
+#import "UIImageView+AFNetworking.h"
 
 static CGFloat const PersonalLogoCellHeigth = 220;
 static CGFloat const BusinessLogoCellHeigth = 252;
@@ -31,13 +35,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @implementation MyItemsTableViewController
 
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	[self tableViewSetup];
 	[self setupNavigationBar];
 	
-	self.title = @"My Bulletina";
+	self.navigationItem.title = @"My Bulletina";
 }
 
 #pragma mark - Table view data source
@@ -71,6 +77,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[cell.companyDescriptionTextView setEditable:YES];
 		cell.companyDescriptionTextView.text = [APIClient sharedInstance].currentUser.about;
 		[cell.companyDescriptionTextView setEditable:NO];
+        if ([APIClient sharedInstance].currentUser.avatarUrl) {
+            [cell.logoImageView setImageWithURL:[APIClient sharedInstance].currentUser.avatarUrl];
+        }
 		return cell;
 	}
 	IndividualProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:IndividualProfileLogoTableViewCell.ID forIndexPath:indexPath];
@@ -88,6 +97,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.bottomTextViewConstraint.constant = 0;
 		[cell layoutIfNeeded];
 	}
+    if ([APIClient sharedInstance].currentUser.avatarUrl) {
+        [cell.logoImageView setImageWithURL:[APIClient sharedInstance].currentUser.avatarUrl];
+    }
 	return cell;
 }
 

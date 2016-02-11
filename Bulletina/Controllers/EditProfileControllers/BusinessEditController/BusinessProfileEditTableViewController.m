@@ -165,16 +165,17 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
 		NSString *aboutText = [self.aboutCell.aboutTextView.text isEqualToString:TextViewPlaceholderText] ? @"" : self.aboutCell.aboutTextView.text;
-		[[APIClient sharedInstance] updateUserWithUsername:self.usernameTextfield.text
-                                                  fullname:@""
-                                               companyname:self.companyNameTextfield.text password:@""
-                                                   website:self.websiteTextfield.text
-                                                  facebook:self.facebookTextfield.text
-                                                  linkedin:self.linkedInTextfield.text
-                                                     phone:self.phoneTextfield.text
-                                               description:aboutText
-                                                    avatar:[Utils scaledImage:self.logoImage]
-                                            withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[[APIClient sharedInstance] updateUserWithEmail:nil
+                                               username:self.usernameTextfield.text
+                                               fullname:@""
+                                            companyname:self.companyNameTextfield.text password:@""
+                                                website:self.websiteTextfield.text
+                                               facebook:self.facebookTextfield.text
+                                               linkedin:self.linkedInTextfield.text
+                                                  phone:self.phoneTextfield.text
+                                            description:aboutText
+                                                 avatar:[Utils scaledImage:self.logoImage]
+                                         withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
 				if (response[@"error_message"]) {
 					[Utils showErrorWithMessage:response[@"error_message"]];
