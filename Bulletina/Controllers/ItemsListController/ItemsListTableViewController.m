@@ -39,7 +39,7 @@ static CGFloat const priceContainerHeigth = 43.0f;
 		[self.loader show];
 	}
 	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@35 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@80 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
 			if (response[@"error_message"]) {
 				[Utils showErrorWithMessage:response[@"error_message"]];

@@ -9,6 +9,9 @@
 #import "FullScreenImageViewController.h"
 #import "AppDelegate.h"
 
+// Views
+#import "HitView.h"
+
 static CGFloat const DefaultScrollViewZoomScale = 1.01f;
 
 @interface FullScreenImageViewController () <UIScrollViewDelegate>
@@ -16,7 +19,7 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewHeight;
-@property (weak, nonatomic) IBOutlet UIView *backgroundView;
+@property (weak, nonatomic) IBOutlet HitView *backgroundView;
 
 @property (strong, nonatomic) UIImageView *imageView;
 
@@ -35,6 +38,7 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
     self.isShown = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.scrollView.minimumZoomScale = DefaultScrollViewZoomScale;
+    self.backgroundView.viewForTouches = self.scrollView;
 	[self buildImageView];
 }
 
