@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @interface BusinessProfileEditTableViewController () 
 
+@property (weak, nonatomic) UITextField *emailTextfield;
 @property (weak, nonatomic) UITextField *usernameTextfield;
 @property (weak, nonatomic) UITextField *companyNameTextfield;
 @property (weak, nonatomic) UITextField *phoneTextfield;

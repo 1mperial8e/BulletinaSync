@@ -70,35 +70,8 @@ static CGFloat const priceContainerHeigth = 43.0f;
 	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	
-	CLLocation *homeLocation = [[CLLocation alloc] initWithLatitude:[LocationManager sharedManager].currentLocation.coordinate.latitude longitude:[LocationManager sharedManager].currentLocation.coordinate.longitude];
-	CGFloat itemLatitude = [((ItemModel *)self.itemsList[indexPath.item]).latitude floatValue];
-	CGFloat itemLongitude = [((ItemModel *)self.itemsList[indexPath.item]).longitude floatValue];
-	CLLocation *itemLocation = [[CLLocation alloc] initWithLatitude:itemLatitude longitude:itemLongitude];
-	
-	CLLocationDistance distance = [homeLocation distanceFromLocation:itemLocation];
-	cell.distanceLabel.text = [NSString stringWithFormat:@"%0.1f km", (distance / 1000.0)];
-	
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'.'SSS'Z'"];
-	NSDate *itemDate = [[NSDate alloc] init];
-	itemDate = [dateFormatter dateFromString:((ItemModel *)self.itemsList[indexPath.item]).createdAt];
-	
-	NSTimeInterval timeAgo = [[NSDate date] timeIntervalSinceDate: itemDate];
-	NSString *timeString;
-	if (timeAgo < 60) {
-		timeString = @"now";
-	} else if (timeAgo < 3600) {
-		timeString = [NSString stringWithFormat:@"%.f m", timeAgo / 60];
-	} else if (timeAgo < 86400) {
-		timeString = [NSString stringWithFormat:@"%.f h", timeAgo / 3600];
-	} else if (timeAgo < 259200) {
-		timeString = [NSString stringWithFormat:@"%.f d", timeAgo / 86400];
-	} else {
-		timeString = [NSString stringWithFormat:@"%.1f y", timeAgo / 259200.0];
-	}
-	
-	cell.timeAgoLabel.text = timeString;
-
+	cell.distanceLabel.text = [self stringWithDistanceToItem:self.itemsList[indexPath.item]];
+	cell.timeAgoLabel.text = [self stringWithTimeAgoForItem:self.itemsList[indexPath.item]];
 	
 	if (((ItemModel *)self.itemsList[indexPath.item]).imagesUrl.length) {
 		[cell.itemImageView setImageWithURL:[NSURL URLWithString:((ItemModel *)self.itemsList[indexPath.item]).imagesUrl]];
@@ -150,6 +123,47 @@ static CGFloat const priceContainerHeigth = 43.0f;
 }
 
 #pragma mark - Utils
+
+- (NSString *)stringWithDistanceToItem:(ItemModel *)item
+{
+	CLLocation *homeLocation = [[CLLocation alloc] initWithLatitude:[LocationManager sharedManager].currentLocation.coordinate.latitude longitude:[LocationManager sharedManager].currentLocation.coordinate.longitude];
+	CGFloat itemLatitude = [item.latitude floatValue];
+	CGFloat itemLongitude = [item.longitude floatValue];
+	CLLocation *itemLocation = [[CLLocation alloc] initWithLatitude:itemLatitude longitude:itemLongitude];
+	
+	CLLocationDistance distance = [homeLocation distanceFromLocation:itemLocation];
+	NSString *distanceString;
+	if (distance < 1000) {
+		distanceString = [NSString stringWithFormat:@"%.f m", distance];
+	} else {
+		distanceString = [NSString stringWithFormat:@"%0.1f km", (distance / 1000.0)];
+	}
+	return distanceString;
+}
+
+- (NSString *)stringWithTimeAgoForItem:(ItemModel *)item
+{
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'.'SSS'Z'"];
+	[dateFormatter setTimeZone:[[NSTimeZone alloc] initWithName:@"UTC"]];
+	NSDate *itemDate = [[NSDate alloc] init];
+	itemDate = [dateFormatter dateFromString:item.createdAt];
+	
+	NSTimeInterval timeAgo = [[NSDate date] timeIntervalSinceDate: itemDate];
+	NSString *timeString;
+	if (timeAgo < 60) {
+		timeString = @"now";
+	} else if (timeAgo < 3600) {
+		timeString = [NSString stringWithFormat:@"%.f m", timeAgo / 60];
+	} else if (timeAgo < 86400) {
+		timeString = [NSString stringWithFormat:@"%.f h", timeAgo / 3600];
+	} else if (timeAgo < 259200) {
+		timeString = [NSString stringWithFormat:@"%.f d", timeAgo / 86400];
+	} else {
+		timeString = [NSString stringWithFormat:@"%.1f y", timeAgo / 259200.0];
+	}
+	return timeString;
+}
 
 - (CGFloat)itemCellHeightForText:(NSString *)text andImage:(UIImage *)image
 {
