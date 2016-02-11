@@ -35,16 +35,20 @@ static CGFloat const priceContainerHeigth = 43.0f;
 		[self.loader show];
 	}
 	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@35 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+<<<<<<< HEAD
+	[[APIClient sharedInstance] fetchItemsWithOffset:@50 limit:@85 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+=======
+	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@80 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+>>>>>>> origin/API
 		if (error) {
 			if (response[@"error_message"]) {
 				[Utils showErrorWithMessage:response[@"error_message"]];
 			} else {
-				[Utils showErrorForStatusCode:statusCode];
+                DLog(@"%@", error);
 			}
 		} else {
 			NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
-			self.itemsList = [ItemModel arrayWithDictionariesArray:response];
+			weakSelf.itemsList = [ItemModel arrayWithDictionariesArray:response];
 			[weakSelf.tableView reloadData];
 		}
 		[weakSelf.loader hide];
@@ -83,15 +87,26 @@ static CGFloat const priceContainerHeigth = 43.0f;
 	NSDate *itemDate = [[NSDate alloc] init];
 	itemDate = [dateFormatter dateFromString:((ItemModel *)self.itemsList[indexPath.item]).createdAt];
 	
-	NSTimeInterval diff = [[NSDate date] timeIntervalSinceDate: itemDate];
+	NSTimeInterval timeAgo = [[NSDate date] timeIntervalSinceDate: itemDate];
+	NSString *timeString;
+	if (timeAgo < 60) {
+		timeString = @"now";
+	} else if (timeAgo < 3600) {
+		timeString = [NSString stringWithFormat:@"%.f m", timeAgo / 60];
+	} else if (timeAgo < 86400) {
+		timeString = [NSString stringWithFormat:@"%.f h", timeAgo / 3600];
+	} else if (timeAgo < 259200) {
+		timeString = [NSString stringWithFormat:@"%.f d", timeAgo / 86400];
+	} else {
+		timeString = [NSString stringWithFormat:@"%.1f y", timeAgo / 259200.0];
+	}
 	
-	cell.timeAgoLabel.text = [NSString stringWithFormat:@"%.f d", diff / (60 * 60 * 24)];
+	cell.timeAgoLabel.text = timeString;
 
 	
 	if (((ItemModel *)self.itemsList[indexPath.item]).imagesUrl.length) {
 		[cell.itemImageView setImageWithURL:[NSURL URLWithString:((ItemModel *)self.itemsList[indexPath.item]).imagesUrl]];
-//		cell.itemImageView.image = self.itemImage;
-		cell.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];//cell.itemImageView.image
+		cell.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];
 	} else {
 		cell.itemViewHeightConstraint.constant = 0.0;
 	}

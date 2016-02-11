@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ItemsListController/ItemsListTableViewController.m"
-            timestampString = "476890141.221038"
+            timestampString = "476891367.947574"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
-            landmarkName = "-heighOfImageViewForImage:"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "-fetchItemListWithLoader:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ItemsListController/ItemsListTableViewController.m"
-            timestampString = "476890141.221038"
+            timestampString = "476891367.947574"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
-            landmarkName = "-itemCellHeightForText:andImage:"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "-fetchItemListWithLoader:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
