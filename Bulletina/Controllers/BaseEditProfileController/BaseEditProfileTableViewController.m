@@ -228,7 +228,7 @@
 {
 	if ([self.aboutCell.aboutTextView.text isEqualToString:@""]) {
 		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
-		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
 		self.aboutCell.aboutTextView.selectedRange = NSMakeRange(0, 0);
 	} else if ([textView.text isEqualToString:TextViewPlaceholderText]) {
 		textView.text = @"";
@@ -249,7 +249,7 @@
 {
 	if ([self.aboutCell.aboutTextView.text isEqualToString:@""]) {
 		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
-		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:186 / 255.0 green:188 / 255.0 blue:193 / 255.0 alpha:1.0];
+		self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
 	}
 }
 

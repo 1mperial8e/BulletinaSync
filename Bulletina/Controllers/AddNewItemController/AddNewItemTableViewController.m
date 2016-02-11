@@ -138,6 +138,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.textCell = [self.tableView dequeueReusableCellWithIdentifier:NewItemTextTableViewCell.ID forIndexPath:indexPath];
 	self.textCell.textView.delegate = self;
 	self.textCell.textView.text = TextViewPlaceholderText;
+	self.textCell.textView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
 	[self.textCell.textView setTextContainerInset:UIEdgeInsetsMake(10, 20, 5, 20)];
 	self.textCell.textView.returnKeyType = UIReturnKeyDone;
 	self.textCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -211,28 +212,42 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-	if ([self.textCell.textView.text isEqualToString:@""])
-	{
+	if ([self.textCell.textView.text isEqualToString:@""]) 	{
 		self.textCell.textView.text = TextViewPlaceholderText;
-		self.textCell.textView.textColor = [UIColor lightGrayColor];
+		self.textCell.textView.textColor =  [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
 	}
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
 {
-	if ([string isEqualToString:@"\n"]) {
+	if ([string isEqualToString:@""] && [textView.text isEqualToString:TextViewPlaceholderText]) {
+		return  NO;
+	} else if ([string isEqualToString:@"\n"]) {
 		[self.view endEditing:YES];
 		return  NO;
-	} else if ([self.textCell.textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
-		self.textCell.textView.text = @"";
-		self.textCell.textView.textColor = [UIColor blackColor];
+	} else if ([textView.text isEqualToString:TextViewPlaceholderText]) {
+		textView.text = @"";
+		textView.textColor = [UIColor blackColor];
 	}
 	return YES;
 }
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-	[self performTextViewText];
+	if ([self.textCell.textView.text isEqualToString:@""])	{
+		self.textCell.textView.text = TextViewPlaceholderText;
+		self.textCell.textView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
+		textView.selectedRange = NSMakeRange(0, 0);
+	}
+	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+	if (self.textCell.textView.contentSize.height > height + 1 || self.textCell.textView.contentSize.height < height - 1) {
+		[self.tableView beginUpdates];
+		[self.tableView endUpdates];
+		
+		CGRect textViewRect = [self.tableView convertRect:self.textCell.textView.frame fromView:self.textCell.textView.superview];
+		textViewRect.origin.y += 5;
+		[self.tableView scrollRectToVisible:textViewRect animated:YES];
+	}
 }
 
 #pragma mark - ImageActionSheetControllerDelegate
@@ -267,28 +282,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	self.itemImage = image;
 	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:ImageCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)performTextViewText
-{
-	if ([self.textCell.textView.text isEqualToString:@""])
-	{
-		self.textCell.textView.text = TextViewPlaceholderText;
-		self.textCell.textView.textColor = [UIColor lightGrayColor];
-	} else if ([self.textCell.textView.text rangeOfString:TextViewPlaceholderText].location != NSNotFound) {
-		self.textCell.textView.text = @"";
-		self.textCell.textView.textColor = [UIColor blackColor];
-	}
-	
-	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
-	if (self.textCell.textView.contentSize.height > height + 1 || self.textCell.textView.contentSize.height < height - 1) {
-		[self.tableView beginUpdates];
-		[self.tableView endUpdates];
-		
-		CGRect textViewRect = [self.tableView convertRect:self.textCell.textView.frame fromView:self.textCell.textView.superview];
-		textViewRect.origin.y += 5;
-		[self.tableView scrollRectToVisible:textViewRect animated:YES];
-	}
 }
 
 #pragma mark - UITextFieldDelegate
