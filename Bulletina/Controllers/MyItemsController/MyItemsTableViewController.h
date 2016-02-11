@@ -10,4 +10,6 @@
 
 @interface MyItemsTableViewController : ItemsListTableViewController
 
+@property (weak, nonatomic) UserModel *user;
+
 @end

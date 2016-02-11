@@ -20,7 +20,7 @@
 static CGFloat const PersonalLogoCellHeigth = 220;
 static CGFloat const BusinessLogoCellHeigth = 252;
 
-static NSInteger const CellsCount = 3;
+//static NSInteger const CellsCount = 3;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex	
@@ -46,12 +46,19 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.navigationItem.title = @"My Bulletina";
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	self.user = [APIClient sharedInstance].currentUser;
+	[self.tableView reloadData];
+}
+
 #pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-	return CellsCount;
-}
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//	return CellsCount;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -87,19 +94,31 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.logoImageView.layer.borderColor = [UIColor whiteColor].CGColor;
 	cell.logoImageView.layer.borderWidth = 2.0f;
 	cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
-	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);	
-	cell.userFullNameLabel.text = [APIClient sharedInstance].currentUser.name ? : @"Fullname";
-	cell.userNicknameLabel.text = [APIClient sharedInstance].currentUser.login;
-	[cell.aboutMeTextView setEditable:YES];
-	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
-	[cell.aboutMeTextView setEditable:NO];
-	if (!cell.aboutMeTextView.text.length) {
-		cell.bottomTextViewConstraint.constant = 0;
-		[cell layoutIfNeeded];
+	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+	if (self.user.customerTypeId == AnonymousAccount) {
+		cell.userFullNameLabel.text = @"Anonymus";
+	} else {
+		cell.userFullNameLabel.text = self.user.name;
+		cell.userNicknameLabel.text = self.user.login;
+		[cell.aboutMeTextView setEditable:YES];
+		cell.aboutMeTextView.text = self.user.about;
+		[cell.aboutMeTextView setEditable:NO];
+		if (self.user.avatarUrl) {
+			[cell.logoImageView setImageWithURL:self.user.avatarUrl];;
+		}
 	}
-    if ([APIClient sharedInstance].currentUser.avatarUrl) {
-        [cell.logoImageView setImageWithURL:[APIClient sharedInstance].currentUser.avatarUrl];
-    }
+//	cell.userFullNameLabel.text = [APIClient sharedInstance].currentUser.name ? : @"Fullname";
+//	cell.userNicknameLabel.text = [APIClient sharedInstance].currentUser.login;
+//	[cell.aboutMeTextView setEditable:YES];
+//	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
+//	[cell.aboutMeTextView setEditable:NO];
+//	if (!cell.aboutMeTextView.text.length) {
+//		cell.bottomTextViewConstraint.constant = 0;
+//		[cell layoutIfNeeded];
+//	}
+//    if ([APIClient sharedInstance].currentUser.avatarUrl) {
+//        [cell.logoImageView setImageWithURL:[APIClient sharedInstance].currentUser.avatarUrl];
+//    }
 	return cell;
 }
 
@@ -110,7 +129,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (indexPath.row == LogoCellIndex) {
 		return [self heightForTopCell];
 	}
-	return [self itemCellHeightForText:((ItemModel *)self.itemsList[indexPath.item]).text andImage:self.itemImage];
+	UIImage *testImage;
+	if (((ItemModel *)self.itemsList[indexPath.item]).imagesUrl.length) {
+		testImage = self.itemImage;
+	} else {
+		testImage = nil;
+	}
+	return [self itemCellHeightForText:((ItemModel *)self.itemsList[indexPath.item]).text andImage:testImage];
 }
 
 #pragma mark - Actions
