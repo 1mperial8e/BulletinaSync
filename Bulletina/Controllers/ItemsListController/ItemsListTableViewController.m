@@ -136,7 +136,7 @@ static CGFloat const priceContainerHeigth = 43.0f;
 	CLLocationDistance distance = [homeLocation distanceFromLocation:itemLocation];
 	NSString *distanceString;
 	if (distance < 1000) {
-		distanceString = [NSString stringWithFormat:@"%.f m", distance];
+		distanceString = @"1 km";
 	} else {
 		distanceString = [NSString stringWithFormat:@"%0.1f km", (distance / 1000.0)];
 	}
