@@ -11,5 +11,6 @@
 @interface PHTextView : UITextView
 
 @property (strong, nonatomic) UILabel *placeholderLabel;
+@property (strong, nonatomic) NSString *placeholder;
 
 @end

@@ -16,7 +16,6 @@
 {
 	self =[super initWithCoder:aDecoder];
 	if (self) {
-		
 	}
 	return self;
 }
@@ -27,12 +26,22 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChangedNotificationRecieved:) name:UITextViewTextDidChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBeginEditingNotificationRecieved:) name:UITextViewTextDidBeginEditingNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndEditingNotificationRecieved:) name:UITextViewTextDidEndEditingNotification object:nil];
+	[self setClipsToBounds:YES];
 	
 	CGFloat labelWidth = CGRectGetWidth(self.frame) - self.contentInset.left - self.contentInset.right;
 	CGFloat labelHeight = CGRectGetHeight(self.frame) - self.contentInset.top - self.contentInset.bottom;
 	CGRect labelFrame = CGRectMake(self.contentInset.left, self.contentInset.top, labelWidth, labelHeight);
-	self.placeholderLabel = [[UILabel alloc] initWithFrame:labelFrame];
-	self.placeholderLabel.backgroundColor = [UIColor redColor];
+	self.placeholderLabel = [[UILabel alloc] initWithFrame:self.frame];
+//	[self.textCell.textView setTextContainerInset:UIEdgeInsetsMake(10, 20, 5, 20)];
+
+//	self.placeholderLabel.backgroundColor = [UIColor redColor];
+	
+	self.placeholderLabel.numberOfLines = 0;
+	[self.placeholderLabel setClipsToBounds:YES];
+	self.placeholderLabel.font = self.font;
+	self.placeholderLabel.textAlignment = NSTextAlignmentLeft;
+	self.placeholderLabel.lineBreakMode = NSLineBreakByClipping;
+	[self addSubview:self.placeholderLabel];
 }
 
 #pragma mark - Accessors
@@ -42,11 +51,10 @@
 	[super setText:text];
 }
 
-- (void)setPlaceholderText:(NSString *)placeholderText
+- (void)setPlaceholder:(NSString *)placeholder
 {
-	if (!self.text.length) {
-		self.text = placeholderText;
-	}
+	self.placeholderLabel.text = placeholder;
+	[self.placeholderLabel sizeToFit];
 }
 
 - (void)dealloc
