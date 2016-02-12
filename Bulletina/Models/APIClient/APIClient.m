@@ -100,8 +100,8 @@
 - (NSDictionary *)deviceParameters
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? [Defaults valueForKey:SNSEndpointArnKey] : @"" forKey:@"endpoint_arn"];
-    [parameters setObject:self.pushToken ? self.pushToken : @"" forKey:@"device_token"];
+    [parameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? : [[NSUUID UUID] UUIDString] forKey:@"endpoint_arn"];
+    [parameters setObject:self.pushToken ? : @"" forKey:@"device_token"];
     [parameters setObject:[Device.systemName stringByAppendingFormat:@" %@", Device.systemVersion] forKey:@"operating_system"];
     [parameters setObject:Device.model forKey:@"device_type"];
     [parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"current_latitude"];

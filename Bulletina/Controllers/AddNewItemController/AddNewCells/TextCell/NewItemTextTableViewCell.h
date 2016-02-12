@@ -7,9 +7,10 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "PHTextView.h"
 
 @interface NewItemTextTableViewCell : BaseTableViewCell
 
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet PHTextView *textView;
 
 @end
