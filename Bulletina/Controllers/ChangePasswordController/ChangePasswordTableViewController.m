@@ -10,7 +10,6 @@
 #import "InputTableViewCell.h"
 #import "ButtonTableViewCell.h"
 
-
 // Helpers
 #import "TextInputNavigationCollection.h"
 #import "BulletinaLoaderView.h"
@@ -87,15 +86,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	cell.inputTextField.delegate = self;
     if (indexPath.row == 0) {
-        cell.inputTextField.placeholder = @"old password";
+        cell.inputTextField.placeholder = @"Old password";
         cell.inputTextField.secureTextEntry = YES;
         self.textFieldOldPassword = cell.inputTextField;
     } else if (indexPath.row == 1) {
-        cell.inputTextField.placeholder = @"password";
+        cell.inputTextField.placeholder = @"New password";
         cell.inputTextField.secureTextEntry = YES;
         self.textFieldPassword = cell.inputTextField;
     } else if (indexPath.row == 2) {
-        cell.inputTextField.placeholder = @"retype password";
+        cell.inputTextField.placeholder = @"Retype new password";
         cell.inputTextField.secureTextEntry = YES;
         self.textFieldRepassword = cell.inputTextField;
 		cell.inputTextField.returnKeyType = UIReturnKeyDone;
