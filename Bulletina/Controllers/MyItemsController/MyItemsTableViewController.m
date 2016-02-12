@@ -8,19 +8,10 @@
 
 // Controllers
 #import "MyItemsTableViewController.h"
-#import "FullScreenImageViewController.h"
 
 // Cells
 #import "IndividualProfileLogoTableViewCell.h"
 #import "BusinessProfileLogoTableViewCell.h"
-
-// Categories
-#import "UIImageView+AFNetworking.h"
-
-static CGFloat const PersonalLogoCellHeigth = 220;
-static CGFloat const BusinessLogoCellHeigth = 252;
-
-//static NSInteger const CellsCount = 3;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex	
@@ -30,6 +21,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @property (weak, nonatomic) UIImageView *topBackgroundImageView;
 @property (weak, nonatomic) NSLayoutConstraint *backgroundTopConstraint;
+@property (strong, nonatomic) ProfileTableViewController *profileController;
 
 @end
 
@@ -40,10 +32,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	self.profileController = (ProfileTableViewController *)self.navigationController.viewControllers.firstObject;
+	
 	[self tableViewSetup];
 	[self setupNavigationBar];
 	
 	self.navigationItem.title = @"My Bulletina";
+	
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -55,71 +50,17 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 #pragma mark - Table view data source
 
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//	return CellsCount;
-//}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	return [super tableView:tableView numberOfRowsInSection:section] + 1;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.item == LogoCellIndex) {
-		return [self logoCellForIndexPath:indexPath];
-	}
-	return [self defaultCellForIndexPath:indexPath];
-}
-
-#pragma mark - Cells
-
-- (UITableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath
-{
-	if ([APIClient sharedInstance].currentUser.customerTypeId == BusinessAccount) {
-		BusinessProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessProfileLogoTableViewCell.ID forIndexPath:indexPath];
-		[self addCustomBorderToButton:cell.websiteButton];
-		[self addCustomBorderToButton:cell.facebookButton];
-		[self addCustomBorderToButton:cell.instagramButton];
-		[self addCustomBorderToButton:cell.linkedInButton];
-		cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-		cell.companyNameLabel.text = [APIClient sharedInstance].currentUser.companyName;
-		cell.companyPhoneLabel.text = [APIClient sharedInstance].currentUser.phone;
-		[cell.companyDescriptionTextView setEditable:YES];
-		cell.companyDescriptionTextView.text = [APIClient sharedInstance].currentUser.about;
-		[cell.companyDescriptionTextView setEditable:NO];
-        if ([APIClient sharedInstance].currentUser.avatarUrl) {
-            [cell.logoImageView setImageWithURL:[APIClient sharedInstance].currentUser.avatarUrl];
-        }
-		return cell;
-	}
-	IndividualProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:IndividualProfileLogoTableViewCell.ID forIndexPath:indexPath];
-	cell.aboutMeTextView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-	cell.logoImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-	cell.logoImageView.layer.borderWidth = 2.0f;
-	cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
-	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-	if (self.user.customerTypeId == AnonymousAccount) {
-		cell.userFullNameLabel.text = @"Anonymus";
-	} else {
-		cell.userFullNameLabel.text = self.user.name;
-		cell.userNicknameLabel.text = self.user.login;
-		[cell.aboutMeTextView setEditable:YES];
-		cell.aboutMeTextView.text = self.user.about;
-		[cell.aboutMeTextView setEditable:NO];
-		if (self.user.avatarUrl) {
-			[cell.logoImageView setImageWithURL:self.user.avatarUrl];;
-		}
-	}
-//	cell.userFullNameLabel.text = [APIClient sharedInstance].currentUser.name ? : @"Fullname";
-//	cell.userNicknameLabel.text = [APIClient sharedInstance].currentUser.login;
-//	[cell.aboutMeTextView setEditable:YES];
-//	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
-//	[cell.aboutMeTextView setEditable:NO];
-//	if (!cell.aboutMeTextView.text.length) {
-//		cell.bottomTextViewConstraint.constant = 0;
-//		[cell layoutIfNeeded];
-//	}
-//    if ([APIClient sharedInstance].currentUser.avatarUrl) {
-//        [cell.logoImageView setImageWithURL:[APIClient sharedInstance].currentUser.avatarUrl];
-//    }
-	return cell;
+		return [self.profileController logoCellForIndexPath:indexPath];
+	}	
+	return [super defaultCellForIndexPath:indexPath forMyItems:YES];
 }
 
 #pragma mark - UITableViewDelegate
@@ -127,15 +68,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.row == LogoCellIndex) {
-		return [self heightForTopCell];
+		return [self.profileController heightForTopCell];
 	}
 	UIImage *testImage;
-	if (((ItemModel *)self.itemsList[indexPath.item]).imagesUrl.length) {
+	if (((ItemModel *)self.itemsList[indexPath.item - 1]).imagesUrl.length) {
 		testImage = self.itemImage;
 	} else {
 		testImage = nil;
 	}
-	return [self itemCellHeightForText:((ItemModel *)self.itemsList[indexPath.item]).text andImage:testImage];
+	return [self itemCellHeightForText:((ItemModel *)self.itemsList[indexPath.item- 1]).text andImage:testImage];
 }
 
 #pragma mark - Actions
@@ -146,36 +87,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 }
 
 #pragma mark - Utils
-
-- (CGFloat)heightForTopCell
-{
-	if ([APIClient sharedInstance].currentUser.customerTypeId == BusinessAccount) {
-		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
-		BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
-		CGSize size = CGSizeZero;
-		[cell.companyDescriptionTextView setEditable:YES];
-		cell.companyDescriptionTextView.text = [APIClient sharedInstance].currentUser.about;
-		[cell.companyDescriptionTextView setEditable:NO];
-		if (cell.companyDescriptionTextView.text.length) {
-			size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
-		} else {
-			size = CGSizeMake(0, 0);
-		}
-		return (size.height + BusinessLogoCellHeigth);
-	}
-	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:IndividualProfileLogoTableViewCell.ID owner:self options:nil];
-	IndividualProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
-	CGSize size = CGSizeZero;	
-	[cell.aboutMeTextView setEditable:YES];
-	cell.aboutMeTextView.text = [APIClient sharedInstance].currentUser.about;
-	[cell.aboutMeTextView setEditable:NO];
-	if (cell.aboutMeTextView.text.length) {
-		size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
-	} else {
-		size = CGSizeMake(0, -21);
-	}
-	return (size.height + PersonalLogoCellHeigth);
-}
 
 - (void)addCustomBorderToButton:(UIButton *)button
 {
@@ -197,7 +108,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
 	[self.tableView registerNib:IndividualProfileLogoTableViewCell.nib forCellReuseIdentifier:IndividualProfileLogoTableViewCell.ID];
 	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];
-	
+	[self addBackgroundView];
+}
+
+- (void)addBackgroundView
+{
 	UIView *backgroundView = [[UIView alloc] init];
 	UIImageView *backgroundImageView = [[UIImageView alloc] init];
 	[backgroundView addSubview:backgroundImageView];
@@ -207,7 +122,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.tableView.backgroundView = backgroundView;
 	self.backgroundTopConstraint = [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeTop multiplier:1.0f constant:64];
 	[backgroundView addConstraint:self.backgroundTopConstraint];
-	[backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:[self heightForTopCell]]];
+	[backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:[self.profileController heightForTopCell]]];
 	[backgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
 	self.topBackgroundImageView = backgroundImageView;
 }

@@ -253,19 +253,29 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (CGFloat)heightForTopCell
 {
 	if (self.user.customerTypeId == BusinessAccount) {
-		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
-		BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
-		CGSize size = CGSizeZero;
-		[cell.companyDescriptionTextView setEditable:YES];
-		cell.companyDescriptionTextView.text = self.user.about;
-		[cell.companyDescriptionTextView setEditable:NO];
-		if (cell.companyDescriptionTextView.text.length) {			
-			size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];			
-		} else {
-			size = CGSizeMake(0, 0);
-		}
-		return (size.height + BusinessLogoCellHeigth);
+		return [self heighForBusinessLogoCell];
 	}
+	return [self heighForPersonalLogoCell];
+}
+
+- (CGFloat)heighForBusinessLogoCell
+{
+	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
+	BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
+	CGSize size = CGSizeZero;
+	[cell.companyDescriptionTextView setEditable:YES];
+	cell.companyDescriptionTextView.text = self.user.about;
+	[cell.companyDescriptionTextView setEditable:NO];
+	if (cell.companyDescriptionTextView.text.length) {
+		size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
+	} else {
+		size = CGSizeMake(0, 0);
+	}
+	return (size.height + BusinessLogoCellHeigth);
+}
+
+- (CGFloat)heighForPersonalLogoCell
+{
 	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:IndividualProfileLogoTableViewCell.ID owner:self options:nil];
 	IndividualProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
 	CGSize size = CGSizeZero;
@@ -276,7 +286,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
 	} else {
 		size = CGSizeMake(0, -21);
-	}	
+	}
 	return (size.height + PersonalLogoCellHeigth);
 }
 
@@ -335,20 +345,24 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.tableView registerNib:BusinessProfileLogoTableViewCell.nib forCellReuseIdentifier:BusinessProfileLogoTableViewCell.ID];
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
 	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-	
+	[self addBackgroundView];
+}
+
+- (void)addBackgroundView
+{
 	UIView *backgroundView = [[UIView alloc] init];
 	UIImageView *backgroundImageView = [[UIImageView alloc] init];
 	[backgroundView addSubview:backgroundImageView];
-		backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];
+	backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];
 	backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
 	self.tableView.backgroundView = backgroundView;
 	self.tableView.backgroundColor = [UIColor whiteColor];
 	self.backgroundTopConstraint = [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeTop multiplier:1.0f constant:64];
 	[backgroundView addConstraint:self.backgroundTopConstraint];
 	
-    self.backgroundHeightConstraint = [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:[self heightForTopCell]];
+	self.backgroundHeightConstraint = [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:[self heightForTopCell]];
 	[backgroundImageView addConstraint:self.backgroundHeightConstraint];
-	 
+	
 	[backgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
 	self.topBackgroundImageView = backgroundImageView;
 }

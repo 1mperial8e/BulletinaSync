@@ -60,42 +60,44 @@ static CGFloat const priceContainerHeigth = 43.0f;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return [self defaultCellForIndexPath:indexPath];
+	return [self defaultCellForIndexPath:indexPath forMyItems:NO];
 }
 
 #pragma mark - Cells
 
-- (ItemTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath
+- (ItemTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath forMyItems:(BOOL)myItems
 {
 	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	
-	cell.distanceLabel.text = [self stringWithDistanceToItem:self.itemsList[indexPath.item]];
-	cell.timeAgoLabel.text = [self stringWithTimeAgoForItem:self.itemsList[indexPath.item]];
+	NSInteger dataIndex = myItems ? indexPath.item -1 : indexPath.item;
 	
-	if (((ItemModel *)self.itemsList[indexPath.item]).imagesUrl.length) {
-		[cell.itemImageView setImageWithURL:[NSURL URLWithString:((ItemModel *)self.itemsList[indexPath.item]).imagesUrl]];
+	cell.distanceLabel.text = [self stringWithDistanceToItem:self.itemsList[dataIndex]];
+	cell.timeAgoLabel.text = [self stringWithTimeAgoForItem:self.itemsList[dataIndex]];
+	
+	if (((ItemModel *)self.itemsList[dataIndex]).imagesUrl.length) {
+		[cell.itemImageView setImageWithURL:[NSURL URLWithString:((ItemModel *)self.itemsList[dataIndex]).imagesUrl]];
 		cell.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];
 	} else {
 		cell.itemViewHeightConstraint.constant = 0.0;
 	}
 	cell.priceContainerHeightConstraint.constant = priceContainerHeigth;
-	cell.priceTitleLabel.text = ((ItemModel *)self.itemsList[indexPath.item]).category.name;
-	if (((ItemModel *)self.itemsList[indexPath.item]).category.hasPrice) {
-		cell.priceValueLabel.text = ((ItemModel *)self.itemsList[indexPath.item]).price;
+	cell.priceTitleLabel.text = ((ItemModel *)self.itemsList[dataIndex]).category.name;
+	if (((ItemModel *)self.itemsList[dataIndex]).category.hasPrice) {
+		cell.priceValueLabel.text = ((ItemModel *)self.itemsList[dataIndex]).price;
 	} else {
 		cell.priceValueLabel.text = @"";
 	}
 	[self.view layoutIfNeeded];
 	
-	if (indexPath.item % 2) {
+	if (dataIndex % 2) {
 		[cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
 		cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
 		cell.itemStateButton.hidden = NO;
 	}
 	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
 	cell.itemTextView.editable = YES;
-	cell.itemTextView.text = ((ItemModel *)self.itemsList[indexPath.item]).text;
+	cell.itemTextView.text = ((ItemModel *)self.itemsList[dataIndex]).text;
 	cell.itemTextView.editable = NO;
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
 	[cell.itemImageView addGestureRecognizer:imageTapGesture];
