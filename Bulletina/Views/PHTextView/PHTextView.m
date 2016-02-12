@@ -16,7 +16,7 @@
 {
 	self =[super initWithCoder:aDecoder];
 	if (self) {
-		_placeholderText = @"Placeholder";
+		
 	}
 	return self;
 }
@@ -26,7 +26,13 @@
 	[super awakeFromNib];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChangedNotificationRecieved:) name:UITextViewTextDidChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBeginEditingNotificationRecieved:) name:UITextViewTextDidBeginEditingNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndEditingNotificationRecieved:) name:UITextViewTextDidEndEditingNotification object:nil];	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndEditingNotificationRecieved:) name:UITextViewTextDidEndEditingNotification object:nil];
+	
+	CGFloat labelWidth = CGRectGetWidth(self.frame) - self.contentInset.left - self.contentInset.right;
+	CGFloat labelHeight = CGRectGetHeight(self.frame) - self.contentInset.top - self.contentInset.bottom;
+	CGRect labelFrame = CGRectMake(self.contentInset.left, self.contentInset.top, labelWidth, labelHeight);
+	self.placeholderLabel = [[UILabel alloc] initWithFrame:labelFrame];
+	self.placeholderLabel.backgroundColor = [UIColor redColor];
 }
 
 #pragma mark - Accessors
@@ -38,7 +44,6 @@
 
 - (void)setPlaceholderText:(NSString *)placeholderText
 {
-	_placeholderText = placeholderText;
 	if (!self.text.length) {
 		self.text = placeholderText;
 	}
@@ -54,7 +59,7 @@
 - (void)textChangedNotificationRecieved:(NSNotification *)notification
 {
 	if ([notification.object isMemberOfClass:[self class]]) {
-		((PHTextView *)notification.object).text;
+//		((PHTextView *)notification.object).text;
 //		if (!self.text.length) {
 //			self.text = self.placeholderText;
 //		}

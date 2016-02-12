@@ -78,7 +78,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "185"
-            endingLineNumber = "185">
+            endingLineNumber = "185"
+            landmarkName = "-heighOfImageViewForImage:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -92,7 +94,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "175"
-            endingLineNumber = "175">
+            endingLineNumber = "175"
+            landmarkName = "-itemCellHeightForText:andImage:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -154,21 +158,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "18"
-            endingLineNumber = "18">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Bulletina/Controllers/ItemsListController/ItemsListTableViewController.m"
-            timestampString = "476891660.695173"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38">
+            endingLineNumber = "18"
+            landmarkName = "@implementation ItemsListTableViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -182,7 +174,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "76"
-            endingLineNumber = "76">
+            endingLineNumber = "76"
+            landmarkName = "-defaultCellForIndexPath:forMyItems:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -256,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Views/PHTextView/PHTextView.m"
-            timestampString = "476985044.807773"
+            timestampString = "476987319.486389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
             landmarkName = "-setText:"
             landmarkType = "5">
          </BreakpointContent>
@@ -272,27 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Views/PHTextView/PHTextView.m"
-            timestampString = "476985802.191771"
+            timestampString = "476987319.486389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "-textChangedNotificationRecieved:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Bulletina/Views/PHTextView/PHTextView.m"
-            timestampString = "476985802.191771"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "-didBeginEditingNotificationRecieved:"
             landmarkType = "5">
          </BreakpointContent>
@@ -304,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Views/PHTextView/PHTextView.m"
-            timestampString = "476985802.191771"
+            timestampString = "476987319.486389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "-didEndEditingNotificationRecieved:"
             landmarkType = "5">
          </BreakpointContent>
@@ -316,7 +294,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ItemsListController/ItemsListTableViewController.m"
@@ -324,7 +302,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
-            endingLineNumber = "39">
+            endingLineNumber = "39"
+            landmarkName = "-fetchItemListWithLoader:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -394,7 +374,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Views/PHTextView/PHTextView.m"
@@ -414,11 +394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Views/PHTextView/PHTextView.m"
-            timestampString = "476985799.575495"
+            timestampString = "476987319.486389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "-textChangedNotificationRecieved:"
             landmarkType = "5">
          </BreakpointContent>
@@ -429,13 +409,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Bulletina/Views/PHTextView/PHTextView.m"
-            timestampString = "476985830.734676"
+            filePath = "Bulletina/Models/APIModels/ItemModel/ItemModel.m"
+            timestampString = "476986271.797187"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "-textChangedNotificationRecieved:"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "-parseDictionary:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

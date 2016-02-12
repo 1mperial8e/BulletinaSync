@@ -141,7 +141,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (NewItemTextTableViewCell *)textCellForIndexPath:(NSIndexPath *)indexPath
 {
 	self.textCell = [self.tableView dequeueReusableCellWithIdentifier:NewItemTextTableViewCell.ID forIndexPath:indexPath];
-	self.textCell.textView.placeholderText = TextViewPlaceholderText;
+//	self.textCell.textView.placeholderText = TextViewPlaceholderText;
 	self.textCell.textView.delegate = self;
 //	self.textCell.textView.text = TextViewPlaceholderText;
 	self.textCell.textView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
