@@ -13,6 +13,7 @@
 #import "MyItemsTableViewController.h"
 #import "MessageTableViewController.h"
 #import "AnonymusProfileEditTableViewController.h"
+#import "ChangePasswordTableViewController.h"
 
 //Cells
 #import "ProfileDefaultTableViewCell.h"
@@ -33,7 +34,7 @@ static CGFloat const PersonalLogoCellHeigth = 220;
 static CGFloat const BusinessLogoCellHeigth = 252;
 static CGFloat const DefaultCellHeigth = 44;
 
-static NSInteger const CellsCount = 8;
+static NSInteger const CellsCount = 9;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex,
@@ -43,6 +44,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	SearchSettingsCellIndex,
 	InAppPurchaseCellIndex,
 	AboutCellIndex,
+	ChangePasswordIndex,
 	LogOutCellIndex
 };
 
@@ -169,6 +171,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == AboutCellIndex) {
 		cell.label.text = @"About bulletina";
 		cell.iconImageView.image = [UIImage imageNamed:@"AboutBulletina"];
+	} else  if (indexPath.item == ChangePasswordIndex) {
+		cell.label.text = @"Change Password";
+		cell.iconImageView.image = [UIImage imageNamed:@"ChangePassword"];
 	} else if (indexPath.item == LogOutCellIndex) {
 		cell.label.text = @"Log out";
 		cell.iconImageView.image = [UIImage imageNamed:@"LogOut"];
@@ -185,6 +190,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (indexPath.row == LogoCellIndex) {
         height = [self heightForTopCell];
         self.backgroundHeightConstraint.constant = height;
+	} else if (indexPath.row == ChangePasswordIndex && self.user.customerTypeId == AnonymousAccount){
+		return 0.0;
 	}
 	return height;
 }
@@ -214,6 +221,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	}	else if (indexPath.item == MyItemsCellIndex) {
 		MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
 		[self.navigationController pushViewController:itemsTableViewController animated:YES];
+	} else if (indexPath.item == ChangePasswordIndex) {
+		ChangePasswordTableViewController *changePasswordController = [ChangePasswordTableViewController new];
+		[self.navigationController pushViewController:changePasswordController animated:YES];
 	}
 }
 

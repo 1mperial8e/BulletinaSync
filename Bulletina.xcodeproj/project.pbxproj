@@ -84,6 +84,8 @@
 		30AC777A1C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30AC77781C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.m */; };
 		30AC777B1C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30AC77791C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.xib */; };
 		30ACB0911C5276D500A879D5 /* BulletinaLoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */; };
+		30B33EE71C6DD50000E178A6 /* ChangePasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B33EE31C6DD50000E178A6 /* ChangePasswordTableViewController.m */; };
+		30B33EE81C6DD50000E178A6 /* ChangePasswordTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B33EE41C6DD50000E178A6 /* ChangePasswordTableViewController.xib */; };
 		30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */; };
 		30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */; };
 		30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */; };
@@ -283,6 +285,9 @@
 		30AC77791C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnonymusProfileEditTableViewController.xib; sourceTree = "<group>"; };
 		30ACB08F1C5276D500A879D5 /* BulletinaLoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletinaLoaderView.h; sourceTree = "<group>"; };
 		30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletinaLoaderView.m; sourceTree = "<group>"; };
+		30B33EE21C6DD50000E178A6 /* ChangePasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordTableViewController.h; sourceTree = "<group>"; };
+		30B33EE31C6DD50000E178A6 /* ChangePasswordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordTableViewController.m; sourceTree = "<group>"; };
+		30B33EE41C6DD50000E178A6 /* ChangePasswordTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordTableViewController.xib; sourceTree = "<group>"; };
 		30BBACE21C43EB4D004F22D2 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		30BBACE71C43EDD4004F22D2 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
@@ -946,6 +951,16 @@
 			path = BulletinaLoader;
 			sourceTree = "<group>";
 		};
+		30B33EDD1C6DD39000E178A6 /* ChangePasswordController */ = {
+			isa = PBXGroup;
+			children = (
+				30B33EE21C6DD50000E178A6 /* ChangePasswordTableViewController.h */,
+				30B33EE31C6DD50000E178A6 /* ChangePasswordTableViewController.m */,
+				30B33EE41C6DD50000E178A6 /* ChangePasswordTableViewController.xib */,
+			);
+			path = ChangePasswordController;
+			sourceTree = "<group>";
+		};
 		30BBACDC1C43EA64004F22D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1195,6 +1210,7 @@
 		4F79B9151C43DC2D0082740E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				30B33EDD1C6DD39000E178A6 /* ChangePasswordController */,
 				B247CC9D1C520DE90064396E /* ChatController */,
 				4F49DDC21C50D82F002E2F24 /* SelectNewItemCategoryController */,
 				30823DC81C50D4A000609A0D /* ItemsListController */,
@@ -1510,6 +1526,7 @@
 				3043590E1C479F51007B6959 /* ProfileTableViewController.xib in Resources */,
 				300CA1CD1C484D5700DA85CE /* ProfileButtonTableViewCell.xib in Resources */,
 				307DD9141C44F68A00F59857 /* MainPageController.xib in Resources */,
+				30B33EE81C6DD50000E178A6 /* ChangePasswordTableViewController.xib in Resources */,
 				B2B5E0301C50C876000E5A4C /* MessageTableViewController.xib in Resources */,
 				3082EE2A1C4E61AF004DAB08 /* DefaultSettingsTableViewCell.xib in Resources */,
 				30928DFA1C465CBA00041847 /* ButtonTableViewCell.xib in Resources */,
@@ -1565,6 +1582,7 @@
 				30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */,
 				4FA19C241C46829000140343 /* UIButton+AFNetworking.m in Sources */,
 				B2F8DB281C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.m in Sources */,
+				30B33EE71C6DD50000E178A6 /* ChangePasswordTableViewController.m in Sources */,
 				30ACB0911C5276D500A879D5 /* BulletinaLoaderView.m in Sources */,
 				4F637BFC1C46596F00DE7CCA /* Utils.m in Sources */,
 				4FA19C071C46828600140343 /* AFSecurityPolicy.m in Sources */,
