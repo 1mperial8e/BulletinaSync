@@ -165,13 +165,22 @@
 	return [self performDELETE:query withParameters:parameters response:completion];
 }
 
-#pragma mark - Password recovery
+#pragma mark - Password
 
-- (void)forgotPasswordWithEmail:(NSString *)email withCompletion:(ResponseBlock)completion
+- (NSURLSessionDataTask *)changePassword:(NSString *)oldPassword withNewPassword:(NSString *)newPassword withCompletion:(ResponseBlock)completion
 {
-	if (completion) {
-		completion(nil, nil, 404);
-	}
+    NSParameterAssert(oldPassword.length);
+    NSParameterAssert(newPassword.length);
+    NSDictionary *parameters = @{@"oldPassword" : oldPassword, @"password" : newPassword, @"passtoken" : self.passtoken};
+    return [self performPOST:@"api/v1/users/changePassword" withParameters:parameters response:completion];
+}
+
+- (NSURLSessionDataTask *)forgotPasswordWithEmail:(NSString *)email withCompletion:(ResponseBlock)completion;
+{
+    NSParameterAssert(email.length);
+    NSDictionary *parameters = @{@"email" : email};
+
+    return [self performPOST:@"api/v1/reset" withParameters:parameters response:completion];
 }
 
 @end

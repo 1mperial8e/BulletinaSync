@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		300CA1CC1C484D5700DA85CE /* ProfileButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 300CA1CA1C484D5700DA85CE /* ProfileButtonTableViewCell.m */; };
-		300CA1CD1C484D5700DA85CE /* ProfileButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 300CA1CB1C484D5700DA85CE /* ProfileButtonTableViewCell.xib */; };
 		3043590D1C479F51007B6959 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3043590B1C479F51007B6959 /* ProfileTableViewController.m */; };
 		3043590E1C479F51007B6959 /* ProfileTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3043590C1C479F51007B6959 /* ProfileTableViewController.xib */; };
 		304359121C479F6F007B6959 /* ProfileDefaultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 304359101C479F6F007B6959 /* ProfileDefaultTableViewCell.m */; };
@@ -168,9 +166,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		300CA1C91C484D5700DA85CE /* ProfileButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileButtonTableViewCell.h; sourceTree = "<group>"; };
-		300CA1CA1C484D5700DA85CE /* ProfileButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileButtonTableViewCell.m; sourceTree = "<group>"; };
-		300CA1CB1C484D5700DA85CE /* ProfileButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileButtonTableViewCell.xib; sourceTree = "<group>"; };
 		3043590A1C479F51007B6959 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
 		3043590B1C479F51007B6959 /* ProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewController.m; sourceTree = "<group>"; };
 		3043590C1C479F51007B6959 /* ProfileTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileTableViewController.xib; sourceTree = "<group>"; };
@@ -453,16 +448,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		300CA1C81C484D3B00DA85CE /* ProfileButtonCell */ = {
-			isa = PBXGroup;
-			children = (
-				300CA1C91C484D5700DA85CE /* ProfileButtonTableViewCell.h */,
-				300CA1CA1C484D5700DA85CE /* ProfileButtonTableViewCell.m */,
-				300CA1CB1C484D5700DA85CE /* ProfileButtonTableViewCell.xib */,
-			);
-			path = ProfileButtonCell;
-			sourceTree = "<group>";
-		};
 		304359051C479B2D007B6959 /* ProfileControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,7 +462,6 @@
 		304359061C479E32007B6959 /* ProfileCells */ = {
 			isa = PBXGroup;
 			children = (
-				300CA1C81C484D3B00DA85CE /* ProfileButtonCell */,
 				304359091C479F15007B6959 /* ProfileDefaultCell */,
 				304359081C479E8E007B6959 /* IndividualProfileLogoCell */,
 				304359071C479E6F007B6959 /* BusinesProfileLogoCell */,
@@ -1224,21 +1208,21 @@
 			isa = PBXGroup;
 			children = (
 				30B33EDD1C6DD39000E178A6 /* ChangePasswordController */,
+				30A074D61C4F960600BCE672 /* ForgotPasswordController */,
+				304359051C479B2D007B6959 /* ProfileControllers */,
+				4F79B9161C43DC2D0082740E /* LoginController */,
+				30928DDF1C465B8000041847 /* RegisterControllers */,
+				3099D4741C4CFDFE0080C05B /* ImageActionSheetController */,
+				3099D47E1C4D2BE10080C05B /* FullScreenImageController */,
 				B247CC9D1C520DE90064396E /* ChatController */,
 				4F49DDC21C50D82F002E2F24 /* SelectNewItemCategoryController */,
 				30823DC81C50D4A000609A0D /* ItemsListController */,
 				30A305791C4FC77A002A48D0 /* MyItemsController */,
 				307DD90F1C44F65400F59857 /* MainPageController */,
-				30A074D61C4F960600BCE672 /* ForgotPasswordController */,
 				B2B5E02B1C50C847000E5A4C /* MessageViewController */,
 				3082EE121C4E43DF004DAB08 /* SearchSettingsController */,
-				3099D47E1C4D2BE10080C05B /* FullScreenImageController */,
-				3099D4741C4CFDFE0080C05B /* ImageActionSheetController */,
 				30802F081C495BE3008D97EC /* AddNewItemController */,
 				3082B99E1C48E37400C4925D /* EditProfileControllers */,
-				304359051C479B2D007B6959 /* ProfileControllers */,
-				30928DDF1C465B8000041847 /* RegisterControllers */,
-				4F79B9161C43DC2D0082740E /* LoginController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1537,7 +1521,6 @@
 				30A074E81C4F988000BCE672 /* SuccessPasswordTableViewCell.xib in Resources */,
 				3082B9B11C48F1B200C4925D /* IndividualProfileEditTableViewController.xib in Resources */,
 				3043590E1C479F51007B6959 /* ProfileTableViewController.xib in Resources */,
-				300CA1CD1C484D5700DA85CE /* ProfileButtonTableViewCell.xib in Resources */,
 				307DD9141C44F68A00F59857 /* MainPageController.xib in Resources */,
 				30B33EE81C6DD50000E178A6 /* ChangePasswordTableViewController.xib in Resources */,
 				B2B5E0301C50C876000E5A4C /* MessageTableViewController.xib in Resources */,
@@ -1668,7 +1651,6 @@
 				30928DE61C465BBC00041847 /* PersonalRegisterTableViewController.m in Sources */,
 				B2B5E0351C50C8C0000E5A4C /* MessageTableViewCell.m in Sources */,
 				3082B9B01C48F1B200C4925D /* IndividualProfileEditTableViewController.m in Sources */,
-				300CA1CC1C484D5700DA85CE /* ProfileButtonTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

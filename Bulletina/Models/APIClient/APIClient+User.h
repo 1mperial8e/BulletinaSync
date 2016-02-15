@@ -48,8 +48,9 @@
 
 - (NSURLSessionDataTask *)destroyUserWithCompletion:(ResponseBlock)completion;
 
-#pragma mark - Password recovery
+#pragma mark - Password
 
-- (void)forgotPasswordWithEmail:(NSString *)email withCompletion:(ResponseBlock)completion;
+- (NSURLSessionDataTask *)changePassword:(NSString *)oldPassword withNewPassword:(NSString *)newPassword withCompletion:(ResponseBlock)completion;
+- (NSURLSessionDataTask *)forgotPasswordWithEmail:(NSString *)email withCompletion:(ResponseBlock)completion;
 
 @end

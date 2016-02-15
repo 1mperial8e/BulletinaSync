@@ -6,7 +6,7 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-//Controllers
+// Controllers
 #import "ProfileTableViewController.h"
 #import "IndividualProfileEditTableViewController.h"
 #import "BusinessProfileEditTableViewController.h"
@@ -14,17 +14,17 @@
 #import "MessageTableViewController.h"
 #import "AnonymusProfileEditTableViewController.h"
 #import "ChangePasswordTableViewController.h"
+#import "SearchSettingsTableViewController.h"
 
-//Cells
+// Cells
 #import "ProfileDefaultTableViewCell.h"
 #import "IndividualProfileLogoTableViewCell.h"
 #import "BusinessProfileLogoTableViewCell.h"
-#import "SearchSettingsTableViewController.h"
 
 // Views
 #import "BulletinaLoaderView.h"
 
-//Models
+// Models
 #import "APIClient+Session.h"
 #import "APIClient+User.h"
 
@@ -68,6 +68,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
     self.user = [APIClient sharedInstance].currentUser;
     self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
+    
 	[self tableViewSetup];
 	[self setupNavBar];
     [self reloadUser];
@@ -190,8 +191,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (indexPath.row == LogoCellIndex) {
         height = [self heightForTopCell];
         self.backgroundHeightConstraint.constant = height;
-	} else if (indexPath.row == ChangePasswordIndex && self.user.customerTypeId == AnonymousAccount){
-		return 0.0;
+	} else if (self.user.customerTypeId == AnonymousAccount && indexPath.row == ChangePasswordIndex) {
+		height = 0;
 	}
 	return height;
 }
@@ -199,32 +200,41 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-	if (indexPath.item == EditProfileCellIndex) {
-		if (self.user.customerTypeId == BusinessAccount) {
-			BusinessProfileEditTableViewController *businessProfileEditTableViewController = [BusinessProfileEditTableViewController new];
-			[self.navigationController pushViewController:businessProfileEditTableViewController animated:YES];
-		} else if (self.user.customerTypeId == IndividualAccount) {
-			IndividualProfileEditTableViewController *individualProfileEditTableViewController = [IndividualProfileEditTableViewController new];
-			[self.navigationController pushViewController:individualProfileEditTableViewController animated:YES];
-		} else {
-			AnonymusProfileEditTableViewController *anonymusProfileEditTableViewController = [AnonymusProfileEditTableViewController new];
-			[self.navigationController pushViewController:anonymusProfileEditTableViewController animated:YES];
-		}
-	} else if (indexPath.item == LogOutCellIndex) {
-        [self logout];
-    } else if (indexPath.item == MessagesCellIndex) {
-        MessageTableViewController *messageTableViewController = [MessageTableViewController new];
-        [self.navigationController pushViewController:messageTableViewController animated:YES];
-    } else if (indexPath.item == SearchSettingsCellIndex) {
-		SearchSettingsTableViewController *searchSettingsTableViewController = [SearchSettingsTableViewController new];
-		[self.navigationController pushViewController:searchSettingsTableViewController animated:YES];
-	}	else if (indexPath.item == MyItemsCellIndex) {
-		MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
-		[self.navigationController pushViewController:itemsTableViewController animated:YES];
-	} else if (indexPath.item == ChangePasswordIndex) {
-		ChangePasswordTableViewController *changePasswordController = [ChangePasswordTableViewController new];
-		[self.navigationController pushViewController:changePasswordController animated:YES];
-	}
+    switch (indexPath.item) {
+        case EditProfileCellIndex: {
+            [self showEditProfileController];
+            break;
+        }
+        case LogOutCellIndex: {
+            [self logout];
+            break;
+        }
+        case MessagesCellIndex: {
+            MessageTableViewController *messageTableViewController = [MessageTableViewController new];
+            [self.navigationController pushViewController:messageTableViewController animated:YES];
+            break;
+        }
+        case SearchSettingsCellIndex: {
+            SearchSettingsTableViewController *searchSettingsTableViewController = [SearchSettingsTableViewController new];
+            [self.navigationController pushViewController:searchSettingsTableViewController animated:YES];
+            break;
+        }
+        case ChangePasswordIndex: {
+            ChangePasswordTableViewController *changePasswordController = [ChangePasswordTableViewController new];
+            [self.navigationController pushViewController:changePasswordController animated:YES];
+            break;
+        }
+        default:
+            break;
+    }
+    if (indexPath.item == MyItemsCellIndex) {
+        if ([APIClient sharedInstance].currentUser.customerTypeId == AnonymousAccount) {
+            [Utils showWarningWithMessage:@"Only registered users can post items. Please update your account."];
+        } else {
+            MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
+            [self.navigationController pushViewController:itemsTableViewController animated:YES];
+        }
+    }
 }
 
 #pragma mark - Actions
@@ -256,6 +266,20 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
         }
         [weakSelf.loader hide];
     }];
+}
+
+- (void)showEditProfileController
+{
+    if (self.user.customerTypeId == BusinessAccount) {
+        BusinessProfileEditTableViewController *businessProfileEditTableViewController = [BusinessProfileEditTableViewController new];
+        [self.navigationController pushViewController:businessProfileEditTableViewController animated:YES];
+    } else if (self.user.customerTypeId == IndividualAccount) {
+        IndividualProfileEditTableViewController *individualProfileEditTableViewController = [IndividualProfileEditTableViewController new];
+        [self.navigationController pushViewController:individualProfileEditTableViewController animated:YES];
+    } else {
+        AnonymusProfileEditTableViewController *anonymusProfileEditTableViewController = [AnonymusProfileEditTableViewController new];
+        [self.navigationController pushViewController:anonymusProfileEditTableViewController animated:YES];
+    }
 }
 
 #pragma mark - Utils
@@ -312,22 +336,16 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (self.user) {
 		__weak typeof(self) weakSelf = self;
 		[[APIClient sharedInstance] showUserWithUserId:self.user.userId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-			if (error) {
-				if (response[@"error_message"]) {
-					[Utils showErrorWithMessage:response[@"error_message"]];
-				} else {
-					[Utils showErrorForStatusCode:statusCode];
-				}
-			} else {
-				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
-				UserModel *user = [UserModel modelWithDictionary:response];
-				weakSelf.user = user;
-				[Utils storeValue:response forKey:CurrentUserKey];
-				[[APIClient sharedInstance] updateCurrentUser:user];
-				[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
-				dispatch_async(dispatch_get_main_queue(), ^{
-					[weakSelf.tableView reloadData];
-				});
+			if (!error) {
+                NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+                UserModel *user = [UserModel modelWithDictionary:response];
+                weakSelf.user = user;
+                [Utils storeValue:response forKey:CurrentUserKey];
+                [[APIClient sharedInstance] updateCurrentUser:user];
+                [[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.tableView reloadData];
+                });
 			}
 		}];
 	}
@@ -339,11 +357,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
 	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
-	[self.navigationController.navigationBar
-	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
+	[self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
 	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTap:)];
-    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.title = @"My Bulletina";
 }

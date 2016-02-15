@@ -1,6 +1,6 @@
 //
 //  FullScreenImageViewController.m
-//  MyDrive
+//  Bulletina
 //
 //  Created by Stas Volskyi on 11/25/15.
 //  Copyright © 2016 AppMedia. All rights reserved.

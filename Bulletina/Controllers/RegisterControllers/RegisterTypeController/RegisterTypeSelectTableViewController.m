@@ -15,16 +15,14 @@
 #import "AccountTypeTableViewCell.h"
 
 static NSString *const ViewControllerTitle = @"Register account";
-static NSString *const SectionTitle        = @"Choose account type";
-static NSString *const ButtonTitle         = @"Cancel";
+static NSString *const SectionTitle = @"Choose account type";
 
-static NSString *const kAccountImageName   = @"AccountImageName";
+static NSString *const kAccountImageName = @"AccountImageName";
 static NSString *const kAccountTitleString = @"AccountTitleString";
 
 static CGFloat const DefaultTableViewSectionHeaderHeight = 20.f;
-static CGFloat const DefaultTableViewHeaderHeight        = 77.f;
-static CGFloat const DefaultTableViewCellHeight          = 135.f;
-static CGFloat const DefaultTableViewCellCount           = 1.f;
+static CGFloat const DefaultTableViewHeaderHeight = 77.f;
+static CGFloat const DefaultTableViewCellHeight = 135.f;
 
 typedef NS_ENUM(NSUInteger, AccountTypeIndex) {
     AccountTypePersonalIndex,
@@ -64,7 +62,7 @@ typedef NS_ENUM(NSUInteger, AccountTypeIndex) {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return DefaultTableViewCellCount;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,7 +117,7 @@ typedef NS_ENUM(NSUInteger, AccountTypeIndex) {
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
-#pragma mark - Private Methods
+#pragma mark - Setup
 
 - (void)prepareUI
 {
@@ -136,7 +134,7 @@ typedef NS_ENUM(NSUInteger, AccountTypeIndex) {
 - (void)prepareNavigationBar
 {
 	self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
-    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.navigationController.navigationBar.backItem.title = @"Cancel";
 }
 
@@ -162,6 +160,8 @@ typedef NS_ENUM(NSUInteger, AccountTypeIndex) {
     self.dataSource = [NSArray arrayWithContentsOfFile:path];
     [self.tableView reloadData];
 }
+
+#pragma mark - Actions
 
 - (void)selectPersonalAccount
 {

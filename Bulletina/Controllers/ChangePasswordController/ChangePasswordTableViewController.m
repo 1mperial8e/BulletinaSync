@@ -6,13 +6,19 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
+// Controllers
 #import "ChangePasswordTableViewController.h"
+
+// Cells
 #import "InputTableViewCell.h"
 #import "ButtonTableViewCell.h"
 
 // Helpers
 #import "TextInputNavigationCollection.h"
 #import "BulletinaLoaderView.h"
+
+// Models
+#import "APIClient+User.h"
 
 static NSInteger const CellsCount = 4;
 static CGFloat const InputCellHeigth = 48;
@@ -22,7 +28,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	SaveButtonCellIndex = 3
 };
 
-@interface ChangePasswordTableViewController () <UITableViewDataSource, UITabBarControllerDelegate, UITextFieldDelegate>
+@interface ChangePasswordTableViewController () <UITableViewDataSource, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -44,20 +50,38 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [super viewDidLoad];
     self.navigationItem.title = @"Change password";	
 
-    [self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
-	[self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
-
-	self.tableView.backgroundColor = [UIColor mainPageBGColor];
-	[self.tableView setContentInset:UIEdgeInsetsMake(20, 0, 30, 0)];
-	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-	self.inputViewsCollection = [TextInputNavigationCollection new];
-	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
+    [self setupTableView];
+    [self setupDefaults];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
 	[self refreshInputViews];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.tableView endEditing:YES];
+}
+
+#pragma mark - Setup
+
+- (void)setupTableView
+{
+    [self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
+    [self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
+    
+    self.tableView.backgroundColor = [UIColor mainPageBGColor];
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    [self.tableView setContentInset:UIEdgeInsetsMake(20, 0, 30, 0)];
+}
+
+- (void)setupDefaults
+{
+   	self.inputViewsCollection = [TextInputNavigationCollection new];
+    self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 }
 
 #pragma mark - UITableViewDataSource
@@ -85,17 +109,16 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
 	cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	cell.inputTextField.delegate = self;
+    cell.inputTextField.secureTextEntry = YES;
+    cell.inputTextField.returnKeyType = UIReturnKeyNext;
     if (indexPath.row == 0) {
         cell.inputTextField.placeholder = @"Old password";
-        cell.inputTextField.secureTextEntry = YES;
         self.textFieldOldPassword = cell.inputTextField;
     } else if (indexPath.row == 1) {
         cell.inputTextField.placeholder = @"New password";
-        cell.inputTextField.secureTextEntry = YES;
         self.textFieldPassword = cell.inputTextField;
     } else if (indexPath.row == 2) {
         cell.inputTextField.placeholder = @"Retype new password";
-        cell.inputTextField.secureTextEntry = YES;
         self.textFieldRepassword = cell.inputTextField;
 		cell.inputTextField.returnKeyType = UIReturnKeyDone;
     }
@@ -117,7 +140,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.row == SaveButtonCellIndex) {
-		 return ButtonCellHeigth * HeigthCoefficient;
+        return ButtonCellHeigth * HeigthCoefficient;
 	} else {
 		return InputCellHeigth * HeigthCoefficient;
 	}
@@ -136,7 +159,19 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     } else if (![self.textFieldPassword.text isEqualToString:self.textFieldRepassword.text]) {
         [Utils showErrorWithMessage:@"Password and repassword doesn't match."];
     } else {
-		//request here
+        [self.tableView endEditing:YES];
+        __weak typeof(self) weakSelf = self;
+		[[APIClient sharedInstance] changePassword:self.textFieldOldPassword.text withNewPassword:self.textFieldPassword.text withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+            if (error) {
+                if (response[@"error"]) {
+                    [Utils showErrorWithMessage:response[@"error"]];
+                } else {
+                    [Utils showErrorForStatusCode:statusCode];
+                }
+            } else {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
+        }];
     }
 }
 
@@ -154,7 +189,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (self.textFieldRepassword) {
 		[views addObject:self.textFieldRepassword];
 	}
-	self.inputViewsCollection.textInputViews =  views;
+	self.inputViewsCollection.textInputViews = views;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -168,7 +203,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
 	[self.inputViewsCollection next];
-	return NO;
+	return YES;
 }
 
 @end

@@ -22,11 +22,10 @@
 #import "TextInputNavigationCollection.h"
 #import "BulletinaLoaderView.h"
 
-//Models
+// Models
 #import "APIClient+User.h"
 #import "APIClient+Session.h"
 #import "UserModel.h"
-
 
 static CGFloat const LogoTableViewCellHeigth = 248.0f;
 static CGFloat const TextfieldTableViewCellHeigth = 48.0f;
@@ -49,8 +48,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @property (weak, nonatomic) UITextField *usernameTextfield;
 @property (weak, nonatomic) UITextField *passwordTextfield;
-@property (strong, nonatomic) BulletinaLoaderView *loader;
 
+@property (strong, nonatomic) BulletinaLoaderView *loader;
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 
 @end
@@ -62,7 +61,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[self tableViewSetup];
+	[self setupTableView];
     [self setupDefaults];
     if ([APIClient sharedInstance].currentUser) {
         [self showMainPageAnimated:NO];
@@ -99,7 +98,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.row == TryBeforeCellIndex) {
 		return [self tryBeforeCellForIndexPath:indexPath];
 	}
-	return [UITableViewCell new];
+	return [tableView dequeueReusableCellWithIdentifier:LogoTableViewCell.ID];
 }
 
 #pragma mark - UITableViewDelegate
@@ -108,11 +107,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	CGFloat height = TextfieldTableViewCellHeigth * HeigthCoefficient;
 	if (indexPath.row == LogoCellIndex) {
-		return LogoTableViewCellHeigth * HeigthCoefficient;
+		height = LogoTableViewCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == LoginButtonCellIndex) {
-		return LoginButtonTableViewCellHeigth * HeigthCoefficient;
+		height = LoginButtonTableViewCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == TryBeforeCellIndex) {
-		return TryBeforeTableViewCellHeigth * HeigthCoefficient;
+		height = TryBeforeTableViewCellHeigth * HeigthCoefficient;
 	}
 	return height;
 }
@@ -122,8 +121,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)setupUI
 {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.title = @"Login";
-    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    self.navigationItem.title = @"Login";
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
 	[self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
@@ -134,7 +133,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     self.usernameTextfield.text = nil;
 }
 
-- (void)tableViewSetup
+- (void)setupTableView
 {
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
 	self.tableView.separatorColor = [UIColor clearColor];
@@ -181,6 +180,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     }
     cell.textField.delegate = self;
 	cell.backgroundColor = [UIColor clearColor];
+    
 	return cell;
 }
 
@@ -189,22 +189,22 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LoginButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:LoginButtonTableViewCell.ID forIndexPath:indexPath];
 	cell.loginButton.layer.borderColor = [UIColor whiteColor].CGColor;
 	cell.loginButton.layer.borderWidth = 1.0f;
-	[cell.loginButton.layer setCornerRadius:6.0f];
-	cell.backgroundColor = [UIColor clearColor];
+	cell.loginButton.layer.cornerRadius = 6.0f;
 	[cell.loginButton addTarget:self action:@selector(loginButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	[cell.forgotButton addTarget:self action:@selector(forgotButtonTap:) forControlEvents:UIControlEventTouchUpInside];
-	
+    cell.backgroundColor = [UIColor clearColor];
+    
 	return cell;
 }
 
 - (TryBeforeTableViewCell *)tryBeforeCellForIndexPath:(NSIndexPath *)indexPath
 {
 	TryBeforeTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:TryBeforeTableViewCell.ID forIndexPath:indexPath];
-	[cell.tryButton.layer setCornerRadius:6.0f];
-	cell.backgroundColor = [UIColor clearColor];
+	cell.tryButton.layer.cornerRadius = 6.0f;
 	[cell.tryButton addTarget:self action:@selector(tryBeforeSignupButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	[cell.signupButton addTarget:self action:@selector(signupButtonTap:) forControlEvents:UIControlEventTouchUpInside];
-	
+    cell.backgroundColor = [UIColor clearColor];
+
 	return cell;
 }
 

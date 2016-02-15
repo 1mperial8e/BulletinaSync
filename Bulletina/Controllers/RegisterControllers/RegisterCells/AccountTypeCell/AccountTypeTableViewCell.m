@@ -13,8 +13,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTopImageView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *accountImageView;
-@property (weak, nonatomic) IBOutlet UILabel     *titleLabel;
-@property (weak, nonatomic) IBOutlet UIButton    *moreInfoButton;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *moreInfoButton;
 
 @end
 

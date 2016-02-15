@@ -6,13 +6,13 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-//Controllers
+// Controllers
 #import "PersonalRegisterTableViewController.h"
 #import "ImageActionSheetController.h"
 #import "MainPageController.h"
 #import "LoginViewController.h"
 
-//Cells
+// Cells
 #import "AvatarTableViewCell.h"
 #import "InputTableViewCell.h"
 #import "ButtonTableViewCell.h"
@@ -21,7 +21,7 @@
 #import "TextInputNavigationCollection.h"
 #import "BulletinaLoaderView.h"
 
-//Models
+// Models
 #import "APIClient+User.h"
 
 static CGFloat const AvatarCellHeigth = 218;
@@ -61,9 +61,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [super viewDidLoad];
 	[self tableViewSetup];
 	[self setupDefaults];
-	
-	self.title = @"Individual account";
-	self.view.backgroundColor = [UIColor mainPageBGColor];	
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -82,7 +79,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.item == AvatarCellIndex) {
-		 return [self avatarCellForIndexPath:indexPath];
+        return [self avatarCellForIndexPath:indexPath];
 	} else if (indexPath.item == SaveButtonCellIndex) {
 		return [self buttonCellForIndexPath:indexPath];
 	} else {
@@ -96,11 +93,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	CGFloat height = InputCellHeigth * HeigthCoefficient;
 	if (indexPath.row == AvatarCellIndex) {
-		return AvatarCellHeigth * HeigthCoefficient;
+		height = AvatarCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == SaveButtonCellIndex) {
-		return ButtonCellHeigth * HeigthCoefficient;
+		height = ButtonCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == UsernameCellIndex) {
-		return (InputCellHeigth + AdditionalBottomInset) * HeigthCoefficient;
+		height = (InputCellHeigth + AdditionalBottomInset) * HeigthCoefficient;
 	}
 	return height;
 }
@@ -173,6 +170,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)setupDefaults
 {
+    self.title = @"Individual account";
+    self.view.backgroundColor = [UIColor mainPageBGColor];
+    
 	self.inputViewsCollection = [TextInputNavigationCollection new];
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 }
@@ -224,34 +224,39 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
 			[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	} else {
-        [self.tableView endEditing:YES];
-		[self.loader show];
-		__weak typeof(self) weakSelf = self;
-		[[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:self.usernameTextfield.text password:self.passwordTextfield.text languageId:@"" customerTypeId:IndividualAccount companyname:@"" website:@"" phone:@"" avatar:[Utils scaledImage:self.logoImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-			if (error) {
-                if (response[@"error_message"]) {
-                    [Utils showErrorWithMessage:response[@"error_message"]];
-                } else {
-                    [Utils showErrorForStatusCode:statusCode];
-                }
-			} else {
-				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
-				UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
-				if (generatedUser.userId) {
-					[Utils storeValue:response[@"user"] forKey:CurrentUserKey];
-					[[APIClient sharedInstance] updateCurrentUser:generatedUser];
-					[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
-					dispatch_async(dispatch_get_main_queue(), ^{
-						[((LoginViewController *)weakSelf.navigationController.viewControllers.firstObject) showMainPageAnimated:YES];
-						[weakSelf.navigationController popToRootViewControllerAnimated:NO];
-					});
-				} else {
-					[Utils showErrorWithMessage:@"Can't create user. Try again."];
-				}
-			}
-            [weakSelf.loader hide];
-		}];
-	}
+        [self registerAccount];
+    }
+}
+
+- (void)registerAccount
+{
+    [self.tableView endEditing:YES];
+    [self.loader show];
+    __weak typeof(self) weakSelf = self;
+    [[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:self.usernameTextfield.text password:self.passwordTextfield.text languageId:@"" customerTypeId:IndividualAccount companyname:@"" website:@"" phone:@"" avatar:[Utils scaledImage:self.logoImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+        if (error) {
+            if (response[@"error_message"]) {
+                [Utils showErrorWithMessage:response[@"error_message"]];
+            } else {
+                [Utils showErrorForStatusCode:statusCode];
+            }
+        } else {
+            NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+            UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
+            if (generatedUser.userId) {
+                [Utils storeValue:response[@"user"] forKey:CurrentUserKey];
+                [[APIClient sharedInstance] updateCurrentUser:generatedUser];
+                [[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [((LoginViewController *)weakSelf.navigationController.viewControllers.firstObject) showMainPageAnimated:YES];
+                    [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                });
+            } else {
+                [Utils showErrorWithMessage:@"Can't create user. Try again."];
+            }
+        }
+        [weakSelf.loader hide];
+    }];
 }
 
 #pragma mark - Utils

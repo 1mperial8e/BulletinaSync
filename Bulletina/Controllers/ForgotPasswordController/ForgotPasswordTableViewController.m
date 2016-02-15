@@ -6,11 +6,17 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
+// Controllers
 #import "ForgotPasswordTableViewController.h"
 
 // Cells
 #import "SuccessPasswordTableViewCell.h"
 #import "ResetPasswordTableViewCell.h"
+
+// Models
+#import "APIClient+User.h"
+
+static CGFloat const ResetPasswordCellHeight = 235;
 
 @interface ForgotPasswordTableViewController () <UITextFieldDelegate>
 
@@ -26,6 +32,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.resetSuccess = NO;
 	[self setupUI];
 	[self setupTableView];
 }
@@ -36,6 +44,12 @@
     [Application setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.tableView endEditing:YES];
+}
+
 #pragma mark - Setup
 
 - (void)setupUI
@@ -44,8 +58,7 @@
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelNavBarAction:)];
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
 	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
-	[self.navigationController.navigationBar
-	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
+	[self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
 }
 
 - (void)setupTableView
@@ -96,8 +109,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	CGFloat heigth = 235;
-	return heigth;
+	CGFloat height = ResetPasswordCellHeight;
+	return height;
 }
 
 #pragma mark - Actions
@@ -112,11 +125,23 @@
 {
 	if (!self.emailTextfield.text.length) {
 		[Utils showWarningWithMessage:@"Email is required"];
-	} else if ([Utils isValidEmail:self.emailTextfield.text UseHardFilter:NO]) {
-		self.resetSuccess = YES;
-		[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+	} else if (![Utils isValidEmail:self.emailTextfield.text UseHardFilter:NO]) {
+        [Utils showWarningWithMessage:@"Email is not valid"];
 	} else {
-		[Utils showWarningWithMessage:@"Email is not valid"];
+        [self.tableView endEditing:YES];
+        __weak typeof(self) weakSelf = self;
+        [[APIClient sharedInstance] forgotPasswordWithEmail:self.emailTextfield.text withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+            if (error) {
+                if (response[@"error"]) {
+                    [Utils showErrorWithMessage:response[@"error"]];
+                } else {
+                    [Utils showErrorForStatusCode:statusCode];
+                }
+            } else {
+                weakSelf.resetSuccess = YES;
+                [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+        }];
 	}
 }
 
@@ -125,7 +150,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
 	[self.tableView endEditing:YES];
-	return NO;
+	return YES;
 }
 
 @end

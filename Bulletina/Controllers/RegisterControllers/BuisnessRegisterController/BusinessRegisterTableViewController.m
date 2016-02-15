@@ -51,7 +51,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
-@property (strong,nonatomic) UIImage *logoImage;
+@property (strong, nonatomic) UIImage *logoImage;
 @property (strong, nonatomic) BulletinaLoaderView *loader;
 
 
@@ -60,6 +60,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @end
 
 @implementation BusinessRegisterTableViewController
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
@@ -101,11 +103,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	CGFloat height = InputCellHeigth * HeigthCoefficient;
 	if (indexPath.row == LogoCellIndex) {
-		return LogoCellHeigth * HeigthCoefficient;
+		height = LogoCellHeigth * HeigthCoefficient;
 	} else  if (indexPath.row == WebsiteCellIndex) {
-		return (InputCellHeigth + AdditionalBottomInset)  * HeigthCoefficient;
+		height = (InputCellHeigth + AdditionalBottomInset)  * HeigthCoefficient;
 	} else if (indexPath.row == SaveButtonCellIndex) {
-		return ButtonCellHeigth * HeigthCoefficient;
+		height = ButtonCellHeigth * HeigthCoefficient;
 	}
 	return height;
 }
@@ -166,7 +168,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	ButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ButtonTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
-	[cell.saveButton.layer setCornerRadius:5];
+	cell.saveButton.layer.cornerRadius = 5;
 	[cell.saveButton addTarget:self action:@selector(saveButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	return cell;
 }
@@ -188,7 +190,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	self.inputViewsCollection = [TextInputNavigationCollection new];
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
-
 }
 
 #pragma mark - UITextFieldDelegate
@@ -236,34 +237,39 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
 		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	} else {
-        [self.tableView endEditing:YES];
-		[self.loader show];
-		__weak typeof(self) weakSelf = self;
-		[[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:@"" password:self.passwordTextfield.text languageId:@"" customerTypeId:BusinessAccount companyname:self.companyNameTextfield.text website:self.websiteTextfield.text phone:self.phoneTextfield.text avatar:[Utils scaledImage:self.logoImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-			if (error) {
-                if (response[@"error_message"]) {
-                    [Utils showErrorWithMessage:response[@"error_message"]];
-                } else {
-                    [Utils showErrorForStatusCode:statusCode];
-                }
+        [self registerAccount];
+    }
+}
+
+- (void)registerAccount
+{
+    [self.tableView endEditing:YES];
+    [self.loader show];
+    __weak typeof(self) weakSelf = self;
+    [[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:@"" password:self.passwordTextfield.text languageId:@"" customerTypeId:BusinessAccount companyname:self.companyNameTextfield.text website:self.websiteTextfield.text phone:self.phoneTextfield.text avatar:[Utils scaledImage:self.logoImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+        if (error) {
+            if (response[@"error_message"]) {
+                [Utils showErrorWithMessage:response[@"error_message"]];
             } else {
-				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
-				UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
-				if (generatedUser.userId) {
-					[Utils storeValue:response[@"user"] forKey:CurrentUserKey];
-					[[APIClient sharedInstance] updateCurrentUser:generatedUser];
-					[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
-					dispatch_async(dispatch_get_main_queue(), ^{
-						[((LoginViewController *)weakSelf.navigationController.viewControllers.firstObject) showMainPageAnimated:YES];
-						[weakSelf.navigationController popToRootViewControllerAnimated:NO];
-					});
-				} else {
-					[Utils showErrorWithMessage:@"Can't create user. Try again."];
-				}
-			}
-            [weakSelf.loader hide];
-		}];
-	}
+                [Utils showErrorForStatusCode:statusCode];
+            }
+        } else {
+            NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+            UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
+            if (generatedUser.userId) {
+                [Utils storeValue:response[@"user"] forKey:CurrentUserKey];
+                [[APIClient sharedInstance] updateCurrentUser:generatedUser];
+                [[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [((LoginViewController *)weakSelf.navigationController.viewControllers.firstObject) showMainPageAnimated:YES];
+                    [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                });
+            } else {
+                [Utils showErrorWithMessage:@"Can't create user. Try again."];
+            }
+        }
+        [weakSelf.loader hide];
+    }];
 }
 
 #pragma mark - Utils
