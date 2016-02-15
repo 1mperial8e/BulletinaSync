@@ -141,11 +141,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (NewItemTextTableViewCell *)textCellForIndexPath:(NSIndexPath *)indexPath
 {
 	self.textCell = [self.tableView dequeueReusableCellWithIdentifier:NewItemTextTableViewCell.ID forIndexPath:indexPath];
-	self.textCell.textView.placeholder = @"Test placeholder text";//TextViewPlaceholderText;
+	self.textCell.textView.placeholder = TextViewPlaceholderText;
 	self.textCell.textView.delegate = self;
-	self.textCell.textView.text = TextViewPlaceholderText;
-	self.textCell.textView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
-	[self.textCell.textView setTextContainerInset:UIEdgeInsetsMake(10, 20, 5, 20)];
 	self.textCell.textView.returnKeyType = UIReturnKeyDone;
 	self.textCell.selectionStyle = UITableViewCellSelectionStyleNone;
 	return self.textCell;
