@@ -10,6 +10,6 @@
 
 @interface PHTextView : UITextView
 
-@property (strong, nonatomic) NSString *placeholderText;
+@property (strong, nonatomic) NSString *placeholder;
 
 @end

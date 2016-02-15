@@ -278,7 +278,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (!self.textCell) {
 		self.textCell = [[NSBundle mainBundle] loadNibNamed:NewItemTextTableViewCell.ID owner:nil options:nil].firstObject;
 	}
-	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+	CGFloat height;
+	if (!self.textCell.textView.text.length) {
+		self.textCell.textView.text = TextViewPlaceholderText;
+		height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+		self.textCell.textView.text = @"";
+	} else {
+		height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+	}
 	return height + 50.f;
 }
 
