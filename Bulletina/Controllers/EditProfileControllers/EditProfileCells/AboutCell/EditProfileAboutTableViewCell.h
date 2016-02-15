@@ -7,10 +7,11 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "PHTextView.h"
 
 @interface EditProfileAboutTableViewCell : BaseTableViewCell
 
-@property (weak, nonatomic) IBOutlet UITextView *aboutTextView;
+@property (weak, nonatomic) IBOutlet PHTextView *aboutTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomInsetConstraint;
 
 @end

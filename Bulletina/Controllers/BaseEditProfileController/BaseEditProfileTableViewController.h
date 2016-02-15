@@ -67,7 +67,6 @@ static NSString *const TextViewPlaceholderText = @"About:";
 
 #pragma mark - UITextViewDelegate
 
-- (void)textViewDidEndEditing:(UITextView *)textView;
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string;
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView;
 - (void)textViewDidChange:(UITextView *)textView;

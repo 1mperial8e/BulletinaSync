@@ -210,47 +210,29 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.tableView registerNib:NewItemTextTableViewCell.nib forCellReuseIdentifier:NewItemTextTableViewCell.ID];
 }
 
-//#pragma mark - UITextViewDelegate
-//
-//- (void)textViewDidEndEditing:(UITextView *)textView
-//{
-//	if ([self.textCell.textView.text isEqualToString:@""]) 	{
-//		self.textCell.textView.text = TextViewPlaceholderText;
-//		self.textCell.textView.textColor =  [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
-//	}
-//}
-//
-//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
-//{
-//	if ([string isEqualToString:@""] && [textView.text isEqualToString:TextViewPlaceholderText]) {
-//		return  NO;
-//	} else if ([string isEqualToString:@"\n"]) {
-//		[self.view endEditing:YES];
-//		return  NO;
-//	} else if ([textView.text isEqualToString:TextViewPlaceholderText]) {
-//		textView.text = @"";
-//		textView.textColor = [UIColor blackColor];
-//	}
-//	return YES;
-//}
-//
-//- (void)textViewDidChange:(UITextView *)textView
-//{
-//	if ([self.textCell.textView.text isEqualToString:@""])	{
-//		self.textCell.textView.text = TextViewPlaceholderText;
-//		self.textCell.textView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
-//		textView.selectedRange = NSMakeRange(0, 0);
-//	}
-//	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
-//	if (self.textCell.textView.contentSize.height > height + 1 || self.textCell.textView.contentSize.height < height - 1) {
-//		[self.tableView beginUpdates];
-//		[self.tableView endUpdates];
-//		
-//		CGRect textViewRect = [self.tableView convertRect:self.textCell.textView.frame fromView:self.textCell.textView.superview];
-//		textViewRect.origin.y += 5;
-//		[self.tableView scrollRectToVisible:textViewRect animated:YES];
-//	}
-//}
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
+{
+	if ([string isEqualToString:@"\n"]) {
+		[self.view endEditing:YES];
+		return  NO;
+	}
+	return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+	if (self.textCell.textView.contentSize.height > height + 1 || self.textCell.textView.contentSize.height < height - 1 || !textView.text.length) {
+		[self.tableView beginUpdates];
+		[self.tableView endUpdates];
+		
+		CGRect textViewRect = [self.tableView convertRect:self.textCell.textView.frame fromView:self.textCell.textView.superview];
+		textViewRect.origin.y += 5;
+		[self.tableView scrollRectToVisible:textViewRect animated:YES];
+	}
+}
 
 #pragma mark - ImageActionSheetControllerDelegate
 
@@ -276,7 +258,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (!self.textCell) {
 		self.textCell = [[NSBundle mainBundle] loadNibNamed:NewItemTextTableViewCell.ID owner:nil options:nil].firstObject;
 	}
-	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+	CGFloat height;
+	if (!self.textCell.textView.text.length) {
+		self.textCell.textView.text = TextViewPlaceholderText;
+		height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+		self.textCell.textView.text = @"";
+	} else {
+		height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+	}
 	return height + 50.f;
 }
 
