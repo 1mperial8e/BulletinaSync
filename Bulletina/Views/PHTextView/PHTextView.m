@@ -70,15 +70,8 @@
 
 - (void)setText:(NSString *)text
 {
-	if ([notification.object isMemberOfClass:[self class]]) {
-//		((PHTextView *)notification.object).text;
-//		if (!self.text.length) {
-//			self.text = self.placeholderText;
-//		}
-//		if ([self.text isEqualToString:self.placeholderText]) {
-//			self.text = @"";
-//		}
-	}
+	[super setText:text];
+	[self.placeholderLabel setHidden:[self isPlaceholderVisible]];
 }
 
 - (void)setTextContainerInset:(UIEdgeInsets)textContainerInset

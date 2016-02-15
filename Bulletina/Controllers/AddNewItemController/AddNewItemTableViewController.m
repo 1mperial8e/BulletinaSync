@@ -141,6 +141,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (NewItemTextTableViewCell *)textCellForIndexPath:(NSIndexPath *)indexPath
 {
 	self.textCell = [self.tableView dequeueReusableCellWithIdentifier:NewItemTextTableViewCell.ID forIndexPath:indexPath];
+	self.textCell.textView.placeholder = TextViewPlaceholderText;
 	self.textCell.textView.delegate = self;
 	self.textCell.textView.text = TextViewPlaceholderText;
 	self.textCell.textView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
@@ -224,9 +225,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
 {
-	if ([string isEqualToString:@""] && [textView.text isEqualToString:TextViewPlaceholderText]) {
-		return  NO;
-	} else if ([string isEqualToString:@"\n"]) {
+	if ([string isEqualToString:@"\n"]) {
 		[self.view endEditing:YES];
 		return  NO;
 	} else if ([textView.text isEqualToString:TextViewPlaceholderText]) {
@@ -244,7 +243,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		textView.selectedRange = NSMakeRange(0, 0);
 	}
 	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
-	if (self.textCell.textView.contentSize.height > height + 1 || self.textCell.textView.contentSize.height < height - 1) {
+	if (self.textCell.textView.contentSize.height > height + 1 || self.textCell.textView.contentSize.height < height - 1 || !textView.text.length) {
 		[self.tableView beginUpdates];
 		[self.tableView endUpdates];
 		
