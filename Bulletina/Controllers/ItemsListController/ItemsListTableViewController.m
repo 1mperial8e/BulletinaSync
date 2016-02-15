@@ -5,6 +5,7 @@
 //  Created by Stas Volskyi on 1/11/16.
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
+
 #import "ItemsListTableViewController.h"
 
 @interface ItemsListTableViewController ()
@@ -19,7 +20,7 @@
 {
     [super viewDidLoad];
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
-	[self fetchItemListWithLoader:YES];
+	[self fetchItemListWithLoader:NO];
 }
 	
 #pragma mark - API
@@ -34,8 +35,6 @@
 		if (error) {
 			if (response[@"error_message"]) {
 				[Utils showErrorWithMessage:response[@"error_message"]];
-			} else {
-                DLog(@"%@", error);
 			}
 		} else {
 			NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
@@ -111,8 +110,7 @@
 {
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
 	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
-	[self.navigationController.navigationBar
-	 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
+	[self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
 }
 
 @end
