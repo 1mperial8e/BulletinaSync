@@ -70,13 +70,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (indexPath.row == LogoCellIndex) {
 		return [self.profileController heightForTopCell];
 	}
-	UIImage *testImage;
-	if (((ItemModel *)self.itemsList[indexPath.item - 1]).imagesUrl.length) {
-		testImage = self.itemImage;
-	} else {
-		testImage = nil;
-	}
-	return [self itemCellHeightForText:((ItemModel *)self.itemsList[indexPath.item- 1]).text andImage:testImage];
+	return [ItemTableViewCell itemCellHeightForItemModel:self.itemsList[indexPath.item - 1]];
 }
 
 #pragma mark - Actions
@@ -135,6 +129,5 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.topBackgroundImageView.transform = CGAffineTransformMakeScale(scaleCoef, scaleCoef);
 	self.backgroundTopConstraint.constant = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
 }
-
 
 @end

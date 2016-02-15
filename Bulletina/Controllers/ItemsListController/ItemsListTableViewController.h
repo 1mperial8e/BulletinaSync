@@ -16,22 +16,12 @@
 #import "ItemTableViewCell.h"
 
 //Models
-#import "ItemModel.h"
 #import "APIClient+Item.h"
-
-//Categories
-#import "UIImageView+AFNetworking.h"
 
 @interface ItemsListTableViewController : UITableViewController
 
 @property (strong, nonatomic) BulletinaLoaderView *loader;
 @property (strong, nonatomic) NSArray *itemsList;
-
-////Temp
-@property (strong, nonatomic) UIImage *itemImage;
-
-- (CGFloat)itemCellHeightForText:(NSString *)text andImage:(UIImage *)image;
-- (CGFloat)heighOfImageViewForImage:(UIImage *)image;
 
 - (void)tableViewSetup;
 - (void)setupNavigationBar;

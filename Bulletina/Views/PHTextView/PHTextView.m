@@ -54,7 +54,7 @@
 - (void)textChangedNotificationRecieved:(NSNotification *)notification
 {
 	if ([notification.object isMemberOfClass:[self class]]) {
-		((PHTextView *)notification.object).text;
+//		((PHTextView *)notification.object).text;
 //		if (!self.text.length) {
 //			self.text = self.placeholderText;
 //		}
