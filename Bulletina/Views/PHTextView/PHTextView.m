@@ -56,7 +56,7 @@
 - (void)layoutSubviews
 {
 	[super layoutSubviews];
-//	DLog(@"w %.1f, h%.1f",CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+	DLog(@"w %.1f, h %.1f",CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
 //	DLog(@"left %f, right %f", self.textContainerInset.left ,self.textContainerInset.right);
 	self.placeholderLabel.frame = [self calculateLabelFrame];
 }
@@ -95,27 +95,22 @@
 	_placeholder = placeholder;
 	self.placeholderLabel.frame = [self calculateLabelFrame];
 	self.placeholderLabel.text = placeholder;
-//	[self checkTextViewHeight];
 }
-
-- (void)checkTextViewHeight
-{
-	}
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
 //	if (self.placeholder.length) {
 //		CGFloat height = CGRectGetHeight(self.frame);
-//		UITextView *testTextView = [[UITextView alloc] init];
-//		testTextView.text = self.placeholder;
-//		CGFloat height2 = ceil([testTextView sizeThatFits:size].height + 0.5);
+////		UITextView *testTextView = [[UITextView alloc] init];
+//		self.text = self.placeholder;
+//		CGFloat height2 = ceil([super sizeThatFits:size].height + 0.5);
 //		if (height < height2) {
-//			return CGSizeMake(CGRectGetWidth(self.frame), height2);
+//			return CGSizeMake(size.width, height2);
 //		}
 //	}
 	return [super sizeThatFits:size];
-//	return CGSizeMake(size.width, 100);
 }
+
 
 - (void)dealloc
 {
@@ -128,16 +123,11 @@
 {
 	if ([notification.object isMemberOfClass:[self class]]) {
 		PHTextView *sender = notification.object;
-//	NSString *textViewContent = 	((PHTextView *)notification.object).text;
 		if (!sender.text.length) {
-//			self.text = self.placeholderText;
 			[sender.placeholderLabel setHidden:NO];
 		} else {
 			[sender.placeholderLabel setHidden:YES];
 		}
-//		if ([self.text isEqualToString:self.placeholderText]) {
-//			self.text = @"";
-//		}
 	}
 }
 

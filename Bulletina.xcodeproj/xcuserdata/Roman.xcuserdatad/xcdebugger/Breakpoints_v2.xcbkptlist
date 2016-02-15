@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Views/PHTextView/PHTextView.m"
-            timestampString = "477233504.691964"
+            timestampString = "477234768.15836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "-didBeginEditingNotificationRecieved:"
             landmarkType = "5">
          </BreakpointContent>
@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Views/PHTextView/PHTextView.m"
-            timestampString = "477233504.691964"
+            timestampString = "477234768.15836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "-dealloc"
             landmarkType = "5">
          </BreakpointContent>
@@ -436,11 +436,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Views/PHTextView/PHTextView.m"
-            timestampString = "477233580.817014"
+            timestampString = "477234768.15836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "-textChangedNotificationRecieved:"
             landmarkType = "5">
          </BreakpointContent>
