@@ -123,6 +123,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     if (self.user.avatarUrl) {
         [cell.logoImageView setImageWithURL:self.user.avatarUrl];;
     }
+    cell.logoImageView.layer.cornerRadius = 8.0f;
     return cell;
 }
 

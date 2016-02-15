@@ -26,7 +26,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @interface BusinessProfileEditTableViewController () 
 
 @property (weak, nonatomic) UITextField *emailTextfield;
-@property (weak, nonatomic) UITextField *usernameTextfield;
 @property (weak, nonatomic) UITextField *companyNameTextfield;
 @property (weak, nonatomic) UITextField *phoneTextfield;
 @property (weak, nonatomic) UITextField *websiteTextfield;
@@ -81,10 +80,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == UsernameCellIndex) {
-		cell.inputTextField.placeholder = @"Username:";
+		cell.inputTextField.placeholder = @"Email:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
-		self.usernameTextfield = cell.inputTextField;
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.login;
+		self.emailTextfield = cell.inputTextField;
+		cell.inputTextField.text = [APIClient sharedInstance].currentUser.email;
+        cell.inputTextField.enabled = NO;
 	} else if (indexPath.item == CompanyNameCellIndex) {
 		cell.inputTextField.placeholder = @"Company Name:";
 		cell.inputTextField.text = [APIClient sharedInstance].currentUser.companyName;
@@ -125,9 +125,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	NSMutableArray *views = [[NSMutableArray alloc] init];
 	
-	if (self.usernameTextfield) {
-		[views addObject:self.usernameTextfield];
-	}
 	if (self.companyNameTextfield) {
 		[views addObject:self.companyNameTextfield];
 	}
@@ -167,8 +164,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		__weak typeof(self) weakSelf = self;
 		NSString *aboutText = [self.aboutCell.aboutTextView.text isEqualToString:TextViewPlaceholderText] ? @"" : self.aboutCell.aboutTextView.text;
 		[[APIClient sharedInstance] updateUserWithEmail:nil
-                                               username:self.usernameTextfield.text
-                                               fullname:@""
+                                               username:nil
+                                               fullname:nil
                                             companyname:self.companyNameTextfield.text password:@""
                                                 website:self.websiteTextfield.text
                                                facebook:self.facebookTextfield.text

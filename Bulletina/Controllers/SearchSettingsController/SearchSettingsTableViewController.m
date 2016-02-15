@@ -6,11 +6,11 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-//Controllers
+// Controllers
 #import "SearchSettingsTableViewController.h"
 #import "APIClient.h"
 
-//Views
+// Views
 #import "CategoryHeaderView.h"
 #import "DefaultSettingsTableViewCell.h"
 #import "SearchAreaTableViewCell.h"
