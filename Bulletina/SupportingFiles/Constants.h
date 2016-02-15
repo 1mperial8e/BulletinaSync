@@ -32,6 +32,11 @@ static NSString *const PassTokenKey = @"PassTokenKey";
 static NSString *const SNSEndpointArnKey = @"SNSEndpointArnKey";
 static NSString *const CategoriesListKey = @"CategoriesListKey";
 
+static NSString *const SearchAreaKey = @"SearchAreaKey";
+static NSString *const ShowPersonaAdsKey = @"ShowPersonaAdsKey";
+static NSString *const ShowBusinessAdsKey = @"ShowBusinessAdsKey";
+static NSString *const CategoriesSettingsKey = @"CategoriesSettingsKey";
+
 //MARK: Amazon
 static NSString *const AWSCredentialAccessKey = @"AKIAJ4V7INSUGVJNLYJQ";
 static NSString *const AWSCredentialAccessSecret = @"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";
