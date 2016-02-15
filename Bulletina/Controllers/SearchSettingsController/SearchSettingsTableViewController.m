@@ -30,6 +30,14 @@ static NSInteger const UserTypeSectionsIndex = 2;
 
 @property (strong, nonatomic) NSArray *categoriesArray;
 @property (weak, nonatomic) UIProgressView *areaProgressView;
+@property (weak, nonatomic) UISwitch *showPersonalAdsSwitch;
+@property (weak, nonatomic) UISwitch *showBusinessAdsSwitch;
+
+@property (assign, nonatomic) BOOL showBusinessAds;
+@property (assign, nonatomic) BOOL showPersonalAds;
+@property (assign, nonatomic) CGFloat searchArea;
+
+@property (strong, nonatomic) NSMutableDictionary *categoriesSettings;
 
 @end
 
@@ -46,6 +54,33 @@ static NSInteger const UserTypeSectionsIndex = 2;
 
     [self loadCategories];
 	[self tableViewSetup];
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	if ([defaults objectForKey:ShowBusinessAdsKey]) {
+		self.showBusinessAds = [defaults boolForKey:ShowBusinessAdsKey];
+	}
+	if ([defaults objectForKey:ShowPersonaAdsKey]) {
+		self.showPersonalAds = [defaults boolForKey:ShowPersonaAdsKey];
+	}
+	if ([defaults objectForKey:SearchAreaKey]) {
+		self.searchArea = [defaults floatForKey:SearchAreaKey];
+	} else {
+		self.searchArea = 0.5;
+	}
+	if ([defaults objectForKey:CategoriesSettingsKey]) {
+		self.categoriesSettings = [[defaults dictionaryForKey:CategoriesSettingsKey] mutableCopy];
+	} else {
+		self.categoriesSettings = [NSMutableDictionary new];
+	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	[Utils storeValue:@(self.showPersonalAdsSwitch.on) forKey:ShowPersonaAdsKey];
+	[Utils storeValue:@(self.showBusinessAdsSwitch.on) forKey:ShowBusinessAdsKey];
+	[Utils storeValue:@(self.searchArea) forKey:SearchAreaKey];
+	[Utils storeValue:self.categoriesSettings forKey:CategoriesSettingsKey];
 }
 
 #pragma mark - UITableView data source
@@ -91,6 +126,7 @@ static NSInteger const UserTypeSectionsIndex = 2;
 	UIPanGestureRecognizer *sliderPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(areaSliderPan:)];
 	[searchAreaCell.areaSliderCatcherView addGestureRecognizer:sliderPan];
 	self.areaProgressView = searchAreaCell.areaSlider;
+	self.areaProgressView.progress = self.searchArea;
 	self.areaProgressView.progressTintColor = [UIColor appOrangeColor];
 	self.areaProgressView.layer.cornerRadius = 2;
 	return searchAreaCell;
@@ -99,8 +135,20 @@ static NSInteger const UserTypeSectionsIndex = 2;
 - (UITableViewCell *)categoryFilterCellForIndexPath:(NSIndexPath *)indexPath
 {
 	DefaultSettingsTableViewCell *settingCell = [self.tableView dequeueReusableCellWithIdentifier:DefaultSettingsTableViewCell.ID forIndexPath:indexPath];
-	settingCell.settingTitleLabel.text = ((CategoryModel *)self.categoriesArray[indexPath.row]).name;
+	CategoryModel *currentCategory = (CategoryModel *)self.categoriesArray[indexPath.row];
+	settingCell.settingTitleLabel.text = currentCategory.name;
+	if (self.categoriesSettings[@(currentCategory.categoryId).stringValue]) {
+		BOOL isOn = [self.categoriesSettings[@(currentCategory.categoryId).stringValue] boolValue];
+		[settingCell.settingSwitch setOn:isOn];
+	}
+	settingCell.settingSwitch.tag = currentCategory.categoryId;
+	[settingCell.settingSwitch addTarget:self action:@selector(changeSetting:) forControlEvents:UIControlEventValueChanged];
 	return settingCell;
+}
+
+- (void)changeSetting:(UISwitch *)sender
+{
+	[self.categoriesSettings setValue:@(sender.on) forKey:@(sender.tag).stringValue];
 }
 
 - (UITableViewCell *)userTypeCellForIndexPath:(NSIndexPath *)indexPath
@@ -108,8 +156,12 @@ static NSInteger const UserTypeSectionsIndex = 2;
 	DefaultSettingsTableViewCell *settingCell = [self.tableView dequeueReusableCellWithIdentifier:DefaultSettingsTableViewCell.ID forIndexPath:indexPath];
 	if (indexPath.item == 0) {
 		settingCell.settingTitleLabel.text = @"Company Ads";
+		[settingCell.settingSwitch setOn:self.showBusinessAds];
+		self.showBusinessAdsSwitch = settingCell.settingSwitch;
 	} else {
 		settingCell.settingTitleLabel.text = @"Individual Ads";
+		[settingCell.settingSwitch setOn:self.showPersonalAds];
+		self.showPersonalAdsSwitch = settingCell.settingSwitch;
 	}
 	return settingCell;
 }
@@ -170,6 +222,7 @@ static NSInteger const UserTypeSectionsIndex = 2;
 	CGPoint tapPoint = [tap locationInView:sliderFakeView];
 	CGFloat percentage = tapPoint.x / CGRectGetWidth(sliderFakeView.bounds);
 	[self.areaProgressView setProgress:percentage animated:NO];
+	self.searchArea = self.areaProgressView.progress;
 }
 
 - (void)areaSliderPan:(UIPanGestureRecognizer *)pan
@@ -178,6 +231,7 @@ static NSInteger const UserTypeSectionsIndex = 2;
 	CGPoint tapPoint = [pan locationInView:sliderFakeView];
 	CGFloat percentage = tapPoint.x / CGRectGetWidth(sliderFakeView.bounds);
 	[self.areaProgressView setProgress:percentage animated:NO];
+	self.searchArea = self.areaProgressView.progress;
 }
 
 @end
