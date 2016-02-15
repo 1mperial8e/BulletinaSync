@@ -26,29 +26,11 @@
 	[self addSearchBar];
 }
 
-//#pragma mark - Table view data source
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    return 3;
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//	return [self defaultCellForIndexPath:indexPath];
-//}
-
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	UIImage *testImage;
-	if (((ItemModel *)self.itemsList[indexPath.item]).imagesUrl.length) {
-		testImage = self.itemImage;
-	} else {
-		testImage = nil;
-	}
-	return [self itemCellHeightForText:((ItemModel *)self.itemsList[indexPath.item]).text andImage:testImage];
+	return [ItemTableViewCell itemCellHeightForItemModel:self.itemsList[indexPath.item]];
 }
 
 #pragma mark - Setup
