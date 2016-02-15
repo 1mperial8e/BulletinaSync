@@ -11,4 +11,7 @@
 
 @property (weak, nonatomic) UserModel *user;
 
+- (CGFloat)heightForTopCell;
+- (UITableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath;
+
 @end
