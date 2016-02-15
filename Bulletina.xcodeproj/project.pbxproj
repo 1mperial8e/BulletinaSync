@@ -163,6 +163,8 @@
 		B2F8DB2D1C4FBB390083FE1F /* AccountTypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F8DB2B1C4FBB390083FE1F /* AccountTypeTableViewCell.m */; };
 		B2F8DB2E1C4FBB390083FE1F /* AccountTypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2F8DB2C1C4FBB390083FE1F /* AccountTypeTableViewCell.xib */; };
 		B2F8DB331C4FD14B0083FE1F /* AccountTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2F8DB321C4FD14B0083FE1F /* AccountTypes.plist */; };
+		C9769278802C3F05B2A7EEB9 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BCC7AA0F12EFF92BEAE8919 /* AssetsLibrary.framework */; };
+		FC70FDE96105E8290760B333 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF89A0FAAF5707DE675DA /* CoreTelephony.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -415,6 +417,8 @@
 		B2F8DB2B1C4FBB390083FE1F /* AccountTypeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountTypeTableViewCell.m; sourceTree = "<group>"; };
 		B2F8DB2C1C4FBB390083FE1F /* AccountTypeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountTypeTableViewCell.xib; sourceTree = "<group>"; };
 		B2F8DB321C4FD14B0083FE1F /* AccountTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AccountTypes.plist; sourceTree = "<group>"; };
+		E17EE9D5E55C6576903F9B10 /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
+		F45FF89A0FAAF5707DE675DA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1159,6 +1163,7 @@
 				4F7488D71C5F822000C22BEC /* Frameworks */,
 				4F79B8F61C43DA2A0082740E /* Bulletina */,
 				4F79B8F51C43DA2A0082740E /* Products */,
+				5414166CE4C8F87309A8356B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

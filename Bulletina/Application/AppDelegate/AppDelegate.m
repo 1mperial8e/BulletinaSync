@@ -12,6 +12,7 @@
 
 // Controllers
 #import "LoginViewController.h"
+#import <BuddyBuildSDK/BuddyBuildSDK.h>
 
 // Frameworks
 #import <AWSSNS/AWSSNS.h>
