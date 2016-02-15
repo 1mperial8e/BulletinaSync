@@ -34,7 +34,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndEditingNotificationRecieved:) name:UITextViewTextDidEndEditingNotification object:nil];
 	[self setClipsToBounds:YES];
 	
-//	self. backgroundColor = [UIColor yellowColor];
+	self.backgroundColor = [UIColor yellowColor];
 	[self setTextContainerInset:UIEdgeInsetsMake(10, 20, 10, 20)];
 
 	
@@ -84,8 +84,12 @@
 - (void)setPlaceholder:(NSString *)placeholder
 {
 	self.placeholderLabel.text = placeholder;
-//	self.text = placeholder;
 	[self.placeholderLabel sizeToFit];
+	NSString *initialText = self.text;
+	self.text = placeholder;
+//	CGFloat height = ceil([self sizeThatFits:CGSizeMake(CGRectGetWidth(self.frame), MAXFLOAT)].height + 0.5);
+	[self sizeToFit];
+	self.text = initialText;
 }
 
 - (void)dealloc
