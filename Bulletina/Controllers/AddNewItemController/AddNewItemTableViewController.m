@@ -143,8 +143,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.textCell = [self.tableView dequeueReusableCellWithIdentifier:NewItemTextTableViewCell.ID forIndexPath:indexPath];
 	self.textCell.textView.placeholder = TextViewPlaceholderText;
 	self.textCell.textView.delegate = self;
-	self.textCell.textView.text = TextViewPlaceholderText;
-	self.textCell.textView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
+	self.textCell.textView.textColor = [UIColor blackColor];
 	[self.textCell.textView setTextContainerInset:UIEdgeInsetsMake(10, 20, 5, 20)];
 	self.textCell.textView.returnKeyType = UIReturnKeyDone;
 	self.textCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -215,33 +214,17 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 #pragma mark - UITextViewDelegate
 
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-	if ([self.textCell.textView.text isEqualToString:@""]) 	{
-		self.textCell.textView.text = TextViewPlaceholderText;
-		self.textCell.textView.textColor =  [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
-	}
-}
-
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
 {
 	if ([string isEqualToString:@"\n"]) {
 		[self.view endEditing:YES];
 		return  NO;
-	} else if ([textView.text isEqualToString:TextViewPlaceholderText]) {
-		textView.text = @"";
-		textView.textColor = [UIColor blackColor];
 	}
 	return YES;
 }
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-	if ([self.textCell.textView.text isEqualToString:@""])	{
-		self.textCell.textView.text = TextViewPlaceholderText;
-		self.textCell.textView.textColor = [UIColor colorWithRed:204 / 255.0 green:206 / 255.0 blue:209 / 255.0 alpha:1.0];
-		textView.selectedRange = NSMakeRange(0, 0);
-	}
 	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
 	if (self.textCell.textView.contentSize.height > height + 1 || self.textCell.textView.contentSize.height < height - 1 || !textView.text.length) {
 		[self.tableView beginUpdates];

@@ -90,6 +90,13 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	self.itemTextView.editable = YES;
 	self.itemTextView.text = self.cellItem.text;
 	self.itemTextView.editable = NO;
+	
+	if ([self floatTimeAgo] < 86400) {
+		[self.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
+		self.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
+		self.itemStateButton.hidden = NO;
+		self.itemStateButton.layer.cornerRadius = 7;
+	}
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -151,26 +158,33 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 
 - (NSString *)stringWithTimeAgoForItem
 {
+	NSTimeInterval timeAgo = [self floatTimeAgo];
+	NSString *timeString;
+	if (timeAgo < 60) {
+		timeString = @"now";
+	} else if (timeAgo < 3600) {
+		timeString = [NSString stringWithFormat:@"%.f min", timeAgo / 60];
+	} else if (timeAgo < 86400) {
+		timeString = [NSString stringWithFormat:@"%.f h", timeAgo / 3600];
+	} else if (timeAgo < 2592000) {
+		timeString = [NSString stringWithFormat:@"%.f d", timeAgo / 86400];
+	} else if (timeAgo < 31104000) {
+		timeString = [NSString stringWithFormat:@"%.f m", timeAgo / 2592000];
+	} else {
+		timeString = [NSString stringWithFormat:@"%.1f y", timeAgo / 2592000.0];
+	}
+	return timeString;
+}
+
+- (NSTimeInterval)floatTimeAgo
+{
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'.'SSS'Z'"];
 	[dateFormatter setTimeZone:[[NSTimeZone alloc] initWithName:@"UTC"]];
 	NSDate *itemDate = [[NSDate alloc] init];
 	itemDate = [dateFormatter dateFromString:self.cellItem.createdAt];
-	
 	NSTimeInterval timeAgo = [[NSDate date] timeIntervalSinceDate: itemDate];
-	NSString *timeString;
-	if (timeAgo < 60) {
-		timeString = @"now";
-	} else if (timeAgo < 3600) {
-		timeString = [NSString stringWithFormat:@"%.f m", timeAgo / 60];
-	} else if (timeAgo < 86400) {
-		timeString = [NSString stringWithFormat:@"%.f h", timeAgo / 3600];
-	} else if (timeAgo < 259200) {
-		timeString = [NSString stringWithFormat:@"%.f d", timeAgo / 86400];
-	} else {
-		timeString = [NSString stringWithFormat:@"%.1f y", timeAgo / 259200.0];
-	}
-	return timeString;
+	return timeAgo;
 }
 
 + (CGFloat)itemCellHeightForItemModel:(ItemModel *)item

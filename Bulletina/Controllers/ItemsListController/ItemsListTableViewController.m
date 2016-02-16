@@ -63,14 +63,7 @@
 {
 	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
 	NSInteger dataIndex = myItems ? indexPath.item -1 : indexPath.item;
-	cell.cellItem = self.itemsList[dataIndex];
-	
-	if (dataIndex % 2) {
-		[cell.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
-		cell.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
-		cell.itemStateButton.hidden = NO;
-		cell.itemStateButton.layer.cornerRadius = 7;
-	}
+	cell.cellItem = self.itemsList[dataIndex];	
 	
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
 	[cell.itemImageView addGestureRecognizer:imageTapGesture];
