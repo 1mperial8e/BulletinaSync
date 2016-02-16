@@ -19,6 +19,7 @@
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 #define HeigthCoefficient ScreenHeight / 667
+#define MaxSearchArea 30 //km
 
 #ifdef DEBUG
 #define DLog(format, ...) NSLog(format, ##__VA_ARGS__)

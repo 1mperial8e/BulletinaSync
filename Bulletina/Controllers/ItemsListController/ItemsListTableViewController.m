@@ -31,7 +31,9 @@
 		[self.loader show];
 	}
 	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:
+//	[[APIClient sharedInstance] fetchItemsForSearchSettingsAndPage:0 withCompletion:
+	 ^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
 			if (response[@"error_message"]) {
 				[Utils showErrorWithMessage:response[@"error_message"]];

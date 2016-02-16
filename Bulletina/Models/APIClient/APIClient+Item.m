@@ -56,4 +56,27 @@
 	[self performGET:@"api/v1/items.json" withParameters:parameters response:completion];
 }
 
+#pragma mark - Search Items
+
+- (void)fetchItemsForSearchSettingsAndPage:(NSInteger)page withCompletion:(ResponseBlock)completion
+{
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
+	NSMutableDictionary *searchParameters = [NSMutableDictionary dictionary];
+	[searchParameters setValue:@(page) forKey:@"page"];
+	[searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
+	[searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	CGFloat searchAreaPercentage;
+	if ([defaults objectForKey:SearchAreaKey]) {
+		searchAreaPercentage = [defaults floatForKey:SearchAreaKey];
+	} else {
+		searchAreaPercentage = 1.0;
+	}
+	[searchParameters setValue:@(MaxSearchArea * searchAreaPercentage) forKey:@"distance"];
+	[parameters setValue:searchParameters forKey:@"search"];
+	
+	[self performGET:@"api/v1/search.json" withParameters:parameters response:completion];
+}
+
 @end

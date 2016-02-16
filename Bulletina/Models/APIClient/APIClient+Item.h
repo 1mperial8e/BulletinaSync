@@ -22,4 +22,8 @@
 
 - (void)fetchItemsWithOffset:(NSNumber *)offset limit:(NSNumber *)limit withCompletion:(ResponseBlock)completion;
 
+#pragma mark - Search Items
+
+- (void)fetchItemsForSearchSettingsAndPage:(NSInteger)page withCompletion:(ResponseBlock)completion;
+
 @end

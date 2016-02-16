@@ -147,6 +147,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 			if (error) {
 				if (response[@"error_message"]) {
 					[Utils showErrorWithMessage:response[@"error_message"]];
+				} else if (((NSArray *)response[@"error"][@"nickname"]).firstObject) {
+					NSString *errorMessage = [@"nickname " stringByAppendingString:((NSArray *)response[@"error"][@"nickname"]).firstObject];
+					[Utils showErrorWithMessage:errorMessage];
 				} else {
 					[Utils showErrorForStatusCode:statusCode];
 				}
