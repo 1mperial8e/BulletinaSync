@@ -41,6 +41,14 @@
 	self.updatedAt = dictionary[@"updated_at"];
 	self.userId = [dictionary[@"user_id"] integerValue];
 	
+	self.adTypeName = dictionary[@"ad_type_name"];
+	self.countryName = dictionary[@"country_name"];
+	self.userAvatarThumbUrl = dictionary[@"user_avatar_thumb_url"];
+	self.userCompanyName = dictionary[@"user_company_name"];
+	self.userFullname = dictionary[@"user_fullname"];
+	self.userNickname = dictionary[@"user_nickname"];
+	self.userUserAvatarUrl = dictionary[@"user_user_avatar_url"];
+	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if ([defaults objectForKey:CategoriesListKey]) {
 		NSArray *categoriesArray = [CategoryModel arrayWithDictionariesArray:[defaults objectForKey:CategoriesListKey]];

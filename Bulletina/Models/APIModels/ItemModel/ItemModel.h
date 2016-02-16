@@ -15,9 +15,11 @@
 
 @property (assign, nonatomic) BOOL active;
 @property (assign, nonatomic) NSInteger adTypeId;
+@property (strong, nonatomic) NSString *adTypeName;
 @property (assign, nonatomic) BOOL banned;
 @property (strong, nonatomic) NSString *city;
 @property (assign, nonatomic) NSInteger countryId;
+@property (strong, nonatomic) NSString *countryName;
 @property (strong, nonatomic) NSString *createdAt;
 @property (assign, nonatomic) BOOL deleted;
 @property (strong, nonatomic) NSString *text; //description
@@ -32,5 +34,12 @@
 @property (strong, nonatomic) NSString *price;
 @property (strong, nonatomic) NSString *updatedAt;
 @property (assign, nonatomic) NSInteger userId;
+@property (strong, nonatomic) NSString *userAvatarThumbUrl;
+@property (strong, nonatomic) NSString *userCompanyName;
+@property (strong, nonatomic) NSString *userFullname;
+@property (strong, nonatomic) NSString *userNickname;
+@property (strong, nonatomic) NSString *userUserAvatarUrl;
+
+
 
 @end
