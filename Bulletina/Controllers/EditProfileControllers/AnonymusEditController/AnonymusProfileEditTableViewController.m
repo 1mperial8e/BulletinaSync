@@ -144,10 +144,16 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[Utils showErrorWithMessage:@"Nickname is required."];
 	} else if (![Utils isValidName:self.usernameTextfield.text] ) {
 		[Utils showErrorWithMessage:@"Nickname is not valid."];
-	}	else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
-		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
-	} else if (![Utils isValidPassword:self.passwordTextfield.text] && self.passwordTextfield.text.length) {
+	} else if (!self.emailTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Email is required."];
+	} else if (![Utils isValidEmail:self.emailTextfield.text UseHardFilter:NO]) {
+		[Utils showErrorWithMessage:@"Email is not valid."];
+	} else if (!self.passwordTextfield.text.length || !self.retypePasswordTextfield.text.length) {
+		[Utils showErrorWithMessage:@"Password and repassword are required."];
+	} else if (![Utils isValidPassword:self.passwordTextfield.text]) {
 		[Utils showErrorWithMessage:@"Password is not valid."];
+	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
+		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	} else {
         [self.tableView endEditing:YES];
 		[self.loader show];
@@ -157,6 +163,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 			if (error) {
 				if (response[@"error_message"]) {
 					[Utils showErrorWithMessage:response[@"error_message"]];
+				} else if (((NSArray *)response[@"error"][@"nickname"]).firstObject) {
+					NSString *errorMessage = [@"Nickname " stringByAppendingString:((NSArray *)response[@"error"][@"nickname"]).firstObject];
+					[Utils showErrorWithMessage:errorMessage];
 				} else {
 					[Utils showErrorForStatusCode:statusCode];
 				}
