@@ -100,12 +100,12 @@
 - (NSDictionary *)deviceParameters
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[Defaults valueForKey:SNSEndpointArnKey] ? : [[NSUUID UUID] UUIDString] forKey:@"endpoint_arn"];
-    [parameters setObject:self.pushToken ? : @"" forKey:@"device_token"];
-    [parameters setObject:[Device.systemName stringByAppendingFormat:@" %@", Device.systemVersion] forKey:@"operating_system"];
-    [parameters setObject:Device.model forKey:@"device_type"];
-    [parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"current_latitude"];
-    [parameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"current_longitude"];
+    [parameters setValue:[Defaults valueForKey:SNSEndpointArnKey] ? : [[NSUUID UUID] UUIDString] forKey:@"endpoint_arn"];
+    [parameters setValue:self.pushToken ? self.pushToken : @"" forKey:@"device_token"];
+    [parameters setValue:[Device.systemName stringByAppendingFormat:@" %@", Device.systemVersion] forKey:@"operating_system"];
+    [parameters setValue:Device.model forKey:@"device_type"];
+    [parameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"current_latitude"];
+    [parameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"current_longitude"];
     return @{@"device" : parameters};
 }
 
