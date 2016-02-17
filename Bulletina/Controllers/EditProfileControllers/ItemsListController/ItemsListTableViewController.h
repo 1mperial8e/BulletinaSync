@@ -17,6 +17,7 @@
 
 //Models
 #import "APIClient+Item.h"
+#import "APIClient+User.h"
 
 @interface ItemsListTableViewController : UITableViewController
 

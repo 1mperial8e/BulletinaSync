@@ -117,6 +117,11 @@
 	[searchBar setShowsCancelButton:NO animated:YES];
 }
 
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+	[searchBar setShowsCancelButton:NO animated:YES];
+}
+
 
 #pragma mark - Actions
 

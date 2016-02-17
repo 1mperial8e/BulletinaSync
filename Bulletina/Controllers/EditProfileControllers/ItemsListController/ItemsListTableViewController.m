@@ -7,6 +7,7 @@
 //
 
 #import "ItemsListTableViewController.h"
+#import "MyItemsTableViewController.h"
 
 @interface ItemsListTableViewController ()
 
@@ -20,12 +21,7 @@
 {
     [super viewDidLoad];
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-	[self fetchItemListWithLoader:NO];
+	[self performSelector:@selector(fetchItemListWithLoader:) withObject:nil afterDelay:1.5];
 }
 	
 #pragma mark - API
@@ -42,10 +38,12 @@
 		if (error) {
 			if (response[@"error_message"]) {
 				[Utils showErrorWithMessage:response[@"error_message"]];
-			}
-			if (statusCode == -1009) {
-//				[self performSelector:@selector(fetchItemListWithLoader:) withObject:nil afterDelay:1];
+			} else if (statusCode == -1009) {
 				[Utils showErrorWithMessage:@"Please check network connection and try again"];
+			} else if (statusCode == 401) {
+				[Utils showErrorUnknown];
+			} else {
+				[Utils showErrorUnknown];
 			}
 		} else {
 			NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
@@ -78,6 +76,9 @@
 	
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
 	[cell.itemImageView addGestureRecognizer:imageTapGesture];
+	
+	UITapGestureRecognizer *userTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTap:)];
+	[cell.infoView addGestureRecognizer:userTapGesture];
 	return cell;
 }
 
@@ -97,6 +98,26 @@
 		imageController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
 		[self.navigationController presentViewController:imageController animated:NO completion:nil];
 	}
+}
+
+- (void)userTap:(UITapGestureRecognizer *)sender
+{
+	__weak typeof(self) weakSelf = self;
+	[[APIClient sharedInstance] showUserWithUserId:sender.view.tag withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		if (!error) {
+			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+			UserModel *user = [UserModel modelWithDictionary:response];			
+//			weakSelf.user = user;
+//			[Utils storeValue:response forKey:CurrentUserKey];
+//			[[APIClient sharedInstance] updateCurrentUser:user];
+//			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
+				itemsTableViewController.user = user;
+				[weakSelf.navigationController pushViewController:itemsTableViewController animated:YES];
+			});
+		}
+	}];
 }
 
 #pragma mark - Setup

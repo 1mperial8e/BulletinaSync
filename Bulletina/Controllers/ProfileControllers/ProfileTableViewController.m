@@ -60,6 +60,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @implementation ProfileTableViewController
 
+
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad
@@ -233,6 +234,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             [Utils showWarningWithMessage:@"Only registered users can post items. Please update your account."];
         } else {
             MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
+			itemsTableViewController.user = [APIClient sharedInstance].currentUser;
             [self.navigationController pushViewController:itemsTableViewController animated:YES];
         }
     }
