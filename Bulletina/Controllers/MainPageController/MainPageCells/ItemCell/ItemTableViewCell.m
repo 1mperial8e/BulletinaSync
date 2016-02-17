@@ -45,6 +45,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 - (void)awakeFromNib
 {
 	[super awakeFromNib];
+	[self.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
 	self.iconsCollectionView.backgroundColor = [UIColor clearColor];
 	self.iconsCollectionView.dataSource = self;
 	self.iconsCollectionView.delegate = self;	
@@ -56,7 +57,8 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 {
 	self.itemStateButton.hidden = YES;
 	self.itemImageView.image = nil;
-	self.itemViewHeightConstraint.constant = 0.0;	
+	self.itemViewHeightConstraint.constant = 0.0;
+	self.priceContainerHeightConstraint.constant = 0.0;
 }
 
 - (void)setCellItem:(ItemModel *)cellItem
@@ -70,8 +72,15 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	self.backgroundColor = [UIColor mainPageBGColor];
 	self.distanceLabel.text = [self stringWithDistanceToItem];
 	self.timeAgoLabel.text = [self stringWithTimeAgoForItem];
-	self.usernameLabel.text = self.cellItem.userNickname;
-	[self.avatarImageView setImageWithURL:[NSURL URLWithString:self.cellItem.userAvatarThumbUrl]];
+	
+	if (self.cellItem.userNickname.length) {
+		self.usernameLabel.text = self.cellItem.userNickname;
+	}
+	
+	if (self.cellItem.userAvatarThumbUrl.length) {
+		[self.avatarImageView setImageWithURL:[NSURL URLWithString:self.cellItem.userAvatarThumbUrl]];
+		self.avatarImageView.layer.cornerRadius = 7;
+	}
 	
 	if (self.cellItem.imagesUrl.length) {
 		[self.itemImageView setImageWithURL:[NSURL URLWithString:self.cellItem.imagesUrl]];
@@ -79,6 +88,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	} else {
 		self.itemViewHeightConstraint.constant = 0.0;
 	}
+	
 	self.priceContainerHeightConstraint.constant = priceContainerHeigth;
 	self.priceTitleLabel.text = self.cellItem.category.name;
 	if (self.cellItem.category.hasPrice) {
@@ -86,11 +96,11 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	} else {
 		self.priceValueLabel.text = @"";
 	}
-	[self layoutIfNeeded];
 	
-	[self.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
 	self.itemTextView.editable = YES;
 	self.itemTextView.text = self.cellItem.text;
+	self.itemTextView.font = [UIFont systemFontOfSize:16];
+	self.itemTextView.textColor = [UIColor blackColor];
 	self.itemTextView.editable = NO;
 	
 	if ([self floatTimeAgo] < 86400) {
@@ -99,6 +109,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 		self.itemStateButton.hidden = NO;
 		self.itemStateButton.layer.cornerRadius = 7;
 	}
+	[self layoutIfNeeded];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -184,7 +195,11 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'.'SSS'Z'"];
 	[dateFormatter setTimeZone:[[NSTimeZone alloc] initWithName:@"UTC"]];
 	NSDate *itemDate = [[NSDate alloc] init];
-	itemDate = [dateFormatter dateFromString:self.cellItem.createdAt];
+	if (self.cellItem.createdAt.length ) {
+		itemDate = [dateFormatter dateFromString:self.cellItem.createdAt];
+	} else {
+		itemDate = [NSDate date];
+	}
 	NSTimeInterval timeAgo = [[NSDate date] timeIntervalSinceDate: itemDate];
 	return timeAgo;
 }
@@ -194,7 +209,6 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	CGFloat textViewHeigth = 0;
 		ItemTableViewCell *cell = [[NSBundle mainBundle] loadNibNamed:ItemTableViewCell.ID owner:nil options:nil].firstObject;
 	cell.cellItem = item;
-	[cell.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
 	textViewHeigth = ceil([cell.itemTextView sizeThatFits:CGSizeMake(ScreenWidth - 32, MAXFLOAT)].height);
 	
 	UIImage *sizeImage;
@@ -203,7 +217,8 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	} else {
 		sizeImage = nil;
 	}
-	return ItemTableViewCellHeigth + [cell heighOfImageViewForImage:sizeImage] + textViewHeigth + priceContainerHeigth;
+	CGFloat height = ItemTableViewCellHeigth + [cell heighOfImageViewForImage:sizeImage] + textViewHeigth + priceContainerHeigth;
+	return height;
 }
 
 - (CGFloat)heighOfImageViewForImage:(UIImage *)image

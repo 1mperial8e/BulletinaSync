@@ -20,6 +20,11 @@
 {
     [super viewDidLoad];
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
 	[self fetchItemListWithLoader:NO];
 }
 	
@@ -37,6 +42,10 @@
 		if (error) {
 			if (response[@"error_message"]) {
 				[Utils showErrorWithMessage:response[@"error_message"]];
+			}
+			if (statusCode == -1009) {
+//				[self performSelector:@selector(fetchItemListWithLoader:) withObject:nil afterDelay:1];
+				[Utils showErrorWithMessage:@"Please check network connection and try again"];
 			}
 		} else {
 			NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
@@ -69,7 +78,6 @@
 	
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
 	[cell.itemImageView addGestureRecognizer:imageTapGesture];
-
 	return cell;
 }
 

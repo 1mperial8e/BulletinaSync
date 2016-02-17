@@ -11,7 +11,8 @@
 
 @interface MainPageController () <UISearchBarDelegate>
 
-@property (strong, nonatomic) UISearchController *searchController;
+//@property (strong, nonatomic) UISearchController *searchController;
+@property (strong, nonatomic) UISearchBar *searchBar;
 
 @end
 
@@ -19,11 +20,11 @@
 
 - (void)viewDidLoad
 {
-	[self loadCategories];
-    [super viewDidLoad];	
 	[self tableViewSetup];
 	[self setupNavigationBar];
 	[self addSearchBar];
+	[self loadCategories];
+    [super viewDidLoad];		
 }
 
 #pragma mark - Table view delegate
@@ -74,23 +75,23 @@
 
 - (void)addSearchBar
 {
-	self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-	self.searchController.searchBar.delegate = self;
-	self.searchController.searchBar.barTintColor =  [UIColor mainPageBGColor];
-	self.searchController.searchBar.tintColor =  [UIColor appOrangeColor];
+	self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
+	self.searchBar.delegate = self;
+	self.searchBar.barTintColor =  [UIColor mainPageBGColor];
+	self.searchBar.tintColor =  [UIColor appOrangeColor];
 	
 	CALayer *bottomBorder = [CALayer layer];
 	bottomBorder.backgroundColor = [[UIColor lightGrayColor] CGColor];
-	bottomBorder.frame = CGRectMake(0, CGRectGetHeight(self.searchController.searchBar.frame), CGRectGetWidth(self.searchController.searchBar.frame), 1.0f);
-	[self.searchController.searchBar.layer addSublayer:bottomBorder];
-	
+	bottomBorder.frame = CGRectMake(0, CGRectGetHeight(self.searchBar.frame), CGRectGetWidth(self.searchBar.frame), 1.0f);
+	[self.searchBar.layer addSublayer:bottomBorder];
+
 	UITextField *searchField;
-	NSUInteger numViews = [self.searchController.searchBar.subviews count];
+	NSUInteger numViews = [self.searchBar.subviews count];
 	for (int i = 0; i < numViews; i++) {
-		NSUInteger numSubViews = [[self.searchController.searchBar.subviews objectAtIndex:i].subviews count];
+		NSUInteger numSubViews = [[self.searchBar.subviews objectAtIndex:i].subviews count];
 		for (int j = 0; j < numSubViews; j++) {
-			if ([[[self.searchController.searchBar.subviews objectAtIndex:i].subviews objectAtIndex:j] isKindOfClass:[UITextField class]]) {
-				searchField = [[self.searchController.searchBar.subviews objectAtIndex:i].subviews objectAtIndex:j];
+			if ([[[self.searchBar.subviews objectAtIndex:i].subviews objectAtIndex:j] isKindOfClass:[UITextField class]]) {
+				searchField = [[self.searchBar.subviews objectAtIndex:i].subviews objectAtIndex:j];
 			}
 		}
 	}
@@ -99,9 +100,23 @@
 		[searchField setBorderStyle:UITextBorderStyleNone];
 		[searchField.layer setCornerRadius:5];
 	}
-	[self.searchController.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
-	self.tableView.tableHeaderView = self.searchController.searchBar;
+	[self.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
+	
+	self.tableView.tableHeaderView = self.searchBar;
 }
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+	[searchBar setShowsCancelButton:YES animated:YES];
+}
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+	[searchBar resignFirstResponder];
+	[searchBar setShowsCancelButton:NO animated:YES];
+}
+
 
 #pragma mark - Actions
 

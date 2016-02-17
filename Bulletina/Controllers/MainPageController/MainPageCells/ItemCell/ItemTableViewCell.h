@@ -13,7 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 
 static CGFloat const priceContainerHeigth = 43.0f;
-static CGFloat const ItemTableViewCellHeigth = 106.0f;
+static CGFloat const ItemTableViewCellHeigth = 105.0f;
 
 @interface ItemTableViewCell : BaseTableViewCell
 
