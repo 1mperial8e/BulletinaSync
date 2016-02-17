@@ -70,6 +70,8 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	self.backgroundColor = [UIColor mainPageBGColor];
 	self.distanceLabel.text = [self stringWithDistanceToItem];
 	self.timeAgoLabel.text = [self stringWithTimeAgoForItem];
+	self.usernameLabel.text = self.cellItem.userNickname;
+	[self.avatarImageView setImageWithURL:[NSURL URLWithString:self.cellItem.userAvatarThumbUrl]];
 	
 	if (self.cellItem.imagesUrl.length) {
 		[self.itemImageView setImageWithURL:[NSURL URLWithString:self.cellItem.imagesUrl]];

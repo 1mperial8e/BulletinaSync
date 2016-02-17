@@ -54,7 +54,7 @@
 	[adsPlaceholder addSubview:adsPlaceholderLabel];
 	adsPlaceholder.backgroundColor = [UIColor appOrangeColor];
 
-	[self.navigationController.view addSubview:adsPlaceholder];
+	[self.navigationController.view addSubview:adsPlaceholder];	
 }
 
 - (void)setupNavigationBar

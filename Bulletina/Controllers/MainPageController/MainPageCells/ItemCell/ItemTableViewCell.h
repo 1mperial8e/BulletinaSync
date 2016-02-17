@@ -13,7 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 
 static CGFloat const priceContainerHeigth = 43.0f;
-static CGFloat const ItemTableViewCellHeigth = 105.0f;
+static CGFloat const ItemTableViewCellHeigth = 106.0f;
 
 @interface ItemTableViewCell : BaseTableViewCell
 
@@ -27,6 +27,10 @@ static CGFloat const ItemTableViewCellHeigth = 105.0f;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *priceContainerHeightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeAgoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+
+
 @property (weak, nonatomic) ItemModel *cellItem;
 //temp
 @property (strong, nonatomic) UIImage *itemImage;
