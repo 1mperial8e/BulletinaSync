@@ -99,8 +99,8 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	
 	self.itemTextView.editable = YES;
 	self.itemTextView.text = self.cellItem.text;
-	self.itemTextView.font = [UIFont systemFontOfSize:16];
-	self.itemTextView.textColor = [UIColor blackColor];
+	self.itemTextView.font = [UIFont systemFontOfSize:15];
+	self.itemTextView.textColor = [UIColor colorWithRed:74/255.0 green:74/255.0 blue:74/255.0 alpha:1];
 	self.itemTextView.editable = NO;
 	
 	if ([self floatTimeAgo] < 86400) {
