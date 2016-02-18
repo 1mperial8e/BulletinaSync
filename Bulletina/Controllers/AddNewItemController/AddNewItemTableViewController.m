@@ -18,7 +18,6 @@
 // Models
 #import "APIClient+Item.h"
 
-
 static CGFloat const PriceCellHeigth = 44;
 
 static NSInteger const CellsCount = 4;

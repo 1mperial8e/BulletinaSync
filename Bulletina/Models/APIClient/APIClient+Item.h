@@ -26,4 +26,8 @@
 
 - (void)fetchItemsForSearchSettingsAndPage:(NSInteger)page withCompletion:(ResponseBlock)completion;
 
+#pragma mark - Report
+
+- (void)reportItemWithId:(NSInteger)itemId andUserId:(NSInteger)userId description:(NSString *)text reasonId:(NSInteger)reasonId withCompletion:(ResponseBlock)completion;
+
 @end

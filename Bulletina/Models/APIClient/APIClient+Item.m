@@ -79,4 +79,21 @@
 	[self performGET:@"api/v1/search.json" withParameters:parameters response:completion];
 }
 
+#pragma mark - Report
+
+- (void)reportItemWithId:(NSInteger)itemId andUserId:(NSInteger)userId description:(NSString *)text reasonId:(NSInteger)reasonId withCompletion:(ResponseBlock)completion
+{
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
+	NSMutableDictionary *reportParameters = [NSMutableDictionary dictionary];
+	[reportParameters setValue:@(userId) forKey:@"user_id"];
+	[reportParameters setValue:@(itemId) forKey:@"item_id"];
+	[reportParameters setValue:@(reasonId) forKey:@"report_reason_id"];
+	[reportParameters setValue:text forKey:@"user_comment"];
+	
+	[parameters setValue:reportParameters forKey:@"report"];
+	
+	[self performPOST:@"api/v1/reports" withParameters:parameters multipartData:nil response:completion];
+}
+
+
 @end

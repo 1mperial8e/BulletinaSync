@@ -8,6 +8,7 @@
 
 #import "ItemTableViewCell.h"
 #import "IconCollectionViewCell.h"
+#import "ReportTableViewController.h"
 
 static CGFloat const iconCellHeigth = 20;
 static CGFloat const iconCellCount = 4;
@@ -143,7 +144,11 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.item == FavoriteCellIndex) {
+	if (indexPath.item == MoreCellIndex) {
+		//ActionSheet Needed
+		if ([self.delegate respondsToSelector:@selector(reportItemWithId:andUserId:)]) {
+			[self.delegate reportItemWithId:self.cellItem.itemId andUserId:self.cellItem.userId];
+		}
 	}
 }
 
@@ -235,5 +240,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	}
 	return imageViewHeigth;
 }
+
+
 
 @end

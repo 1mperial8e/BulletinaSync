@@ -21,7 +21,7 @@
 {
     [super viewDidLoad];
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
-	[self performSelector:@selector(fetchItemListWithLoader:) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];	
+	[self performSelector:@selector(fetchItemListWithLoader:) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
 }
 	
 #pragma mark - API
@@ -73,7 +73,7 @@
 	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
 	NSInteger dataIndex = myItems ? indexPath.item -1 : indexPath.item;
 	cell.cellItem = self.itemsList[dataIndex];	
-	
+	cell.delegate = self;
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
 	[cell.itemImageView addGestureRecognizer:imageTapGesture];
 	
@@ -135,6 +135,17 @@
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
 	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
 	[self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
+}
+
+#pragma mark - ItemCellDelegate
+
+- (void)reportItemWithId:(NSInteger)itemId andUserId:(NSInteger)userId
+{
+	ReportTableViewController *reportTableViewController = [ReportTableViewController new];
+	reportTableViewController.reportedItemId = itemId;
+	reportTableViewController.reportedUserId = userId;
+
+	[self.navigationController pushViewController:reportTableViewController animated:YES];
 }
 
 @end
