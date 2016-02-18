@@ -22,7 +22,7 @@
 	[self tableViewSetup];
 	[self setupNavigationBar];
 	[self addSearchBar];
-	[self performSelector:@selector(loadCategories) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];	
+	[self performSelector:@selector(loadCategories) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
     [super viewDidLoad];		
 }
 
