@@ -44,6 +44,14 @@
 	}
 }
 
+- (CGFloat)requestStartDelay
+{
+	if (self.networkStatus <= NetworkStatusNotReachable) {
+		return 1.5;
+	}
+	return 0.0;
+}
+
 #pragma mark - Public
 
 + (instancetype)sharedInstance

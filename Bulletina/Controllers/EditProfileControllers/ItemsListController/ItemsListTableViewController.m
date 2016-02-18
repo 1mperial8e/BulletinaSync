@@ -21,7 +21,7 @@
 {
     [super viewDidLoad];
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
-	[self performSelector:@selector(fetchItemListWithLoader:) withObject:nil afterDelay:1.5];
+	[self performSelector:@selector(fetchItemListWithLoader:) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];	
 }
 	
 #pragma mark - API

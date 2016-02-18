@@ -185,6 +185,7 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 - (void)setupNavigationBar
 {
 	[super setupNavigationBar];
+	self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
 - (void)tableViewSetup

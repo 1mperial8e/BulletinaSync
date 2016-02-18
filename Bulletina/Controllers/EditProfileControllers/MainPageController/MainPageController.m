@@ -11,7 +11,6 @@
 
 @interface MainPageController () <UISearchBarDelegate>
 
-//@property (strong, nonatomic) UISearchController *searchController;
 @property (strong, nonatomic) UISearchBar *searchBar;
 
 @end
@@ -23,7 +22,7 @@
 	[self tableViewSetup];
 	[self setupNavigationBar];
 	[self addSearchBar];
-	[self loadCategories];
+	[self performSelector:@selector(loadCategories) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];	
     [super viewDidLoad];		
 }
 

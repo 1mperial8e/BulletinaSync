@@ -346,6 +346,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
                 [Utils storeValue:response forKey:CurrentUserKey];
                 [[APIClient sharedInstance] updateCurrentUser:user];
                 [[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+				
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf.tableView reloadData];
                 });
