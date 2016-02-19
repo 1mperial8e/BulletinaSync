@@ -25,6 +25,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Defaults removeObjectForKey:CurrentUserKey];
+    [Defaults removeObjectForKey:PassTokenKey];
+    
     [BuddyBuildSDK setup];
     [self setupSNS];
     
