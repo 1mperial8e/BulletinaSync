@@ -129,7 +129,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	NewItemPriceTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NewItemPriceTableViewCell.ID forIndexPath:indexPath];
 	cell.clipsToBounds = YES;
-	cell.priceTextField.text = self.adItem ? self.adItem.price : @"";
+	if (!cell.priceTextField.text.length) {
+		cell.priceTextField.text = self.adItem ? self.adItem.price : @"";
+	}	
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	cell.priceTextField.delegate = self;
 	self.priceTextField = cell.priceTextField;
@@ -274,8 +276,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		CGFloat ratio = self.itemImage.size.height / self.itemImage.size.width;
 		return (ScreenWidth - 30) * ratio + 16;
 	} else if (self.adItem.imagesUrl) {
-		return  160;
-		//temp item image dimentions needed
+		return  self.adItem.imageHeight;
 	}
 	return 0;
 }

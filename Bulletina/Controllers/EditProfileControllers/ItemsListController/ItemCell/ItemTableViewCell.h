@@ -10,7 +10,8 @@
 
 @optional
 
-- (void)showActionSheetWithItemCell:(id)cell;
+- (void)showActionSheetForItem:(id)item;
+- (void)showUserForItem:(id)item;
 
 @end
 

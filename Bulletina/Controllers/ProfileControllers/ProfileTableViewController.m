@@ -101,6 +101,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (UITableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath
 {
+	self.backgroundHeightConstraint.constant = [self heightForTopCell];
 	if (self.user.customerTypeId == BusinessAccount) {
         return [self businessLogoCellForIndexPath:indexPath];
     } else {
@@ -118,10 +119,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
     cell.companyNameLabel.text = self.user.companyName;
     cell.companyPhoneLabel.text = [NSString stringWithFormat:@"Phone:%@", self.user.phone];
-    [cell.companyDescriptionTextView setEditable:YES];
-    cell.companyDescriptionTextView.text = self.user.about;
-    [cell.companyDescriptionTextView setEditable:NO];
-    if (self.user.avatarUrl) {
+
+	cell.companyDescriptionTextView.text = self.user.about;
+	cell.companyDescriptionTextView.font = [UIFont systemFontOfSize:13];
+	cell.companyDescriptionTextView.textColor = [UIColor whiteColor];
+
+	if (self.user.avatarUrl) {
         [cell.logoImageView setImageWithURL:self.user.avatarUrl];;
     }
     cell.logoImageView.layer.cornerRadius = 8.0f;
@@ -141,9 +144,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     } else {
         cell.userFullNameLabel.text = self.user.name;
         cell.userNicknameLabel.text = self.user.login;
-        [cell.aboutMeTextView setEditable:YES];
-        cell.aboutMeTextView.text = self.user.about;
-        [cell.aboutMeTextView setEditable:NO];
+		
+		cell.aboutMeTextView.text = self.user.about;
+		cell.aboutMeTextView.font = [UIFont systemFontOfSize:13];
+		cell.aboutMeTextView.textColor = [UIColor whiteColor];
+		
         if (self.user.avatarUrl) {
             [cell.logoImageView setImageWithURL:self.user.avatarUrl];;
         }

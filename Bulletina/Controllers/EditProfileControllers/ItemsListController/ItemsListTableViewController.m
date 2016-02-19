@@ -21,7 +21,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[self performSelector:@selector(fetchItemListWithLoader:) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
+	[self performSelector:@selector(fetchItemListWithLoader:) withObject:@YES afterDelay:[APIClient sharedInstance].requestStartDelay];
 }
 
 #pragma mark - Accessors
@@ -29,7 +29,7 @@
 - (BulletinaLoaderView *)loader
 {
     if (!_loader) {
-        _loader = [[BulletinaLoaderView alloc] initWithView:self.tableView andText:nil];
+        _loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
     }
     return _loader;
 }
@@ -86,9 +86,6 @@
 	cell.delegate = self;
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
 	[cell.itemImageView addGestureRecognizer:imageTapGesture];
-	
-	UITapGestureRecognizer *userTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTap:)];
-	[cell.infoView addGestureRecognizer:userTapGesture];
 	return cell;
 }
 
@@ -110,20 +107,11 @@
 	}
 }
 
-- (void)userTap:(UITapGestureRecognizer *)sender
+- (void)showUserForItem:(ItemModel *)item
 {
-//	__weak typeof(self) weakSelf = self;
-//	[[APIClient sharedInstance] showUserWithUserId:sender.view.tag withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-//		if (!error) {
-//			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
-//			UserModel *user = [UserModel modelWithDictionary:response];			
-//			dispatch_async(dispatch_get_main_queue(), ^{
-//				MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
-//				itemsTableViewController.user = user;
-//				[weakSelf.navigationController pushViewController:itemsTableViewController animated:YES];
-//			});
-//		}
-//	}];
+	MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
+	itemsTableViewController.userId = item.userId;
+	[self.navigationController pushViewController:itemsTableViewController animated:YES];
 }
 
 #pragma mark - Setup
@@ -145,7 +133,7 @@
 
 #pragma mark - ItemCellDelegate
 
-- (void)showActionSheetWithItemCell:(ItemModel *)item
+- (void)showActionSheetForItem:(ItemModel *)item
 {
 	__weak typeof(self) weakSelf = self;
 	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];

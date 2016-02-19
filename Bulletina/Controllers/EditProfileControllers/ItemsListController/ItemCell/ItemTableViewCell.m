@@ -92,7 +92,6 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 		self.itemViewHeightConstraint.constant = 0.0;
 	}
 	
-	self.infoView.tag = self.cellItem.userId;
 	self.priceContainerHeightConstraint.constant = priceContainerHeigth;
 	self.priceTitleLabel.text = self.cellItem.category.name;
 	if (self.cellItem.category.hasPrice) {
@@ -113,6 +112,10 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 		self.itemStateButton.hidden = NO;
 		self.itemStateButton.layer.cornerRadius = 7;
 	}
+	
+	UITapGestureRecognizer *userTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTap:)];
+	[self.infoView addGestureRecognizer:userTapGesture];
+	
 	[self layoutIfNeeded];
 }
 
@@ -143,8 +146,8 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.item == MoreCellIndex) {
-		if ([self.delegate respondsToSelector:@selector(showActionSheetWithItemCell:)]) {
-			[self.delegate showActionSheetWithItemCell:self.cellItem];
+		if ([self.delegate respondsToSelector:@selector(showActionSheetForItem:)]) {
+			[self.delegate showActionSheetForItem:self.cellItem];
 		}
 	}
 }
@@ -235,7 +238,17 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 		CGFloat ratio = image.size.height / image.size.width;
 		imageViewHeigth = (ScreenWidth - 32) * ratio;
 	}
+	self.cellItem.imageHeight = imageViewHeigth;
 	return imageViewHeigth;
+}
+
+#pragma mark - Actions
+
+- (void)userTap:(UITapGestureRecognizer *)sender
+{
+	if ([self.delegate respondsToSelector:@selector(showUserForItem:)]) {
+		[self.delegate showUserForItem:self.cellItem];
+	}
 }
 
 @end

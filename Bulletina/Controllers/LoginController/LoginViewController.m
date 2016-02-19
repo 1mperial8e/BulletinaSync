@@ -284,13 +284,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)showMainPageAnimated:(BOOL)animated
 {
+	__weak typeof(self) weakSelf = self;
+
     if (!animated) {
-        [self.loader show];
+		 [self.loader show];
         animated = YES;
     }
 	MainPageController *mainPageController = [MainPageController new];
 	UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
-    __weak typeof(self) weakSelf = self;
+	mainPageController.loader = self.loader;
 	[self.navigationController presentViewController:mainPageNavigationController animated:animated completion:^{
         [weakSelf.loader hide];
     }];

@@ -151,7 +151,7 @@
 
 - (void)refreshTable:(id)sender
 {	
-	[self fetchItemListWithLoader:NO];
+	[self fetchItemListWithLoader:@NO];
 	[(UIRefreshControl *)sender endRefreshing];
 }
 

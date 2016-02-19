@@ -44,6 +44,8 @@
 @property (strong, nonatomic) NSString *userNickname;
 
 @property (strong, nonatomic) NSURL *userUserAvatarUrl;
+@property (assign, nonatomic) CGFloat imageHeight;
+
 
 
 

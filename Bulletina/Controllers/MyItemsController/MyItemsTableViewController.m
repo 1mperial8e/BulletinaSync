@@ -24,6 +24,7 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 
 @property (weak, nonatomic) UIImageView *topBackgroundImageView;
 @property (weak, nonatomic) NSLayoutConstraint *backgroundTopConstraint;
+@property (weak, nonatomic) NSLayoutConstraint *backgroundHeightConstraint;
 
 @end
 
@@ -34,6 +35,7 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	[self reloadUser];
 	[self tableViewSetup];
 	[self setupNavigationBar];
 	self.navigationItem.title = @"My Bulletina";
@@ -64,6 +66,7 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 
 - (UITableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath
 {
+	self.backgroundHeightConstraint.constant = [self heightForTopCell];
 	if (self.user.customerTypeId == BusinessAccount) {
 		return [self businessLogoCellForIndexPath:indexPath];
 	} else {
@@ -81,9 +84,11 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
 	cell.companyNameLabel.text = self.user.companyName;
 	cell.companyPhoneLabel.text = [NSString stringWithFormat:@"Phone:%@", self.user.phone];
-	[cell.companyDescriptionTextView setEditable:YES];
+	
 	cell.companyDescriptionTextView.text = self.user.about;
-	[cell.companyDescriptionTextView setEditable:NO];
+	cell.companyDescriptionTextView.font = [UIFont systemFontOfSize:13];
+	cell.companyDescriptionTextView.textColor = [UIColor whiteColor];
+	
 	if (self.user.avatarUrl) {
 		[cell.logoImageView setImageWithURL:self.user.avatarUrl];;
 	}
@@ -104,9 +109,11 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 	} else {
 		cell.userFullNameLabel.text = self.user.name;
 		cell.userNicknameLabel.text = self.user.login;
-		[cell.aboutMeTextView setEditable:YES];
+		
 		cell.aboutMeTextView.text = self.user.about;
-		[cell.aboutMeTextView setEditable:NO];
+		cell.aboutMeTextView.font = [UIFont systemFontOfSize:13];
+		cell.aboutMeTextView.textColor = [UIColor whiteColor];
+		
 		if (self.user.avatarUrl) {
 			[cell.logoImageView setImageWithURL:self.user.avatarUrl];;
 		}
@@ -132,6 +139,26 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 }
 
 #pragma mark - Utils
+
+- (void)reloadUser
+{
+	if (!self.user) {
+		[self.loader show];
+		__weak typeof(self) weakSelf = self;
+		[[APIClient sharedInstance] showUserWithUserId:self.userId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			[weakSelf.loader hide];
+			if (!error) {
+				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+				UserModel *user = [UserModel modelWithDictionary:response];
+				weakSelf.user = user;
+				
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[weakSelf.tableView reloadData];
+				});
+			}
+		}];
+	}
+}
 
 - (CGFloat)heightForTopCell
 {
@@ -199,18 +226,20 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 
 - (void)addBackgroundView
 {
+	self.tableView.backgroundView = nil;
 	UIView *backgroundView = [[UIView alloc] init];
 	UIImageView *backgroundImageView = [[UIImageView alloc] init];
 	[backgroundView addSubview:backgroundImageView];
 	backgroundView.backgroundColor = [UIColor mainPageBGColor];
 	backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];
 	backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-	self.tableView.backgroundView = backgroundView;
 	self.backgroundTopConstraint = [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeTop multiplier:1.0f constant:64];
 	[backgroundView addConstraint:self.backgroundTopConstraint];
-	[backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:[self heightForTopCell]]];
+	self.backgroundHeightConstraint = [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:[self heightForTopCell]];
+	[backgroundImageView addConstraint: self.backgroundHeightConstraint];
 	[backgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
 	self.topBackgroundImageView = backgroundImageView;
+	self.tableView.backgroundView = backgroundView;
 }
 
 #pragma mark - UIScrollViewDelegate
