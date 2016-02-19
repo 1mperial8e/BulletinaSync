@@ -12,6 +12,7 @@
 
 static CGFloat const iconCellHeigth = 20;
 static CGFloat const iconCellCount = 4;
+static NSInteger const TwentyFourHours = 86400;
 
 typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	FavoriteCellIndex,
@@ -21,11 +22,6 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 };
 
 @interface ItemTableViewCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
-
-- (NSString *)stringWithDistanceToItem;
-- (NSString *)stringWithTimeAgoForItem;
-- (CGFloat)heighOfImageViewForImage:(UIImage *)image;
-- (void)updateContent;
 
 @end
 
@@ -46,12 +42,11 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 - (void)awakeFromNib
 {
 	[super awakeFromNib];
-	[self.itemTextView setTextContainerInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+	[self.itemTextView setTextContainerInset:UIEdgeInsetsZero];
 	self.iconsCollectionView.backgroundColor = [UIColor clearColor];
 	self.iconsCollectionView.dataSource = self;
 	self.iconsCollectionView.delegate = self;	
-	[self.iconsCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([IconCollectionViewCell class])
-													bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([IconCollectionViewCell class])];
+	[self.iconsCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([IconCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([IconCollectionViewCell class])];
 }
 
 - (void)prepareForReuse
@@ -60,7 +55,10 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	self.itemImageView.image = nil;
 	self.itemViewHeightConstraint.constant = 0.0;
 	self.priceContainerHeightConstraint.constant = 0.0;
+    self.avatarImageView.layer.cornerRadius = 0;
 }
+
+#pragma mark - Info
 
 - (void)setCellItem:(ItemModel *)cellItem
 {
@@ -84,7 +82,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	
 	if (self.cellItem.userAvatarThumbUrl) {
 		[self.avatarImageView setImageWithURL:self.cellItem.userAvatarThumbUrl];
-		self.avatarImageView.layer.cornerRadius = 7;
+		self.avatarImageView.layer.cornerRadius = CGRectGetHeight(self.avatarImageView.bounds) / 2;
 	}
 	
 	if (self.cellItem.imagesUrl) {
@@ -109,7 +107,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	self.itemTextView.textColor = [UIColor colorWithRed:74/255.0 green:74/255.0 blue:74/255.0 alpha:1];
 	self.itemTextView.editable = NO;
 	
-	if ([self floatTimeAgo] < 86400) {
+	if ([self floatTimeAgo] < TwentyFourHours) {
 		[self.itemStateButton setTitle:@"NEW" forState:UIControlStateNormal];
 		self.itemStateButton.backgroundColor = [UIColor mainPageGreenColor];
 		self.itemStateButton.hidden = NO;
@@ -183,7 +181,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	NSTimeInterval timeAgo = [self floatTimeAgo];
 	NSString *timeString;
 	if (timeAgo < 60) {
-		timeString = @"now";
+		timeString = @"just now";
 	} else if (timeAgo < 3600) {
 		timeString = [NSString stringWithFormat:@"%.f min", timeAgo / 60];
 	} else if (timeAgo < 86400) {

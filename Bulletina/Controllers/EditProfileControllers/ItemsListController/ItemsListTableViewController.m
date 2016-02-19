@@ -21,20 +21,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 	[self performSelector:@selector(fetchItemListWithLoader:) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
+}
+
+#pragma mark - Accessors
+
+- (BulletinaLoaderView *)loader
+{
+    if (!_loader) {
+        _loader = [[BulletinaLoaderView alloc] initWithView:self.tableView andText:nil];
+    }
+    return _loader;
 }
 	
 #pragma mark - API
 
-- (void)fetchItemListWithLoader:(BOOL)needLoader
+- (void)fetchItemListWithLoader:(id)needLoader
 {
-	if (needLoader) {
-		[self.loader show];
+	if ([needLoader boolValue]) {
+        [self.loader show];
 	}
 	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:
-//	[[APIClient sharedInstance] fetchItemsForSearchSettingsAndPage:0 withCompletion:
+//	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:
+	[[APIClient sharedInstance] fetchItemsForSearchSettingsAndPage:0 withCompletion:
 	 ^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
 			if (response[@"error_message"]) {
@@ -103,18 +112,18 @@
 
 - (void)userTap:(UITapGestureRecognizer *)sender
 {
-	__weak typeof(self) weakSelf = self;
-	[[APIClient sharedInstance] showUserWithUserId:sender.view.tag withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-		if (!error) {
-			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
-			UserModel *user = [UserModel modelWithDictionary:response];			
-			dispatch_async(dispatch_get_main_queue(), ^{
-				MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
-				itemsTableViewController.user = user;
-				[weakSelf.navigationController pushViewController:itemsTableViewController animated:YES];
-			});
-		}
-	}];
+//	__weak typeof(self) weakSelf = self;
+//	[[APIClient sharedInstance] showUserWithUserId:sender.view.tag withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+//		if (!error) {
+//			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+//			UserModel *user = [UserModel modelWithDictionary:response];			
+//			dispatch_async(dispatch_get_main_queue(), ^{
+//				MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
+//				itemsTableViewController.user = user;
+//				[weakSelf.navigationController pushViewController:itemsTableViewController animated:YES];
+//			});
+//		}
+//	}];
 }
 
 #pragma mark - Setup
@@ -141,11 +150,7 @@
 	__weak typeof(self) weakSelf = self;
 	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 	[actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-	[actionSheet addAction:[UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-		ReportTableViewController *reportTableViewController = [[ReportTableViewController alloc] initWithItemId:item.itemId andUserId:item.userId];
-		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:reportTableViewController];
-		[weakSelf.navigationController presentViewController:navigationController animated:YES completion:nil];
-	}]];
+
 	if ([APIClient sharedInstance].currentUser.userId == item.userId) {
 		[actionSheet addAction:[UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 			AddNewItemTableViewController *editTableViewController = [AddNewItemTableViewController new];
@@ -157,7 +162,14 @@
 			[weakSelf deleteItemWithId:item.itemId];
 		}]];
 
-	}
+    } else {
+        [actionSheet addAction:[UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            ReportTableViewController *reportTableViewController = [[ReportTableViewController alloc] initWithItemId:item.itemId andUserId:item.userId];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:reportTableViewController];
+            [weakSelf.navigationController presentViewController:navigationController animated:YES completion:nil];
+        }]];
+    }
+    
 	[self presentViewController:actionSheet animated:YES completion:nil];
 }
 

@@ -33,7 +33,7 @@
 
 #pragma mark - API
 
-- (void)fetchItemListWithLoader:(BOOL)needLoader;
+- (void)fetchItemListWithLoader:(id)needLoader;
 
 
 @end

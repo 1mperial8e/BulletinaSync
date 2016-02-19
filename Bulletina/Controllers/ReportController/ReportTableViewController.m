@@ -15,7 +15,7 @@
 #import "APIClient+Item.h"
 
 
-static NSString *const TextViewPlaceholderText = @"Enter your report here.";
+static NSString *const TextViewPlaceholderText = @"Write your comments";
 
 static NSInteger const CellsCount = 1;
 
@@ -59,7 +59,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
 	self.navigationItem.title = @"Report";
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelNavBarAction:)];
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStylePlain target:self action:@selector(publishNavBarAction:)];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStylePlain target:self action:@selector(publishNavBarAction:)];
 }
 
 #pragma mark - Table view datasource
