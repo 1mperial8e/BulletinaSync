@@ -21,7 +21,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[self performSelector:@selector(fetchItemListWithLoader:) withObject:@YES afterDelay:[APIClient sharedInstance].requestStartDelay];
+	[self performSelector:@selector(fetchItemListWithLoader:) withObject:@NO afterDelay:[APIClient sharedInstance].requestStartDelay];
 }
 
 #pragma mark - Accessors
@@ -110,7 +110,7 @@
 - (void)showUserForItem:(ItemModel *)item
 {
 	MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
-	itemsTableViewController.userId = item.userId;
+	itemsTableViewController.user = [[UserModel alloc] initWithItem:item];
 	[self.navigationController pushViewController:itemsTableViewController animated:YES];
 }
 

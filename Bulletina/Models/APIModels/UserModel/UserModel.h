@@ -7,6 +7,7 @@
 //
 
 #import "BaseModel.h"
+#import "ItemModel.h"
 
 typedef NS_ENUM(NSInteger, UserAccountType) {
 	AnonymousAccount = 1,
@@ -40,5 +41,7 @@ typedef NS_ENUM(NSInteger, UserAccountType) {
 @property (strong, nonatomic) NSString *website;
 @property (strong, nonatomic) NSString *facebook;
 @property (strong, nonatomic) NSString *linkedin;
+
+- (instancetype)initWithItem:(ItemModel *)item;
 
 @end

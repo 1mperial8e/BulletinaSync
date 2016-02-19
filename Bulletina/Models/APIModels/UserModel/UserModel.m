@@ -14,6 +14,26 @@
 
 @implementation UserModel
 
+- (instancetype)initWithItem:(ItemModel *)item
+{
+	self = [super init];
+	if (self) {
+		_userId = item.userId;
+		_avatarUrl = item.userUserAvatarUrl;
+		_avatarUrlThumb = item.userAvatarThumbUrl;
+		_login = item.userNickname;
+		_name = item.userFullname;
+		_companyName = item.userCompanyName;
+		
+		if (_companyName.length) {
+			_customerTypeId = BusinessAccount;
+		} else {
+			_customerTypeId = IndividualAccount;
+		}
+	}
+	return self;
+}
+
 #pragma mark - Parse
 
 - (void)parseDictionary:(NSDictionary *)userWithInfo

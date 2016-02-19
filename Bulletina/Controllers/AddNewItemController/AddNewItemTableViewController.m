@@ -131,7 +131,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.clipsToBounds = YES;
 	if (!cell.priceTextField.text.length) {
 		cell.priceTextField.text = self.adItem ? self.adItem.price : @"";
-	}	
+	}
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	cell.priceTextField.delegate = self;
 	self.priceTextField = cell.priceTextField;

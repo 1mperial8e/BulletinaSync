@@ -142,11 +142,11 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 
 - (void)reloadUser
 {
-	if (!self.user) {
-		[self.loader show];
+	if (self.user.userId) {
+//		[self.loader show];
 		__weak typeof(self) weakSelf = self;
-		[[APIClient sharedInstance] showUserWithUserId:self.userId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-			[weakSelf.loader hide];
+		[[APIClient sharedInstance] showUserWithUserId:self.user.userId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+//			[weakSelf.loader hide];
 			if (!error) {
 				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
 				UserModel *user = [UserModel modelWithDictionary:response];
