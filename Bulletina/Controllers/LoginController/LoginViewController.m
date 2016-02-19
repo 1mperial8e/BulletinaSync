@@ -174,7 +174,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
         cell.textField.returnKeyType = UIReturnKeyDone;
         self.passwordTextfield = cell.textField;
     } else {
-        cell.textField.keyboardType = UIKeyboardTypeASCIICapable;
+        cell.textField.keyboardType = UIKeyboardTypeEmailAddress;
         cell.textField.returnKeyType = UIReturnKeyNext;
         self.usernameTextfield = cell.textField;
     }
