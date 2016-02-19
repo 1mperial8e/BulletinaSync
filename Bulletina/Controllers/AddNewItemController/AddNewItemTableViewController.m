@@ -175,7 +175,17 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 				}
 			}];
 		} else {
-			// update request
+			[[APIClient sharedInstance] updateItemId:self.adItem.itemId withDescription:self.textCell.textView.text price:self.priceTextField.text adType:self.category.categoryId image:[Utils scaledImage:self.itemImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+				if (error) {
+					if (response[@"error_message"]) {
+						[Utils showErrorWithMessage:response[@"error_message"]];
+					} else {
+						[Utils showErrorForStatusCode:statusCode];
+					}
+				} else {
+					//ok
+				}
+			}];
 		}		
 	}
 }

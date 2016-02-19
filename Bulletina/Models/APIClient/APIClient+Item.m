@@ -46,27 +46,27 @@
 
 #pragma mark - Update
 
-- (void)updateItemWithDescription:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion
+- (void)updateItemId:(NSInteger)itemId withDescription:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion
 {
-	[Utils showWarningWithMessage:@"not implemented yet"];
-//	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
-//	NSMutableDictionary *itemParameters = [NSMutableDictionary dictionary];
-//	[itemParameters setValue:@(adType) forKey:@"ad_type_id"];
-//	[itemParameters setValue:price ? price : @"" forKey:@"price"];
-//	[itemParameters setValue:description ? description : @"" forKey:@"description"];
-//	[itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
-//	[itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
-//	[itemParameters setValue:@YES forKey:@"active"];
-//	[itemParameters setValue:@(self.currentUser.userId) forKey:@"user_id"];
-//	
-//	NSArray *dataArray;
-//	if (image) {
-//		dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(image, 1.0f) fileName:@"image.jpg" mimeType:@"image/jpeg" parameterName:@"item[image]"]];
-//	}
-//	
-//	[parameters setValue:itemParameters forKey:@"item"];
-//	
-//	[self performPOST:@"api/v1/items.json" withParameters:parameters multipartData:dataArray response:completion];
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
+	NSMutableDictionary *itemParameters = [NSMutableDictionary dictionary];
+	[itemParameters setValue:@(adType) forKey:@"ad_type_id"];
+	[itemParameters setValue:price ? price : @"" forKey:@"price"];
+	[itemParameters setValue:description ? description : @"" forKey:@"description"];
+	[itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
+	[itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
+	[itemParameters setValue:@YES forKey:@"active"];
+	[itemParameters setValue:@(self.currentUser.userId) forKey:@"user_id"];
+
+	NSArray *dataArray;
+	if (image) {
+		dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(image, 1.0f) fileName:@"image.jpg" mimeType:@"image/jpeg" parameterName:@"item[image]"]];
+	}
+
+	[parameters setValue:itemParameters forKey:@"item"];
+	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.json", itemId];
+	
+	[self performPUT:query withParameters:parameters multipartData:dataArray response:completion];
 }
 
 #pragma mark - Items List
