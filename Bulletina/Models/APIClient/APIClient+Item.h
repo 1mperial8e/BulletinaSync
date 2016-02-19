@@ -16,7 +16,11 @@
 
 #pragma mark - AddNew
 
-- (void)addNewItemWithName:(NSString *)name description:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion;
+- (void)addNewItemWithDescription:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion;
+
+#pragma mark - Update
+
+- (void)updateItemWithDescription:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion;
 
 #pragma mark - Items List
 
@@ -25,5 +29,13 @@
 #pragma mark - Search Items
 
 - (void)fetchItemsForSearchSettingsAndPage:(NSInteger)page withCompletion:(ResponseBlock)completion;
+
+#pragma mark - Report
+
+- (void)reportItemWithId:(NSInteger)itemId andUserId:(NSInteger)userId description:(NSString *)text reasonId:(NSInteger)reasonId withCompletion:(ResponseBlock)completion;
+
+#pragma mark - Delete
+
+- (NSURLSessionDataTask *)deleteItemWithId:(NSInteger)itemId withCompletion:(ResponseBlock)completion;
 
 @end

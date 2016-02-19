@@ -6,6 +6,14 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
+@protocol ItemCellDelegate <NSObject>
+
+@optional
+
+- (void)showActionSheetWithItemCell:(id)cell;
+
+@end
+
 #import "BaseTableViewCell.h"
 #import "ItemModel.h"
 
@@ -29,14 +37,13 @@ static CGFloat const ItemTableViewCellHeigth = 105.0f;
 @property (weak, nonatomic) IBOutlet UILabel *timeAgoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
-
-
+@property (weak, nonatomic) IBOutlet UIView *infoView;
+@property (weak, nonatomic) id<ItemCellDelegate> delegate;
 @property (weak, nonatomic) ItemModel *cellItem;
+
 //temp
 @property (strong, nonatomic) UIImage *itemImage;
 
 + (CGFloat)itemCellHeightForItemModel:(ItemModel *)item;
-
-
 
 @end

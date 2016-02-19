@@ -114,10 +114,10 @@
 	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
 	self.aboutCell.aboutTextView.layer.cornerRadius = 5;
 	self.aboutCell.aboutTextView.textColor = [UIColor blackColor];
-	if (![APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
-		self.aboutCell.aboutTextView.placeholder = TextViewPlaceholderText;
-	} else if ([APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
-		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
+	self.aboutCell.aboutTextView.placeholder = TextViewPlaceholderText;
+
+	if (!self.aboutCell.aboutTextView.text.length && !self.aboutCell.isEdited) {
+		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about.length ? [APIClient sharedInstance].currentUser.about : @"";
 	}
 	if ([APIClient sharedInstance].currentUser.customerTypeId != AnonymousAccount) {
         self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyDone;
@@ -163,19 +163,21 @@
 		self.aboutCell = [[NSBundle mainBundle] loadNibNamed:EditProfileAboutTableViewCell.ID owner:nil options:nil].firstObject;
 	}
 	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(10, 5, 10, 5)];
+	
+	if (!self.aboutCell.aboutTextView.text.length && !self.aboutCell.isEdited) {
+		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about.length ? [APIClient sharedInstance].currentUser.about : @"";
+	}
+	
 	CGFloat height;
-	if (![APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
+	if (!self.aboutCell.aboutTextView.text.length) {
 		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
 		height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
 		self.aboutCell.aboutTextView.text = @"";
-	} else if ([APIClient sharedInstance].currentUser.about.length && !self.aboutCell.aboutTextView.text.length) {
-		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about;
-		self.aboutCell.aboutTextView.textColor = [UIColor blackColor];
-		height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
 	} else {
-		height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+		height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 2.5);
 	}
 	return height + 5.f;
+
 }
 
 - (void)updateImage:(UIImage *)image;
@@ -216,6 +218,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
+	self.aboutCell.isEdited = YES;
 	CGFloat height = ceil([textView sizeThatFits:CGSizeMake(ScreenWidth - 30, MAXFLOAT)].height + 0.5);
 	if (textView.contentSize.height > height + 1 || textView.contentSize.height < height - 1 || !textView.text.length) {
 		[self.tableView beginUpdates];

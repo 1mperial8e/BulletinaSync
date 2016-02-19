@@ -7,9 +7,11 @@
 //
 
 #import "CategoryModel.h"
+#import "ItemModel.h"
 
 @interface AddNewItemTableViewController : UITableViewController
 
 @property (strong, nonatomic) CategoryModel *category;
+@property (weak, nonatomic) ItemModel *adItem;
 
 @end

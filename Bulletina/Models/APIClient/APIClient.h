@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) NSString *pushToken;
 @property (strong, nonatomic, readonly) NSString *passtoken;
+@property (assign, nonatomic, readonly) CGFloat requestStartDelay;
 
 @property (strong, nonatomic, readonly) UserModel *currentUser;
 

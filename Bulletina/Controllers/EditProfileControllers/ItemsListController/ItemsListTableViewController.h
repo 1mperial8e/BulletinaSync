@@ -10,6 +10,7 @@
 #import "ProfileTableViewController.h"
 #import "SelectNewAdCategoryTableViewController.h"
 #import "FullScreenImageViewController.h"
+#import "ReportTableViewController.h"
 
 //Views
 #import "BulletinaLoaderView.h"
@@ -17,8 +18,9 @@
 
 //Models
 #import "APIClient+Item.h"
+#import "APIClient+User.h"
 
-@interface ItemsListTableViewController : UITableViewController
+@interface ItemsListTableViewController : UITableViewController <ItemCellDelegate>
 
 @property (strong, nonatomic) BulletinaLoaderView *loader;
 @property (strong, nonatomic) NSArray *itemsList;

@@ -8,6 +8,7 @@
 
 #import "ItemTableViewCell.h"
 #import "IconCollectionViewCell.h"
+#import "ReportTableViewController.h"
 
 static CGFloat const iconCellHeigth = 20;
 static CGFloat const iconCellCount = 4;
@@ -73,22 +74,27 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	self.distanceLabel.text = [self stringWithDistanceToItem];
 	self.timeAgoLabel.text = [self stringWithTimeAgoForItem];
 	
-	if (self.cellItem.userNickname.length) {
+	if (self.cellItem.userCompanyName.length) {
+		self.usernameLabel.text = self.cellItem.userCompanyName;
+	} else if (self.cellItem.userFullname.length) {
+		self.usernameLabel.text = self.cellItem.userFullname;
+	} else if (self.cellItem.userNickname.length) {
 		self.usernameLabel.text = self.cellItem.userNickname;
 	}
 	
-	if (self.cellItem.userAvatarThumbUrl.length) {
-		[self.avatarImageView setImageWithURL:[NSURL URLWithString:self.cellItem.userAvatarThumbUrl]];
+	if (self.cellItem.userAvatarThumbUrl) {
+		[self.avatarImageView setImageWithURL:self.cellItem.userAvatarThumbUrl];
 		self.avatarImageView.layer.cornerRadius = 7;
 	}
 	
-	if (self.cellItem.imagesUrl.length) {
-		[self.itemImageView setImageWithURL:[NSURL URLWithString:self.cellItem.imagesUrl]];
+	if (self.cellItem.imagesUrl) {
+		[self.itemImageView setImageWithURL:self.cellItem.imagesUrl];
 		self.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];
 	} else {
 		self.itemViewHeightConstraint.constant = 0.0;
 	}
 	
+	self.infoView.tag = self.cellItem.userId;
 	self.priceContainerHeightConstraint.constant = priceContainerHeigth;
 	self.priceTitleLabel.text = self.cellItem.category.name;
 	if (self.cellItem.category.hasPrice) {
@@ -138,7 +144,10 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.item == FavoriteCellIndex) {
+	if (indexPath.item == MoreCellIndex) {
+		if ([self.delegate respondsToSelector:@selector(showActionSheetWithItemCell:)]) {
+			[self.delegate showActionSheetWithItemCell:self.cellItem];
+		}
 	}
 }
 
@@ -212,7 +221,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	textViewHeigth = ceil([cell.itemTextView sizeThatFits:CGSizeMake(ScreenWidth - 32, MAXFLOAT)].height);
 	
 	UIImage *sizeImage;
-	if (cell.cellItem.imagesUrl.length) {
+	if (cell.cellItem.imagesUrl) {
 		sizeImage = cell.itemImage;
 	} else {
 		sizeImage = nil;

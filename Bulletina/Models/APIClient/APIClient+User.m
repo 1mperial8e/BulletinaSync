@@ -180,7 +180,7 @@
     NSParameterAssert(email.length);
     NSDictionary *parameters = @{@"email" : email};
 
-    return [self performPOST:@"api/v1/reset" withParameters:parameters response:completion];
+    return [self performPOST:@"api/v1/forgot_password.json" withParameters:parameters response:completion];
 }
 
 @end

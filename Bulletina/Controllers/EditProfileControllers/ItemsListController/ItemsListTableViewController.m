@@ -7,6 +7,8 @@
 //
 
 #import "ItemsListTableViewController.h"
+#import "MyItemsTableViewController.h"
+#import "AddNewItemTableViewController.h"
 
 @interface ItemsListTableViewController ()
 
@@ -20,12 +22,7 @@
 {
     [super viewDidLoad];
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-	[self fetchItemListWithLoader:NO];
+	[self performSelector:@selector(fetchItemListWithLoader:) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
 }
 	
 #pragma mark - API
@@ -36,16 +33,18 @@
 		[self.loader show];
 	}
 	__weak typeof(self) weakSelf = self;
-//	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:
-	[[APIClient sharedInstance] fetchItemsForSearchSettingsAndPage:0 withCompletion:
+	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:
+//	[[APIClient sharedInstance] fetchItemsForSearchSettingsAndPage:0 withCompletion:
 	 ^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
 			if (response[@"error_message"]) {
 				[Utils showErrorWithMessage:response[@"error_message"]];
-			}
-			if (statusCode == -1009) {
-//				[self performSelector:@selector(fetchItemListWithLoader:) withObject:nil afterDelay:1];
+			} else if (statusCode == -1009) {
 				[Utils showErrorWithMessage:@"Please check network connection and try again"];
+			} else if (statusCode == 401) {
+				[Utils showErrorUnknown];
+			} else {
+				[Utils showErrorUnknown];
 			}
 		} else {
 			NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
@@ -75,9 +74,12 @@
 	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
 	NSInteger dataIndex = myItems ? indexPath.item -1 : indexPath.item;
 	cell.cellItem = self.itemsList[dataIndex];	
-	
+	cell.delegate = self;
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
 	[cell.itemImageView addGestureRecognizer:imageTapGesture];
+	
+	UITapGestureRecognizer *userTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTap:)];
+	[cell.infoView addGestureRecognizer:userTapGesture];
 	return cell;
 }
 
@@ -99,6 +101,22 @@
 	}
 }
 
+- (void)userTap:(UITapGestureRecognizer *)sender
+{
+	__weak typeof(self) weakSelf = self;
+	[[APIClient sharedInstance] showUserWithUserId:sender.view.tag withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		if (!error) {
+			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+			UserModel *user = [UserModel modelWithDictionary:response];			
+			dispatch_async(dispatch_get_main_queue(), ^{
+				MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
+				itemsTableViewController.user = user;
+				[weakSelf.navigationController pushViewController:itemsTableViewController animated:YES];
+			});
+		}
+	}];
+}
+
 #pragma mark - Setup
 
 - (void)tableViewSetup
@@ -114,6 +132,55 @@
 	[[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
 	[[UINavigationBar appearance] setTintColor:[UIColor appOrangeColor]];
 	[self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
+}
+
+#pragma mark - ItemCellDelegate
+
+- (void)showActionSheetWithItemCell:(ItemModel *)item
+{
+	__weak typeof(self) weakSelf = self;
+	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+	[actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+	[actionSheet addAction:[UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+		ReportTableViewController *reportTableViewController = [[ReportTableViewController alloc] initWithItemId:item.itemId andUserId:item.userId];
+		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:reportTableViewController];
+		[weakSelf.navigationController presentViewController:navigationController animated:YES completion:nil];
+	}]];
+	if ([APIClient sharedInstance].currentUser.userId == item.userId) {
+		[actionSheet addAction:[UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+			AddNewItemTableViewController *editTableViewController = [AddNewItemTableViewController new];
+			editTableViewController.adItem = item;
+			UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:editTableViewController];
+			[weakSelf.navigationController presentViewController:navigationController animated:YES completion:nil];
+		}]];
+		[actionSheet addAction:[UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+			[weakSelf deleteItemWithId:item.itemId];
+		}]];
+
+	}
+	[self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+#pragma mark - Utils
+
+- (void)deleteItemWithId:(NSInteger)itemId
+{
+	[[APIClient sharedInstance] deleteItemWithId:itemId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		if (error) {
+			if (response[@"error_message"]) {
+				[Utils showErrorWithMessage:response[@"error_message"]];
+			} else if (statusCode == -1009) {
+				[Utils showErrorWithMessage:@"Please check network connection and try again"];
+			} else if (statusCode == 401) {
+				[Utils showErrorUnknown];
+			} else {
+				[Utils showErrorUnknown];
+			}
+		} else {
+			[Utils showWarningWithMessage:@"Deleted"];
+			[self.tableView reloadData];
+		}
+	}];
 }
 
 @end

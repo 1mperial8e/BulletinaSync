@@ -13,5 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet PHTextView *aboutTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomInsetConstraint;
+@property (assign, nonatomic) BOOL isEdited;
 
 @end

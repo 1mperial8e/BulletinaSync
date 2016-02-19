@@ -132,8 +132,8 @@ static CGFloat const ResetPasswordCellHeight = 235;
         __weak typeof(self) weakSelf = self;
         [[APIClient sharedInstance] forgotPasswordWithEmail:self.emailTextfield.text withCompletion:^(id response, NSError *error, NSInteger statusCode) {
             if (error) {
-                if (response[@"error"]) {
-                    [Utils showErrorWithMessage:response[@"error"]];
+                if (statusCode == 404) {
+                    [Utils showErrorWithMessage:@"Email address isn't associated to account"];
                 } else {
                     [Utils showErrorForStatusCode:statusCode];
                 }
