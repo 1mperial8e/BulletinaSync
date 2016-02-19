@@ -39,8 +39,6 @@ static CGFloat const ItemTableViewCellHeigth = 105.0f;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UIView *infoView;
 @property (weak, nonatomic) id<ItemCellDelegate> delegate;
-
-
 @property (weak, nonatomic) ItemModel *cellItem;
 
 //temp

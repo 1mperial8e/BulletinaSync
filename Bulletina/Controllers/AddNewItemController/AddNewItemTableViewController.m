@@ -18,6 +18,10 @@
 // Models
 #import "APIClient+Item.h"
 
+//Categories
+#import "UIImageView+AFNetworking.h"
+
+
 static CGFloat const PriceCellHeigth = 44;
 
 static NSInteger const CellsCount = 4;
@@ -43,7 +47,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad
-{
+{	
     [super viewDidLoad];
 	[self tableViewSetup];
 	[self setupUI];
@@ -78,7 +82,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (indexPath.row == ImageCellIndex) {
 		return [self heightForImageCell];
 	} else if (indexPath.row == PriceCellIndex) {
-		if (self.category.hasPrice) {
+		if (self.category.hasPrice || self.adItem.category.hasPrice) {
 			return PriceCellHeigth * HeigthCoefficient;
 		} else {
 			return 0.0;
@@ -87,15 +91,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		return [self heightForTextCell];
 	}
 	return height;
-}
-
-- (CGFloat)heightForImageCell
-{
-	if (self.itemImage) {
-		CGFloat ratio = self.itemImage.size.height / self.itemImage.size.width;		
-		return (ScreenWidth - 30) * ratio + 16;
-	}
-	return 0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,6 +117,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 	if (self.itemImage) {
 		cell.itemImageView.image = self.itemImage;
+	} else if (self.adItem.imagesUrl) {
+		[cell.itemImageView setImageWithURL:self.adItem.imagesUrl];
 	} else {
 		cell.itemImageView.image = nil;
 	}
@@ -131,15 +128,22 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (NewItemPriceTableViewCell *)priceCellForIndexPath:(NSIndexPath *)indexPath
 {
 	NewItemPriceTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NewItemPriceTableViewCell.ID forIndexPath:indexPath];
+	cell.clipsToBounds = YES;
+	cell.priceTextField.text = self.adItem ? self.adItem.price : @"";
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	cell.priceTextField.delegate = self;
 	self.priceTextField = cell.priceTextField;
+	
 	return cell;
 }
 
 - (NewItemTextTableViewCell *)textCellForIndexPath:(NSIndexPath *)indexPath
 {
 	self.textCell = [self.tableView dequeueReusableCellWithIdentifier:NewItemTextTableViewCell.ID forIndexPath:indexPath];
+	self.textCell.clipsToBounds = YES;
+	if (!self.textCell.textView.text.length && !self.textCell.isEdited) {
+		self.textCell.textView.text = self.adItem ? self.adItem.text : @"";
+	}
 	self.textCell.textView.placeholder = TextViewPlaceholderText;
 	self.textCell.textView.delegate = self;
 	self.textCell.textView.textColor = [UIColor blackColor];
@@ -157,21 +161,30 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[Utils showWarningWithMessage:@"Description is requied"];	
 	} else {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-        [[APIClient sharedInstance] addNewItemWithName:@"" description:self.textCell.textView.text price:self.priceTextField.text adType:self.category.categoryId image:[Utils scaledImage:self.itemImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-            if (error) {
-                if (response[@"error_message"]) {
-                    [Utils showErrorWithMessage:response[@"error_message"]];
-                } else {
-                    [Utils showErrorForStatusCode:statusCode];
-                }
-            }
-        }];
+		
+		if (!self.adItem) {
+			[[APIClient sharedInstance] addNewItemWithDescription:self.textCell.textView.text price:self.priceTextField.text adType:self.category.categoryId image:[Utils scaledImage:self.itemImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+				if (error) {
+					if (response[@"error_message"]) {
+						[Utils showErrorWithMessage:response[@"error_message"]];
+					} else {
+						[Utils showErrorForStatusCode:statusCode];
+					}
+				}
+			}];
+		} else {
+			// update request
+		}		
 	}
 }
 
 - (void)cancelNavBarAction:(id)sender
 {
-	[self.navigationController popViewControllerAnimated:YES];
+	if (self.adItem) {
+		[self.navigationController dismissViewControllerAnimated:YES completion:nil];
+	} else {
+		[self.navigationController popViewControllerAnimated:YES];
+	}
 }
 
 - (void)selectImageButtonTap:(id)sender
@@ -192,7 +205,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)setupUI
 {
-	self.navigationItem.title = self.category.name;
+	self.navigationItem.title =  self.adItem ? @"Edit" : self.category.name;
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelNavBarAction:)];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStylePlain target:self action:@selector(publishNavBarAction:)];
 }
@@ -224,6 +237,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)textViewDidChange:(UITextView *)textView
 {
+	self.textCell.isEdited = YES;
 	CGFloat height = ceil([self.textCell.textView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
 	if (self.textCell.textView.contentSize.height > height + 1 || self.textCell.textView.contentSize.height < height - 1 || !textView.text.length) {
 		[self.tableView beginUpdates];
@@ -254,11 +268,27 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 #pragma mark - Utils
 
+- (CGFloat)heightForImageCell
+{
+	if (self.itemImage) {
+		CGFloat ratio = self.itemImage.size.height / self.itemImage.size.width;
+		return (ScreenWidth - 30) * ratio + 16;
+	} else if (self.adItem.imagesUrl) {
+		return  160;
+		//temp item image dimentions needed
+	}
+	return 0;
+}
+
 - (CGFloat)heightForTextCell
 {
 	if (!self.textCell) {
 		self.textCell = [[NSBundle mainBundle] loadNibNamed:NewItemTextTableViewCell.ID owner:nil options:nil].firstObject;
 	}
+	if (!self.textCell.textView.text.length && !self.textCell.isEdited) {
+		self.textCell.textView.text = self.adItem ? self.adItem.text : @"";
+	}
+
 	CGFloat height;
 	if (!self.textCell.textView.text.length) {
 		self.textCell.textView.text = TextViewPlaceholderText;

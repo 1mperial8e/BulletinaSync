@@ -82,13 +82,13 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 		self.usernameLabel.text = self.cellItem.userNickname;
 	}
 	
-	if (self.cellItem.userAvatarThumbUrl.length) {
-		[self.avatarImageView setImageWithURL:[NSURL URLWithString:self.cellItem.userAvatarThumbUrl]];
+	if (self.cellItem.userAvatarThumbUrl) {
+		[self.avatarImageView setImageWithURL:self.cellItem.userAvatarThumbUrl];
 		self.avatarImageView.layer.cornerRadius = 7;
 	}
 	
-	if (self.cellItem.imagesUrl.length) {
-		[self.itemImageView setImageWithURL:[NSURL URLWithString:self.cellItem.imagesUrl]];
+	if (self.cellItem.imagesUrl) {
+		[self.itemImageView setImageWithURL:self.cellItem.imagesUrl];
 		self.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];
 	} else {
 		self.itemViewHeightConstraint.constant = 0.0;
@@ -146,7 +146,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 {
 	if (indexPath.item == MoreCellIndex) {
 		if ([self.delegate respondsToSelector:@selector(showActionSheetWithItemCell:)]) {
-			[self.delegate showActionSheetWithItemCell:self];
+			[self.delegate showActionSheetWithItemCell:self.cellItem];
 		}
 	}
 }
@@ -221,7 +221,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	textViewHeigth = ceil([cell.itemTextView sizeThatFits:CGSizeMake(ScreenWidth - 32, MAXFLOAT)].height);
 	
 	UIImage *sizeImage;
-	if (cell.cellItem.imagesUrl.length) {
+	if (cell.cellItem.imagesUrl) {
 		sizeImage = cell.itemImage;
 	} else {
 		sizeImage = nil;

@@ -32,8 +32,17 @@
 	self.hashtags = dictionary[@"hashtags"];
 	self.itemId = [dictionary[@"id"] integerValue];
 	self.ignoreReports = [dictionary[@"ignore_reports"] boolValue];
-	self.imageThumbUrl = dictionary[@"image_thumb_url"];
-	self.imagesUrl = dictionary[@"images_url"];
+	
+	NSString *imageThumbUrl = dictionary[@"image_thumb_url"];
+	if (imageThumbUrl.length) {
+		self.imageThumbUrl = [NSURL URLWithString:imageThumbUrl];
+	}
+	
+	NSString *imagesUrl = dictionary[@"images_url"];
+	if (imagesUrl.length) {
+		self.imagesUrl = [NSURL URLWithString:imagesUrl];
+	}
+	
 	self.latitude = dictionary[@"latitude"];
 	self.longitude = dictionary[@"longitude"];
 	self.name = dictionary[@"name"];
@@ -43,11 +52,20 @@
 	
 	self.adTypeName = dictionary[@"ad_type_name"];
 	self.countryName = dictionary[@"country_name"];
-	self.userAvatarThumbUrl = dictionary[@"user_avatar_thumb_url"];
+	
+	NSString *userAvatarThumbUrl = dictionary[@"user_avatar_thumb_url"];
+	if (userAvatarThumbUrl.length) {
+		self.userAvatarThumbUrl = [NSURL URLWithString:userAvatarThumbUrl];
+	}
+	
 	self.userCompanyName = dictionary[@"user_company_name"];
 	self.userFullname = dictionary[@"user_fullname"];
 	self.userNickname = dictionary[@"user_nickname"];
-	self.userUserAvatarUrl = dictionary[@"user_user_avatar_url"];
+	
+	NSString *userUserAvatarUrl = dictionary[@"user_user_avatar_url"];
+	if (userUserAvatarUrl.length) {
+		self.userUserAvatarUrl = [NSURL URLWithString:userUserAvatarUrl];
+	}	
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if ([defaults objectForKey:CategoriesListKey]) {

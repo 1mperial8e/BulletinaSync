@@ -22,13 +22,12 @@
 
 #pragma mark - AddNew
 
-- (void)addNewItemWithName:(NSString *)name description:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion;
+- (void)addNewItemWithDescription:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion
 {
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
     NSMutableDictionary *itemParameters = [NSMutableDictionary dictionary];
     [itemParameters setValue:@(adType) forKey:@"ad_type_id"];
     [itemParameters setValue:price ? price : @"" forKey:@"price"];
-//    [itemParameters setValue:name ? name : @"" forKey:@"name"];
     [itemParameters setValue:description ? description : @"" forKey:@"description"];
     [itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
     [itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
@@ -43,6 +42,31 @@
     [parameters setValue:itemParameters forKey:@"item"];
 
     [self performPOST:@"api/v1/items.json" withParameters:parameters multipartData:dataArray response:completion];
+}
+
+#pragma mark - Update
+
+- (void)updateItemWithDescription:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion
+{
+	[Utils showWarningWithMessage:@"not implemented yet"];
+//	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
+//	NSMutableDictionary *itemParameters = [NSMutableDictionary dictionary];
+//	[itemParameters setValue:@(adType) forKey:@"ad_type_id"];
+//	[itemParameters setValue:price ? price : @"" forKey:@"price"];
+//	[itemParameters setValue:description ? description : @"" forKey:@"description"];
+//	[itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
+//	[itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
+//	[itemParameters setValue:@YES forKey:@"active"];
+//	[itemParameters setValue:@(self.currentUser.userId) forKey:@"user_id"];
+//	
+//	NSArray *dataArray;
+//	if (image) {
+//		dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(image, 1.0f) fileName:@"image.jpg" mimeType:@"image/jpeg" parameterName:@"item[image]"]];
+//	}
+//	
+//	[parameters setValue:itemParameters forKey:@"item"];
+//	
+//	[self performPOST:@"api/v1/items.json" withParameters:parameters multipartData:dataArray response:completion];
 }
 
 #pragma mark - Items List
@@ -93,6 +117,17 @@
 	[parameters setValue:reportParameters forKey:@"report"];
 	
 	[self performPOST:@"api/v1/reports" withParameters:parameters multipartData:nil response:completion];
+}
+
+#pragma mark - Delete
+
+- (NSURLSessionDataTask *)deleteItemWithId:(NSInteger)itemId withCompletion:(ResponseBlock)completion
+{
+	NSParameterAssert(self.passtoken);
+	
+	NSDictionary *parameters = @{@"passtoken" : self.passtoken};
+	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.json", itemId];
+	return [self performDELETE:query withParameters:parameters response:completion];
 }
 
 @end

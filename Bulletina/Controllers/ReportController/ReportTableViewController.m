@@ -151,6 +151,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (!self.textCell.textView.text.length) {
 		[Utils showWarningWithMessage:@"Description is requied"];
 	} else {
+		[self.navigationController dismissViewControllerAnimated:YES completion:nil];
 		[[APIClient sharedInstance]reportItemWithId:self.reportedItemId andUserId:self.reportedUserId description:@"Test" reasonId:1 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
 				if (response[@"error_message"]) {
@@ -169,7 +170,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)cancelNavBarAction:(id)sender
 {
-	[self.navigationController popViewControllerAnimated:YES];
+	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 

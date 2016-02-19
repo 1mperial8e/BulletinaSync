@@ -26,19 +26,24 @@
 @property (strong, nonatomic) NSArray *hashtags;
 @property (assign, nonatomic) NSInteger itemId;
 @property (assign, nonatomic) BOOL ignoreReports;
-@property (strong, nonatomic) NSString *imageThumbUrl;
-@property (strong, nonatomic) NSString *imagesUrl;
+
+@property (strong, nonatomic) NSURL *imageThumbUrl;
+@property (strong, nonatomic) NSURL *imagesUrl;
+
 @property (strong, nonatomic) NSString *latitude;
 @property (strong, nonatomic) NSString *longitude;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *price;
 @property (strong, nonatomic) NSString *updatedAt;
 @property (assign, nonatomic) NSInteger userId;
-@property (strong, nonatomic) NSString *userAvatarThumbUrl;
+
+@property (strong, nonatomic) NSURL *userAvatarThumbUrl;
+
 @property (strong, nonatomic) NSString *userCompanyName;
 @property (strong, nonatomic) NSString *userFullname;
 @property (strong, nonatomic) NSString *userNickname;
-@property (strong, nonatomic) NSString *userUserAvatarUrl;
+
+@property (strong, nonatomic) NSURL *userUserAvatarUrl;
 
 
 
