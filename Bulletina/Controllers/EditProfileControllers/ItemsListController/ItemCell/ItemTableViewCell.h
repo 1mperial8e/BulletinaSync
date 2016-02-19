@@ -10,7 +10,7 @@
 
 @optional
 
-- (void)reportItemWithId:(NSInteger)itemId andUserId:(NSInteger)userId;
+- (void)showActionSheetWithItemCell:(id)cell;
 
 @end
 

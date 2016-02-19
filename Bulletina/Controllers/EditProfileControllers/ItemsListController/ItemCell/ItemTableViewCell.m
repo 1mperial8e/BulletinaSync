@@ -145,9 +145,8 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.item == MoreCellIndex) {
-		//ActionSheet Needed
-		if ([self.delegate respondsToSelector:@selector(reportItemWithId:andUserId:)]) {
-			[self.delegate reportItemWithId:self.cellItem.itemId andUserId:self.cellItem.userId];
+		if ([self.delegate respondsToSelector:@selector(showActionSheetWithItemCell:)]) {
+			[self.delegate showActionSheetWithItemCell:self];
 		}
 	}
 }
@@ -240,7 +239,5 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	}
 	return imageViewHeigth;
 }
-
-
 
 @end

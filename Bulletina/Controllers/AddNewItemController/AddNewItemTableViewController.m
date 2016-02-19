@@ -153,7 +153,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)publishNavBarAction:(id)sender
 {
-	if ([self.textCell.textView.text isEqualToString:TextViewPlaceholderText]) {
+	if (!self.textCell.textView.text.length) {
 		[Utils showWarningWithMessage:@"Description is requied"];	
 	} else {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];

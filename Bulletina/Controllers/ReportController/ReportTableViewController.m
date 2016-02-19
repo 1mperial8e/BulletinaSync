@@ -32,6 +32,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @implementation ReportTableViewController
 
+#pragma mark - init
+
+- (instancetype)initWithItemId:(NSInteger)itemId andUserId:(NSInteger)userId
+{
+	self = [super init];
+	if (self) {
+		_reportedItemId = itemId;
+		_reportedUserId = userId;
+	}
+	return self;
+}
+
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad
@@ -136,10 +148,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)publishNavBarAction:(id)sender
 {
-	if ([self.textCell.textView.text isEqualToString:TextViewPlaceholderText]) {
+	if (!self.textCell.textView.text.length) {
 		[Utils showWarningWithMessage:@"Description is requied"];
 	} else {
-		[self.navigationController dismissViewControllerAnimated:YES completion:nil];
 		[[APIClient sharedInstance]reportItemWithId:self.reportedItemId andUserId:self.reportedUserId description:@"Test" reasonId:1 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
 				if (response[@"error_message"]) {
@@ -149,6 +160,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 				}
 			} else {
 				//ok
+				//		[self.navigationController dismissViewControllerAnimated:YES completion:nil];
+				[Utils showWarningWithMessage:@"response Ok. needs further implementation."];
 			}
 		}];
 	}

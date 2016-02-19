@@ -107,10 +107,6 @@
 		if (!error) {
 			NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
 			UserModel *user = [UserModel modelWithDictionary:response];			
-//			weakSelf.user = user;
-//			[Utils storeValue:response forKey:CurrentUserKey];
-//			[[APIClient sharedInstance] updateCurrentUser:user];
-//			[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
 			dispatch_async(dispatch_get_main_queue(), ^{
 				MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
 				itemsTableViewController.user = user;
@@ -139,13 +135,16 @@
 
 #pragma mark - ItemCellDelegate
 
-- (void)reportItemWithId:(NSInteger)itemId andUserId:(NSInteger)userId
+- (void)showActionSheetWithItemCell:(ItemTableViewCell *)cell
 {
-	ReportTableViewController *reportTableViewController = [ReportTableViewController new];
-	reportTableViewController.reportedItemId = itemId;
-	reportTableViewController.reportedUserId = userId;
-
-	[self.navigationController pushViewController:reportTableViewController animated:YES];
+	__weak typeof(self) weakSelf = self;
+	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+	[actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+	[actionSheet addAction:[UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+		ReportTableViewController *reportTableViewController = [[ReportTableViewController alloc] initWithItemId:cell.cellItem.itemId andUserId:cell.cellItem.userId];
+		[weakSelf.navigationController pushViewController:reportTableViewController animated:YES];
+	}]];
+	[self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 @end

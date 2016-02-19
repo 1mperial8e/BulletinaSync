@@ -11,4 +11,6 @@
 @property (assign, nonatomic) NSInteger reportedItemId;
 @property (assign, nonatomic) NSInteger reportedUserId;
 
+- (instancetype)initWithItemId:(NSInteger)itemId andUserId:(NSInteger)userId;
+
 @end
