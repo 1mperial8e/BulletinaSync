@@ -47,6 +47,36 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 	[self.tableView reloadData];
 }
 
+#pragma mark - API
+
+- (void)fetchItemListWithLoader:(id)needLoader
+{
+	if ([needLoader boolValue]) {
+		[self.loader show];
+	}
+	__weak typeof(self) weakSelf = self;
+		[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:
+//	[[APIClient sharedInstance] fetchItemsForSearchSettingsAndPage:0 withCompletion:
+	 ^(id response, NSError *error, NSInteger statusCode) {
+		 if (error) {
+			 if (response[@"error_message"]) {
+				 [Utils showErrorWithMessage:response[@"error_message"]];
+			 } else if (statusCode == -1009) {
+				 [Utils showErrorWithMessage:@"Please check network connection and try again"];
+			 } else if (statusCode == 401) {
+				 [Utils showErrorUnknown];
+			 } else {
+				 [Utils showErrorUnknown];
+			 }
+		 } else {
+			 NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
+			 weakSelf.itemsList = [ItemModel arrayWithDictionariesArray:response];
+			 [weakSelf.tableView reloadData];
+		 }
+		 [weakSelf.loader hide];
+	 }];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
