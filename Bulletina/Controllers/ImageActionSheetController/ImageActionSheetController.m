@@ -471,7 +471,7 @@ static CGSize AssetGridThumbnailSize;
 	
 	UIImagePickerController *picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
-	picker.allowsEditing = YES;
+	picker.allowsEditing = NO;
 	picker.sourceType = sourceType;
     
     [self presentViewController:picker animated:YES completion:NULL];
@@ -481,7 +481,7 @@ static CGSize AssetGridThumbnailSize;
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    self.selectedImage = info[UIImagePickerControllerEditedImage];
+    self.selectedImage = info[UIImagePickerControllerOriginalImage];
     [picker dismissViewControllerAnimated:YES completion:nil];
     
     __weak typeof(self) weakSelf = self;

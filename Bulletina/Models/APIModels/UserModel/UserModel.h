@@ -42,6 +42,8 @@ typedef NS_ENUM(NSInteger, UserAccountType) {
 @property (strong, nonatomic) NSString *facebook;
 @property (strong, nonatomic) NSString *linkedin;
 
+- (NSString *)title;
+
 - (instancetype)initWithItem:(ItemModel *)item;
 
 @end

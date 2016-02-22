@@ -21,26 +21,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[self performSelector:@selector(fetchItemListWithLoader:) withObject:@NO afterDelay:[APIClient sharedInstance].requestStartDelay];
+    __weak typeof(self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([APIClient sharedInstance].requestStartDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf fetchItemList];
+    });
 }
 
-#pragma mark - Accessors
-
-- (BulletinaLoaderView *)loader
-{
-    if (!_loader) {
-        _loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
-    }
-    return _loader;
-}
-	
 #pragma mark - API
 
-- (void)fetchItemListWithLoader:(id)needLoader
+- (void)fetchItemList
 {
-	if ([needLoader boolValue]) {
-        [self.loader show];
-	}
 	__weak typeof(self) weakSelf = self;
 //	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:
 	[[APIClient sharedInstance] fetchItemsForSearchSettingsAndPage:0 withCompletion:
@@ -60,7 +50,6 @@
 			weakSelf.itemsList = [ItemModel arrayWithDictionariesArray:response];
 			[weakSelf.tableView reloadData];
 		}
-		[weakSelf.loader hide];
 	}];
 }
 

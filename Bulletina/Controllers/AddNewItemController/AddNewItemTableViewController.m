@@ -265,7 +265,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)imageActionSheetControllerDidReceiveError:(NSError *)error
 {
-	NSLog(@"%@", error);
+	DLog(@"%@", error);
 }
 
 - (void)imageActionSheetControllerDidSelectImageWithPicker:(UIImage *)image

@@ -34,6 +34,14 @@
 	return self;
 }
 
+- (NSString *)title
+{
+    if (_companyName.length) {
+        return _companyName;
+    }
+    return _login;
+}
+
 #pragma mark - Parse
 
 - (void)parseDictionary:(NSDictionary *)userWithInfo

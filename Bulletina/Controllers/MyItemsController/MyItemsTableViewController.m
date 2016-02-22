@@ -38,7 +38,11 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 	[self reloadUser];
 	[self tableViewSetup];
 	[self setupNavigationBar];
-	self.navigationItem.title = @"My Bulletina";
+    if ([APIClient sharedInstance].currentUser.userId == self.user.userId) {
+        self.navigationItem.title = @"My Bulletina";
+    } else {
+        self.navigationItem.title = self.user.title;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -49,11 +53,8 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 
 #pragma mark - API
 
-- (void)fetchItemListWithLoader:(id)needLoader
+- (void)fetchItemList
 {
-	if ([needLoader boolValue]) {
-		[self.loader show];
-	}
 	__weak typeof(self) weakSelf = self;
 //		[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:
 	[[APIClient sharedInstance] fetchItemsForSearchSettingsAndPage:0 withCompletion:
@@ -73,7 +74,6 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 			 weakSelf.itemsList = [ItemModel arrayWithDictionariesArray:response];
 			 [weakSelf.tableView reloadData];
 		 }
-		 [weakSelf.loader hide];
 	 }];
 }
 
@@ -180,10 +180,8 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 - (void)reloadUser
 {
 	if (self.user.userId) {
-//		[self.loader show];
 		__weak typeof(self) weakSelf = self;
 		[[APIClient sharedInstance] showUserWithUserId:self.user.userId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-//			[weakSelf.loader hide];
 			if (!error) {
 				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
 				UserModel *user = [UserModel modelWithDictionary:response];

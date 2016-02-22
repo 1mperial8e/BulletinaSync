@@ -13,7 +13,6 @@
 #import "ReportTableViewController.h"
 
 //Views
-#import "BulletinaLoaderView.h"
 #import "ItemTableViewCell.h"
 
 //Models
@@ -22,7 +21,6 @@
 
 @interface ItemsListTableViewController : UITableViewController <ItemCellDelegate>
 
-@property (strong, nonatomic) BulletinaLoaderView *loader;
 @property (strong, nonatomic) NSArray *itemsList;
 
 - (void)tableViewSetup;
@@ -33,7 +31,7 @@
 
 #pragma mark - API
 
-- (void)fetchItemListWithLoader:(id)needLoader;
+- (void)fetchItemList;
 
 
 @end

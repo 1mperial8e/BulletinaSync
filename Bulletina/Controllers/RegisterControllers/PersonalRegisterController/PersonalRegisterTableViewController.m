@@ -259,6 +259,23 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     }];
 }
 
+#pragma mark - ImageActionSheetControllerDelegate
+
+- (void)imageActionSheetControllerDidReceiveError:(NSError *)error
+{
+    DLog(@"%@", error);
+}
+
+- (void)imageActionSheetControllerDidSelectImageWithPicker:(UIImage *)image
+{
+    [self updateImage:image];
+}
+
+- (void)imageActionSheetControllerDidTakeImageWithPicker:(UIImage *)image
+{
+    [self updateImage:image];
+}
+
 #pragma mark - Utils
 
 - (void)updateImage:(UIImage *)image;
