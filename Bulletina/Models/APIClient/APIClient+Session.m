@@ -16,7 +16,7 @@
     NSParameterAssert(username.length);
     NSParameterAssert(password.length);
     
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"session" : @{@"email" : username, @"password" : password }}];
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"session" : @{@"email" : username, @"password" : password, @"device_token" : self.pushToken}}];
     [parameters addEntriesFromDictionary:[self deviceParameters]];
     
 	return [self performPOST:@"api/v1/sessions" withParameters:parameters response:completion];
