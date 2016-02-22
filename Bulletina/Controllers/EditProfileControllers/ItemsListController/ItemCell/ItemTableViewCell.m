@@ -53,8 +53,6 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 {
 	self.itemStateButton.hidden = YES;
 	self.itemImageView.image = nil;
-	self.itemViewHeightConstraint.constant = 0.0;
-	self.priceContainerHeightConstraint.constant = 0.0;
     self.avatarImageView.layer.cornerRadius = 0;
 }
 
@@ -116,7 +114,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	UITapGestureRecognizer *userTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTap:)];
 	[self.infoView addGestureRecognizer:userTapGesture];
 	
-	[self layoutIfNeeded];
+//	[self layoutIfNeeded];
 }
 
 #pragma mark - UICollectionViewDataSource

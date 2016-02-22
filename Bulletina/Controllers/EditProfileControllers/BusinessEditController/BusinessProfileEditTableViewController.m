@@ -35,6 +35,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @end
 
 @implementation BusinessProfileEditTableViewController
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

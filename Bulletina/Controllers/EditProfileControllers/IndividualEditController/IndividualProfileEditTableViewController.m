@@ -139,7 +139,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![Utils isValidName:self.usernameTextfield.text] ) {
 		[Utils showErrorWithMessage:@"Nickname is not valid."];
 	} else {
-        [self.tableView resignFirstResponder];
+        [self.tableView endEditing:YES];
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
 		NSString *aboutText = [self.aboutCell.aboutTextView.text isEqualToString:TextViewPlaceholderText] ? @"" : self.aboutCell.aboutTextView.text;
