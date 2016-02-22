@@ -224,9 +224,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)saveButtonTap:(id)sender
 {
-	if (![LocationManager sharedManager].currentLocation) {
-		[Utils showLocationErrorOnViewController:self];
-	} else if (!self.companyNameTextfield.text.length) {
+	if (!self.companyNameTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Company name is required."];
 	} else if (!self.emailTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Email is required."];
@@ -239,7 +237,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
 		[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	} else {
-        [self registerAccount];
+        if (![LocationManager sharedManager].currentLocation) {
+            [Utils showLocationErrorOnViewController:self];
+        } else {
+            [self registerAccount];
+        }
     }
 }
 
