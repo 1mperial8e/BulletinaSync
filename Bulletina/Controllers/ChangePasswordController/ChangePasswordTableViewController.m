@@ -161,6 +161,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     } else {
         [self.tableView endEditing:YES];
         __weak typeof(self) weakSelf = self;
+        [self.loader show];
 		[[APIClient sharedInstance] changePassword:self.textFieldOldPassword.text withNewPassword:self.textFieldPassword.text withCompletion:^(id response, NSError *error, NSInteger statusCode) {
             if (error) {
                 if (response[@"error"]) {
@@ -171,6 +172,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             } else {
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             }
+            [weakSelf.loader hide];
         }];
     }
 }

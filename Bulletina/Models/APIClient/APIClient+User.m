@@ -171,8 +171,9 @@
 {
     NSParameterAssert(oldPassword.length);
     NSParameterAssert(newPassword.length);
-    NSDictionary *parameters = @{@"oldPassword" : oldPassword, @"password" : newPassword, @"passtoken" : self.passtoken};
-    return [self performPOST:@"api/v1/users/changePassword" withParameters:parameters response:completion];
+    NSDictionary *parameters = @{@"old_password" : oldPassword, @"password" : newPassword, @"password_confirmation" : newPassword, @"passtoken" : self.passtoken};
+    NSString *query = [NSString stringWithFormat:@"api/v1/password/%li.json", self.currentUser.userId];
+    return [self performPUT:query withParameters:parameters response:completion];
 }
 
 - (NSURLSessionDataTask *)forgotPasswordWithEmail:(NSString *)email withCompletion:(ResponseBlock)completion;
