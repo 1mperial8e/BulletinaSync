@@ -224,7 +224,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (![self.retypePasswordTextfield.text isEqualToString:self.passwordTextfield.text]) {
 			[Utils showWarningWithMessage:@"Password and repassword doesn't match."];
 	} else {
-        [self registerAccount];
+        if (![LocationManager sharedManager].currentLocation) {
+            [Utils showLocationErrorOnViewController:self];
+        } else {
+            [self registerAccount];
+        }
     }
 }
 
