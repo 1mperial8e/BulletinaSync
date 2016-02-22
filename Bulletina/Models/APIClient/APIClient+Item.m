@@ -80,6 +80,16 @@
 	[self performGET:@"api/v1/items.json" withParameters:parameters response:completion];
 }
 
+//- (void)fetchItemsForUserId:(NSInteger)userId withCompletion:(ResponseBlock)completion
+//{
+//	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
+//	[parameters setValue:@(self.currentUser.userId) forKey:@"id"];
+//	
+//	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.json", userId];
+//	
+//	[self performGET:query withParameters:parameters response:completion];
+//}
+
 #pragma mark - Search Items
 
 - (void)fetchItemsForSearchSettingsAndPage:(NSInteger)page withCompletion:(ResponseBlock)completion

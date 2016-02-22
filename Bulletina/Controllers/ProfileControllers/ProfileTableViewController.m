@@ -123,6 +123,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.companyDescriptionTextView.text = self.user.about;
 	cell.companyDescriptionTextView.font = [UIFont systemFontOfSize:13];
 	cell.companyDescriptionTextView.textColor = [UIColor whiteColor];
+	cell.companyDescriptionTextView.textAlignment = NSTextAlignmentCenter;
 
 	if (self.user.avatarUrl) {
         [cell.logoImageView setImageWithURL:self.user.avatarUrl];;
@@ -148,6 +149,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.aboutMeTextView.text = self.user.about;
 		cell.aboutMeTextView.font = [UIFont systemFontOfSize:13];
 		cell.aboutMeTextView.textColor = [UIColor whiteColor];
+		cell.aboutMeTextView.textAlignment = NSTextAlignmentCenter;
 		
         if (self.user.avatarUrl) {
             [cell.logoImageView setImageWithURL:self.user.avatarUrl];;
