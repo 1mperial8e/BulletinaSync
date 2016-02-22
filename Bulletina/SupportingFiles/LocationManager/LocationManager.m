@@ -29,7 +29,12 @@ static NSString *const MessageLocationServicesDisabled = @"To re-enable, please 
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
         self.locationManager.delegate = self;
-        [self.locationManager requestWhenInUseAuthorization];
+		//temp
+		#if TARGET_OS_SIMULATOR
+		self.currentLocation = [[CLLocation alloc] initWithLatitude:48.618486232 longitude:22.298584669];	
+		#else
+		[self.locationManager requestWhenInUseAuthorization];
+		#endif
     }
     return self;
 }

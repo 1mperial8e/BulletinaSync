@@ -209,7 +209,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)saveButtonTap:(id)sender
 {
-	if (!self.usernameTextfield.text.length) {
+	if (![LocationManager sharedManager].currentLocation) {
+		[Utils showLocationErrorOnViewController:self];
+	} else if (!self.usernameTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Nickname is required."];
 	} else if (![Utils isValidName:self.usernameTextfield.text] ) {
 		[Utils showErrorWithMessage:@"Nickname is not valid."];

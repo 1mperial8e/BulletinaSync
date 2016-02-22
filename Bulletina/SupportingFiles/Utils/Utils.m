@@ -49,6 +49,22 @@
     }
 }
 
++ (void)showLocationErrorOnViewController:(UIViewController *)viewController
+{
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"] message:@"Please povide access to your location in settings" preferredStyle:UIAlertControllerStyleAlert];
+ 
+	UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Settings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+		NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+		[[UIApplication sharedApplication] openURL:url];
+	}];
+	
+	UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+ 
+	[alert addAction:okAction];
+	[alert addAction:cancelAction];
+	[viewController presentViewController:alert animated:YES completion:nil];
+}
+
 #pragma mark - String
 
 + (BOOL)isValidEmail:(NSString *)email UseHardFilter:(BOOL)filter

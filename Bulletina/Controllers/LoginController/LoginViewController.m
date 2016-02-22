@@ -212,27 +212,31 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)tryBeforeSignupButtonTap:(id)sender
 {
-    [self.loader show];
-    __weak typeof(self) weakSelf = self;
-    [[APIClient sharedInstance] generateUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
-        if (error) {
-            if (response[@"error_message"]) {
-                [Utils showErrorWithMessage:response[@"error_message"]];
-            } else {
-                [Utils showErrorForStatusCode:statusCode];
-            }
-        } else {
-            NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
-            UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
-            [Utils storeValue:response[@"user"] forKey:CurrentUserKey];
-            [[APIClient sharedInstance] updateCurrentUser:generatedUser];
-            [[APIClient sharedInstance] updatePasstokenWithDictionary:response];
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[weakSelf showMainPageAnimated:YES];
-			});
-        }
-        [weakSelf.loader hide];
-    }];
+	if (![LocationManager sharedManager].currentLocation) {
+		[Utils showLocationErrorOnViewController:self];
+	} else {
+		[self.loader show];
+		__weak typeof(self) weakSelf = self;
+		[[APIClient sharedInstance] generateUserWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			if (error) {
+				if (response[@"error_message"]) {
+					[Utils showErrorWithMessage:response[@"error_message"]];
+				} else {
+					[Utils showErrorForStatusCode:statusCode];
+				}
+			} else {
+				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+				UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
+				[Utils storeValue:response[@"user"] forKey:CurrentUserKey];
+				[[APIClient sharedInstance] updateCurrentUser:generatedUser];
+				[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[weakSelf showMainPageAnimated:YES];
+				});
+			}
+			[weakSelf.loader hide];
+		}];
+	}
 }
 
 - (void)signupButtonTap:(id)sender
@@ -249,27 +253,32 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[Utils showErrorWithMessage:@"Password is required."];
 	} else {
         [self.tableView endEditing:YES];
-        [self.loader show];
-		__weak typeof(self) weakSelf = self;
-		[[APIClient sharedInstance]loginSessionWithUsername:self.usernameTextfield.text password:self.passwordTextfield.text withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-			if (error) {
-                if (response[@"error_message"]) {
-                    [Utils showErrorWithMessage:response[@"error_message"]];
-                } else {
-                    [Utils showErrorForStatusCode:statusCode];
-                }
-			} else {
-				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
-				UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
-				[Utils storeValue:response[@"user"] forKey:CurrentUserKey];
-				[[APIClient sharedInstance] updateCurrentUser:generatedUser];
-				[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
-				dispatch_async(dispatch_get_main_queue(), ^{
-					[weakSelf showMainPageAnimated:YES];
-				});
-			}
-            [weakSelf.loader hide];
-		}];
+		
+		if (![LocationManager sharedManager].currentLocation) {
+			[Utils showLocationErrorOnViewController:self];
+		} else {
+			[self.loader show];
+			__weak typeof(self) weakSelf = self;
+			[[APIClient sharedInstance]loginSessionWithUsername:self.usernameTextfield.text password:self.passwordTextfield.text withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+				if (error) {
+					if (response[@"error_message"]) {
+						[Utils showErrorWithMessage:response[@"error_message"]];
+					} else {
+						[Utils showErrorForStatusCode:statusCode];
+					}
+				} else {
+					NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+					UserModel *generatedUser = [UserModel modelWithDictionary:response[@"user"]];
+					[Utils storeValue:response[@"user"] forKey:CurrentUserKey];
+					[[APIClient sharedInstance] updateCurrentUser:generatedUser];
+					[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
+					dispatch_async(dispatch_get_main_queue(), ^{
+						[weakSelf showMainPageAnimated:YES];
+					});
+				}
+				[weakSelf.loader hide];
+			}];			
+		}
 	}
 }
 

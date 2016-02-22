@@ -15,6 +15,7 @@
 + (void)showErrorNoConnection;
 + (void)showErrorUnknown;
 + (void)showErrorForStatusCode:(NSInteger)statusCode;
++ (void)showLocationErrorOnViewController:(UIViewController *)viewController;
 
 #pragma mark - String
 

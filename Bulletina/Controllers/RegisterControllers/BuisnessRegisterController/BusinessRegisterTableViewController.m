@@ -224,7 +224,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)saveButtonTap:(id)sender
 {
-	if (!self.companyNameTextfield.text.length) {
+	if (![LocationManager sharedManager].currentLocation) {
+		[Utils showLocationErrorOnViewController:self];
+	} else if (!self.companyNameTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Company name is required."];
 	} else if (!self.emailTextfield.text.length) {
 		[Utils showErrorWithMessage:@"Email is required."];
