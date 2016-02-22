@@ -25,6 +25,7 @@
 #pragma mark - Items List
 
 - (void)fetchItemsWithOffset:(NSNumber *)offset limit:(NSNumber *)limit withCompletion:(ResponseBlock)completion;
+//- (void)fetchItemsForUserId:(NSInteger)userId withCompletion:(ResponseBlock)completion;
 
 #pragma mark - Search Items
 
