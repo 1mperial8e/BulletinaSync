@@ -348,6 +348,7 @@ static CGSize AssetGridThumbnailSize;
     [cancelButton addTarget:self action:@selector(cancelButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [cancelButton setTitleColor:self.cancelButtonTintColor forState:UIControlStateNormal];
     [cancelButton.titleLabel setFont:[UIFont boldSystemFontOfSize:18.f]];
+    cancelButton.exclusiveTouch = YES;
     
     [self.cancelButtonParentView.contentView addSubview:cancelButton];
 }
@@ -374,7 +375,8 @@ static CGSize AssetGridThumbnailSize;
         currentYposition -= ButtonHeight;
         [otherButton setTitleColor:self.tintColor forState:UIControlStateNormal];
         [otherButton.titleLabel setFont:self.buttonFont];
-        
+        otherButton.exclusiveTouch = YES;
+
         [self.otherButtonsParentView.contentView addSubview:otherButton];
         
         if (i < (self.buttons.count + (self.photoPreviewButtonTitle.length ? 1 : 0)) - 1) {
@@ -395,7 +397,8 @@ static CGSize AssetGridThumbnailSize;
         photoButton.frame = CGRectMake(0, currentYposition - ButtonHeight, self.otherButtonsParentView.bounds.size.width, ButtonHeight);
         [photoButton setTitleColor:self.tintColor forState:UIControlStateNormal];
         [photoButton.titleLabel setFont:self.buttonFont];
-        
+        photoButton.exclusiveTouch = YES;
+
         currentYposition -= ButtonHeight;
         [self.otherButtonsParentView.contentView addSubview:photoButton];
         
@@ -412,7 +415,8 @@ static CGSize AssetGridThumbnailSize;
     [takePhotoButton setTitleColor:self.tintColor forState:UIControlStateNormal];
     [takePhotoButton addTarget:self action:@selector(takeImageButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [takePhotoButton.titleLabel setFont:self.buttonFont];
-    
+    takePhotoButton.exclusiveTouch = YES;
+
     [self.otherButtonsParentView.contentView addSubview:takePhotoButton];
     
     UIView *separator = [self separatorView];

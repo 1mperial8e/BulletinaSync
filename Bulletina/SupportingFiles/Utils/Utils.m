@@ -15,11 +15,17 @@
 
 + (void)showErrorWithMessage:(NSString *)message
 {
+    if (![message isKindOfClass:[NSString class]]) {
+        message = [NSString stringWithFormat:@"%@", message];
+    }
     [[[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
 }
 
 + (void)showWarningWithMessage:(NSString *)message
 {
+    if (![message isKindOfClass:[NSString class]]) {
+        message = [NSString stringWithFormat:@"%@", message];
+    }
     NSString *appName = [NSBundle mainBundle].infoDictionary[@"CFBundleDisplayName"];
     [[[UIAlertView alloc] initWithTitle:appName message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
 }
