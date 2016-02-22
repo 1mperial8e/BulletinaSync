@@ -162,12 +162,11 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 
 - (NSString *)stringWithDistanceToItem
 {
-	CLLocation *homeLocation = [[CLLocation alloc] initWithLatitude:[LocationManager sharedManager].currentLocation.coordinate.latitude longitude:[LocationManager sharedManager].currentLocation.coordinate.longitude];
 	CGFloat itemLatitude = [self.cellItem.latitude floatValue];
 	CGFloat itemLongitude = [self.cellItem.longitude floatValue];
 	CLLocation *itemLocation = [[CLLocation alloc] initWithLatitude:itemLatitude longitude:itemLongitude];
 	
-	CLLocationDistance distance = [homeLocation distanceFromLocation:itemLocation];
+	CLLocationDistance distance = [[LocationManager sharedManager].currentLocation distanceFromLocation:itemLocation];
 	NSString *distanceString;
 	if (distance < 1000) {
 		distanceString = @"1 km";
