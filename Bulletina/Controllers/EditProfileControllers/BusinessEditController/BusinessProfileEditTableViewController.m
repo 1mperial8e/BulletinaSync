@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	SaveButtonCellIndex
 };
 
-@interface BusinessProfileEditTableViewController () 
+@interface BusinessProfileEditTableViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) UITextField *emailTextfield;
 @property (weak, nonatomic) UITextField *companyNameTextfield;
@@ -90,11 +90,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.inputTextField.placeholder = @"Company Name:";
 		cell.inputTextField.text = [APIClient sharedInstance].currentUser.companyName;
 		self.companyNameTextfield = cell.inputTextField;
+		cell.inputTextField.delegate = self;
 	} else if (indexPath.item == PhoneCellIndex) {
 		cell.inputTextField.placeholder = @"Phone:";
 		cell.inputTextField.text = [APIClient sharedInstance].currentUser.phone ?:@"";
 		self.phoneTextfield = cell.inputTextField;
 		cell.inputTextField.keyboardType = UIKeyboardTypePhonePad;
+		cell.inputTextField.delegate = self;
 	} else if (indexPath.item == WebsiteCellIndex) {
 		cell.inputTextField.placeholder = @"Website:";
 		cell.inputTextField.text = [APIClient sharedInstance].currentUser.website;
@@ -197,6 +199,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 			[weakSelf.loader hide];
 		}];
 	}
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+	NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+	return newText.length < 30;
 }
 
 @end

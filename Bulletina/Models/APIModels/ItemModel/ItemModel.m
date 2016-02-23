@@ -62,6 +62,8 @@
 	self.userFullname = dictionary[@"user_fullname"];
 	self.userNickname = dictionary[@"user_nickname"];
 	
+	self.distance = dictionary[@"distance"];
+	
 	NSString *userUserAvatarUrl = dictionary[@"user_user_avatar_url"];
 	if (userUserAvatarUrl.length) {
 		self.userUserAvatarUrl = [NSURL URLWithString:userUserAvatarUrl];

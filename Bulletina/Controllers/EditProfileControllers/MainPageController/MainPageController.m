@@ -110,17 +110,28 @@
 {
 	[searchBar setShowsCancelButton:YES animated:YES];
 }
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-	[searchBar resignFirstResponder];
-	[searchBar setShowsCancelButton:NO animated:YES];
-}
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
 	[searchBar setShowsCancelButton:NO animated:YES];
 }
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+	[searchBar resignFirstResponder];
+	[searchBar setShowsCancelButton:NO animated:YES];
+	[self fetchItemListWithSearchString:@""];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+	[self fetchItemListWithSearchString:searchBar.text];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+	[self fetchItemListWithSearchString:searchText];
+}
 
 #pragma mark - Actions
 
@@ -151,7 +162,7 @@
 
 - (void)refreshTable:(id)sender
 {	
-	[self fetchItemList];
+	[self fetchItemListWithSearchString:@""];
 	[(UIRefreshControl *)sender endRefreshing];
 }
 

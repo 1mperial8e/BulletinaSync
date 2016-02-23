@@ -18,7 +18,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 };
 
 static CGFloat const PersonalLogoCellHeigth = 220;
-static CGFloat const BusinessLogoCellHeigth = 252;
+static CGFloat const BusinessLogoCellHeigth = 182;
+static CGFloat const BusinessLogoButtonsWidth = 73;
+static CGFloat const BusinessLogoButtonSpace = 4;
+static CGFloat const BusinessLogoButtonsContainerHeight = 41;
+static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 
 @interface MyItemsTableViewController () <UIScrollViewDelegate>
 
@@ -34,7 +38,8 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+//    [super viewDidLoad];
+	[self fetchItemList];
 	[self reloadUser];
 	[self tableViewSetup];
 	[self setupNavigationBar];
@@ -110,16 +115,37 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 	BusinessProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessProfileLogoTableViewCell.ID forIndexPath:indexPath];
 	[self addCustomBorderToButton:cell.websiteButton];
 	[self addCustomBorderToButton:cell.facebookButton];
-	[self addCustomBorderToButton:cell.instagramButton];
 	[self addCustomBorderToButton:cell.linkedInButton];
 	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
 	cell.companyNameLabel.text = self.user.companyName;
-	cell.companyPhoneLabel.text = [NSString stringWithFormat:@"Phone:%@", self.user.phone];
+	cell.companyPhoneLabel.text = self.user.phone.length ? [NSString stringWithFormat:@"Phone:%@", self.user.phone] : @"";
 	
 	cell.companyDescriptionTextView.text = self.user.about;
 	cell.companyDescriptionTextView.font = [UIFont systemFontOfSize:13];
 	cell.companyDescriptionTextView.textColor = [UIColor whiteColor];
 	cell.companyDescriptionTextView.textAlignment = NSTextAlignmentCenter;
+	[cell.companyDescriptionTextView setTextContainerInset:UIEdgeInsetsZero];
+	
+	cell.websiteWidthConstraint.constant = self.user.website.length ? BusinessLogoButtonsWidth : 0;
+	cell.facebookWidthConstraint.constant = self.user.facebook.length ? BusinessLogoButtonsWidth : 0;
+	cell.linkedinWidthConstraint.constant = self.user.linkedin.length ? BusinessLogoButtonsWidth : 0;
+	
+	if (!self.user.website.length && self.user.facebook.length && self.user.linkedin.length) {
+		cell.websiteTrailingConstraint.constant = 0;
+		cell.linkedinLeadingConstraint.constant = BusinessLogoButtonSpace;
+	} else if (self.user.website.length && self.user.facebook.length && !self.user.linkedin.length) {
+		cell.websiteTrailingConstraint.constant = BusinessLogoButtonSpace;
+		cell.linkedinLeadingConstraint.constant = 0;
+	} else if (!self.user.facebook.length && ((self.user.website.length && !self.user.linkedin.length) || (!self.user.website.length && self.user.linkedin.length))) {
+		cell.websiteTrailingConstraint.constant = 0;
+		cell.linkedinLeadingConstraint.constant = 0;
+	} else if (self.user.website.length && self.user.facebook.length && self.user.linkedin.length) {
+		cell.websiteTrailingConstraint.constant = BusinessLogoButtonSpace;
+		cell.linkedinLeadingConstraint.constant = BusinessLogoButtonSpace;
+	}
+	
+	cell.phoneContainerHeightConstraint.constant = BusinessLogoPhoneContainerHeight;		
+	cell.buttonsContainerHeightConstraint.constant = BusinessLogoButtonsContainerHeight;
 	
 	if (self.user.avatarUrl) {
 		[cell.logoImageView setImageWithURL:self.user.avatarUrl];;
@@ -146,6 +172,7 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 		cell.aboutMeTextView.font = [UIFont systemFontOfSize:13];
 		cell.aboutMeTextView.textColor = [UIColor whiteColor];
 		cell.aboutMeTextView.textAlignment = NSTextAlignmentCenter;
+		[cell.aboutMeTextView setTextContainerInset:UIEdgeInsetsZero];
 		
 		if (self.user.avatarUrl) {
 			[cell.logoImageView setImageWithURL:self.user.avatarUrl];;
@@ -209,15 +236,22 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
 	BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
 	CGSize size = CGSizeZero;
-	[cell.companyDescriptionTextView setEditable:YES];
+	
 	cell.companyDescriptionTextView.text = self.user.about;
-	[cell.companyDescriptionTextView setEditable:NO];
+	cell.companyDescriptionTextView.font = [UIFont systemFontOfSize:13];
+	cell.companyDescriptionTextView.textColor = [UIColor whiteColor];
+	cell.companyDescriptionTextView.textAlignment = NSTextAlignmentCenter;
+	[cell.companyDescriptionTextView setTextContainerInset:UIEdgeInsetsZero];
+	
 	if (cell.companyDescriptionTextView.text.length) {
 		size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
 	} else {
 		size = CGSizeMake(0, 0);
-	}
-	return (size.height + BusinessLogoCellHeigth);
+	}	
+	CGFloat extraHeight = 0;
+	extraHeight += BusinessLogoButtonsContainerHeight;
+	extraHeight += BusinessLogoPhoneContainerHeight;
+	return (size.height + BusinessLogoCellHeigth + extraHeight);
 }
 
 - (CGFloat)heighForPersonalLogoCell
@@ -225,13 +259,17 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:IndividualProfileLogoTableViewCell.ID owner:self options:nil];
 	IndividualProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
 	CGSize size = CGSizeZero;
-	[cell.aboutMeTextView setEditable:YES];
+	
 	cell.aboutMeTextView.text = self.user.about;
-	[cell.aboutMeTextView setEditable:NO];
+	cell.aboutMeTextView.font = [UIFont systemFontOfSize:13];
+	cell.aboutMeTextView.textColor = [UIColor whiteColor];
+	cell.aboutMeTextView.textAlignment = NSTextAlignmentCenter;
+	[cell.aboutMeTextView setTextContainerInset:UIEdgeInsetsZero];
+	
 	if (cell.aboutMeTextView.text.length) {
 		size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
 	} else {
-		size = CGSizeMake(0, 20);
+		size = CGSizeMake(0, 0);
 	}
 	return (size.height + PersonalLogoCellHeigth);
 }

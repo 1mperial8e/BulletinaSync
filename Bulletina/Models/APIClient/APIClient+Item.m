@@ -97,11 +97,14 @@
 
 #pragma mark - Search Items
 
-- (void)fetchItemsForSearchSettingsAndPage:(NSInteger)page withCompletion:(ResponseBlock)completion
+- (void)fetchItemsWithSettingsForSearchString:(NSString *)searchString withCompletion:(ResponseBlock)completion
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	NSMutableDictionary *searchParameters = [NSMutableDictionary dictionary];
-	[searchParameters setValue:@(page) forKey:@"page"];
+//	[searchParameters setValue:@(page) forKey:@"page"];
+	[searchParameters setValue:@25 forKey:@"limit"];
+	[searchParameters setValue:@0 forKey:@"offset"];
+
 	[searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
 	[searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
 	
@@ -113,6 +116,7 @@
 		searchAreaPercentage = 1.0;
 	}
 	[searchParameters setValue:@(MaxSearchArea * searchAreaPercentage) forKey:@"distance"];
+	[searchParameters setValue:searchString forKey:@"searchstring"];
 	[parameters setValue:searchParameters forKey:@"search"];
 	
 	[self performGET:@"api/v1/search.json" withParameters:parameters response:completion];

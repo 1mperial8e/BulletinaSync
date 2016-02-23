@@ -26,7 +26,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEm-c9-rd3">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEm-c9-rd3">
                                 <rect key="frame" x="30" y="45" width="315" height="0.0"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <string key="text">AppMedia is an Apple Retails store Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor Lorem ipsum dolor sit er elit lamet, consectetaur </string>
@@ -34,78 +34,112 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ujD-QF-gLP">
-                                <rect key="frame" x="74" y="90" width="227" height="25"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xp-gK-IMd" userLabel="PhoneContainer">
+                                <rect key="frame" x="0.0" y="45" width="375" height="29"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ki1-Vt-IxM">
-                                        <rect key="frame" x="0.0" y="0.0" width="73" height="25"/>
-                                        <color key="backgroundColor" red="0.23921568630000001" green="0.36862745099999999" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <inset key="contentEdgeInsets" minX="2" minY="0.0" maxX="2" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="4" maxY="0.0"/>
-                                        <state key="normal" title="Website" image="HeadWebsite">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pab-jj-7f8">
-                                        <rect key="frame" x="77" y="0.0" width="73" height="25"/>
-                                        <color key="backgroundColor" red="0.23921568627450979" green="0.36862745098039218" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <inset key="contentEdgeInsets" minX="2" minY="0.0" maxX="2" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="4" maxY="3"/>
-                                        <state key="normal" title="Facebook" image="HeadFacebook">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Npi-cs-FGf">
-                                        <rect key="frame" x="154" y="0.0" width="73" height="25"/>
-                                        <color key="backgroundColor" red="0.23921568630000001" green="0.36862745099999999" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <inset key="contentEdgeInsets" minX="2" minY="5" maxX="2" maxY="5"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="4" maxY="2"/>
-                                        <state key="normal" title="LinkedIn" image="HeadLinkedin">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone: +47 999 99 999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRd-sA-c8I">
+                                        <rect key="frame" x="110" y="12" width="156" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="wUV-xg-5W7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Pab-jj-7f8" secondAttribute="bottom" id="7uQ-D5-bdb"/>
-                                    <constraint firstAttribute="trailing" secondItem="Npi-cs-FGf" secondAttribute="trailing" id="9qc-AK-LOl"/>
-                                    <constraint firstItem="Npi-cs-FGf" firstAttribute="leading" secondItem="Pab-jj-7f8" secondAttribute="trailing" constant="4" id="I2w-2B-u1x"/>
-                                    <constraint firstAttribute="bottom" secondItem="Ki1-Vt-IxM" secondAttribute="bottom" id="Om6-i3-S0a"/>
-                                    <constraint firstAttribute="width" constant="227" id="SEt-Fy-gwV"/>
-                                    <constraint firstItem="Pab-jj-7f8" firstAttribute="leading" secondItem="Ki1-Vt-IxM" secondAttribute="trailing" constant="4" id="VoK-ru-h77"/>
-                                    <constraint firstItem="Pab-jj-7f8" firstAttribute="top" secondItem="ujD-QF-gLP" secondAttribute="top" id="bCE-dg-o7D"/>
-                                    <constraint firstItem="Npi-cs-FGf" firstAttribute="top" secondItem="ujD-QF-gLP" secondAttribute="top" id="dAh-xt-vzV"/>
-                                    <constraint firstItem="Npi-cs-FGf" firstAttribute="width" secondItem="Pab-jj-7f8" secondAttribute="width" id="mvb-1e-nRf"/>
-                                    <constraint firstItem="Ki1-Vt-IxM" firstAttribute="width" secondItem="Pab-jj-7f8" secondAttribute="width" multiplier="1:1" id="rmf-yv-628"/>
-                                    <constraint firstItem="Ki1-Vt-IxM" firstAttribute="leading" secondItem="ujD-QF-gLP" secondAttribute="leading" id="wqt-BF-e7D"/>
-                                    <constraint firstItem="Ki1-Vt-IxM" firstAttribute="top" secondItem="ujD-QF-gLP" secondAttribute="top" id="xsL-Mv-XN7"/>
-                                    <constraint firstAttribute="bottom" secondItem="Npi-cs-FGf" secondAttribute="bottom" id="zzx-Uk-iaC"/>
+                                    <constraint firstAttribute="bottom" secondItem="xRd-sA-c8I" secondAttribute="bottom" id="Z2z-KQ-M0m"/>
+                                    <constraint firstAttribute="height" constant="29" id="o2p-Zu-zQt"/>
+                                    <constraint firstItem="xRd-sA-c8I" firstAttribute="centerX" secondItem="0xp-gK-IMd" secondAttribute="centerX" id="pd2-pK-WuX"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone: +47 999 99 999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRd-sA-c8I">
-                                <rect key="frame" x="110" y="58" width="156" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KKN-Vw-x8m" userLabel="ButtonsContainer">
+                                <rect key="frame" x="74" y="74" width="227" height="41"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ujD-QF-gLP">
+                                        <rect key="frame" x="0.0" y="16" width="227" height="25"/>
+                                        <subviews>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ki1-Vt-IxM">
+                                                <rect key="frame" x="0.0" y="0.0" width="73" height="25"/>
+                                                <color key="backgroundColor" red="0.23921568630000001" green="0.36862745099999999" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="73" id="IlZ-0h-Xh4"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <inset key="contentEdgeInsets" minX="2" minY="0.0" maxX="2" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="4" maxY="0.0"/>
+                                                <state key="normal" title="Website" image="HeadWebsite">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pab-jj-7f8">
+                                                <rect key="frame" x="77" y="0.0" width="73" height="25"/>
+                                                <color key="backgroundColor" red="0.23921568627450979" green="0.36862745098039218" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="73" id="15e-Kc-1kZ"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <inset key="contentEdgeInsets" minX="2" minY="0.0" maxX="2" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="4" maxY="3"/>
+                                                <state key="normal" title="Facebook" image="HeadFacebook">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Npi-cs-FGf">
+                                                <rect key="frame" x="154" y="0.0" width="73" height="25"/>
+                                                <color key="backgroundColor" red="0.23921568630000001" green="0.36862745099999999" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="73" id="D1N-m5-YKU"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <inset key="contentEdgeInsets" minX="2" minY="5" maxX="2" maxY="5"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="4" maxY="2"/>
+                                                <state key="normal" title="LinkedIn" image="HeadLinkedin">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="Pab-jj-7f8" secondAttribute="bottom" id="7uQ-D5-bdb"/>
+                                            <constraint firstAttribute="trailing" secondItem="Npi-cs-FGf" secondAttribute="trailing" id="Bfh-do-W31"/>
+                                            <constraint firstItem="Ki1-Vt-IxM" firstAttribute="leading" secondItem="ujD-QF-gLP" secondAttribute="leading" id="ETI-3M-pci"/>
+                                            <constraint firstItem="Npi-cs-FGf" firstAttribute="leading" secondItem="Pab-jj-7f8" secondAttribute="trailing" constant="4" id="I2w-2B-u1x"/>
+                                            <constraint firstAttribute="bottom" secondItem="Ki1-Vt-IxM" secondAttribute="bottom" id="Om6-i3-S0a"/>
+                                            <constraint firstItem="Pab-jj-7f8" firstAttribute="leading" secondItem="Ki1-Vt-IxM" secondAttribute="trailing" constant="4" id="VBT-mK-X4n"/>
+                                            <constraint firstItem="Pab-jj-7f8" firstAttribute="top" secondItem="ujD-QF-gLP" secondAttribute="top" id="bCE-dg-o7D"/>
+                                            <constraint firstItem="Npi-cs-FGf" firstAttribute="top" secondItem="ujD-QF-gLP" secondAttribute="top" id="dAh-xt-vzV"/>
+                                            <constraint firstAttribute="height" constant="25" id="hyM-yW-QBk"/>
+                                            <constraint firstItem="Ki1-Vt-IxM" firstAttribute="top" secondItem="ujD-QF-gLP" secondAttribute="top" id="xsL-Mv-XN7"/>
+                                            <constraint firstAttribute="bottom" secondItem="Npi-cs-FGf" secondAttribute="bottom" id="zzx-Uk-iaC"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="ujD-QF-gLP" firstAttribute="leading" secondItem="KKN-Vw-x8m" secondAttribute="leading" id="8U9-nZ-tjA"/>
+                                    <constraint firstAttribute="height" constant="41" id="Keg-w8-mmZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="ujD-QF-gLP" secondAttribute="bottom" id="P2c-su-7nj"/>
+                                    <constraint firstAttribute="trailing" secondItem="ujD-QF-gLP" secondAttribute="trailing" id="VyM-lD-HZJ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.70000000000000007" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="k2f-QB-yi5" firstAttribute="leading" secondItem="aOb-SS-Fta" secondAttribute="leading" constant="17" id="0or-gr-hqN"/>
-                            <constraint firstItem="ujD-QF-gLP" firstAttribute="top" secondItem="xRd-sA-c8I" secondAttribute="bottom" constant="15" id="Az4-yn-4ZB"/>
+                            <constraint firstItem="0xp-gK-IMd" firstAttribute="top" secondItem="aEm-c9-rd3" secondAttribute="bottom" id="5ZC-Ht-3fw"/>
+                            <constraint firstAttribute="trailing" secondItem="0xp-gK-IMd" secondAttribute="trailing" id="7ah-7C-4O2"/>
                             <constraint firstItem="k2f-QB-yi5" firstAttribute="top" secondItem="aOb-SS-Fta" secondAttribute="top" constant="15" id="K6h-gx-ayt"/>
                             <constraint firstItem="aEm-c9-rd3" firstAttribute="leading" secondItem="aOb-SS-Fta" secondAttribute="leading" constant="30" id="N2Z-kk-WIA"/>
                             <constraint firstAttribute="trailing" secondItem="k2f-QB-yi5" secondAttribute="trailing" constant="17" id="OwR-cZ-vjQ"/>
+                            <constraint firstItem="KKN-Vw-x8m" firstAttribute="top" secondItem="0xp-gK-IMd" secondAttribute="bottom" id="Sip-jY-7cm"/>
                             <constraint firstAttribute="trailing" secondItem="aEm-c9-rd3" secondAttribute="trailing" constant="30" id="XL6-74-u6c"/>
-                            <constraint firstAttribute="bottom" secondItem="ujD-QF-gLP" secondAttribute="bottom" constant="16" id="XvP-c6-SCZ"/>
                             <constraint firstItem="aEm-c9-rd3" firstAttribute="top" secondItem="k2f-QB-yi5" secondAttribute="bottom" constant="10" id="aXI-Px-I49"/>
-                            <constraint firstItem="ujD-QF-gLP" firstAttribute="centerX" secondItem="aOb-SS-Fta" secondAttribute="centerX" id="cgh-4y-F4e"/>
-                            <constraint firstItem="xRd-sA-c8I" firstAttribute="centerX" secondItem="aOb-SS-Fta" secondAttribute="centerX" id="fkl-4B-YBv"/>
-                            <constraint firstItem="xRd-sA-c8I" firstAttribute="top" secondItem="aEm-c9-rd3" secondAttribute="bottom" constant="13" id="k64-WU-eFr"/>
+                            <constraint firstAttribute="bottom" secondItem="KKN-Vw-x8m" secondAttribute="bottom" constant="16" id="jsc-HV-eNT"/>
+                            <constraint firstItem="KKN-Vw-x8m" firstAttribute="centerX" secondItem="aOb-SS-Fta" secondAttribute="centerX" id="nk1-Tx-Ua5"/>
+                            <constraint firstItem="0xp-gK-IMd" firstAttribute="leading" secondItem="aOb-SS-Fta" secondAttribute="leading" id="pBj-kP-eky"/>
                         </constraints>
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BusinessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="TlN-oR-IhT">
@@ -128,14 +162,20 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="bottomTextViewConstraint" destination="k64-WU-eFr" id="fmb-AB-W1k"/>
+                <outlet property="buttonsContainerHeightConstraint" destination="Keg-w8-mmZ" id="sgG-Uy-skY"/>
                 <outlet property="companyDescriptionTextView" destination="aEm-c9-rd3" id="dDX-Rn-1Um"/>
                 <outlet property="companyNameLabel" destination="k2f-QB-yi5" id="IHH-Ge-ad1"/>
                 <outlet property="companyPhoneLabel" destination="xRd-sA-c8I" id="776-Dr-X83"/>
                 <outlet property="facebookButton" destination="Pab-jj-7f8" id="gOc-9T-KEP"/>
+                <outlet property="facebookWidthConstraint" destination="15e-Kc-1kZ" id="a89-ye-XTX"/>
                 <outlet property="linkedInButton" destination="Npi-cs-FGf" id="KVB-K1-vMh"/>
+                <outlet property="linkedinLeadingConstraint" destination="I2w-2B-u1x" id="je6-60-ggf"/>
+                <outlet property="linkedinWidthConstraint" destination="D1N-m5-YKU" id="CvA-4A-WBf"/>
                 <outlet property="logoImageView" destination="TlN-oR-IhT" id="DWG-GW-kRg"/>
+                <outlet property="phoneContainerHeightConstraint" destination="o2p-Zu-zQt" id="uv2-Iy-rGA"/>
                 <outlet property="websiteButton" destination="Ki1-Vt-IxM" id="U8c-QH-ZUO"/>
+                <outlet property="websiteTrailingConstraint" destination="VBT-mK-X4n" id="umO-8j-McG"/>
+                <outlet property="websiteWidthConstraint" destination="IlZ-0h-Xh4" id="A2U-z3-vkp"/>
             </connections>
             <point key="canvasLocation" x="200.5" y="338"/>
         </tableViewCell>

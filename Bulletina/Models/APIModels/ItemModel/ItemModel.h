@@ -35,18 +35,15 @@
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *price;
 @property (strong, nonatomic) NSString *updatedAt;
+
 @property (assign, nonatomic) NSInteger userId;
-
 @property (strong, nonatomic) NSURL *userAvatarThumbUrl;
-
 @property (strong, nonatomic) NSString *userCompanyName;
 @property (strong, nonatomic) NSString *userFullname;
 @property (strong, nonatomic) NSString *userNickname;
-
 @property (strong, nonatomic) NSURL *userUserAvatarUrl;
+
 @property (assign, nonatomic) CGFloat imageHeight;
-
-
-
+@property (strong, nonatomic) NSString *distance;
 
 @end

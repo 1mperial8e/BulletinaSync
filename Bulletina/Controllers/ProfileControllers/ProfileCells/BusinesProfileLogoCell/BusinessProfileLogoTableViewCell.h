@@ -16,9 +16,18 @@
 @property (weak, nonatomic) IBOutlet UITextView *companyDescriptionTextView;
 @property (weak, nonatomic) IBOutlet UIButton *websiteButton;
 @property (weak, nonatomic) IBOutlet UIButton *facebookButton;
-@property (weak, nonatomic) IBOutlet UIButton *instagramButton;
 @property (weak, nonatomic) IBOutlet UIButton *linkedInButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomTextViewConstraint;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *linkedinLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *websiteTrailingConstraint;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *websiteWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *facebookWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *linkedinWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonsContainerHeightConstraint;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneContainerHeightConstraint;
+
 
 
 @end

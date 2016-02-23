@@ -67,7 +67,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 - (void)updateContent
 {
 	self.backgroundColor = [UIColor mainPageBGColor];
-	self.distanceLabel.text = [self stringWithDistanceToItem];
+	self.distanceLabel.text = self.cellItem.distance; //[self stringWithDistanceToItem];
 	self.timeAgoLabel.text = [self stringWithTimeAgoForItem];
 	
 	if (self.cellItem.userCompanyName.length) {
@@ -170,21 +170,21 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 
 #pragma mark - Utils
 
-- (NSString *)stringWithDistanceToItem
-{
-	CGFloat itemLatitude = [self.cellItem.latitude floatValue];
-	CGFloat itemLongitude = [self.cellItem.longitude floatValue];
-	CLLocation *itemLocation = [[CLLocation alloc] initWithLatitude:itemLatitude longitude:itemLongitude];
-	
-	CLLocationDistance distance = [[LocationManager sharedManager].currentLocation distanceFromLocation:itemLocation];
-	NSString *distanceString;
-	if (distance < 1000) {
-		distanceString = @"1 km";
-	} else {
-		distanceString = [NSString stringWithFormat:@"%0.1f km", (distance / 1000.0)];
-	}
-	return distanceString;
-}
+//- (NSString *)stringWithDistanceToItem
+//{
+//	CGFloat itemLatitude = [self.cellItem.latitude floatValue];
+//	CGFloat itemLongitude = [self.cellItem.longitude floatValue];
+//	CLLocation *itemLocation = [[CLLocation alloc] initWithLatitude:itemLatitude longitude:itemLongitude];
+//	
+//	CLLocationDistance distance = [[LocationManager sharedManager].currentLocation distanceFromLocation:itemLocation];
+//	NSString *distanceString;
+//	if (distance < 1000) {
+//		distanceString = @"1 km";
+//	} else {
+//		distanceString = [NSString stringWithFormat:@"%0.1f km", (distance / 1000.0)];
+//	}
+//	return distanceString;
+//}
 
 - (NSString *)stringWithTimeAgoForItem
 {

@@ -23,17 +23,17 @@
     [super viewDidLoad];
     __weak typeof(self) weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([APIClient sharedInstance].requestStartDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakSelf fetchItemList];
+		[weakSelf fetchItemListWithSearchString:@""];
     });
 }
 
 #pragma mark - API
 
-- (void)fetchItemList
+- (void)fetchItemListWithSearchString:(NSString *)searchString
 {
 	__weak typeof(self) weakSelf = self;
 //	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:
-	[[APIClient sharedInstance] fetchItemsForSearchSettingsAndPage:0 withCompletion:
+	[[APIClient sharedInstance] fetchItemsWithSettingsForSearchString:searchString withCompletion:
 	 ^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
 			if (response[@"error_message"]) {

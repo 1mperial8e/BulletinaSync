@@ -31,7 +31,7 @@
 
 #pragma mark - API
 
-- (void)fetchItemList;
+- (void)fetchItemListWithSearchString:(NSString *)searchString;
 
 
 @end
