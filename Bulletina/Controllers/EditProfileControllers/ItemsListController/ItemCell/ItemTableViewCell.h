@@ -17,6 +17,7 @@
 
 #import "BaseTableViewCell.h"
 #import "ItemModel.h"
+#import "IconCollectionViewCell.h"
 
 //Categories
 #import "UIImageView+AFNetworking.h"
@@ -41,6 +42,12 @@ static CGFloat const ItemTableViewCellHeigth = 105.0f;
 @property (weak, nonatomic) IBOutlet UIView *infoView;
 @property (weak, nonatomic) id<ItemCellDelegate> delegate;
 @property (weak, nonatomic) ItemModel *cellItem;
+
+@property (weak, nonatomic) IconCollectionViewCell *favoriteCell;
+@property (weak, nonatomic) IconCollectionViewCell *shareCell;
+@property (weak, nonatomic) IconCollectionViewCell *chatCell;
+@property (weak, nonatomic) IconCollectionViewCell *moreCell;
+
 
 //temp
 @property (strong, nonatomic) UIImage *itemImage;

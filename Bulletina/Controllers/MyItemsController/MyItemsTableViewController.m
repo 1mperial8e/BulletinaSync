@@ -56,7 +56,7 @@ static CGFloat const BusinessLogoCellHeigth = 252;
 - (void)fetchItemList
 {
 	__weak typeof(self) weakSelf = self;
-//		[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:
+//		[[APIClient sharedInstance] fetchItemsWithOffset:@10 limit:@85 withCompletion:
 //	[[APIClient sharedInstance] fetchItemsForSearchSettingsAndPage:0 withCompletion:
 	[[APIClient sharedInstance]fetchItemsForUserId:self.user.userId withCompletion:
 	 ^(id response, NSError *error, NSInteger statusCode) {

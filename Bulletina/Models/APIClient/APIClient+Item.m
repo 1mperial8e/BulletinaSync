@@ -57,6 +57,11 @@
 	[itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
 	[itemParameters setValue:@YES forKey:@"active"];
 	[itemParameters setValue:@(self.currentUser.userId) forKey:@"user_id"];
+	[itemParameters setValue:@(itemId) forKey:@"id"];
+	[itemParameters setValue:@"" forKey:@"name"];
+	[itemParameters setValue:@"" forKey:@"hashtags"];
+	[itemParameters setValue:@"" forKey:@"city"];
+	[itemParameters setValue:@"" forKey:@"active"];
 
 	NSArray *dataArray;
 	if (image) {
@@ -64,7 +69,7 @@
 	}
 
 	[parameters setValue:itemParameters forKey:@"item"];
-	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.json", itemId];
+	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.html", itemId];
 	
 	[self performPUT:query withParameters:parameters multipartData:dataArray response:completion];
 }
@@ -136,7 +141,7 @@
 	NSParameterAssert(self.passtoken);
 	
 	NSDictionary *parameters = @{@"passtoken" : self.passtoken};
-	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.json", itemId];
+	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.html", itemId];
 	return [self performDELETE:query withParameters:parameters response:completion];
 }
 

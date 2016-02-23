@@ -57,13 +57,13 @@ static NSInteger const UserTypeSectionsIndex = 2;
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if ([defaults objectForKey:ShowBusinessAdsKey]) {
-		self.showBusinessAds = [defaults boolForKey:ShowBusinessAdsKey] ?:YES;
+		self.showBusinessAds = [defaults boolForKey:ShowBusinessAdsKey];
 	} else {
 		self.showBusinessAds = YES;
 	}
 	
 	if ([defaults objectForKey:ShowPersonaAdsKey]) {
-		self.showPersonalAds = [defaults boolForKey:ShowPersonaAdsKey] ?:YES;
+		self.showPersonalAds = [defaults boolForKey:ShowPersonaAdsKey];
 	} else {
 		self.showPersonalAds = YES;
 	}

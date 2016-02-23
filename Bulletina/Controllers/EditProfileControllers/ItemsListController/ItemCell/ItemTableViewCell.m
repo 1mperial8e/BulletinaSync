@@ -7,7 +7,6 @@
 //
 
 #import "ItemTableViewCell.h"
-#import "IconCollectionViewCell.h"
 #import "ReportTableViewController.h"
 
 static CGFloat const iconCellHeigth = 20;
@@ -54,6 +53,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	self.itemStateButton.hidden = YES;
 	self.itemImageView.image = nil;
     self.avatarImageView.layer.cornerRadius = 0;
+	[self.iconsCollectionView reloadData];
 }
 
 #pragma mark - Info
@@ -128,12 +128,16 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 {
 	IconCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([IconCollectionViewCell class]) forIndexPath:indexPath];
 	if (indexPath.item == FavoriteCellIndex) {
+		self.favoriteCell = cell;
 		cell.iconImageView.image = [UIImage imageNamed:@"FavoriteNotActive"];
 	} else if (indexPath.item == ChatCellIndex) {
+		self.chatCell = cell;
 		cell.iconImageView.image = [UIImage imageNamed:@"ChatNotActive"];
 	} else if (indexPath.item == ShareCellIndex) {
+		self.shareCell = cell;
 		cell.iconImageView.image = [UIImage imageNamed:@"Share"];
 	} else if (indexPath.item == MoreCellIndex) {
+		self.moreCell = cell;
 		cell.iconImageView.image = [UIImage imageNamed:@"More"];
 	}	
 	return cell;
@@ -143,10 +147,16 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+	IconCollectionViewCell *cell = (IconCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
 	if (indexPath.item == MoreCellIndex) {
 		if ([self.delegate respondsToSelector:@selector(showActionSheetForItem:)]) {
 			[self.delegate showActionSheetForItem:self.cellItem];
 		}
+	} else if (indexPath.item == FavoriteCellIndex) {
+		cell.iconImageView.image = [UIImage imageNamed:@"FavoriteActive"];
+	} else if (indexPath.item == ChatCellIndex) {
+		cell.iconImageView.image = [UIImage imageNamed:@"ChatActive"];
+	} else if (indexPath.item == ShareCellIndex) {
 	}
 }
 
