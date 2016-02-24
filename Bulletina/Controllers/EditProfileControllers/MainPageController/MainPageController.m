@@ -154,6 +154,24 @@
  //switch
 }
 
+#pragma mark - API
+
+- (void)fetchItemListWithSearchString:(NSString *)searchString
+{
+	__weak typeof(self) weakSelf = self;
+//		[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:
+	[[APIClient sharedInstance] fetchItemsWithSettingsForSearchString:searchString withCompletion:
+	 ^(id response, NSError *error, NSInteger statusCode) {
+		 if (error) {
+			 DLog(@"%@", error);
+		 } else {
+			 NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
+			 weakSelf.itemsList = [ItemModel arrayWithDictionariesArray:response];
+			 [weakSelf.tableView reloadData];
+		 }
+	 }];
+}
+
 #pragma mark - Utils
 
 - (void)refreshTable:(id)sender

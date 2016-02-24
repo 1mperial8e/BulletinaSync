@@ -101,9 +101,9 @@
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	NSMutableDictionary *searchParameters = [NSMutableDictionary dictionary];
-//	[searchParameters setValue:@(page) forKey:@"page"];
-	[searchParameters setValue:@30 forKey:@"limit"];
-	[searchParameters setValue:@0 forKey:@"offset"];
+	[searchParameters setValue:@(0) forKey:@"page"];
+//	[searchParameters setValue:@30 forKey:@"limit"];
+//	[searchParameters setValue:@0 forKey:@"offset"];
 
 	[searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
 	[searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
