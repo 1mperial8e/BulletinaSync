@@ -30,7 +30,7 @@
 
 #import "UIImageView+AFNetworking.h"
 
-static CGFloat const PersonalLogoCellHeigth = 220;
+static CGFloat const PersonalLogoCellHeigth = 215;
 static CGFloat const BusinessLogoCellHeigth = 182;//252
 static CGFloat const BusinessLogoButtonsWidth = 73;
 static CGFloat const BusinessLogoButtonSpace = 4;
@@ -449,6 +449,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.backgroundHeightConstraint = [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:[self heightForTopCell]];
 	[backgroundImageView addConstraint:self.backgroundHeightConstraint];
 	
+	[backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0]];
+	
 	[backgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
 	self.topBackgroundImageView = backgroundImageView;
 }
@@ -457,7 +459,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -64 ? (fabs(scrollView.contentOffset.y + 64.0) / 120) : 0);
+	CGFloat scaleCoef = 1.12 + (scrollView.contentOffset.y < -64 ? (fabs(scrollView.contentOffset.y + 64.0) / 120) : 0);
 	self.topBackgroundImageView.transform = CGAffineTransformMakeScale(scaleCoef, scaleCoef);
 	self.backgroundTopConstraint.constant = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
 }
