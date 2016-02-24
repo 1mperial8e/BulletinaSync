@@ -9,6 +9,8 @@
 #import "ItemTableViewCell.h"
 #import "ReportTableViewController.h"
 
+static CGFloat const priceContainerHeigth = 43.0f;
+static CGFloat const ItemTableViewCellHeigth = 105.0f;
 static CGFloat const iconCellHeigth = 20;
 static CGFloat const iconCellCount = 4;
 static NSInteger const TwentyFourHours = 86400;
@@ -21,6 +23,27 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 };
 
 @interface ItemTableViewCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+
+@property (weak, nonatomic) IBOutlet UICollectionView *iconsCollectionView;
+@property (weak, nonatomic) IBOutlet UIButton *itemStateButton;
+@property (weak, nonatomic) IBOutlet UITextView *itemTextView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *itemViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *priceTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceValueLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *priceContainerHeightConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeAgoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (weak, nonatomic) IBOutlet UIView *infoView;
+
+@property (weak, nonatomic) IconCollectionViewCell *favoriteCell;
+@property (weak, nonatomic) IconCollectionViewCell *shareCell;
+@property (weak, nonatomic) IconCollectionViewCell *chatCell;
+@property (weak, nonatomic) IconCollectionViewCell *moreCell;
+
+//temp
+@property (strong, nonatomic) UIImage *itemImage;
 
 @end
 
@@ -67,7 +90,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 - (void)updateContent
 {
 	self.backgroundColor = [UIColor mainPageBGColor];
-	self.distanceLabel.text = self.cellItem.distance; //[self stringWithDistanceToItem];
+	self.distanceLabel.text = self.cellItem.distance;
 	self.timeAgoLabel.text = [self stringWithTimeAgoForItem];
 	
 	if (self.cellItem.userCompanyName.length) {
@@ -113,8 +136,6 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	
 	UITapGestureRecognizer *userTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTap:)];
 	[self.infoView addGestureRecognizer:userTapGesture];
-	
-//	[self layoutIfNeeded];
 }
 
 #pragma mark - UICollectionViewDataSource

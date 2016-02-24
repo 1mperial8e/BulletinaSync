@@ -17,13 +17,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex	
 };
 
-static CGFloat const PersonalLogoCellHeigth = 215;
-static CGFloat const BusinessLogoCellHeigth = 182;
-static CGFloat const BusinessLogoButtonsWidth = 73;
-static CGFloat const BusinessLogoButtonSpace = 4;
-static CGFloat const BusinessLogoButtonsContainerHeight = 41;
-static CGFloat const BusinessLogoPhoneContainerHeight = 29;
-
 @interface MyItemsTableViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) UIImageView *topBackgroundImageView;
@@ -37,7 +30,7 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[self fetchItemList];
+	
 	[self reloadUser];
 	[self tableViewSetup];
 	[self setupNavigationBar];
@@ -56,7 +49,7 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 
 #pragma mark - API
 
-- (void)fetchItemList
+- (void)fetchItemListWithSearchString:(NSString *)searchString
 {
 	__weak typeof(self) weakSelf = self;
 //		[[APIClient sharedInstance] fetchItemsWithOffset:@10 limit:@85 withCompletion:
@@ -117,27 +110,7 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 - (IndividualProfileLogoTableViewCell *)individualLogoCellForIndexPath:(NSIndexPath *)indexPath
 {
 	IndividualProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:IndividualProfileLogoTableViewCell.ID forIndexPath:indexPath];
-	cell.aboutMeTextView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-	cell.logoImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-	cell.logoImageView.layer.borderWidth = 2.0f;
-	cell.logoImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
-	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-	if (self.user.customerTypeId == AnonymousAccount) {
-		cell.userFullNameLabel.text = @"Anonymus";
-	} else {
-		cell.userFullNameLabel.text = self.user.name;
-		cell.userNicknameLabel.text = self.user.login;
-		
-		cell.aboutMeTextView.text = self.user.about;
-		cell.aboutMeTextView.font = [UIFont systemFontOfSize:13];
-		cell.aboutMeTextView.textColor = [UIColor whiteColor];
-		cell.aboutMeTextView.textAlignment = NSTextAlignmentCenter;
-		[cell.aboutMeTextView setTextContainerInset:UIEdgeInsetsZero];
-		
-		if (self.user.avatarUrl) {
-			[cell.logoImageView setImageWithURL:self.user.avatarUrl];;
-		}
-	}
+	cell.user = self.user;
 	return cell;
 }
 
@@ -186,52 +159,9 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 - (CGFloat)heightForTopCell
 {
 	if (self.user.customerTypeId == BusinessAccount) {
-		return [self heighForBusinessLogoCell];
+		return [BusinessProfileLogoTableViewCell heightForBusinessLogoCellWithUser:self.user];
 	}
-	return [self heighForPersonalLogoCell];
-}
-
-- (CGFloat)heighForBusinessLogoCell
-{
-	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
-	BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
-	CGSize size = CGSizeZero;
-	
-	cell.companyDescriptionTextView.text = self.user.about;
-	cell.companyDescriptionTextView.font = [UIFont systemFontOfSize:13];
-	cell.companyDescriptionTextView.textColor = [UIColor whiteColor];
-	cell.companyDescriptionTextView.textAlignment = NSTextAlignmentCenter;
-	[cell.companyDescriptionTextView setTextContainerInset:UIEdgeInsetsZero];
-	
-	if (cell.companyDescriptionTextView.text.length) {
-		size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
-	} else {
-		size = CGSizeMake(0, 0);
-	}	
-	CGFloat extraHeight = 0;
-	extraHeight += BusinessLogoButtonsContainerHeight;
-	extraHeight += BusinessLogoPhoneContainerHeight;
-	return (size.height + BusinessLogoCellHeigth + extraHeight);
-}
-
-- (CGFloat)heighForPersonalLogoCell
-{
-	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:IndividualProfileLogoTableViewCell.ID owner:self options:nil];
-	IndividualProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
-	CGSize size = CGSizeZero;
-	
-	cell.aboutMeTextView.text = self.user.about;
-	cell.aboutMeTextView.font = [UIFont systemFontOfSize:13];
-	cell.aboutMeTextView.textColor = [UIColor whiteColor];
-	cell.aboutMeTextView.textAlignment = NSTextAlignmentCenter;
-	[cell.aboutMeTextView setTextContainerInset:UIEdgeInsetsZero];
-	
-	if (cell.aboutMeTextView.text.length) {
-		size = [cell.aboutMeTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
-	} else {
-		size = CGSizeMake(0, 0);
-	}
-	return (size.height + PersonalLogoCellHeigth);
+	return [IndividualProfileLogoTableViewCell heightForIndividualAvatarCellWithUser:self.user];
 }
 
 - (CGFloat)topOffset

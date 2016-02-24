@@ -9,6 +9,7 @@
 #import "BusinessProfileLogoTableViewCell.h"
 #import "UIImageView+AFNetworking.h"
 
+static CGFloat const BusinessLogoCellHeigth = 182;
 static CGFloat const BusinessLogoButtonsWidth = 73;
 static CGFloat const BusinessLogoButtonSpace = 4;
 static CGFloat const BusinessLogoButtonsContainerHeight = 41;
@@ -16,12 +17,12 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 
 @interface BusinessProfileLogoTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *companyNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *companyPhoneLabel;
 @property (weak, nonatomic) IBOutlet UIButton *websiteButton;
 @property (weak, nonatomic) IBOutlet UIButton *facebookButton;
 @property (weak, nonatomic) IBOutlet UIButton *linkedInButton;
+@property (weak, nonatomic) IBOutlet UITextView *companyDescriptionTextView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *linkedinLeadingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *websiteTrailingConstraint;
@@ -88,6 +89,36 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
         [self.logoImageView setImageWithURL:self.user.avatarUrl];;
     }
     self.logoImageView.layer.cornerRadius = 8.0f;
+}
+
+#pragma mark - Utils
+
++ (CGFloat)heightForBusinessLogoCellWithUser:(UserModel *)user
+{
+	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
+	BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
+	cell.user = user;
+	cell.companyDescriptionTextView.text = cell.user.about;
+	cell.companyDescriptionTextView.font = [UIFont systemFontOfSize:13];
+	cell.companyDescriptionTextView.textColor = [UIColor whiteColor];
+	cell.companyDescriptionTextView.textAlignment = NSTextAlignmentCenter;
+	[cell.companyDescriptionTextView setTextContainerInset:UIEdgeInsetsZero];
+	
+	CGSize size = CGSizeZero;
+	if (cell.companyDescriptionTextView.text.length) {
+		size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
+	} else {
+		size = CGSizeMake(0, 0);
+	}
+	
+	CGFloat extraHeight = 0;
+	//	if (self.user.website.length || self.user.facebook.length || self.user.linkedin.length) {
+	extraHeight += BusinessLogoButtonsContainerHeight;
+	//	}
+	//	if (self.user.phone.length) {
+	extraHeight += BusinessLogoPhoneContainerHeight;
+	//	}
+	return (size.height + BusinessLogoCellHeigth + extraHeight);
 }
 
 - (void)addCustomBorderToButton:(UIButton *)button

@@ -10,7 +10,9 @@
 
 @interface BusinessProfileLogoTableViewCell : BaseTableViewCell
 
-@property (weak, nonatomic) IBOutlet UITextView *companyDescriptionTextView;
 @property (weak, nonatomic) UserModel *user;
+@property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
+
++ (CGFloat)heightForBusinessLogoCellWithUser:(UserModel *)user;
 
 @end

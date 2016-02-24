@@ -73,6 +73,7 @@ static NSInteger const UserTypeSectionsIndex = 2;
 	} else {
 		self.searchArea = 0.5;
 	}
+	
 	if ([defaults objectForKey:CategoriesSettingsKey]) {
 		self.categoriesSettings = [[defaults dictionaryForKey:CategoriesSettingsKey] mutableCopy];
 	} else {
@@ -152,11 +153,6 @@ static NSInteger const UserTypeSectionsIndex = 2;
 	return settingCell;
 }
 
-- (void)changeSetting:(UISwitch *)sender
-{
-	[self.categoriesSettings setValue:@(sender.on) forKey:@(sender.tag).stringValue];
-}
-
 - (UITableViewCell *)userTypeCellForIndexPath:(NSIndexPath *)indexPath
 {
 	DefaultSettingsTableViewCell *settingCell = [self.tableView dequeueReusableCellWithIdentifier:DefaultSettingsTableViewCell.ID forIndexPath:indexPath];
@@ -169,6 +165,7 @@ static NSInteger const UserTypeSectionsIndex = 2;
 		[settingCell.settingSwitch setOn:self.showPersonalAds];
 		self.showPersonalAdsSwitch = settingCell.settingSwitch;
 	}
+	[settingCell.settingSwitch addTarget:self action:@selector(changeSetting:) forControlEvents:UIControlEventValueChanged];
 	return settingCell;
 }
 
@@ -221,6 +218,27 @@ static NSInteger const UserTypeSectionsIndex = 2;
 }
 
 #pragma mark - Actions
+
+- (void)changeSetting:(UISwitch *)sender
+{
+	if (sender == self.showBusinessAdsSwitch || sender == self.showPersonalAdsSwitch) {
+		if (!self.showBusinessAdsSwitch.on && !self.showPersonalAdsSwitch.on) {
+			[sender setOn:YES animated:YES];
+		}
+	} else {
+		[self.categoriesSettings setValue:@(sender.on) forKey:@(sender.tag).stringValue];
+		NSInteger enabledCategoriesCount = 0;
+		for (NSNumber *categoryState in self.categoriesSettings.allValues) {
+			if (![categoryState isEqualToNumber:@0]) {
+				enabledCategoriesCount++;
+			}
+		}
+		if (enabledCategoriesCount == 0) {
+			[sender setOn:YES animated:YES];
+			[self.categoriesSettings setValue:@(sender.on) forKey:@(sender.tag).stringValue];
+		}
+	}
+}
 
 - (void)areaSliderTap:(UITapGestureRecognizer *)tap
 {

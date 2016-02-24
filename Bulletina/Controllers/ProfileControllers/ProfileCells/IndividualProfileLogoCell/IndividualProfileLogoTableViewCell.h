@@ -10,10 +10,9 @@
 
 @interface IndividualProfileLogoTableViewCell : BaseTableViewCell
 
+@property (weak, nonatomic) UserModel *user;
 @property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
-@property (weak, nonatomic) IBOutlet UILabel *userFullNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *userNicknameLabel;
-@property (weak, nonatomic) IBOutlet UITextView *aboutMeTextView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomTextViewConstraint;
+
++ (CGFloat)heightForIndividualAvatarCellWithUser:(UserModel *)user;
 
 @end

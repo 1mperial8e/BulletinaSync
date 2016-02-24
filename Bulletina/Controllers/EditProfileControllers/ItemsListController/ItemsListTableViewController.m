@@ -43,18 +43,7 @@
 
 - (void)fetchItemListWithSearchString:(NSString *)searchString
 {
-	__weak typeof(self) weakSelf = self;
-//	[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:
-	[[APIClient sharedInstance] fetchItemsWithSettingsForSearchString:searchString withCompletion:
-	 ^(id response, NSError *error, NSInteger statusCode) {
-		if (error) {
-            DLog(@"%@", error);
-		} else {
-			NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
-			weakSelf.itemsList = [ItemModel arrayWithDictionariesArray:response];
-			[weakSelf.tableView reloadData];
-		}
-	}];
+	// Do Nothing
 }
 
 #pragma mark - Table view data source
@@ -100,13 +89,6 @@
 	}
 }
 
-- (void)showUserForItem:(ItemModel *)item
-{
-	MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
-	itemsTableViewController.user = [[UserModel alloc] initWithItem:item];
-	[self.navigationController pushViewController:itemsTableViewController animated:YES];
-}
-
 #pragma mark - Setup
 
 - (void)tableViewSetup
@@ -125,6 +107,13 @@
 }
 
 #pragma mark - ItemCellDelegate
+
+- (void)showUserForItem:(ItemModel *)item
+{
+	MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
+	itemsTableViewController.user = [[UserModel alloc] initWithItem:item];
+	[self.navigationController pushViewController:itemsTableViewController animated:YES];
+}
 
 - (void)showActionSheetForItem:(ItemModel *)item
 {
