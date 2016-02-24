@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -20,14 +19,11 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fgggr" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2f-QB-yi5">
                                 <rect key="frame" x="17" y="15" width="341" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="P6r-H7-Knx"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" editable="NO" text="Text text text text" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEm-c9-rd3">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" editable="NO" text="Text text text text" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEm-c9-rd3">
                                 <rect key="frame" x="30" y="45" width="315" height="0.0"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -151,10 +147,10 @@
                             <constraint firstItem="0xp-gK-IMd" firstAttribute="leading" secondItem="aOb-SS-Fta" secondAttribute="leading" id="pBj-kP-eky"/>
                         </constraints>
                     </view>
-                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BusinessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="TlN-oR-IhT">
+                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" verticalCompressionResistancePriority="250" image="BusinessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="TlN-oR-IhT">
                         <rect key="frame" x="17" y="10" width="341" height="100"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="TlN-oR-IhT" secondAttribute="height" multiplier="341:100" id="BcY-rl-slA"/>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="100" id="QPn-0U-21i"/>
                         </constraints>
                     </imageView>
                 </subviews>
@@ -180,6 +176,7 @@
                 <outlet property="linkedInButton" destination="Npi-cs-FGf" id="KVB-K1-vMh"/>
                 <outlet property="linkedinLeadingConstraint" destination="I2w-2B-u1x" id="je6-60-ggf"/>
                 <outlet property="linkedinWidthConstraint" destination="D1N-m5-YKU" id="CvA-4A-WBf"/>
+                <outlet property="logoHeightConstraint" destination="QPn-0U-21i" id="art-1F-Pdz"/>
                 <outlet property="logoImageView" destination="TlN-oR-IhT" id="DWG-GW-kRg"/>
                 <outlet property="phoneContainerHeightConstraint" destination="o2p-Zu-zQt" id="uv2-Iy-rGA"/>
                 <outlet property="websiteButton" destination="Ki1-Vt-IxM" id="U8c-QH-ZUO"/>
