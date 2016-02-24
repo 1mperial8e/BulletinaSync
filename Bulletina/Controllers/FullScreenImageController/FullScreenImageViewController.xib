@@ -86,7 +86,7 @@
                 <action selector="doubleTapGesture:" destination="-1" id="uhp-5i-muV"/>
             </connections>
         </tapGestureRecognizer>
-        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="2" id="D2f-Au-riw">
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1.3999999999999999" id="D2f-Au-riw">
             <connections>
                 <action selector="longPressGesture:" destination="-1" id="NYa-V0-tuk"/>
             </connections>

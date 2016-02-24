@@ -96,6 +96,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (UITableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath
 {
+    self.topBackgroundImageView.frame = CGRectMake(0, self.topOffset, ScreenWidth, [self heightForTopCell]);
 	if (self.user.customerTypeId == BusinessAccount) {
         return [self businessLogoCellForIndexPath:indexPath];
     } else {
@@ -217,7 +218,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		CGRect cellFrame = [self.navigationController.view convertRect:sender.view.superview.superview.frame fromView:self.tableView];
 		CGRect imageViewRect = sender.view.frame;
 		imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
-		imageViewRect.origin.y = cellFrame.origin.y + CGRectGetHeight(self.navigationController.navigationBar.frame);
+        imageViewRect.origin.y += cellFrame.origin.y;
 		
 		FullScreenImageViewController *imageController = [FullScreenImageViewController new];
 		imageController.image = ((UIImageView *)sender.view).image;

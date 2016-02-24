@@ -26,12 +26,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/MyItemsController/MyItemsTableViewController.m"
-            timestampString = "478013391.625367"
+            timestampString = "478015424.314342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
-            landmarkName = "-tableView:heightForRowAtIndexPath:"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
+            landmarkName = "-reloadUser"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bulletina/Controllers/MyItemsController/MyItemsTableViewController.m"
+            timestampString = "478015654.51301"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "-avatarTap:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

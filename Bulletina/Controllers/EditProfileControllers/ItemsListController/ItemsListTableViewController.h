@@ -34,5 +34,4 @@
 
 - (void)fetchItemListWithSearchString:(NSString *)searchString;
 
-
 @end

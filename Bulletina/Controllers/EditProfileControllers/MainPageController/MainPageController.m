@@ -19,11 +19,12 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+
 	[self tableViewSetup];
 	[self setupNavigationBar];
 	[self addSearchBar];
 	[self performSelector:@selector(loadCategories) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
-    [super viewDidLoad];		
 }
 
 #pragma mark - Table view delegate
@@ -78,7 +79,8 @@
 	self.searchBar.delegate = self;
 	self.searchBar.barTintColor = [UIColor mainPageBGColor];
 	self.searchBar.tintColor = [UIColor appOrangeColor];
-	
+    self.searchBar.backgroundColor = [UIColor mainPageBGColor];
+    
 	CALayer *bottomBorder = [CALayer layer];
 	bottomBorder.backgroundColor = [[UIColor lightGrayColor] CGColor];
 	bottomBorder.frame = CGRectMake(0, CGRectGetHeight(self.searchBar.frame), CGRectGetWidth(self.searchBar.frame), 1.0f);
@@ -174,13 +176,13 @@
 
 #pragma mark - Utils
 
-- (void)refreshTable:(id)sender
+- (void)refreshTable:(UIRefreshControl *)sender
 {
 	[self.searchBar resignFirstResponder];
 	[self.searchBar setShowsCancelButton:NO animated:YES];
 	self.searchBar.text = @"";
 	[self fetchItemListWithSearchString:@""];
-	[(UIRefreshControl *)sender endRefreshing];
+	[sender endRefreshing];
 }
 
 - (void)loadCategories
