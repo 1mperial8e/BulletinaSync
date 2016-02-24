@@ -9,7 +9,7 @@
 #import "IndividualProfileLogoTableViewCell.h"
 #import "UIImageView+AFNetworking.h"
 
-static CGFloat const PersonalLogoCellHeigth = 215;
+static CGFloat const PersonalLogoCellHeigth = 205;
 
 @interface IndividualProfileLogoTableViewCell ()
 

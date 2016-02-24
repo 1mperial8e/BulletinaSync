@@ -191,7 +191,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 				UserModel *generatedUser = [UserModel modelWithDictionary:response];
 				[Utils storeValue:response forKey:CurrentUserKey];
 				[[APIClient sharedInstance] updateCurrentUser:generatedUser];
-				[[APIClient sharedInstance] updatePasstokenWithDictionary:response];
 				dispatch_async(dispatch_get_main_queue(), ^{
 					[weakSelf.navigationController popViewControllerAnimated:YES];
 				});
