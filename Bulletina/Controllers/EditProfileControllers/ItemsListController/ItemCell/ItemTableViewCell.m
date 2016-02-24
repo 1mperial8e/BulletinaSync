@@ -42,24 +42,11 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 @property (weak, nonatomic) IconCollectionViewCell *chatCell;
 @property (weak, nonatomic) IconCollectionViewCell *moreCell;
 
-//temp
-@property (strong, nonatomic) UIImage *itemImage;
-
 @end
 
 @implementation ItemTableViewCell
 
 #pragma mark - Lifecycle
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-	self = [super initWithCoder:aDecoder];
-	if (self) {
-		//temp
-		self.itemImage = [UIImage imageNamed:@"ItemExample"];
-	}
-	return  self;
-}
 
 - (void)awakeFromNib
 {
@@ -77,6 +64,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	self.itemImageView.image = nil;
     self.avatarImageView.layer.cornerRadius = 0;
 	[self.iconsCollectionView reloadData];
+	self.cellItem =nil;
 }
 
 #pragma mark - Info
@@ -108,7 +96,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	
 	if (self.cellItem.imagesUrl) {
 		[self.itemImageView setImageWithURL:self.cellItem.imagesUrl];
-		self.itemViewHeightConstraint.constant = [self heighOfImageViewForImage:self.itemImage];
+		self.itemViewHeightConstraint.constant = [self heighOfImageViewForItem:self.cellItem];
 	} else {
 		self.itemViewHeightConstraint.constant = 0.0;
 	}
@@ -150,10 +138,18 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	IconCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([IconCollectionViewCell class]) forIndexPath:indexPath];
 	if (indexPath.item == FavoriteCellIndex) {
 		self.favoriteCell = cell;
-		cell.iconImageView.image = [UIImage imageNamed:@"FavoriteNotActive"];
+		if (self.cellItem.isFavorite) {
+			cell.iconImageView.image = [UIImage imageNamed:@"FavoriteActive"];
+		} else {
+			cell.iconImageView.image = [UIImage imageNamed:@"FavoriteNotActive"];
+		}
 	} else if (indexPath.item == ChatCellIndex) {
 		self.chatCell = cell;
-		cell.iconImageView.image = [UIImage imageNamed:@"ChatNotActive"];
+		if (self.cellItem.isChatActive) {
+			cell.iconImageView.image = [UIImage imageNamed:@"ChatActive"];
+		} else {
+			cell.iconImageView.image = [UIImage imageNamed:@"ChatNotActive"];
+		}
 	} else if (indexPath.item == ShareCellIndex) {
 		self.shareCell = cell;
 		cell.iconImageView.image = [UIImage imageNamed:@"Share"];
@@ -174,9 +170,19 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 			[self.delegate showActionSheetForItem:self.cellItem];
 		}
 	} else if (indexPath.item == FavoriteCellIndex) {
-		cell.iconImageView.image = [UIImage imageNamed:@"FavoriteActive"];
+		if (self.cellItem.isFavorite) {
+			cell.iconImageView.image = [UIImage imageNamed:@"FavoriteNotActive"];
+		} else {
+			cell.iconImageView.image = [UIImage imageNamed:@"FavoriteActive"];
+		}
+		self.cellItem.isFavorite = !self.cellItem.isFavorite;
 	} else if (indexPath.item == ChatCellIndex) {
-		cell.iconImageView.image = [UIImage imageNamed:@"ChatActive"];
+		if (self.cellItem.isChatActive) {
+			cell.iconImageView.image = [UIImage imageNamed:@"ChatNotActive"];
+		} else {
+			cell.iconImageView.image = [UIImage imageNamed:@"ChatActive"];
+		}
+		self.cellItem.isChatActive = !self.cellItem.isChatActive;
 	} else if (indexPath.item == ShareCellIndex) {
 	}
 }
@@ -248,25 +254,18 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 		ItemTableViewCell *cell = [[NSBundle mainBundle] loadNibNamed:ItemTableViewCell.ID owner:nil options:nil].firstObject;
 	cell.cellItem = item;
 	textViewHeigth = ceil([cell.itemTextView sizeThatFits:CGSizeMake(ScreenWidth - 32, MAXFLOAT)].height);
-	
-	UIImage *sizeImage;
-	if (cell.cellItem.imagesUrl) {
-		sizeImage = cell.itemImage;
-	} else {
-		sizeImage = nil;
-	}
-	CGFloat height = ItemTableViewCellHeigth + [cell heighOfImageViewForImage:sizeImage] + textViewHeigth + priceContainerHeigth;
+
+	CGFloat height = ItemTableViewCellHeigth + [cell heighOfImageViewForItem:item] + textViewHeigth + priceContainerHeigth;
 	return height;
 }
 
-- (CGFloat)heighOfImageViewForImage:(UIImage *)image
+- (CGFloat)heighOfImageViewForItem:(ItemModel *)item
 {
 	CGFloat imageViewHeigth = 0;
-	if (image) {
-		CGFloat ratio = image.size.height / image.size.width;
+	if (item.imagesUrl) {
+		CGFloat ratio = item.imageHeight / item.imageWidth;
 		imageViewHeigth = (ScreenWidth - 32) * ratio;
 	}
-	self.cellItem.imageHeight = imageViewHeigth;
 	return imageViewHeigth;
 }
 
