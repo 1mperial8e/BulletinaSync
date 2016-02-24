@@ -44,6 +44,10 @@
 @property (strong, nonatomic) NSURL *userUserAvatarUrl;
 
 @property (assign, nonatomic) CGFloat imageHeight;
+@property (assign, nonatomic) CGFloat imageWidth;
+@property (strong, nonatomic) NSString *timeAgo;
 @property (strong, nonatomic) NSString *distance;
+@property (assign, nonatomic) BOOL isFavorite;
+@property (assign, nonatomic) BOOL isChatActive;
 
 @end

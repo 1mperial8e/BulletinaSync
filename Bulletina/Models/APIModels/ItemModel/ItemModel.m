@@ -63,6 +63,9 @@
 	self.userNickname = dictionary[@"user_nickname"];
 	
 	self.distance = dictionary[@"distance"];
+	self.timeAgo = dictionary[@"time_ago"];
+	self.imageHeight = [dictionary[@"image_height"] floatValue];
+	self.imageWidth = [dictionary[@"image_width"] floatValue];
 	
 	NSString *userUserAvatarUrl = dictionary[@"user_user_avatar_url"];
 	if (userUserAvatarUrl.length) {
