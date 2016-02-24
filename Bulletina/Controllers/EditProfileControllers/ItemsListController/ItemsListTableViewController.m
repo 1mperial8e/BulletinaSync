@@ -39,13 +39,6 @@
 	}
 }
 
-#pragma mark - API
-
-- (void)fetchItemListWithSearchString:(NSString *)searchString
-{
-	// Do Nothing
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -147,6 +140,7 @@
 
 - (void)deleteItemWithId:(NSInteger)itemId
 {
+	__weak typeof(self) weakSelf = self;
 	[[APIClient sharedInstance] deleteItemWithId:itemId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
 			if (response[@"error_message"]) {
@@ -160,7 +154,7 @@
 			}
 		} else {
 			[Utils showWarningWithMessage:@"Deleted"];
-			[self.tableView reloadData];
+			[weakSelf fetchItemListWithSearchString:@""];
 		}
 	}];
 }

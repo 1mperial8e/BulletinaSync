@@ -90,9 +90,9 @@
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	[parameters setValue:@(userId) forKey:@"id"];
 	
-//	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.html", userId];
+	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.json", userId];
 	
-	[self performGET:@"api/v1/items.json" withParameters:parameters response:completion];
+	[self performGET:query withParameters:parameters response:completion];
 }
 
 #pragma mark - Search Items
@@ -102,6 +102,7 @@
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	NSMutableDictionary *searchParameters = [NSMutableDictionary dictionary];
 	[searchParameters setValue:@(0) forKey:@"page"];
+//	[searchParameters setValue:@(540) forKey:@"user_id"];
 //	[searchParameters setValue:@30 forKey:@"limit"];
 //	[searchParameters setValue:@0 forKey:@"offset"];
 
