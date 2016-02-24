@@ -184,19 +184,13 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 		}
 		self.cellItem.isChatActive = !self.cellItem.isChatActive;
 	} else if (indexPath.item == ShareCellIndex) {
-        UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:@[[UIImage imageNamed:@"Logo"], @"There will be a link to the item. #bulletina"] applicationActivities:nil];
-        shareVC.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-            if (activityError) {
-                DLog(@"Sharing error: %@", activityError);
-            }
-        };
-        [[Utils topViewController] presentViewController:shareVC animated:YES completion:nil];
-	}
+        [self shareItem];
+    }
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	CGFloat averageWidth = CGRectGetWidth([UIScreen mainScreen].bounds) / (iconCellCount + 1);
 	return CGSizeMake(averageWidth, iconCellHeigth);
@@ -283,6 +277,23 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	if ([self.delegate respondsToSelector:@selector(showUserForItem:)]) {
 		[self.delegate showUserForItem:self.cellItem];
 	}
+}
+
+- (void)shareItem
+{
+    NSMutableArray *shareItems = [NSMutableArray array];
+    if (self.itemImageView.image) {
+        [shareItems addObject:self.itemImageView.image];
+    }
+    NSString *shareText = [self.cellItem.text stringByAppendingFormat:@" %@. There will be a link to the item. #bulletina", self.cellItem.price];
+    [shareItems addObject:shareText];
+    UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+    shareVC.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+        if (activityError) {
+            DLog(@"Sharing error: %@", activityError);
+        }
+    };
+    [[Utils topViewController] presentViewController:shareVC animated:YES completion:nil];
 }
 
 @end
