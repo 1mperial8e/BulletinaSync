@@ -102,7 +102,7 @@
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	NSMutableDictionary *searchParameters = [NSMutableDictionary dictionary];
 //	[searchParameters setValue:@(page) forKey:@"page"];
-	[searchParameters setValue:@25 forKey:@"limit"];
+	[searchParameters setValue:@30 forKey:@"limit"];
 	[searchParameters setValue:@0 forKey:@"offset"];
 
 	[searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
@@ -115,7 +115,7 @@
 	} else {
 		searchAreaPercentage = 1.0;
 	}
-	[searchParameters setValue:@(MaxSearchArea * searchAreaPercentage) forKey:@"distance"];
+	[searchParameters setValue:@((long)(MaxSearchArea * searchAreaPercentage)) forKey:@"distance"];
 	[searchParameters setValue:searchString forKey:@"searchstring"];
 	[parameters setValue:searchParameters forKey:@"search"];
 	

@@ -26,6 +26,12 @@
     [super viewDidLoad];		
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	
+}
+
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -111,15 +117,11 @@
 	[searchBar setShowsCancelButton:YES animated:YES];
 }
 
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
-{
-	[searchBar setShowsCancelButton:NO animated:YES];
-}
-
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
 	[searchBar resignFirstResponder];
 	[searchBar setShowsCancelButton:NO animated:YES];
+	searchBar.text = @"";
 	[self fetchItemListWithSearchString:@""];
 }
 
@@ -161,7 +163,10 @@
 #pragma mark - Utils
 
 - (void)refreshTable:(id)sender
-{	
+{
+	[self.searchBar resignFirstResponder];
+	[self.searchBar setShowsCancelButton:NO animated:YES];
+	self.searchBar.text = @"";
 	[self fetchItemListWithSearchString:@""];
 	[(UIRefreshControl *)sender endRefreshing];
 }
