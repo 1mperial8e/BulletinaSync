@@ -9,7 +9,7 @@
 #import "BusinessProfileLogoTableViewCell.h"
 #import "UIImageView+AFNetworking.h"
 
-static CGFloat const BusinessLogoCellHeigth = 182;
+static CGFloat const BusinessLogoCellHeigth = 166;
 static CGFloat const BusinessLogoButtonsWidth = 73;
 static CGFloat const BusinessLogoButtonSpace = 4;
 static CGFloat const BusinessLogoButtonsContainerHeight = 41;
@@ -82,9 +82,16 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
         self.linkedinLeadingConstraint.constant = BusinessLogoButtonSpace;
     }
     
-    self.phoneContainerHeightConstraint.constant = BusinessLogoPhoneContainerHeight;
-    self.buttonsContainerHeightConstraint.constant = BusinessLogoButtonsContainerHeight;
-
+	self.phoneContainerHeightConstraint.constant = self.user.phone.length ? BusinessLogoPhoneContainerHeight : 0;
+	
+	if (self.user.website.length || self.user.facebook.length || self.user.linkedin.length) {
+		self.buttonsContainerHeightConstraint.constant = BusinessLogoButtonsContainerHeight;
+	} else {
+		self.buttonsContainerHeightConstraint.constant = 0;
+	}
+	
+	[self layoutIfNeeded];
+	
     if (self.user.avatarUrl) {
         [self.logoImageView setImageWithURL:self.user.avatarUrl];;
     }
@@ -112,12 +119,12 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 	}
 	
 	CGFloat extraHeight = 0;
-	//	if (self.user.website.length || self.user.facebook.length || self.user.linkedin.length) {
-	extraHeight += BusinessLogoButtonsContainerHeight;
-	//	}
-	//	if (self.user.phone.length) {
-	extraHeight += BusinessLogoPhoneContainerHeight;
-	//	}
+	if (cell.user.website.length || cell.user.facebook.length || cell.user.linkedin.length) {
+		extraHeight += BusinessLogoButtonsContainerHeight;
+	}
+	if (cell.user.phone.length) {
+		extraHeight += BusinessLogoPhoneContainerHeight;
+	}
 	return (size.height + BusinessLogoCellHeigth + extraHeight);
 }
 
