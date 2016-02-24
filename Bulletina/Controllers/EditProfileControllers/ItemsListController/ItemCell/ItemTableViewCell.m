@@ -285,7 +285,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
     if (self.itemImageView.image) {
         [shareItems addObject:self.itemImageView.image];
     }
-    NSString *shareText = [self.cellItem.text stringByAppendingFormat:@" %@. There will be a link to the item. #bulletina", self.cellItem.price];
+    NSString *shareText = [self.cellItem.text stringByAppendingFormat:@". %@. There will be a link to the item. #bulletina", self.cellItem.price];
     [shareItems addObject:shareText];
     UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
     shareVC.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
