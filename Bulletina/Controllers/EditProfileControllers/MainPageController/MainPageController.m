@@ -26,12 +26,6 @@
     [super viewDidLoad];		
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-	
-}
-
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -72,7 +66,7 @@
 	
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Profile_navbarIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(profileButtonAction:)];
 	
-	UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"Nearby",@"Favorites"]];
+	UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"Nearby", @"Favorites"]];
 	segment.selectedSegmentIndex = 0;
 	[segment addTarget:self action:@selector(segmentedControlSwitch:) forControlEvents:UIControlEventValueChanged];
 	self.navigationItem.titleView = segment;
@@ -82,8 +76,8 @@
 {
 	self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
 	self.searchBar.delegate = self;
-	self.searchBar.barTintColor =  [UIColor mainPageBGColor];
-	self.searchBar.tintColor =  [UIColor appOrangeColor];
+	self.searchBar.barTintColor = [UIColor mainPageBGColor];
+	self.searchBar.tintColor = [UIColor appOrangeColor];
 	
 	CALayer *bottomBorder = [CALayer layer];
 	bottomBorder.backgroundColor = [[UIColor lightGrayColor] CGColor];

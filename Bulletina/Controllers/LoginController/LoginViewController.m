@@ -293,21 +293,17 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)showMainPageAnimated:(BOOL)animated
 {
-	if (![LocationManager sharedManager].currentLocation) {
-		[Utils showLocationErrorOnViewController:self];
-	} else {
-		if (!animated) {
-		 [self.loader show];
-			animated = YES;
-		}
-		MainPageController *mainPageController = [MainPageController new];
-		UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
-		
-		__weak typeof(self) weakSelf = self;
-		[self.navigationController presentViewController:mainPageNavigationController animated:animated completion:^{
-			[weakSelf.loader hide];
-		}];
-	}
+    if (!animated) {
+     [self.loader show];
+        animated = YES;
+    }
+    MainPageController *mainPageController = [MainPageController new];
+    UINavigationController *mainPageNavigationController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.navigationController presentViewController:mainPageNavigationController animated:animated completion:^{
+        [weakSelf.loader hide];
+    }];
 }
 
 #pragma mark - UITextFieldDelegate

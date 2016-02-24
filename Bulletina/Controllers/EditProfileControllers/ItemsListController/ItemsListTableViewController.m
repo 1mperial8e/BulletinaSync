@@ -48,15 +48,7 @@
 	[[APIClient sharedInstance] fetchItemsWithSettingsForSearchString:searchString withCompletion:
 	 ^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
-			if (response[@"error_message"]) {
-				[Utils showErrorWithMessage:response[@"error_message"]];
-			} else if (statusCode == -1009) {
-				[Utils showErrorWithMessage:@"Please check network connection and try again"];
-			} else if (statusCode == 401) {
-				[Utils showErrorUnknown];
-			} else {
-				[Utils showErrorUnknown];
-			}
+            DLog(@"%@", error);
 		} else {
 			NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
 			weakSelf.itemsList = [ItemModel arrayWithDictionariesArray:response];

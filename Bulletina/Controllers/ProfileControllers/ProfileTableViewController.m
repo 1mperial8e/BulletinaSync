@@ -32,8 +32,6 @@
 
 static CGFloat const PersonalLogoCellHeigth = 215;
 static CGFloat const BusinessLogoCellHeigth = 182;//252
-static CGFloat const BusinessLogoButtonsWidth = 73;
-static CGFloat const BusinessLogoButtonSpace = 4;
 static CGFloat const BusinessLogoButtonsContainerHeight = 41;
 static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 static CGFloat const DefaultCellHeigth = 44;
@@ -63,7 +61,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @end
 
 @implementation ProfileTableViewController
-
 
 #pragma mark - Lifecycle
 
@@ -116,51 +113,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (BusinessProfileLogoTableViewCell *)businessLogoCellForIndexPath:(NSIndexPath *)indexPath
 {
     BusinessProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessProfileLogoTableViewCell.ID forIndexPath:indexPath];
-    [self addCustomBorderToButton:cell.websiteButton];
-    [self addCustomBorderToButton:cell.facebookButton];
-    [self addCustomBorderToButton:cell.linkedInButton];
-    cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-    cell.companyNameLabel.text = self.user.companyName;
-	cell.companyPhoneLabel.text = self.user.phone.length ? [NSString stringWithFormat:@"Phone:%@", self.user.phone] : @"";
-
-	cell.companyDescriptionTextView.text = self.user.about;
-	cell.companyDescriptionTextView.font = [UIFont systemFontOfSize:13];
-	cell.companyDescriptionTextView.textColor = [UIColor whiteColor];
-	cell.companyDescriptionTextView.textAlignment = NSTextAlignmentCenter;
-	[cell.companyDescriptionTextView setTextContainerInset:UIEdgeInsetsZero];
-	
-	cell.websiteWidthConstraint.constant = self.user.website.length ? BusinessLogoButtonsWidth : 0;
-	cell.facebookWidthConstraint.constant = self.user.facebook.length ? BusinessLogoButtonsWidth : 0;
-	cell.linkedinWidthConstraint.constant = self.user.linkedin.length ? BusinessLogoButtonsWidth : 0;
-	
-	if (!self.user.website.length && self.user.facebook.length && self.user.linkedin.length) {
-		cell.websiteTrailingConstraint.constant = 0;
-		cell.linkedinLeadingConstraint.constant = BusinessLogoButtonSpace;
-	} else if (self.user.website.length && self.user.facebook.length && !self.user.linkedin.length) {
-		cell.websiteTrailingConstraint.constant = BusinessLogoButtonSpace;
-		cell.linkedinLeadingConstraint.constant = 0;
-	} else if (!self.user.facebook.length && ((self.user.website.length && !self.user.linkedin.length) || (!self.user.website.length && self.user.linkedin.length))) {
-		cell.websiteTrailingConstraint.constant = 0;
-		cell.linkedinLeadingConstraint.constant = 0;
-	} else if (self.user.website.length && self.user.facebook.length && self.user.linkedin.length) {
-		cell.websiteTrailingConstraint.constant = BusinessLogoButtonSpace;
-		cell.linkedinLeadingConstraint.constant = BusinessLogoButtonSpace;
-	}
-	
-	cell.phoneContainerHeightConstraint.constant = BusinessLogoPhoneContainerHeight;//self.user.phone.length ? BusinessLogoPhoneContainerHeight : 0;
-	
-//	if (self.user.website.length || self.user.facebook.length || self.user.linkedin.length) {
-		cell.buttonsContainerHeightConstraint.constant = BusinessLogoButtonsContainerHeight;
-//	} else {
-//		cell.buttonsContainerHeightConstraint.constant = 0;
-//	}
-
-	if (self.user.avatarUrl) {
-        [cell.logoImageView setImageWithURL:self.user.avatarUrl];;
-    }
-    cell.logoImageView.layer.cornerRadius = 8.0f;
-	
-//	[cell layoutIfNeeded];
+    cell.user = self.user;
     return cell;
 }
 
@@ -382,13 +335,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		size = CGSizeMake(0, 0);
 	}
 	return (size.height + PersonalLogoCellHeigth);
-}
-
-- (void)addCustomBorderToButton:(UIButton *)button
-{
-	button.layer.borderColor = [UIColor whiteColor].CGColor;
-	button.layer.borderWidth = 1.0f;
-	button.layer.cornerRadius = 5;
 }
 
 - (void)reloadUser
