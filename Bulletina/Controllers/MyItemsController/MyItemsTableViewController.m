@@ -27,8 +27,6 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 @interface MyItemsTableViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) UIImageView *topBackgroundImageView;
-@property (weak, nonatomic) NSLayoutConstraint *backgroundTopConstraint;
-@property (weak, nonatomic) NSLayoutConstraint *backgroundHeightConstraint;
 
 @end
 
@@ -102,7 +100,6 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 
 - (UITableViewCell *)logoCellForIndexPath:(NSIndexPath *)indexPath
 {
-	self.backgroundHeightConstraint.constant = [self heightForTopCell];
 	if (self.user.customerTypeId == BusinessAccount) {
 		return [self businessLogoCellForIndexPath:indexPath];
 	} else {
@@ -237,6 +234,11 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 	return (size.height + PersonalLogoCellHeigth);
 }
 
+- (CGFloat)topOffset
+{
+    return Application.statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height;
+}
+
 #pragma mark - Setup
 
 - (void)setupNavigationBar
@@ -256,20 +258,13 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 
 - (void)addBackgroundView
 {
-	self.tableView.backgroundView = nil;
-	UIView *backgroundView = [[UIView alloc] init];
-	UIImageView *backgroundImageView = [[UIImageView alloc] init];
+	UIView *backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+	UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TopBackground"]];
+    backgroundImageView.frame = CGRectMake(0, self.topOffset, ScreenWidth, [self heightForTopCell]);
 	[backgroundView addSubview:backgroundImageView];
 	backgroundView.backgroundColor = [UIColor mainPageBGColor];
-	backgroundImageView.image = [UIImage imageNamed:@"TopBackground"];
 	backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-	self.backgroundTopConstraint = [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeTop multiplier:1.0f constant:64];
-	[backgroundView addConstraint:self.backgroundTopConstraint];
-	self.backgroundHeightConstraint = [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:[self heightForTopCell]];
-	[backgroundImageView addConstraint: self.backgroundHeightConstraint];
-	
-	[backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0]];
-	[backgroundImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
 	self.topBackgroundImageView = backgroundImageView;
 	self.tableView.backgroundView = backgroundView;
 }
@@ -278,9 +273,13 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	CGFloat scaleCoef = 1.12 + (scrollView.contentOffset.y < -64 ? (fabs(scrollView.contentOffset.y + 64.0) / 120) : 0);
+    if (scrollView.contentOffset.y >= -self.topOffset) {
+        CGRect frame = self.topBackgroundImageView.frame;
+        frame.origin.y = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
+        self.topBackgroundImageView.frame = frame;
+    }
+	CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / ([self heightForTopCell] * 0.5)) : 0);
 	self.topBackgroundImageView.transform = CGAffineTransformMakeScale(scaleCoef, scaleCoef);
-	self.backgroundTopConstraint.constant = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
 }
 
 @end
