@@ -40,7 +40,7 @@ static CGFloat const PersonalLogoCellHeigth = 215;
 	self.logoImageView.layer.cornerRadius = CGRectGetHeight(self.logoImageView.frame) / 2;
 	self.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
 	if (self.user.customerTypeId == AnonymousAccount) {
-		self.userFullNameLabel.text = @"Anonymus";
+		self.userFullNameLabel.text = @"Anonymous";
 	} else {
 		self.userFullNameLabel.text = self.user.name;
 		self.userNicknameLabel.text = self.user.login;

@@ -184,6 +184,13 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 		}
 		self.cellItem.isChatActive = !self.cellItem.isChatActive;
 	} else if (indexPath.item == ShareCellIndex) {
+        UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:@[[UIImage imageNamed:@"Logo"], @"There will be a link to the item. #bulletina"] applicationActivities:nil];
+        shareVC.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+            if (activityError) {
+                DLog(@"Sharing error: %@", activityError);
+            }
+        };
+        [[Utils topViewController] presentViewController:shareVC animated:YES completion:nil];
 	}
 }
 

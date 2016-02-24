@@ -16,12 +16,18 @@
 // Models
 #import "APIClient+User.h"
 
+// Views
+#import "BulletinaLoaderView.h"
+
 static CGFloat const ResetPasswordCellHeight = 235;
 
 @interface ForgotPasswordTableViewController () <UITextFieldDelegate>
 
 @property (assign, nonatomic) BOOL resetSuccess;
 @property (weak, nonatomic) UITextField *emailTextfield;
+
+@property (strong, nonatomic) BulletinaLoaderView *loader;
+@property (weak, nonatomic) NSURLSessionTask *task;
 
 @end
 
@@ -44,10 +50,17 @@ static CGFloat const ResetPasswordCellHeight = 235;
     [Application setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.loader = [[BulletinaLoaderView alloc] initWithView:self.view andText:nil];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self.tableView endEditing:YES];
+    [self.task cancel];
 }
 
 #pragma mark - Setup
@@ -129,8 +142,9 @@ static CGFloat const ResetPasswordCellHeight = 235;
         [Utils showWarningWithMessage:@"Email is not valid"];
 	} else {
         [self.tableView endEditing:YES];
+        [self.loader show];
         __weak typeof(self) weakSelf = self;
-        [[APIClient sharedInstance] forgotPasswordWithEmail:self.emailTextfield.text withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+        self.task = [[APIClient sharedInstance] forgotPasswordWithEmail:self.emailTextfield.text withCompletion:^(id response, NSError *error, NSInteger statusCode) {
             if (error) {
                 if (statusCode == 404) {
                     [Utils showErrorWithMessage:@"Email address isn't associated to account"];
@@ -141,6 +155,7 @@ static CGFloat const ResetPasswordCellHeight = 235;
                 weakSelf.resetSuccess = YES;
                 [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
+            [weakSelf.loader hide];
         }];
 	}
 }

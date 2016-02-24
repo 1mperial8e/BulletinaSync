@@ -26,7 +26,7 @@
     if (![message isKindOfClass:[NSString class]]) {
         message = [NSString stringWithFormat:@"%@", message];
     }
-    NSString *appName = [NSBundle mainBundle].infoDictionary[@"CFBundleDisplayName"];
+    NSString *appName = [NSBundle mainBundle].infoDictionary[@"CFBundleName"];
     [[[UIAlertView alloc] initWithTitle:appName message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
 }
 
@@ -146,6 +146,9 @@
 {
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
     UIViewController *controller = window.rootViewController;
+    while (controller.presentedViewController) {
+        controller = controller.presentedViewController;
+    }
     return controller;
 }
 
