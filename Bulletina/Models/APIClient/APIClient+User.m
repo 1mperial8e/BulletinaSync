@@ -28,8 +28,6 @@
 - (NSURLSessionDataTask *)generateUserWithCompletion:(ResponseBlock)completion
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self deviceParameters]];
-//    [parameters setObject:@1 forKey:@"generate"];
-
     return [self performPOST:@"api/v1/generate.json" withParameters:parameters response:completion];
 }
 

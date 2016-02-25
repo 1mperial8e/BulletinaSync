@@ -8,7 +8,7 @@
 
 #import "BaseModel.h"
 
-@interface CategoryModel : BaseModel
+@interface CategoryModel : BaseModel <NSCopying>
 
 @property (strong, nonatomic) NSString *name;
 @property (assign, nonatomic) NSInteger categoryId;

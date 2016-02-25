@@ -9,7 +9,7 @@
 #import "BaseModel.h"
 #import "CategoryModel.h"
 
-@interface ItemModel : BaseModel
+@interface ItemModel : BaseModel <NSCopying>
 
 @property (strong, nonatomic) CategoryModel *category;
 

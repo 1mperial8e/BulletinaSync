@@ -92,7 +92,9 @@
 	}
 }
 
-- (id) copyWithZone:(NSZone *)zone
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone
 {
 	ItemModel *itemCopy = [[ItemModel allocWithZone:zone] init];
 	
