@@ -62,7 +62,7 @@
         [self.tableView setContentOffset:CGPointMake(0, -64) animated:YES];
     }
     
-    if (items.count && [self isKindOfClass:[MyItemsTableViewController class]]) {
+    if ((items.count && !afterReload) || [self isKindOfClass:[MyItemsTableViewController class]]) {
         // Insert new items
         nextIndex = self.itemsList.count;
         if ([self isKindOfClass:[MyItemsTableViewController class]]) {
