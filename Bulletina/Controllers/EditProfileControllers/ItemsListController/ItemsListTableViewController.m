@@ -27,7 +27,7 @@
     [self registerObservers];
     
     self.hasMore = YES;
-    self.currentPage = 0;
+    self.currentPage = -1;
     self.itemsList = [NSMutableArray array];
 }
 

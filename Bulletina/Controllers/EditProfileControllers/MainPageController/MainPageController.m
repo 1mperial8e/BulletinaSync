@@ -25,7 +25,9 @@
 	[self addSearchBar];
     __weak typeof(self) weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([APIClient sharedInstance].requestStartDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakSelf loadData:YES];
+        if (!weakSelf.downloadTask) {
+            [weakSelf loadData:YES];
+        }
     });
 	[self performSelector:@selector(loadCategories) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
 }
@@ -174,6 +176,8 @@
     if (reloadAll) {
         self.hasMore = YES;
         self.currentPage = 0;
+    } else {
+        self.currentPage++;
     }
     __weak typeof(self) weakSelf = self;
     self.downloadTask = [[APIClient sharedInstance] fetchItemsWithSearchText:self.searchString page:self.currentPage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
