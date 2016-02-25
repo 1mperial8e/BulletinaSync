@@ -230,7 +230,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)doneButtonTap:(id)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:SettingsChangedNotificaionName object:nil];
 	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 

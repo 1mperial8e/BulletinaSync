@@ -11,6 +11,8 @@
 // Models
 #import "LocationManager.h"
 
+NSInteger const ItemsPerPage = 10;
+
 @implementation APIClient (Item)
 
 #pragma mark - Categories
@@ -20,7 +22,7 @@
     [self performGET:@"/api/v1/ad_types.json" withParameters:nil response:completion];
 }
 
-#pragma mark - AddNew
+#pragma mark - Items
 
 - (void)addNewItemWithDescription:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion
 {
@@ -43,8 +45,6 @@
 
     [self performPOST:@"api/v1/items.json" withParameters:parameters multipartData:dataArray response:completion];
 }
-
-#pragma mark - Update
 
 - (void)updateItemId:(NSInteger)itemId withDescription:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion
 {
@@ -74,56 +74,34 @@
 	[self performPUT:query withParameters:parameters multipartData:dataArray response:completion];
 }
 
-#pragma mark - Items List
-
-- (void)fetchItemsWithOffset:(NSNumber *)offset limit:(NSNumber *)limit withCompletion:(ResponseBlock)completion
-{
-	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
-	[parameters setValue:offset forKey:@"offset"];
-	[parameters setValue:limit forKey:@"limit"];
-	
-	[self performGET:@"api/v1/items.json" withParameters:parameters response:completion];
-}
-
-- (void)fetchItemsForUserId:(NSInteger)userId withCompletion:(ResponseBlock)completion
+- (NSURLSessionTask *)fetchItemsForUserId:(NSInteger)userId page:(NSInteger)page withCompletion:(ResponseBlock)completion;
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	[parameters setValue:@(userId) forKey:@"id"];
 	
 	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.json", userId];
 	
-	[self performGET:query withParameters:parameters response:completion];
+	return [self performGET:query withParameters:parameters response:completion];
 }
 
-#pragma mark - Search Items
-
-- (void)fetchItemsWithSettingsForSearchString:(NSString *)searchString withCompletion:(ResponseBlock)completion
+- (NSURLSessionTask *)fetchItemsWithSearchText:(NSString *)searchString page:(NSInteger)page withCompletion:(ResponseBlock)completion
 {
-	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
-	NSMutableDictionary *searchParameters = [NSMutableDictionary dictionary];
-	[searchParameters setValue:@(0) forKey:@"page"];
-//	[searchParameters setValue:@(540) forKey:@"user_id"];
-//	[searchParameters setValue:@30 forKey:@"limit"];
-//	[searchParameters setValue:@0 forKey:@"offset"];
-
-	[searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
-	[searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
-	
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	CGFloat searchAreaPercentage;
-	if ([defaults objectForKey:SearchAreaKey]) {
-		searchAreaPercentage = [defaults floatForKey:SearchAreaKey];
-	} else {
-		searchAreaPercentage = 1.0;
-	}
-	[searchParameters setValue:@((long)(MaxSearchArea * searchAreaPercentage)) forKey:@"distance"];
-	[searchParameters setValue:searchString forKey:@"searchstring"];
-	[parameters setValue:searchParameters forKey:@"search"];
-	
-	[self performGET:@"api/v1/search.json" withParameters:parameters response:completion];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
+    NSMutableDictionary *searchParameters = [NSMutableDictionary dictionary];
+    [searchParameters setValue:@(page) forKey:@"page"];
+	[searchParameters setValue:@(ItemsPerPage) forKey:@"limit"];
+	[searchParameters setValue:@(ItemsPerPage * page) forKey:@"offset"];
+    
+    [searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
+    [searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
+    
+    CGFloat searchAreaPercentage = [Defaults floatForKey:SearchAreaKey];
+    [searchParameters setValue:@(MaxSearchArea * searchAreaPercentage) forKey:@"distance"];
+    [searchParameters setValue:searchString ? searchString : @"" forKey:@"searchstring"];
+    [parameters setValue:searchParameters forKey:@"search"];
+    
+    return [self performGET:@"api/v1/search.json" withParameters:parameters response:completion];
 }
-
-#pragma mark - Report
 
 - (void)reportItemWithId:(NSInteger)itemId andUserId:(NSInteger)userId description:(NSString *)text reasonId:(NSInteger)reasonId withCompletion:(ResponseBlock)completion
 {
@@ -139,12 +117,11 @@
 	[self performPOST:@"api/v1/reports" withParameters:parameters multipartData:nil response:completion];
 }
 
-#pragma mark - Delete
-
 - (NSURLSessionDataTask *)deleteItemWithId:(NSInteger)itemId withCompletion:(ResponseBlock)completion
 {
 	NSParameterAssert(self.passtoken);
-	
+    NSParameterAssert(itemId);
+
 	NSDictionary *parameters = @{@"passtoken" : self.passtoken};
 	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.html", itemId];
 	return [self performDELETE:query withParameters:parameters response:completion];

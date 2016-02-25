@@ -88,6 +88,7 @@ static NSInteger const UserTypeSectionsIndex = 2;
 	[Utils storeValue:@(self.showBusinessAdsSwitch.on) forKey:ShowBusinessAdsKey];
 	[Utils storeValue:@(self.searchArea) forKey:SearchAreaKey];
 	[Utils storeValue:self.categoriesSettings forKey:CategoriesSettingsKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SettingsChangedNotificaionName object:nil];
 }
 
 #pragma mark - UITableView data source

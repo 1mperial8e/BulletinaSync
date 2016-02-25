@@ -8,34 +8,23 @@
 
 #import "APIClient.h"
 
+extern NSInteger const ItemsPerPage;
+
 @interface APIClient (Item)
 
 #pragma mark - Categories
 
 - (void)categoriesListWithCompletion:(ResponseBlock)completion;
 
-#pragma mark - AddNew
+#pragma mark - Items
 
 - (void)addNewItemWithDescription:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion;
-
-#pragma mark - Update
-
 - (void)updateItemId:(NSInteger)itemId withDescription:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion;
 
-#pragma mark - Items List
-
-- (void)fetchItemsWithOffset:(NSNumber *)offset limit:(NSNumber *)limit withCompletion:(ResponseBlock)completion;
-- (void)fetchItemsForUserId:(NSInteger)userId withCompletion:(ResponseBlock)completion;
-
-#pragma mark - Search Items
-
-- (void)fetchItemsWithSettingsForSearchString:(NSString *)searchString withCompletion:(ResponseBlock)completion;
-#pragma mark - Report
+- (NSURLSessionTask *)fetchItemsForUserId:(NSInteger)userId page:(NSInteger)page withCompletion:(ResponseBlock)completion;
+- (NSURLSessionTask *)fetchItemsWithSearchText:(NSString *)searchString page:(NSInteger)page withCompletion:(ResponseBlock)completion;
 
 - (void)reportItemWithId:(NSInteger)itemId andUserId:(NSInteger)userId description:(NSString *)text reasonId:(NSInteger)reasonId withCompletion:(ResponseBlock)completion;
-
-#pragma mark - Delete
-
 - (NSURLSessionDataTask *)deleteItemWithId:(NSInteger)itemId withCompletion:(ResponseBlock)completion;
 
 @end

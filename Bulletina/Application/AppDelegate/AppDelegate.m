@@ -27,6 +27,7 @@
 {
     [BuddyBuildSDK setup];
     [self setupSNS];
+    [self setupDefaults];
     
     // Register for Push Notifications
     UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil];
@@ -99,6 +100,16 @@
     AWSStaticCredentialsProvider *credentialsProvider = [[AWSStaticCredentialsProvider alloc] initWithAccessKey:AWSCredentialAccessKey secretKey:AWSCredentialAccessSecret];
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionEUWest1 credentialsProvider:credentialsProvider];
     [AWSServiceManager defaultServiceManager].defaultServiceConfiguration = configuration;
+}
+
+#pragma mark - Defaults
+
+- (void)setupDefaults
+{
+    if (![Defaults valueForKey:SearchAreaKey]) {
+        [Defaults setValue:@(0.5) forKey:SearchAreaKey];
+        // Set other values
+    }
 }
 
 @end

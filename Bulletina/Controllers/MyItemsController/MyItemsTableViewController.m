@@ -32,8 +32,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [super viewDidLoad];
 	
 	[self reloadUser];
-	[self tableViewSetup];
-	[self setupNavigationBar];
     if ([APIClient sharedInstance].currentUser.userId == self.user.userId) {
         self.navigationItem.title = @"My Bulletina";
     } else {
@@ -41,37 +39,46 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-	[self.tableView reloadData];
-}
-
 #pragma mark - API
 
-- (void)fetchItemListWithSearchString:(NSString *)searchString
+- (void)reloadUser
 {
-	__weak typeof(self) weakSelf = self;
-//		[[APIClient sharedInstance] fetchItemsWithOffset:@10 limit:@85 withCompletion:
-//	[[APIClient sharedInstance] fetchItemsForSearchSettingsAndPage:0 withCompletion:
-	[[APIClient sharedInstance]fetchItemsForUserId:self.user.userId withCompletion:
-	 ^(id response, NSError *error, NSInteger statusCode) {
-		 if (error) {
-			 if (response[@"error_message"]) {
-				 [Utils showErrorWithMessage:response[@"error_message"]];
-			 } else if (statusCode == -1009) {
-				 [Utils showErrorWithMessage:@"Please check network connection and try again"];
-			 } else if (statusCode == 401) {
-				 [Utils showErrorUnknown];
-			 } else {
-				 [Utils showErrorUnknown];
-			 }
-		 } else {
-			 NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
-			 weakSelf.itemsList = [ItemModel arrayWithDictionariesArray:response];
-			 [weakSelf.tableView reloadData];
-		 }
-	 }];
+    if (self.user.userId) {
+        __weak typeof(self) weakSelf = self;
+        [[APIClient sharedInstance] showUserWithUserId:self.user.userId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+            if (!error) {
+                NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
+                UserModel *user = [UserModel modelWithDictionary:response];
+                weakSelf.user = user;
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.tableView reloadData];
+                });
+            }
+        }];
+    }
+}
+
+- (void)loadData:(BOOL)reloadAll
+{
+    [self.downloadTask cancel];
+    if (reloadAll) {
+        self.hasMore = YES;
+        self.currentPage = 0;
+    }
+    __weak typeof(self) weakSelf = self;
+    self.downloadTask = [[APIClient sharedInstance] fetchItemsForUserId:self.user.userId page:self.currentPage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+        if ([weakSelf.refresh isRefreshing]) {
+            [weakSelf.refresh endRefreshing];
+        }
+        if (error) {
+            [super failedToDownloadItemsWithError:error];
+        } else {
+            NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
+            NSArray *items = [ItemModel arrayWithDictionariesArray:response];
+            [super downloadedItems:items afterReload:reloadAll];
+        }
+    }];
 }
 
 #pragma mark - Table view data source
@@ -134,7 +141,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (indexPath.section == 0 && indexPath.item == LogoCellIndex) {
 		return [self heightForTopCell];
     } else if (indexPath.section) {
-        return 44.f;
+        return self.hasMore ? 44.f : 0;
     }
 	return [ItemTableViewCell itemCellHeightForItemModel:self.itemsList[indexPath.item - 1]];
 }
@@ -168,24 +175,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 }
 
 #pragma mark - Utils
-
-- (void)reloadUser
-{
-	if (self.user.userId) {
-		__weak typeof(self) weakSelf = self;
-		[[APIClient sharedInstance] showUserWithUserId:self.user.userId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-			if (!error) {
-				NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
-				UserModel *user = [UserModel modelWithDictionary:response];
-				weakSelf.user = user;
-				
-				dispatch_async(dispatch_get_main_queue(), ^{
-					[weakSelf.tableView reloadData];
-				});
-			}
-		}];
-	}
-}
 
 - (CGFloat)heightForTopCell
 {
@@ -225,6 +214,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[backgroundView addSubview:backgroundImageView];
 	backgroundView.backgroundColor = [UIColor mainPageBGColor];
 	backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    backgroundImageView.clipsToBounds = YES;
     
 	self.topBackgroundImageView = backgroundImageView;
 	self.tableView.backgroundView = backgroundView;

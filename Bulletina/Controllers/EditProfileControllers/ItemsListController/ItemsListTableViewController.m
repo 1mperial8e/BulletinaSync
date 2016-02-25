@@ -10,6 +10,7 @@
 #import "ItemsListTableViewController.h"
 #import "MyItemsTableViewController.h"
 #import "AddNewItemTableViewController.h"
+#import "MainPageController.h"
 
 // Cells
 #import "LoadingTableViewCell.h"
@@ -21,16 +22,82 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	__weak typeof(self) weakSelf = self;
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([APIClient sharedInstance].requestStartDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		[weakSelf fetchItemListWithSearchString:@""];
-	});
+    [self tableViewSetup];
+    [self setupNavigationBar];
     [self registerObservers];
+    
+    self.hasMore = YES;
+    self.currentPage = 0;
+    self.itemsList = [NSMutableArray array];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Data
+
+- (void)downloadedItems:(NSArray *)items afterReload:(BOOL)afterReload
+{
+    self.hasMore = !(items.count % ItemsPerPage);
+    
+    NSMutableArray *idPaths = [NSMutableArray array];
+    NSInteger nextIndex = 0;
+    
+    // Remove cells if data was reloaded
+    if ([self isKindOfClass:[MyItemsTableViewController class]]) {
+        nextIndex++; // First cell is profile cell
+    }
+    
+    if (afterReload) {
+        for (int i = 0; i < self.itemsList.count; i++) {
+            [idPaths addObject:[NSIndexPath indexPathForItem:nextIndex inSection:0]];
+            nextIndex++;
+        }
+        [self.tableView beginUpdates];
+        [self.itemsList removeAllObjects];
+        [self.tableView deleteRowsAtIndexPaths:idPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+        [self.tableView setContentOffset:CGPointMake(0, -64) animated:YES];
+    }
+    
+    if (items.count && [self isKindOfClass:[MyItemsTableViewController class]]) {
+        // Insert new items
+        nextIndex = self.itemsList.count;
+        if ([self isKindOfClass:[MyItemsTableViewController class]]) {
+            nextIndex++; // First cell is profile cell
+        }
+        for (int i = 0; i < items.count; i++) {
+            [idPaths addObject:[NSIndexPath indexPathForItem:nextIndex inSection:0]];
+            nextIndex++;
+        }
+        [self.tableView beginUpdates];
+        [self.itemsList addObjectsFromArray:items];
+        [self.tableView insertRowsAtIndexPaths:idPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+    } else {
+        [self.itemsList addObjectsFromArray:items];
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+    }
+}
+
+- (void)failedToDownloadItemsWithError:(NSError *)error
+{
+    self.hasMore = NO;
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    if (!self.itemsList.count) {
+        // show error message
+    }
+}
+
+- (void)loadData:(BOOL)reloadAll
+{
+    assert(@"Implement in subclass");
+    // Dumny
 }
 
 #pragma mark - UITableViewDataSource
@@ -77,8 +144,12 @@
 {
     if (indexPath.section) {
         LoadingTableViewCell *loadingCell = (LoadingTableViewCell *)cell;
+        cell.clipsToBounds = YES;
         loadingCell.separatorInset = UIEdgeInsetsMake(0, ScreenHeight, 0, 0);
         [loadingCell.loadingIndicator startAnimating];
+        if (self.hasMore && !self.downloadTask) {
+            [self loadData:NO];
+        }
     }
 }
 
@@ -121,7 +192,9 @@
 - (void)registerObservers
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletedItemNotification:) name:DeletedItemNotificaionName object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChangedNotification:) name:SettingsChangedNotificaionName object:nil];
+    if ([self isKindOfClass:[MainPageController class]]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChangedNotification:) name:SettingsChangedNotificaionName object:nil];
+    }
 }
 
 #pragma mark - ItemCellDelegate
@@ -178,7 +251,8 @@
 	}];
 }
 
-//MARK: Notifications
+#pragma mark - Notifications
+
 - (void)deletedItemNotification:(NSNotification *)notification
 {
     NSInteger itemId = [notification.userInfo[ItemIDNotificaionKey] integerValue];
@@ -200,7 +274,7 @@
 - (void)settingsChangedNotification:(NSNotification *)notification
 {
     DLog(@"Reload data after changed settings");
-    [self fetchItemListWithSearchString:nil];
+    [self loadData:YES];
 }
 
 @end

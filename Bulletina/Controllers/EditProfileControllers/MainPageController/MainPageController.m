@@ -17,22 +17,25 @@
 
 @implementation MainPageController
 
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-	[self tableViewSetup];
-	[self setupNavigationBar];
 	[self addSearchBar];
+    __weak typeof(self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([APIClient sharedInstance].requestStartDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf loadData:YES];
+    });
 	[self performSelector:@selector(loadCategories) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
 }
 
-#pragma mark - Table view delegate
+#pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section) {
-        return 44.f;
+        return self.hasMore ? 44.f : 0;
     }
 	return [ItemTableViewCell itemCellHeightForItemModel:self.itemsList[indexPath.item]];
 }
@@ -51,7 +54,8 @@
     refreshControl.tintColor = [UIColor appOrangeColor];
 	[self.tableView insertSubview:refreshControl atIndex:0];
 	[refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
-	
+    self.refresh = refreshControl;
+    
 	UIView *adsPlaceholder = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 50, ScreenWidth, 50)];
 	UILabel *adsPlaceholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth / 2 -60, 15, 200, 21)];
 	adsPlaceholderLabel.text = @"Ads placeholder";
@@ -121,17 +125,20 @@
 	[searchBar resignFirstResponder];
 	[searchBar setShowsCancelButton:NO animated:YES];
 	searchBar.text = @"";
-	[self fetchItemListWithSearchString:@""];
+    self.searchString = @"";
+    [self loadData:YES];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-	[self fetchItemListWithSearchString:searchBar.text];
+    [searchBar resignFirstResponder];
+    [searchBar setShowsCancelButton:NO animated:YES];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-	[self fetchItemListWithSearchString:searchText];
+    self.searchString = searchText;
+	[self loadData:YES];
 }
 
 #pragma mark - Actions
@@ -156,36 +163,40 @@
 
 - (void)segmentedControlSwitch:(UISegmentedControl *)sender
 {
- //switch
+    //switch
 }
 
-#pragma mark - API
+#pragma mark - Data
 
-- (void)fetchItemListWithSearchString:(NSString *)searchString
+- (void)loadData:(BOOL)reloadAll
 {
-	__weak typeof(self) weakSelf = self;
-//		[[APIClient sharedInstance] fetchItemsWithOffset:@0 limit:@85 withCompletion:
-	[[APIClient sharedInstance] fetchItemsWithSettingsForSearchString:searchString withCompletion:
-	 ^(id response, NSError *error, NSInteger statusCode) {
-		 if (error) {
-			 DLog(@"%@", error);
-		 } else {
-			 NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
-			 weakSelf.itemsList = [ItemModel arrayWithDictionariesArray:response];
-			[weakSelf.tableView reloadData];			 
-		 }
-	 }];
+    [self.downloadTask cancel];
+    if (reloadAll) {
+        self.hasMore = YES;
+        self.currentPage = 0;
+    }
+    __weak typeof(self) weakSelf = self;
+    self.downloadTask = [[APIClient sharedInstance] fetchItemsWithSearchText:self.searchString page:self.currentPage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+        if ([weakSelf.refresh isRefreshing]) {
+            [weakSelf.refresh endRefreshing];
+        }
+        if (error) {
+            [super failedToDownloadItemsWithError:error];
+        } else {
+            NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
+            NSArray *items = [ItemModel arrayWithDictionariesArray:response];
+            [super downloadedItems:items afterReload:reloadAll];
+        }
+    }];
 }
 
-#pragma mark - Utils
+#pragma mark - Private
 
 - (void)refreshTable:(UIRefreshControl *)sender
 {
 	[self.searchBar resignFirstResponder];
 	[self.searchBar setShowsCancelButton:NO animated:YES];
-	self.searchBar.text = @"";
-	[self fetchItemListWithSearchString:@""];
-	[sender endRefreshing];
+    [self loadData:YES];
 }
 
 - (void)loadCategories
