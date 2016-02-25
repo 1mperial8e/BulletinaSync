@@ -76,17 +76,25 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 #pragma mark - Table view data source
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [super tableView:tableView numberOfRowsInSection:section] + 1;
+    if (!section) {
+        return [super tableView:tableView numberOfRowsInSection:section] + 1; // plus profile cell
+    }
+    return [super tableView:tableView numberOfRowsInSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.item == LogoCellIndex) {
+	if (indexPath.section == 0 && indexPath.item == LogoCellIndex) {
 		return [self logoCellForIndexPath:indexPath];
 	}	
-	return [super defaultCellForIndexPath:indexPath forMyItems:YES];
+    return [super tableView:tableView cellForRowAtIndexPath:indexPath];
 }
 
 #pragma mark - Cells
@@ -123,9 +131,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.row == LogoCellIndex) {
+	if (indexPath.section == 0 && indexPath.item == LogoCellIndex) {
 		return [self heightForTopCell];
-	}
+    } else if (indexPath.section) {
+        return 44.f;
+    }
 	return [ItemTableViewCell itemCellHeightForItemModel:self.itemsList[indexPath.item - 1]];
 }
 

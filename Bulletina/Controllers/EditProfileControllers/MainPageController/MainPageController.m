@@ -31,6 +31,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section) {
+        return 44.f;
+    }
 	return [ItemTableViewCell itemCellHeightForItemModel:self.itemsList[indexPath.item]];
 }
 

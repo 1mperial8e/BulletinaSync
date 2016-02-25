@@ -6,9 +6,13 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
+// Controllers
 #import "ItemsListTableViewController.h"
 #import "MyItemsTableViewController.h"
 #import "AddNewItemTableViewController.h"
+
+// Cells
+#import "LoadingTableViewCell.h"
 
 @implementation ItemsListTableViewController
 
@@ -29,15 +33,28 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - Table view data source
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section) {
+        return 1;
+    }
 	return self.itemsList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section) {
+        LoadingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[LoadingTableViewCell ID] forIndexPath:indexPath];
+        cell.contentView.backgroundColor = [UIColor mainPageBGColor];
+        return cell;
+    }
 	return [self defaultCellForIndexPath:indexPath forMyItems:NO];
 }
 
@@ -52,6 +69,17 @@
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
 	[cell.itemImageView addGestureRecognizer:imageTapGesture];
 	return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section) {
+        LoadingTableViewCell *loadingCell = (LoadingTableViewCell *)cell;
+        loadingCell.separatorInset = UIEdgeInsetsMake(0, ScreenHeight, 0, 0);
+        [loadingCell.loadingIndicator startAnimating];
+    }
 }
 
 #pragma mark - Actions
@@ -78,6 +106,7 @@
 {
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
 	[self.tableView registerNib:ItemTableViewCell.nib forCellReuseIdentifier:ItemTableViewCell.ID];
+    [self.tableView registerNib:LoadingTableViewCell.nib forCellReuseIdentifier:LoadingTableViewCell.ID];
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 60, 0)];
 	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }

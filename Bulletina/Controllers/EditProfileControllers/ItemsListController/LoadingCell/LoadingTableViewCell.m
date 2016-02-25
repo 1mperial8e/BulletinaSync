@@ -1,0 +1,13 @@
+//
+//  LoadingTableViewCell.m
+//  Bulletina
+//
+//  Created by Stas Volskyi on 2/25/16.
+//  Copyright © 2016 AppMedia. All rights reserved.
+//
+
+#import "LoadingTableViewCell.h"
+
+@implementation LoadingTableViewCell
+
+@end
