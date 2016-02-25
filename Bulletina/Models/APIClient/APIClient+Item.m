@@ -90,7 +90,6 @@ NSInteger const ItemsPerPage = 10;
     NSMutableDictionary *searchParameters = [NSMutableDictionary dictionary];
     [searchParameters setValue:@(page) forKey:@"page"];
 	[searchParameters setValue:@(ItemsPerPage) forKey:@"limit"];
-	[searchParameters setValue:@(ItemsPerPage * page) forKey:@"offset"];
     
     [searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
     [searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
