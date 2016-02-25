@@ -169,7 +169,7 @@
 		 } else {
 			 NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
 			 weakSelf.itemsList = [ItemModel arrayWithDictionariesArray:response];
-			 [weakSelf.tableView reloadData];
+			[weakSelf.tableView reloadData];			 
 		 }
 	 }];
 }

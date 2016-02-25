@@ -9,8 +9,9 @@
 #import "BusinessProfileLogoTableViewCell.h"
 #import "UIImageView+AFNetworking.h"
 
-static CGFloat const BusinessLogoCellHeigth = 166;
+static CGFloat const BusinessLogoCellHeigth = 81;
 static CGFloat const BusinessLogoButtonsWidth = 73;
+static CGFloat const BusinessLogoHeight = 100;
 static CGFloat const BusinessLogoButtonSpace = 4;
 static CGFloat const BusinessLogoButtonsContainerHeight = 41;
 static CGFloat const BusinessLogoPhoneContainerHeight = 29;
@@ -30,9 +31,10 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *websiteWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *facebookWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *linkedinWidthConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonsContainerHeightConstraint;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonsContainerHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *phoneContainerHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoHeightConstraint;
 
 @end
 
@@ -69,32 +71,32 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
     self.linkedinWidthConstraint.constant = self.user.linkedin.length ? BusinessLogoButtonsWidth : 0;
     
     if (!self.user.website.length && self.user.facebook.length && self.user.linkedin.length) {
-        self.websiteTrailingConstraint.constant = 0;
+        self.websiteTrailingConstraint.constant = 0.0;
         self.linkedinLeadingConstraint.constant = BusinessLogoButtonSpace;
     } else if (self.user.website.length && self.user.facebook.length && !self.user.linkedin.length) {
         self.websiteTrailingConstraint.constant = BusinessLogoButtonSpace;
-        self.linkedinLeadingConstraint.constant = 0;
+        self.linkedinLeadingConstraint.constant = 0.0;
     } else if (!self.user.facebook.length && ((self.user.website.length && !self.user.linkedin.length) || (!self.user.website.length && self.user.linkedin.length))) {
-        self.websiteTrailingConstraint.constant = 0;
-        self.linkedinLeadingConstraint.constant = 0;
+        self.websiteTrailingConstraint.constant = 0.0;
+        self.linkedinLeadingConstraint.constant = 0.0;
     } else if (self.user.website.length && self.user.facebook.length && self.user.linkedin.length) {
         self.websiteTrailingConstraint.constant = BusinessLogoButtonSpace;
         self.linkedinLeadingConstraint.constant = BusinessLogoButtonSpace;
     }
     
-	self.phoneContainerHeightConstraint.constant = self.user.phone.length ? BusinessLogoPhoneContainerHeight : 0;
+	self.phoneContainerHeightConstraint.constant = self.user.phone.length ? BusinessLogoPhoneContainerHeight : 0.0;
 	
 	if (self.user.website.length || self.user.facebook.length || self.user.linkedin.length) {
 		self.buttonsContainerHeightConstraint.constant = BusinessLogoButtonsContainerHeight;
 	} else {
-		self.buttonsContainerHeightConstraint.constant = 0;
+		self.buttonsContainerHeightConstraint.constant = 0.0;
 	}
-	
-	[self layoutIfNeeded];
 	
     if (self.user.avatarUrl) {
         [self.logoImageView setImageWithURL:self.user.avatarUrl];;
     }
+	
+	self.logoHeightConstraint.constant = BusinessLogoHeight * HeigthCoefficient;
     self.logoImageView.layer.cornerRadius = 8.0f;
 }
 
@@ -125,7 +127,7 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 	if (cell.user.phone.length) {
 		extraHeight += BusinessLogoPhoneContainerHeight;
 	}
-	return (size.height + BusinessLogoCellHeigth + extraHeight);
+	return (size.height + BusinessLogoCellHeigth + extraHeight + BusinessLogoHeight * HeigthCoefficient);
 }
 
 - (void)addCustomBorderToButton:(UIButton *)button
@@ -163,6 +165,9 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 - (IBAction)linkedinButtonAction:(id)sender
 {
     if (self.user.linkedin.length) {
+		if (![self.user.linkedin hasPrefix:@"http"]) {
+			self.user.linkedin = [@"http://" stringByAppendingString:self.user.linkedin];
+		}
         NSURL *url = [NSURL URLWithString:self.user.linkedin];
         if (url) {
             [self openUrl:url];

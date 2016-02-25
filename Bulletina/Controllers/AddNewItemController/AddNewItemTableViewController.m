@@ -7,6 +7,7 @@
 //
 
 #import "AddNewItemTableViewController.h"
+#import "ItemsListTableViewController.h"
 
 // Cells
 #import "NewItemTextTableViewCell.h"
@@ -162,6 +163,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (!self.textCell.textView.text.length) {
 		[Utils showWarningWithMessage:@"Description is requied"];	
 	} else {
+		((ItemsListTableViewController *)((UINavigationController*)self.navigationController.presentingViewController).viewControllers.firstObject).reloadNeeded = YES;
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 		
 		if (!self.adItem) {
