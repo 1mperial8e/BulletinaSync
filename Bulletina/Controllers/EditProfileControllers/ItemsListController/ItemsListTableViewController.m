@@ -147,7 +147,7 @@
         cell.clipsToBounds = YES;
         loadingCell.separatorInset = UIEdgeInsetsMake(0, ScreenHeight, 0, 0);
         [loadingCell.loadingIndicator startAnimating];
-        if (self.hasMore && !self.downloadTask) {
+        if (self.hasMore && !self.downloadTask && self.itemsList.count) {
             [self loadData:NO];
         }
     }
