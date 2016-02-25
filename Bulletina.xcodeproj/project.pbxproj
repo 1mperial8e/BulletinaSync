@@ -71,6 +71,7 @@
 		30A074E81C4F988000BCE672 /* SuccessPasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A074E61C4F988000BCE672 /* SuccessPasswordTableViewCell.xib */; };
 		30A3057D1C4FC7BC002A48D0 /* MyItemsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A3057B1C4FC7BC002A48D0 /* MyItemsTableViewController.m */; };
 		30A3057E1C4FC7BC002A48D0 /* MyItemsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A3057C1C4FC7BC002A48D0 /* MyItemsTableViewController.xib */; };
+		30A417151C7F62770075FA3C /* APIClient+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A417141C7F62770075FA3C /* APIClient+Message.m */; };
 		30A525951C5F5206000E1CBA /* APIClient+Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A525941C5F5206000E1CBA /* APIClient+Session.m */; };
 		30A5C6821C761F96002A2798 /* ReportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A5C6801C761F96002A2798 /* ReportTableViewController.m */; };
 		30A5C6831C761F96002A2798 /* ReportTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A5C6811C761F96002A2798 /* ReportTableViewController.xib */; };
@@ -275,6 +276,8 @@
 		30A3057A1C4FC7BC002A48D0 /* MyItemsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyItemsTableViewController.h; sourceTree = "<group>"; };
 		30A3057B1C4FC7BC002A48D0 /* MyItemsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyItemsTableViewController.m; sourceTree = "<group>"; };
 		30A3057C1C4FC7BC002A48D0 /* MyItemsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyItemsTableViewController.xib; sourceTree = "<group>"; };
+		30A417131C7F62770075FA3C /* APIClient+Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "APIClient+Message.h"; sourceTree = "<group>"; };
+		30A417141C7F62770075FA3C /* APIClient+Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "APIClient+Message.m"; sourceTree = "<group>"; };
 		30A525931C5F5206000E1CBA /* APIClient+Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "APIClient+Session.h"; sourceTree = "<group>"; };
 		30A525941C5F5206000E1CBA /* APIClient+Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "APIClient+Session.m"; sourceTree = "<group>"; };
 		30A5C67F1C761F96002A2798 /* ReportTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportTableViewController.h; sourceTree = "<group>"; };
@@ -1380,6 +1383,8 @@
 				30D33A9F1C57796D002AD94F /* APIClient+Item.m */,
 				30A525931C5F5206000E1CBA /* APIClient+Session.h */,
 				30A525941C5F5206000E1CBA /* APIClient+Session.m */,
+				30A417131C7F62770075FA3C /* APIClient+Message.h */,
+				30A417141C7F62770075FA3C /* APIClient+Message.m */,
 			);
 			path = APIClient;
 			sourceTree = "<group>";
@@ -1714,6 +1719,7 @@
 				4FA19C091C46828600140343 /* AFURLResponseSerialization.m in Sources */,
 				30A074DB1C4F96AD00BCE672 /* ForgotPasswordTableViewController.m in Sources */,
 				3043591C1C479FBC007B6959 /* BusinessProfileLogoTableViewCell.m in Sources */,
+				30A417151C7F62770075FA3C /* APIClient+Message.m in Sources */,
 				4FA19C081C46828600140343 /* AFURLRequestSerialization.m in Sources */,
 				30BBACF91C43EEF9004F22D2 /* TryBeforeTableViewCell.m in Sources */,
 				30BBAD031C43EF24004F22D2 /* LoginButtonTableViewCell.m in Sources */,

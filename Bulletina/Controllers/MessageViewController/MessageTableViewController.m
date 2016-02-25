@@ -12,6 +12,8 @@
 //Cells
 #import "MessageTableViewCell.h"
 
+#import "APIClient+Message.h"
+
 static CGFloat const DefaultTableViewCellHeight = 50.f;
 static NSString *const ViewControllerTitle = @"Messages";
 
@@ -30,6 +32,18 @@ static NSString *const ViewControllerTitle = @"Messages";
     [super viewDidLoad];
     [self prepareUI];
     [self prepareDataSource];
+	
+	[[APIClient sharedInstance] fetchMyMessagesWithPage:0 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		if (error) {
+			if (response[@"error_message"]) {
+				[Utils showErrorWithMessage:response[@"error_message"]];
+			} else {
+				[Utils showErrorForStatusCode:statusCode];
+			}
+		} else {
+			[Utils showWarningWithMessage:@"Request succeeded. Need further implementation"];
+		}
+	}];
 }
 
 #pragma mark - UITableViewDataSource
