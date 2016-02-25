@@ -8,6 +8,7 @@
 
 #import "ItemTableViewCell.h"
 #import "ReportTableViewController.h"
+#import "APIClient+Item.h"
 
 static CGFloat const priceContainerHeigth = 43.0f;
 static CGFloat const ItemTableViewCellHeigth = 105.0f;
@@ -171,11 +172,33 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 		}
 	} else if (indexPath.item == FavoriteCellIndex) {
 		if (self.cellItem.isFavorite) {
-			cell.iconImageView.image = [UIImage imageNamed:@"FavoriteNotActive"];
+			[[APIClient sharedInstance] removeFavoriteItemId:self.cellItem.itemId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+				if (error) {
+					if (response[@"error_message"]) {
+						[Utils showErrorWithMessage:response[@"error_message"]];
+					} else {
+						[Utils showErrorForStatusCode:statusCode];
+					}
+				} else {
+					cell.iconImageView.image = [UIImage imageNamed:@"FavoriteNotActive"];
+					self.cellItem.isFavorite = !self.cellItem.isFavorite;
+				}
+			}];
 		} else {
-			cell.iconImageView.image = [UIImage imageNamed:@"FavoriteActive"];
+			[[APIClient sharedInstance] addFavoriteItemId:self.cellItem.itemId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+				if (error) {
+					if (response[@"error_message"]) {
+						[Utils showErrorWithMessage:response[@"error_message"]];
+					} else {
+						[Utils showErrorForStatusCode:statusCode];
+					}
+				} else {
+					cell.iconImageView.image = [UIImage imageNamed:@"FavoriteActive"];
+					self.cellItem.isFavorite = !self.cellItem.isFavorite;
+				}
+			}];
 		}
-		self.cellItem.isFavorite = !self.cellItem.isFavorite;
+
 	} else if (indexPath.item == ChatCellIndex) {
 		if (self.cellItem.isChatActive) {
 			cell.iconImageView.image = [UIImage imageNamed:@"ChatNotActive"];

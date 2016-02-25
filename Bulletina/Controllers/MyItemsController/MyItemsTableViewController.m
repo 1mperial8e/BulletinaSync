@@ -67,7 +67,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
         self.currentPage = 0;
     }
     __weak typeof(self) weakSelf = self;
-    self.downloadTask = [[APIClient sharedInstance] fetchItemsForUserId:self.user.userId page:self.currentPage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+	
+    self.downloadTask =
+//	[[APIClient sharedInstance] loadMyFavoriteItemsWithCompletion:
+	[[APIClient sharedInstance] fetchItemsForUserId:self.user.userId page:self.currentPage withCompletion:
+						 ^(id response, NSError *error, NSInteger statusCode) {
         if ([weakSelf.refresh isRefreshing]) {
             [weakSelf.refresh endRefreshing];
         }
@@ -75,7 +79,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             [super failedToDownloadItemsWithError:error];
         } else {
             NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
-            NSArray *items = [ItemModel arrayWithDictionariesArray:response];
+//         NSArray *items = [ItemModel arrayWithFavoritreDictionariesArray:response];
+			NSArray *items = [ItemModel arrayWithDictionariesArray:response];
             [super downloadedItems:items afterReload:reloadAll];
         }
     }];
@@ -91,7 +96,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (!section) {
-        return [super tableView:tableView numberOfRowsInSection:section] + 1; // plus profile cell
+		return [super tableView:tableView numberOfRowsInSection:section] + 1; // plus profile cell
     }
     return [super tableView:tableView numberOfRowsInSection:section];
 }

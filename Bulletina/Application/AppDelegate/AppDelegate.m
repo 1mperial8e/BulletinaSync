@@ -28,6 +28,9 @@
     [BuddyBuildSDK setup];
     [self setupSNS];
     [self setupDefaults];
+	
+	[APIClient sharedInstance];
+	[LocationManager sharedManager];
     
     // Register for Push Notifications
     UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil];
@@ -39,9 +42,6 @@
 	UINavigationController *loginNavigationController = [[UINavigationController alloc] initWithRootViewController:loginController];
     self.window.rootViewController = loginNavigationController;
     [self.window makeKeyAndVisible];
-	
-	[APIClient sharedInstance];
-	[LocationManager sharedManager];
     
     return YES;
 }
@@ -108,7 +108,8 @@
 {
     if (![Defaults valueForKey:SearchAreaKey]) {
         [Defaults setValue:@(0.5) forKey:SearchAreaKey];
-        // Set other values
+        [Defaults setValue:@YES forKey:ShowBusinessAdsKey];
+		[Defaults setValue:@YES forKey:ShowPersonaAdsKey];
     }
 }
 

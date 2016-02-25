@@ -10,6 +10,15 @@
 
 @implementation ItemModel
 
++ (NSMutableArray *)arrayWithFavoritreDictionariesArray:(NSArray *)dictsArray
+{
+	NSMutableArray *array = [NSMutableArray array];
+	for (NSDictionary *dict in dictsArray) {
+		[array addObject:[[self alloc] initWithDictionary:dict[@"item"]]];
+	}
+	return array;
+}
+
 - (instancetype)init
 {
 	self = [super init];
@@ -81,6 +90,44 @@
 			}
 		}
 	}
+}
+
+- (id) copyWithZone:(NSZone *)zone
+{
+	ItemModel *itemCopy = [[ItemModel allocWithZone:zone] init];
+	
+	itemCopy.active = _active;
+	itemCopy.adTypeId = _adTypeId;
+	itemCopy.banned =  _banned;
+	itemCopy.city = [_city copy];
+	itemCopy.countryId = _countryId;
+	itemCopy.createdAt = [_createdAt copy];
+	itemCopy.deleted = _deleted;
+	itemCopy.text = [_text copy];
+	itemCopy.hashtags = [_hashtags copy];
+	itemCopy.itemId = _itemId;
+	itemCopy.ignoreReports = _ignoreReports;
+	itemCopy.imageThumbUrl = [_imageThumbUrl copy];
+	itemCopy.imagesUrl = [_imagesUrl copy];
+	itemCopy.latitude = [_latitude copy];
+	itemCopy.longitude = [_longitude copy];
+	itemCopy.name = [_name copy];
+	itemCopy.price = [_price copy];
+	itemCopy.updatedAt = [_updatedAt copy];
+	itemCopy.userId = _userId;
+	itemCopy.adTypeName = [_adTypeName copy];
+	itemCopy.countryName = [_countryName copy];
+	itemCopy.userAvatarThumbUrl = [_userUserAvatarUrl copy];
+	itemCopy.userCompanyName = [_userCompanyName copy];
+	itemCopy.userFullname = [_userFullname copy];
+	itemCopy.userNickname = [_userNickname copy];
+	itemCopy.distance = [_distance copy];
+	itemCopy.timeAgo = [_timeAgo copy];
+	itemCopy.imageHeight = _imageHeight;
+	itemCopy.imageWidth = _imageWidth;
+	itemCopy.userUserAvatarUrl = [_userUserAvatarUrl copy];
+	itemCopy.category =[_category copy];
+	return itemCopy;
 }
 
 @end

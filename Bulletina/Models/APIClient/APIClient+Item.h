@@ -27,4 +27,8 @@ extern NSInteger const ItemsPerPage;
 - (void)reportItemWithId:(NSInteger)itemId andUserId:(NSInteger)userId description:(NSString *)text reasonId:(NSInteger)reasonId withCompletion:(ResponseBlock)completion;
 - (NSURLSessionDataTask *)deleteItemWithId:(NSInteger)itemId withCompletion:(ResponseBlock)completion;
 
+- (NSURLSessionDataTask *)loadMyFavoriteItemsWithCompletion:(ResponseBlock)completion;
+- (NSURLSessionDataTask *)addFavoriteItemId:(NSInteger)itemId withCompletion:(ResponseBlock)completion;
+- (NSURLSessionDataTask *)removeFavoriteItemId:(NSInteger)itemId withCompletion:(ResponseBlock)completion;
+
 @end

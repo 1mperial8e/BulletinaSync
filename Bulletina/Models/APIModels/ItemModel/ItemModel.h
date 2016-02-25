@@ -50,4 +50,6 @@
 @property (assign, nonatomic) BOOL isFavorite;
 @property (assign, nonatomic) BOOL isChatActive;
 
++ (NSMutableArray *)arrayWithFavoritreDictionariesArray:(NSArray *)dictsArray;
+
 @end
