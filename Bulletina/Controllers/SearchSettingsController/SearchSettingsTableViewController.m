@@ -148,6 +148,9 @@ static NSInteger const UserTypeSectionsIndex = 2;
 	if (self.categoriesSettings[@(currentCategory.categoryId).stringValue]) {
 		BOOL isOn = [self.categoriesSettings[@(currentCategory.categoryId).stringValue] boolValue];
 		[settingCell.settingSwitch setOn:isOn];
+	} else {
+		[self.categoriesSettings setValue:@YES forKey:@(currentCategory.categoryId).stringValue];
+		[settingCell.settingSwitch setOn:YES];
 	}
 	settingCell.settingSwitch.tag = currentCategory.categoryId;
 	[settingCell.settingSwitch addTarget:self action:@selector(changeSetting:) forControlEvents:UIControlEventValueChanged];

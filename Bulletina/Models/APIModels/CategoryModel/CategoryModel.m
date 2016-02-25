@@ -17,4 +17,15 @@
 	_hasPrice = [dictionary[@"has_price"]boolValue];
 }
 
+- (id) copyWithZone:(NSZone *)zone
+{
+	CategoryModel *categoryCopy = [[CategoryModel allocWithZone:zone] init];
+	
+	categoryCopy.name = [_name copy];
+	categoryCopy.categoryId = _categoryId;
+	categoryCopy.hasPrice = _hasPrice;
+	
+	return categoryCopy;
+}
+
 @end

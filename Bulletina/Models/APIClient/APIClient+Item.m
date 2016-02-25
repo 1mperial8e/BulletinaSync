@@ -126,4 +126,36 @@ NSInteger const ItemsPerPage = 10;
 	return [self performDELETE:query withParameters:parameters response:completion];
 }
 
+- (NSURLSessionDataTask *)addFavoriteItemId:(NSInteger)itemId withCompletion:(ResponseBlock)completion
+{
+	NSParameterAssert(self.passtoken);
+	NSParameterAssert(itemId);
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
+	NSMutableDictionary *favoriteParameters = [NSMutableDictionary dictionary];
+	[favoriteParameters setValue:@(itemId) forKey:@"item_id"];
+	[parameters setValue:favoriteParameters forKey:@"favorite"];
+	
+	return [self performPOST:@"api/v1/favorites.json" withParameters:parameters response:completion];
+}
+
+- (NSURLSessionDataTask *)removeFavoriteItemId:(NSInteger)itemId withCompletion:(ResponseBlock)completion
+{
+	NSParameterAssert(self.passtoken);
+	NSParameterAssert(itemId);
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
+	NSMutableDictionary *favoriteParameters = [NSMutableDictionary dictionary];
+	[favoriteParameters setValue:@(itemId) forKey:@"item_id"];
+	[parameters setValue:favoriteParameters forKey:@"favorite"];
+	
+	NSString *query = [NSString stringWithFormat:@"api/v1/favorites/%zd.json", itemId];
+	return [self performDELETE:query withParameters:parameters response:completion];
+}
+
+- (NSURLSessionDataTask *)loadMyFavoriteItemsWithCompletion:(ResponseBlock)completion
+{
+	NSParameterAssert(self.passtoken);
+	NSDictionary *parameters = @{@"passtoken" : self.passtoken};
+	return [self performGET:@"api/v1/favorites.json" withParameters:parameters response:completion];
+}
+
 @end
