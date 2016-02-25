@@ -43,4 +43,13 @@ static NSString *const AWSCredentialAccessKey = @"AKIAJ4V7INSUGVJNLYJQ";
 static NSString *const AWSCredentialAccessSecret = @"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";
 static NSString *const AWSArn = @"arn:aws:sns:eu-west-1:794544298113:app/APNS_SANDBOX/bulletina_app_ios";
 
+// Notifications
+static NSString *const ItemNotificaionKey = @"ItemNotificaionKey";
+static NSString *const ItemIDNotificaionKey = @"ItemIDNotificaionKey";
+
+static NSString *const DeletedItemNotificaionName = @"DeletedItemNotificaionName";
+static NSString *const FavouritedItemNotificaionName = @"FavouritedItemNotificaionName";
+static NSString *const UnfavouritedItemNotificaionName = @"UnfavouritedItemNotificaionName";
+static NSString *const SettingsChangedNotificaionName = @"SettingsChangedNotificaionName";
+
 #endif /* Constants_h */

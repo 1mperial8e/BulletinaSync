@@ -10,10 +10,6 @@
 #import "MyItemsTableViewController.h"
 #import "AddNewItemTableViewController.h"
 
-@interface ItemsListTableViewController ()
-
-@end
-
 @implementation ItemsListTableViewController
 
 #pragma mark - Lifecycle
@@ -25,18 +21,12 @@
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([APIClient sharedInstance].requestStartDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 		[weakSelf fetchItemListWithSearchString:@""];
 	});
+    [self registerObservers];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)dealloc
 {
-	[super viewWillAppear:animated];
-	if (self.reloadNeeded) {
-		self.reloadNeeded = !self.reloadNeeded;
-		__weak typeof(self) weakSelf = self;
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([APIClient sharedInstance].requestStartDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-			[weakSelf fetchItemListWithSearchString:@""];
-		});
-	}
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Table view data source
@@ -56,7 +46,7 @@
 - (ItemTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath forMyItems:(BOOL)myItems
 {
 	ItemTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ItemTableViewCell.ID forIndexPath:indexPath];
-	NSInteger dataIndex = myItems ? indexPath.item -1 : indexPath.item;
+	NSInteger dataIndex = myItems ? indexPath.item - 1 : indexPath.item;
 	cell.cellItem = self.itemsList[dataIndex];	
 	cell.delegate = self;
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemImageTap:)];
@@ -99,6 +89,12 @@
 	[self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
 }
 
+- (void)registerObservers
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletedItemNotification:) name:DeletedItemNotificaionName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChangedNotification:) name:SettingsChangedNotificaionName object:nil];
+}
+
 #pragma mark - ItemCellDelegate
 
 - (void)showUserForItem:(ItemModel *)item
@@ -136,27 +132,46 @@
 	[self presentViewController:actionSheet animated:YES completion:nil];
 }
 
-#pragma mark - Utils
+#pragma mark - API
 
 - (void)deleteItemWithId:(NSInteger)itemId
 {
-	__weak typeof(self) weakSelf = self;
 	[[APIClient sharedInstance] deleteItemWithId:itemId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
 			if (response[@"error_message"]) {
 				[Utils showErrorWithMessage:response[@"error_message"]];
-			} else if (statusCode == -1009) {
-				[Utils showErrorWithMessage:@"Please check network connection and try again"];
-			} else if (statusCode == 401) {
-				[Utils showErrorUnknown];
-			} else {
-				[Utils showErrorUnknown];
+            } else {
+				[Utils showErrorForStatusCode:statusCode];
 			}
 		} else {
-			[Utils showWarningWithMessage:@"Deleted"];
-			[weakSelf fetchItemListWithSearchString:@""];
+            [[NSNotificationCenter defaultCenter] postNotificationName:DeletedItemNotificaionName object:nil userInfo:@{ItemIDNotificaionKey : @(itemId)}];
 		}
 	}];
+}
+
+//MARK: Notifications
+- (void)deletedItemNotification:(NSNotification *)notification
+{
+    NSInteger itemId = [notification.userInfo[ItemIDNotificaionKey] integerValue];
+    NSParameterAssert(itemId);
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"itemId == %li", itemId];
+    NSArray *filteredArray = [self.itemsList filteredArrayUsingPredicate:predicate];
+    if (filteredArray.count) {
+        NSUInteger itemIndex = [self.itemsList indexOfObject:filteredArray.firstObject];
+        if ([self isKindOfClass:[MyItemsTableViewController class]]) {
+            itemIndex++; // first cell is profile cell
+        }
+        [self.tableView beginUpdates];
+        [self.itemsList removeObject:filteredArray.firstObject];
+        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:itemIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+    }
+}
+
+- (void)settingsChangedNotification:(NSNotification *)notification
+{
+    DLog(@"Reload data after changed settings");
+    [self fetchItemListWithSearchString:nil];
 }
 
 @end

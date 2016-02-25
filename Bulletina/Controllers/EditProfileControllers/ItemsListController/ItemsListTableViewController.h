@@ -21,8 +21,7 @@
 
 @interface ItemsListTableViewController : UITableViewController <ItemCellDelegate>
 
-@property (strong, nonatomic) NSArray *itemsList;
-@property (assign, nonatomic) BOOL reloadNeeded;
+@property (strong, nonatomic) NSMutableArray *itemsList;
 
 - (void)tableViewSetup;
 - (void)setupNavigationBar;

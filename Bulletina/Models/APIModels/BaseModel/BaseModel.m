@@ -17,7 +17,7 @@
 	return [[self alloc] initWithDictionary:dictionary];
 }
 
-+ (NSArray *)arrayWithDictionariesArray:(NSArray *)dictsArray
++ (NSMutableArray *)arrayWithDictionariesArray:(NSArray *)dictsArray
 {
 	NSMutableArray *array = [NSMutableArray array];
 	for (NSDictionary *dict in dictsArray) {

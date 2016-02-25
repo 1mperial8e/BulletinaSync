@@ -11,7 +11,7 @@
 #pragma mark - init
 
 + (instancetype)modelWithDictionary:(NSDictionary *)dictionary;
-+ (NSArray *)arrayWithDictionariesArray:(NSArray *)dictsArray;
++ (NSMutableArray *)arrayWithDictionariesArray:(NSArray *)dictsArray;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

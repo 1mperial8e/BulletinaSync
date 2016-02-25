@@ -230,7 +230,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)doneButtonTap:(id)sender
 {
-	((ItemsListTableViewController *)((UINavigationController*)self.navigationController.presentingViewController).viewControllers.firstObject).reloadNeeded = YES;
+    [[NSNotificationCenter defaultCenter] postNotificationName:SettingsChangedNotificaionName object:nil];
 	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -47,7 +47,7 @@
 - (CGFloat)requestStartDelay
 {
 	if (self.networkStatus <= NetworkStatusNotReachable) {
-		return 1.5;
+		return 1.;
 	}
 	return 0.0;
 }

@@ -163,9 +163,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (!self.textCell.textView.text.length) {
 		[Utils showWarningWithMessage:@"Description is requied"];	
 	} else {
-		((ItemsListTableViewController *)((UINavigationController*)self.navigationController.presentingViewController).viewControllers.firstObject).reloadNeeded = YES;
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-		
+        [self.tableView endEditing:YES];
 		if (!self.adItem) {
 			[[APIClient sharedInstance] addNewItemWithDescription:self.textCell.textView.text price:self.priceTextField.text adType:self.category.categoryId image:[Utils scaledImage:self.itemImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 				if (error) {
@@ -188,7 +186,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 					//ok
 				}
 			}];
-		}		
+		}
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 	}
 }
 
