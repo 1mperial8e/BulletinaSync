@@ -37,6 +37,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     } else {
         self.navigationItem.title = self.user.title;
     }
+	
+	__weak typeof(self) weakSelf = self;
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([APIClient sharedInstance].requestStartDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		if (!weakSelf.downloadTask) {
+			[weakSelf loadData:YES];
+		}
+	});
 }
 
 #pragma mark - API
@@ -45,7 +52,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
     if (self.user.userId) {
         __weak typeof(self) weakSelf = self;
-        [[APIClient sharedInstance] showUserWithUserId:self.user.userId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+        [[APIClient sharedInstance] showUserWithUserId:self.user.userId withCompletion: ^(id response, NSError *error, NSInteger statusCode) {
             if (!error) {
                 NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server");
                 UserModel *user = [UserModel modelWithDictionary:response];
@@ -69,8 +76,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     __weak typeof(self) weakSelf = self;
 	
     self.downloadTask =
-//	[[APIClient sharedInstance] loadMyFavoriteItemsWithCompletion:
-	[[APIClient sharedInstance] fetchItemsForUserId:self.user.userId page:self.currentPage withCompletion:
+	[[APIClient sharedInstance] loadMyFavoriteItemsWithCompletion:
+//	[[APIClient sharedInstance] fetchItemsForUserId:self.user.userId page:self.currentPage withCompletion:
+//	 [[APIClient sharedInstance]fetchAllItemsForPage:self.currentPage  withCompletion:
 						 ^(id response, NSError *error, NSInteger statusCode) {
         if ([weakSelf.refresh isRefreshing]) {
             [weakSelf.refresh endRefreshing];
@@ -79,8 +87,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             [super failedToDownloadItemsWithError:error];
         } else {
             NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
-//         NSArray *items = [ItemModel arrayWithFavoritreDictionariesArray:response];
-			NSArray *items = [ItemModel arrayWithDictionariesArray:response];
+			NSArray *items = [ItemModel arrayWithFavoritreDictionariesArray:response];
+//			NSArray *items = [ItemModel arrayWithDictionariesArray:response];
             [super downloadedItems:items afterReload:reloadAll];
         }
     }];
@@ -105,7 +113,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	if (indexPath.section == 0 && indexPath.item == LogoCellIndex) {
 		return [self logoCellForIndexPath:indexPath];
-	}	
+	}	else if (!indexPath.section && indexPath.item != LogoCellIndex){
+		return [super defaultCellForIndexPath:indexPath forMyItems:YES];
+	}
     return [super tableView:tableView cellForRowAtIndexPath:indexPath];
 }
 

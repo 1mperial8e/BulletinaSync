@@ -74,12 +74,23 @@ NSInteger const ItemsPerPage = 10;
 	[self performPUT:query withParameters:parameters multipartData:dataArray response:completion];
 }
 
-- (NSURLSessionTask *)fetchItemsForUserId:(NSInteger)userId page:(NSInteger)page withCompletion:(ResponseBlock)completion;
+- (NSURLSessionTask *)fetchItemsForUserId:(NSInteger)userId page:(NSInteger)page withCompletion:(ResponseBlock)completion
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	[parameters setValue:@(userId) forKey:@"id"];
 	
 	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.json", userId];
+	
+	return [self performGET:query withParameters:parameters response:completion];
+}
+
+- (NSURLSessionTask *)fetchAllItemsForPage:(NSInteger)page withCompletion:(ResponseBlock)completion
+{
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
+	[parameters setValue:@(0) forKey:@"offset"];
+	[parameters setValue:@(25) forKey:@"limit"];
+	
+	NSString *query = [NSString stringWithFormat:@"api/v1/items.json"];
 	
 	return [self performGET:query withParameters:parameters response:completion];
 }

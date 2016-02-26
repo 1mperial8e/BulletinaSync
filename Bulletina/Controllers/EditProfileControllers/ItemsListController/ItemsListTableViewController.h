@@ -29,6 +29,7 @@
 
 @property (copy, nonatomic) NSString *searchString;
 
+- (ItemTableViewCell *)defaultCellForIndexPath:(NSIndexPath *)indexPath forMyItems:(BOOL)myItems;
 #pragma mark - Setup
 - (void)tableViewSetup;
 - (void)setupNavigationBar;

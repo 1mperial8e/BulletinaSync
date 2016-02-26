@@ -224,7 +224,7 @@
 		}]];
 
     } else {
-        [actionSheet addAction:[UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [actionSheet addAction:[UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
             ReportTableViewController *reportTableViewController = [[ReportTableViewController alloc] initWithItemId:item.itemId andUserId:[APIClient sharedInstance].currentUser.userId];
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:reportTableViewController];
             [weakSelf.navigationController presentViewController:navigationController animated:YES completion:nil];
