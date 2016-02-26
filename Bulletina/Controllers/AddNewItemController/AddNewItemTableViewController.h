@@ -12,6 +12,6 @@
 @interface AddNewItemTableViewController : UITableViewController
 
 @property (strong, nonatomic) CategoryModel *category;
-@property (weak, nonatomic) ItemModel *adItem;
+@property (strong, nonatomic) ItemModel *adItem;
 
 @end
