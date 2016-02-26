@@ -353,7 +353,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
         self.topBackgroundImageView.frame = frame;
     }
     CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / ([self heightForTopCell] * 0.5)) : 0);
-    self.topBackgroundImageView.transform = CGAffineTransformMakeScale(scaleCoef, scaleCoef);
+	CGRect frame = self.topBackgroundImageView.frame;
+	frame.origin.y = self.topOffset;
+	frame.size.height =  [self heightForTopCell] * scaleCoef;
+	self.topBackgroundImageView.frame = frame;
 }
 
 @end

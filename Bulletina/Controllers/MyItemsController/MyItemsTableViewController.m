@@ -225,12 +225,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	UIView *backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
 	UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TopBackground"]];
-    backgroundImageView.frame = CGRectMake(0, self.topOffset, ScreenWidth, [self heightForTopCell]);
+	backgroundImageView.frame = CGRectMake(0, self.topOffset, ScreenWidth, [self heightForTopCell]);
 	[backgroundView addSubview:backgroundImageView];
 	backgroundView.backgroundColor = [UIColor mainPageBGColor];
 	backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-    backgroundImageView.clipsToBounds = YES;
-    
+	
 	self.topBackgroundImageView = backgroundImageView;
 	self.tableView.backgroundView = backgroundView;
 }
@@ -239,13 +238,17 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.y >= -self.topOffset) {
-        CGRect frame = self.topBackgroundImageView.frame;
-        frame.origin.y = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
-        self.topBackgroundImageView.frame = frame;
-    }
-	CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / ([self heightForTopCell] * 0.5)) : 0);
-	self.topBackgroundImageView.transform = CGAffineTransformMakeScale(scaleCoef, scaleCoef);
+	if (scrollView.contentOffset.y > -self.topOffset) {
+		CGRect frame = self.topBackgroundImageView.frame;
+		frame.origin.y = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
+		self.topBackgroundImageView.frame = frame;
+	} else {
+		CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / ([self heightForTopCell] * 0.5)) : 0);
+		CGRect frame = self.topBackgroundImageView.frame;
+		frame.origin.y = self.topOffset;
+		frame.size.height =  [self heightForTopCell] * scaleCoef;
+		self.topBackgroundImageView.frame = frame;
+	}
 }
 
 @end
