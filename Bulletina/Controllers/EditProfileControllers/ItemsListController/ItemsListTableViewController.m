@@ -215,7 +215,7 @@
 	if ([APIClient sharedInstance].currentUser.userId == item.userId) {
 		[actionSheet addAction:[UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 			AddNewItemTableViewController *editTableViewController = [AddNewItemTableViewController new];
-			editTableViewController.adItem = item;
+			editTableViewController.adItem = item.copy;
 			UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:editTableViewController];
 			[weakSelf.navigationController presentViewController:navigationController animated:YES completion:nil];
 		}]];

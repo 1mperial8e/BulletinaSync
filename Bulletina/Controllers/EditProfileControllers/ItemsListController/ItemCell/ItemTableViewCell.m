@@ -43,6 +43,8 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 @property (weak, nonatomic) IconCollectionViewCell *chatCell;
 @property (weak, nonatomic) IconCollectionViewCell *moreCell;
 
+@property (weak, nonatomic) NSURLSessionTask *favouritesTask;
+
 @end
 
 @implementation ItemTableViewCell
@@ -171,34 +173,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 			[self.delegate showActionSheetForItem:self.cellItem];
 		}
 	} else if (indexPath.item == FavoriteCellIndex) {
-		if (self.cellItem.isFavorite) {
-			[[APIClient sharedInstance] removeFavoriteItemId:self.cellItem.itemId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-				if (error) {
-					if (response[@"error_message"]) {
-						[Utils showErrorWithMessage:response[@"error_message"]];
-					} else {
-						[Utils showErrorForStatusCode:statusCode];
-					}
-				} else {
-					cell.iconImageView.image = [UIImage imageNamed:@"FavoriteNotActive"];
-					self.cellItem.isFavorite = !self.cellItem.isFavorite;
-				}
-			}];
-		} else {
-			[[APIClient sharedInstance] addFavoriteItemId:self.cellItem.itemId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-				if (error) {
-					if (response[@"error_message"]) {
-						[Utils showErrorWithMessage:response[@"error_message"]];
-					} else {
-						[Utils showErrorForStatusCode:statusCode];
-					}
-				} else {
-					cell.iconImageView.image = [UIImage imageNamed:@"FavoriteActive"];
-					self.cellItem.isFavorite = !self.cellItem.isFavorite;
-				}
-			}];
-		}
-
+        [self setFavourite];
 	} else if (indexPath.item == ChatCellIndex) {
 		if (self.cellItem.isChatActive) {
 			cell.iconImageView.image = [UIImage imageNamed:@"ChatNotActive"];
@@ -317,6 +292,32 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
         }
     };
     [[Utils topViewController] presentViewController:shareVC animated:YES completion:nil];
+}
+
+- (void)setFavourite
+{
+    [self.favouritesTask cancel];
+    __weak typeof(self) weakSelf = self;
+    void (^completion)(BOOL) = ^(BOOL isFavourite) {
+        UIImage *image = isFavourite ? [UIImage imageNamed:@"FavoriteActive"] : [UIImage imageNamed:@"FavoriteNotActive"];
+        weakSelf.cellItem.isFavorite = isFavourite;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.favoriteCell.iconImageView.image = image;
+        });
+    };
+    if (self.cellItem.isFavorite) {
+        self.favoriteCell.iconImageView.image = [UIImage imageNamed:@"FavoriteNotActive"];
+        self.cellItem.isFavorite = NO;
+        self.favouritesTask = [[APIClient sharedInstance] removeFavoriteItemId:self.cellItem.itemId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+            completion(error);
+        }];
+    } else {
+        self.favoriteCell.iconImageView.image = [UIImage imageNamed:@"FavoriteActive"];
+        self.cellItem.isFavorite = YES;
+        self.favouritesTask = [[APIClient sharedInstance] addFavoriteItemId:self.cellItem.itemId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+            completion(!error);
+        }];
+    }
 }
 
 @end
