@@ -100,7 +100,7 @@
                         <rect key="frame" x="16" y="309" width="343" height="43"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="399,-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6kQ-if-daB">
-                                <rect key="frame" x="300" y="23" width="43" height="20"/>
+                                <rect key="frame" x="61" y="23" width="282" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="anW-fQ-hUN"/>
                                 </constraints>
@@ -108,11 +108,10 @@
                                 <color key="textColor" red="0.56078431370000004" green="0.56078431370000004" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For sale" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOd-cE-2gI">
-                                <rect key="frame" x="0.0" y="23" width="137" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="For sale" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOd-cE-2gI">
+                                <rect key="frame" x="0.0" y="23" width="61" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="3H2-4C-gAL"/>
-                                    <constraint firstAttribute="width" constant="137" id="Q8z-8W-f84"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -124,6 +123,7 @@
                             <constraint firstItem="uOd-cE-2gI" firstAttribute="leading" secondItem="cXG-00-Dmb" secondAttribute="leading" id="Pay-W1-ser"/>
                             <constraint firstAttribute="bottom" secondItem="6kQ-if-daB" secondAttribute="bottom" id="UPe-zZ-5mD"/>
                             <constraint firstAttribute="trailing" secondItem="6kQ-if-daB" secondAttribute="trailing" id="Uk5-7r-r04"/>
+                            <constraint firstItem="6kQ-if-daB" firstAttribute="leading" secondItem="uOd-cE-2gI" secondAttribute="trailing" id="fAA-J4-OL0"/>
                             <constraint firstAttribute="bottom" secondItem="uOd-cE-2gI" secondAttribute="bottom" id="heP-0L-eHn"/>
                         </constraints>
                     </view>
