@@ -102,6 +102,11 @@
     [AWSServiceManager defaultServiceManager].defaultServiceConfiguration = configuration;
 }
 
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+	[[LocationManager sharedManager] startUpdatingLocation];
+}
+
 #pragma mark - Defaults
 
 - (void)setupDefaults

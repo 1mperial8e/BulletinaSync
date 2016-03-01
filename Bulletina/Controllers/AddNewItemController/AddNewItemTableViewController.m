@@ -162,6 +162,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	if (!self.textCell.textView.text.length) {
 		[Utils showWarningWithMessage:@"Description is requied"];	
+	} else if (![LocationManager sharedManager].currentLocation) {
+		[Utils showLocationErrorOnViewController:self];		
 	} else {
         [self.tableView endEditing:YES];
 		if (!self.adItem) {
