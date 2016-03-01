@@ -108,7 +108,7 @@
                                 <color key="textColor" red="0.56078431370000004" green="0.56078431370000004" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="For sale" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOd-cE-2gI">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="995" text="For sale" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOd-cE-2gI">
                                 <rect key="frame" x="0.0" y="23" width="61" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="3H2-4C-gAL"/>
