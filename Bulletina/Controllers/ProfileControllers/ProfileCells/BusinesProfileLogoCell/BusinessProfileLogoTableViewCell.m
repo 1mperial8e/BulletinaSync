@@ -191,6 +191,7 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 - (void)phoneTap:(UITapGestureRecognizer *)sender
 {
 	NSString *phoneNumber = [@"tel://" stringByAppendingString:[((UILabel *)sender.view).text substringFromIndex:6]];
+	phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
 	[self openUrl:[NSURL URLWithString:phoneNumber]];
 }
 @end
