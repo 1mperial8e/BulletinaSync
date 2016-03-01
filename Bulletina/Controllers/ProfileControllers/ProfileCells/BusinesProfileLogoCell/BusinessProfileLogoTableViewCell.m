@@ -98,6 +98,11 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 	
 	self.logoHeightConstraint.constant = BusinessLogoHeight * HeigthCoefficient;
     self.logoImageView.layer.cornerRadius = 8.0f;
+	
+	if (self.user.phone.length) {
+		UITapGestureRecognizer *phoneTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneTap:)];
+		[self.companyPhoneLabel addGestureRecognizer:phoneTap];
+	}
 }
 
 #pragma mark - Utils
@@ -183,4 +188,9 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
     }
 }
 
+- (void)phoneTap:(UITapGestureRecognizer *)sender
+{
+	NSString *phoneNumber = [@"tel://" stringByAppendingString:[((UILabel *)sender.view).text substringFromIndex:6]];
+	[self openUrl:[NSURL URLWithString:phoneNumber]];
+}
 @end
