@@ -474,11 +474,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+Item.m"
-            timestampString = "478187948.648579"
+            timestampString = "478599994.842589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181">
+            startingLineNumber = "182"
+            endingLineNumber = "182">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -552,11 +552,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+Item.m"
-            timestampString = "478187948.648579"
+            timestampString = "478599994.842589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192">
+            startingLineNumber = "193"
+            endingLineNumber = "193">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -694,11 +694,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+Item.m"
-            timestampString = "478187948.648579"
+            timestampString = "478599994.842589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "-fetchItemsWithSearchText:page:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
@@ -710,11 +710,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+Item.m"
-            timestampString = "478187948.648579"
+            timestampString = "478599994.842589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "-deleteItemWithId:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
@@ -788,11 +788,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+Item.m"
-            timestampString = "478187948.648579"
+            timestampString = "478599994.842589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "-deleteItemWithId:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
@@ -820,11 +820,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+Item.m"
-            timestampString = "478187948.648579"
+            timestampString = "478599994.842589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "-fetchItemsWithSearchText:page:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
@@ -852,11 +852,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+Item.m"
-            timestampString = "478187948.648579"
+            timestampString = "478599994.842589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "-deleteItemWithId:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
@@ -868,11 +868,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+Item.m"
-            timestampString = "478187948.648579"
+            timestampString = "478599994.842589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "-reportItemWithId:andUserId:description:reasonId:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
@@ -916,11 +916,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+Item.m"
-            timestampString = "478187948.648579"
+            timestampString = "478599994.842589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "-addFavoriteItemId:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
@@ -932,11 +932,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+Item.m"
-            timestampString = "478187948.648579"
+            timestampString = "478599994.842589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "-removeFavoriteItemId:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
@@ -976,7 +976,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/EditProfileControllers/MainPageController/MainPageController.m"
@@ -992,7 +992,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/EditProfileControllers/MainPageController/MainPageController.m"
@@ -1060,11 +1060,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+Item.m"
-            timestampString = "478187985.065524"
+            timestampString = "478599994.842589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
             landmarkName = "-fetchAllItemsForPage:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1162,6 +1162,22 @@
             startingLineNumber = "195"
             endingLineNumber = "195"
             landmarkName = "-phoneTap:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bulletina/Models/APIClient/APIClient+Item.m"
+            timestampString = "478599569.343022"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "-fetchItemsForUserId:page:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

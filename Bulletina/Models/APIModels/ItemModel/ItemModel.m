@@ -75,6 +75,7 @@
 	self.timeAgo = dictionary[@"time_ago"];
 	self.imageHeight = [dictionary[@"image_height"] floatValue];
 	self.imageWidth = [dictionary[@"image_width"] floatValue];
+	self.isFavorite = [dictionary[@"is_favorite"] integerValue];
 	
 	NSString *userUserAvatarUrl = dictionary[@"user_user_avatar_url"];
 	if (userUserAvatarUrl.length) {

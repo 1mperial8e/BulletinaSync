@@ -89,6 +89,7 @@ NSInteger const ItemsPerPage = 10;
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	[parameters setValue:@(0) forKey:@"offset"];
 	[parameters setValue:@(25) forKey:@"limit"];
+//	[parameters setValue:@(537) forKey:@"id"];
 	
 	NSString *query = [NSString stringWithFormat:@"api/v1/items.json"];
 	

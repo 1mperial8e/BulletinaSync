@@ -173,7 +173,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 			[self.delegate showActionSheetForItem:self.cellItem];
 		}
 	} else if (indexPath.item == FavoriteCellIndex) {
-        [self setFavourite];
+        [self setFavorite];
 	} else if (indexPath.item == ChatCellIndex) {
 		if (self.cellItem.isChatActive) {
 			cell.iconImageView.image = [UIImage imageNamed:@"ChatNotActive"];
@@ -294,7 +294,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
     [[Utils topViewController] presentViewController:shareVC animated:YES completion:nil];
 }
 
-- (void)setFavourite
+- (void)setFavorite
 {
     [self.favouritesTask cancel];
     __weak typeof(self) weakSelf = self;
