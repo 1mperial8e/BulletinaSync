@@ -351,12 +351,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
         CGRect frame = self.topBackgroundImageView.frame;
         frame.origin.y = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
         self.topBackgroundImageView.frame = frame;
-    }
-    CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / ([self heightForTopCell] * 0.5)) : 0);
-	CGRect frame = self.topBackgroundImageView.frame;
-	frame.origin.y = self.topOffset;
-	frame.size.height =  [self heightForTopCell] * scaleCoef;
-	self.topBackgroundImageView.frame = frame;
+	} else {
+		CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / ([self heightForTopCell] * 0.5)) : 0);
+		CGRect frame = self.topBackgroundImageView.frame;
+		frame.origin.y = self.topOffset;
+		frame.size.height =  [self heightForTopCell] * scaleCoef;
+		self.topBackgroundImageView.frame = frame;		
+	}
 }
 
 @end
