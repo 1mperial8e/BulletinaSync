@@ -160,7 +160,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)publishNavBarAction:(id)sender
 {
-	if (!self.textCell.textView.text.length) {
+	if (![self.textCell.textView.text stringByReplacingOccurrencesOfString:@" " withString:@""].length) {
 		[Utils showWarningWithMessage:@"Description is requied"];	
 	} else if (![LocationManager sharedManager].currentLocation) {
 		[Utils showLocationErrorOnViewController:self];		

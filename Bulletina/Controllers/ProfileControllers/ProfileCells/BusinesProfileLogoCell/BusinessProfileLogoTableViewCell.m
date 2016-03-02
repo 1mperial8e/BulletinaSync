@@ -109,8 +109,11 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
 
 + (CGFloat)heightForBusinessLogoCellWithUser:(UserModel *)user
 {
-	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
-	BusinessProfileLogoTableViewCell *cell = [topLevelObjects firstObject];
+    static BusinessProfileLogoTableViewCell *cell;
+    if (!cell) {
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:BusinessProfileLogoTableViewCell.ID owner:self options:nil];
+        cell = [topLevelObjects firstObject];
+    }
 	cell.user = user;
 	cell.companyDescriptionTextView.text = cell.user.about;
 	cell.companyDescriptionTextView.font = [UIFont systemFontOfSize:13];

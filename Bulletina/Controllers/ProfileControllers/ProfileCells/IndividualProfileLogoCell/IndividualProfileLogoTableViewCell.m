@@ -61,8 +61,11 @@ static CGFloat const PersonalLogoCellHeigth = 205;
 
 + (CGFloat)heightForIndividualAvatarCellWithUser:(UserModel *)user
 {
-	NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:IndividualProfileLogoTableViewCell.ID owner:self options:nil];
-	IndividualProfileLogoTableViewCell *cell = [topLevelObjects firstObject];	
+    static IndividualProfileLogoTableViewCell *cell;
+    if (!cell) {
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:IndividualProfileLogoTableViewCell.ID owner:self options:nil];
+        cell = [topLevelObjects firstObject];
+    }
 	cell.user = user;
 	
 	cell.aboutMeTextView.text = cell.user.about;
