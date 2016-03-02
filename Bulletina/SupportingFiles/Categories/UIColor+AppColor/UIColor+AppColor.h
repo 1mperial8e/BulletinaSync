@@ -12,5 +12,6 @@
 + (UIColor *)mainPageBGColor;
 + (UIColor *)mainPageGreenColor;
 + (UIColor *)mainPageRedColor;
++ (UIColor *)appDarkTextColor;
 
 @end

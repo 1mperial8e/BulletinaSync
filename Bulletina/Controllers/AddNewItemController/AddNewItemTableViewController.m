@@ -52,6 +52,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [super viewDidLoad];
 	[self tableViewSetup];
 	[self setupUI];
+	
 }
 
 #pragma mark - Table view data source
@@ -115,7 +116,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	NewItemImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NewItemImageTableViewCell.ID forIndexPath:indexPath];
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
 	if (self.itemImage) {
 		cell.itemImageView.image = self.itemImage;
 	} else if (self.adItem.imagesUrl) {
@@ -123,6 +123,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else {
 		cell.itemImageView.image = nil;
 	}
+//	[cell.itemImageView addObserver:self forKeyPath:@"image" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
 	return cell;
 }
 
@@ -149,7 +150,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	}
 	self.textCell.textView.placeholder = TextViewPlaceholderText;
 	self.textCell.textView.delegate = self;
-	self.textCell.textView.textColor = [UIColor blackColor];
+	self.textCell.textView.textColor = [UIColor appDarkTextColor];
 	[self.textCell.textView setTextContainerInset:UIEdgeInsetsMake(10, 20, 5, 20)];
 	self.textCell.textView.returnKeyType = UIReturnKeyDone;
 	self.textCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -174,6 +175,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 					} else {
 						[Utils showErrorForStatusCode:statusCode];
 					}
+				} else {
+					//ok message needed
 				}
 			}];
 		} else {
@@ -185,7 +188,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 						[Utils showErrorForStatusCode:statusCode];
 					}
 				} else {
-					//ok
+					//ok message needed
 				}
 			}];
 		}
@@ -230,7 +233,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)tableViewSetup
 {
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 5, 0)];
+	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 25, 0)];
 	
 	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 	self.tableView.backgroundColor = [UIColor mainPageBGColor];
@@ -287,13 +290,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (CGFloat)heightForImageCell
 {
+	CGFloat ratio;
 	if (self.itemImage) {
-		CGFloat ratio = self.itemImage.size.height / self.itemImage.size.width;
-		return (ScreenWidth - 30) * ratio + 16;
+		ratio = self.itemImage.size.height / self.itemImage.size.width;
 	} else if (self.adItem.imagesUrl) {
-		return  self.adItem.imageHeight;
+		ratio = self.adItem.imageHeight / self.adItem.imageWidth;
+	} else {
+		return 0;
 	}
-	return 0;
+	return (ScreenWidth - 30) * ratio + 16;
 }
 
 - (CGFloat)heightForTextCell
@@ -329,5 +334,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.tableView endEditing:YES];
 	return NO;
 }
+
+#pragma mark - Notifications
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if ([keyPath isEqual:@"image"]) {
+		
+	}
+}
+
 
 @end

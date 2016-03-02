@@ -30,6 +30,11 @@
     return ColorWithReal(255.0, 0.0, 0.0, 1.0);
 }
 
++ (UIColor *)appDarkTextColor
+{
+	return ColorWithReal(74.0, 74.0, 74.0, 1.0);
+}
+
 #pragma mark - Private
 
 UIColor *ColorWithReal(float red, float green, float blue, float alpha)

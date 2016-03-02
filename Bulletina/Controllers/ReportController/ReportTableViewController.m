@@ -52,10 +52,17 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+	[self setupTableView];
+	[self setupNavBar];
+}
+
+#pragma mark - Setup
+
+- (void)setupTableView
+{
+	[self.tableView registerNib:NewItemTextTableViewCell.nib forCellReuseIdentifier:NewItemTextTableViewCell.ID];
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 5, 0)];
-	[self.tableView registerNib:NewItemTextTableViewCell.nib forCellReuseIdentifier:NewItemTextTableViewCell.ID];
 	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 	self.tableView.backgroundColor = [UIColor mainPageBGColor];
 	
@@ -63,10 +70,12 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	reasonDescription.sectionTitleLabel.text = self.reasonModel.text;
 	self.tableView.tableHeaderView = reasonDescription;
 	self.tableView.tableHeaderView.backgroundColor = [UIColor mainPageBGColor];
-	
-	self.navigationItem.title = self.reasonModel.name; //@"Report";
+}
+
+- (void)setupNavBar
+{
+	self.navigationItem.title = self.reasonModel.name;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStylePlain target:self action:@selector(publishNavBarAction:)];
-	
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 }
 
@@ -168,14 +177,21 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 				[Utils showErrorForStatusCode:statusCode];
 			}
 		} else {
-			UIAlertController *alert = [UIAlertController alertControllerWithTitle:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"] message:@"Thank you for your report. We will remove this post if it violates our Community Guidelines." preferredStyle:UIAlertControllerStyleAlert];
-			UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-					[weakSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
-			}];
-			[alert addAction:okAction];
-			[weakSelf presentViewController:alert animated:YES completion:nil];
+			[weakSelf showSuccessReportMessage];
 		}
 	}];
+}
+
+#pragma mark - Private
+
+- (void)showSuccessReportMessage
+{
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"] message:@"Thank you for your report. We will remove this post if it violates our Community Guidelines." preferredStyle:UIAlertControllerStyleAlert];
+	UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+		[self.navigationController dismissViewControllerAnimated:YES completion:nil];
+	}];
+	[alert addAction:okAction];
+	[self presentViewController:alert animated:YES completion:nil];
 }
 
 @end
