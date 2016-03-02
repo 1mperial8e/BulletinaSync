@@ -16,7 +16,7 @@
 
 // View
 #import "CategoryHeaderView.h"
-
+#import "BulletinaLoaderView.h"
 
 static NSString *const TextViewPlaceholderText = @"Write your comments";
 
@@ -29,6 +29,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @interface ReportTableViewController () <UITextViewDelegate>
 
 @property (strong, nonatomic) NewItemTextTableViewCell *textCell;
+@property (strong, nonatomic) BulletinaLoaderView *loader;
 
 @end
 
@@ -65,6 +66,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
 	self.navigationItem.title = self.reasonModel.name; //@"Report";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStylePlain target:self action:@selector(publishNavBarAction:)];
+	
+	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 }
 
 #pragma mark - Table view datasource
@@ -153,22 +156,26 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)publishNavBarAction:(id)sender
 {
-//	if (!self.textCell.textView.text.length) {
-//		[Utils showWarningWithMessage:@"Description is requied"];
-//	} else {
-		[self.navigationController dismissViewControllerAnimated:YES completion:nil];
-		[[APIClient sharedInstance]reportItemWithId:self.reportedItemId andUserId:self.reportedUserId description:@"Test" reasonId:self.reasonModel.reasonId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-			if (error) {
-				if (response[@"error_message"]) {
-					[Utils showErrorWithMessage:response[@"error_message"]];
-				} else {
-					[Utils showErrorForStatusCode:statusCode];
-				}
+	[self.view endEditing:YES];
+	[self.loader show];
+	__weak typeof(self) weakSelf = self;
+	[[APIClient sharedInstance]reportItemWithId:self.reportedItemId andUserId:self.reportedUserId description:@"Test" reasonId:self.reasonModel.reasonId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[weakSelf.loader hide];
+		if (error) {
+			if (response[@"error_message"]) {
+				[Utils showErrorWithMessage:response[@"error_message"]];
 			} else {
-				[Utils showWarningWithMessage:@"Report sent"];
+				[Utils showErrorForStatusCode:statusCode];
 			}
-		}];
-//	}
+		} else {
+			UIAlertController *alert = [UIAlertController alertControllerWithTitle:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"] message:@"Thank you for your report. We will remove this post if it violates our Community Guidelines." preferredStyle:UIAlertControllerStyleAlert];
+			UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+					[weakSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
+			}];
+			[alert addAction:okAction];
+			[weakSelf presentViewController:alert animated:YES completion:nil];
+		}
+	}];
 }
 
 @end
