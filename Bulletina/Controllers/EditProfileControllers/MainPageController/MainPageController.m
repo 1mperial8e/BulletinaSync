@@ -30,6 +30,7 @@
         }
     });
 	[self performSelector:@selector(loadCategories) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
+	[self performSelector:@selector(loadReportReasons) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
 }
 
 #pragma mark - UITableViewDelegate
@@ -209,6 +210,16 @@
 		if (!error) {
 			NSParameterAssert([response isKindOfClass:[NSArray class]]);
 			[Utils storeValue:response forKey:CategoriesListKey];
+		}
+	}];
+}
+
+- (void)loadReportReasons
+{
+	[[APIClient sharedInstance] reportReasonsListWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		if (!error) {
+			NSParameterAssert([response isKindOfClass:[NSArray class]]);
+			[Utils storeValue:response forKey:ReportReasonsListKey];
 		}
 	}];
 }

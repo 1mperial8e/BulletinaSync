@@ -16,6 +16,10 @@ extern NSInteger const ItemsPerPage;
 
 - (void)categoriesListWithCompletion:(ResponseBlock)completion;
 
+#pragma mark - ReportResons
+
+- (void)reportReasonsListWithCompletion:(ResponseBlock)completion;
+
 #pragma mark - Items
 
 - (void)addNewItemWithDescription:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion;

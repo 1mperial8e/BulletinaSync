@@ -22,6 +22,13 @@ NSInteger const ItemsPerPage = 10;
     [self performGET:@"/api/v1/ad_types.json" withParameters:nil response:completion];
 }
 
+#pragma mark - ReportResons
+
+- (void)reportReasonsListWithCompletion:(ResponseBlock)completion
+{
+	[self performGET:@"/api/v1/report_reasons.json" withParameters:nil response:completion];
+}
+
 #pragma mark - Items
 
 - (void)addNewItemWithDescription:(NSString *)description price:(NSString *)price adType:(NSInteger)adType image:(UIImage *)image withCompletion:(ResponseBlock)completion

@@ -10,7 +10,7 @@
 #import "ProfileTableViewController.h"
 #import "SelectNewAdCategoryTableViewController.h"
 #import "FullScreenImageViewController.h"
-#import "ReportTableViewController.h"
+#import "ReasonSelectTableViewController.h"
 
 // Views
 #import "ItemTableViewCell.h"

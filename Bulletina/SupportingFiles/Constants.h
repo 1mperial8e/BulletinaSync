@@ -32,6 +32,7 @@ static NSString *const CurrentUserKey = @"CurrentUserKey";
 static NSString *const PassTokenKey = @"PassTokenKey";
 static NSString *const SNSEndpointArnKey = @"SNSEndpointArnKey";
 static NSString *const CategoriesListKey = @"CategoriesListKey";
+static NSString *const ReportReasonsListKey = @"ReportReasonsListKey";
 
 static NSString *const SearchAreaKey = @"SearchAreaKey";
 static NSString *const ShowPersonaAdsKey = @"ShowPersonaAdsKey";

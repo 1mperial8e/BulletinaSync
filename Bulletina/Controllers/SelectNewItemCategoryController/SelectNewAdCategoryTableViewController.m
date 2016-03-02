@@ -33,7 +33,7 @@
     [super viewDidLoad];
     self.categoriesArray = [CategoryModel arrayWithDictionariesArray:[Defaults objectForKey:CategoriesListKey]];
     
-    [self loadCategories];
+//  [self loadCategories];
 	[self setupUI];
 	[self setupNavBar];
 	[self setupTableView];
@@ -62,15 +62,15 @@
 	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
-- (void)loadCategories
-{
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	if ([defaults objectForKey:CategoriesListKey]) {
-		NSArray *categoriesArray = [defaults objectForKey:CategoriesListKey];
-		 self.categoriesArray = [CategoryModel arrayWithDictionariesArray:categoriesArray];
-		[self.tableView reloadData];
-	}
-}
+//- (void)loadCategories
+//{
+//	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//	if ([defaults objectForKey:CategoriesListKey]) {
+//		NSArray *categoriesArray = [defaults objectForKey:CategoriesListKey];
+//		 self.categoriesArray = [CategoryModel arrayWithDictionariesArray:categoriesArray];
+//		[self.tableView reloadData];
+//	}
+//}
 
 #pragma mark - Table view data source
 
