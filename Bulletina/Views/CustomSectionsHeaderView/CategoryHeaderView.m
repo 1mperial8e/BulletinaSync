@@ -10,4 +10,15 @@
 
 @implementation CategoryHeaderView
 
++ (CGFloat)heightWithText:(NSString *)text
+{
+	CategoryHeaderView *headerView = [CategoryHeaderView new];
+	headerView.sectionTitleLabel.text = text;
+	CGFloat height;
+	height = ceil([headerView.sectionTitleLabel sizeThatFits:CGSizeMake(ScreenWidth - 20, MAXFLOAT)].height + 40);
+	return height;
+}
+
+
+
 @end

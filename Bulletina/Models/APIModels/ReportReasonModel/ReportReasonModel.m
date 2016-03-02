@@ -15,6 +15,8 @@
 	_name = dictionary[@"name"];
 	_text = dictionary[@"description"];
 //	_reasonId = [dictionary[@"id"] longValue];
+	_reasonId = 1;
+#warning reasonId needed
 	_active = [dictionary[@"active"]boolValue];
 }
 

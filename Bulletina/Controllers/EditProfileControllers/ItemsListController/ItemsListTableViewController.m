@@ -226,6 +226,8 @@
     } else {
         [actionSheet addAction:[UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
             ReasonSelectTableViewController *reasonSelectTableViewController = [[ReasonSelectTableViewController alloc] init];
+			reasonSelectTableViewController.reportedUserId = [APIClient sharedInstance].currentUser.userId;
+			reasonSelectTableViewController.reportedItemId = item.itemId;
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:reasonSelectTableViewController];
             [weakSelf.navigationController presentViewController:navigationController animated:YES completion:nil];
         }]];

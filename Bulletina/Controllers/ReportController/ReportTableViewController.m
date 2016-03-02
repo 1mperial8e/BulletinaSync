@@ -14,14 +14,16 @@
 // Models
 #import "APIClient+Item.h"
 
+// View
+#import "CategoryHeaderView.h"
+
 
 static NSString *const TextViewPlaceholderText = @"Write your comments";
 
 static NSInteger const CellsCount = 1;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
-	TextCellIndex,
-	ReasonCellIndex
+	TextCellIndex
 };
 
 @interface ReportTableViewController () <UITextViewDelegate>
@@ -49,16 +51,19 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 5, 0)];
-	
+	[self.tableView registerNib:NewItemTextTableViewCell.nib forCellReuseIdentifier:NewItemTextTableViewCell.ID];
 	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 	self.tableView.backgroundColor = [UIColor mainPageBGColor];
-
-	[self.tableView registerNib:NewItemTextTableViewCell.nib forCellReuseIdentifier:NewItemTextTableViewCell.ID];
 	
-	self.navigationItem.title = @"Report";
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelNavBarAction:)];
+	CategoryHeaderView *reasonDescription = [[CategoryHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, [CategoryHeaderView heightWithText:self.reasonModel.text])];
+	reasonDescription.sectionTitleLabel.text = self.reasonModel.text;
+	self.tableView.tableHeaderView = reasonDescription;
+	self.tableView.tableHeaderView.backgroundColor = [UIColor mainPageBGColor];
+	
+	self.navigationItem.title = self.reasonModel.name; //@"Report";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStylePlain target:self action:@selector(publishNavBarAction:)];
 }
 
@@ -95,8 +100,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.textCell = [self.tableView dequeueReusableCellWithIdentifier:NewItemTextTableViewCell.ID forIndexPath:indexPath];
 	self.textCell.textView.placeholder = TextViewPlaceholderText;
 	self.textCell.textView.delegate = self;
-	self.textCell.textView.textColor = [UIColor blackColor];
-	[self.textCell.textView setTextContainerInset:UIEdgeInsetsMake(10, 20, 5, 20)];
+	self.textCell.textView.textColor = [UIColor colorWithRed:74/255.0 green:74/255.0 blue:74/255.0 alpha:1];
+	[self.textCell.textView setTextContainerInset:UIEdgeInsetsZero];
 	self.textCell.textView.returnKeyType = UIReturnKeyDone;
 	self.textCell.selectionStyle = UITableViewCellSelectionStyleNone;
 	return self.textCell;
@@ -148,11 +153,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)publishNavBarAction:(id)sender
 {
-	if (!self.textCell.textView.text.length) {
-		[Utils showWarningWithMessage:@"Description is requied"];
-	} else {
+//	if (!self.textCell.textView.text.length) {
+//		[Utils showWarningWithMessage:@"Description is requied"];
+//	} else {
 		[self.navigationController dismissViewControllerAnimated:YES completion:nil];
-		[[APIClient sharedInstance]reportItemWithId:self.reportedItemId andUserId:self.reportedUserId description:@"Test" reasonId:1 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[[APIClient sharedInstance]reportItemWithId:self.reportedItemId andUserId:self.reportedUserId description:@"Test" reasonId:self.reasonModel.reasonId withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
 				if (response[@"error_message"]) {
 					[Utils showErrorWithMessage:response[@"error_message"]];
@@ -163,12 +168,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 				[Utils showWarningWithMessage:@"Report sent"];
 			}
 		}];
-	}
-}
-
-- (void)cancelNavBarAction:(id)sender
-{
-	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
+//	}
 }
 
 @end

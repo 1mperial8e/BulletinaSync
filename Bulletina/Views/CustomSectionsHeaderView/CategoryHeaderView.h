@@ -12,4 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *sectionTitleLabel;
 
++ (CGFloat)heightWithText:(NSString *)text;
+
 @end
