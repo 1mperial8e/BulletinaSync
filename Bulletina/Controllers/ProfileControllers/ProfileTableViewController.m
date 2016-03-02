@@ -51,6 +51,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UIImageView *topBackgroundImageView;
 
 @property (strong, nonatomic) BulletinaLoaderView *loader;
+@property (assign, nonatomic) CGFloat topCellHeight;
 
 @end
 
@@ -275,10 +276,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (CGFloat)heightForTopCell
 {
+    CGFloat height = 0;
 	if (self.user.customerTypeId == BusinessAccount) {
-		return [BusinessProfileLogoTableViewCell heightForBusinessLogoCellWithUser:self.user];
+		height = [BusinessProfileLogoTableViewCell heightForBusinessLogoCellWithUser:self.user];
 	}
-	return [IndividualProfileLogoTableViewCell heightForIndividualAvatarCellWithUser:self.user];
+	height = [IndividualProfileLogoTableViewCell heightForIndividualAvatarCellWithUser:self.user];
+    self.topCellHeight = height;
+    return height;
 }
 
 - (CGFloat)topOffset
@@ -352,11 +356,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
         frame.origin.y = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
         self.topBackgroundImageView.frame = frame;
 	} else {
-		CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / ([self heightForTopCell] * 0.5)) : 0);
-		CGRect frame = self.topBackgroundImageView.frame;
-		frame.origin.y = self.topOffset;
-		frame.size.height =  [self heightForTopCell] * scaleCoef;
-		self.topBackgroundImageView.frame = frame;		
+        if (self.topBackgroundImageView.transform.a < 1.01) {
+            self.topBackgroundImageView.frame = CGRectMake(0, self.topOffset, ScreenWidth, [self heightForTopCell]);
+        }
+		CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / (self.topCellHeight * 0.5)) : 0);
+        self.topBackgroundImageView.transform = CGAffineTransformMakeScale(scaleCoef, scaleCoef);
 	}
 }
 

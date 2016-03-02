@@ -170,11 +170,21 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
                     [Utils showErrorForStatusCode:statusCode];
                 }
             } else {
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                [weakSelf passwordChanged];
             }
             [weakSelf.loader hide];
         }];
     }
+}
+
+- (void)passwordChanged
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSBundle mainBundle].infoDictionary[@"CFBundleName"] message:@"Password changed successfully" preferredStyle:UIAlertControllerStyleAlert];
+    __weak typeof(self) weakSelf = self;
+    [alert addAction:[UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - Utils

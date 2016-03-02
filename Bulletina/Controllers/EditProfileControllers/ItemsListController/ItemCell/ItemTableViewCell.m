@@ -250,7 +250,11 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 + (CGFloat)itemCellHeightForItemModel:(ItemModel *)item
 {
 	CGFloat textViewHeigth = 0;
-		ItemTableViewCell *cell = [[NSBundle mainBundle] loadNibNamed:ItemTableViewCell.ID owner:nil options:nil].firstObject;
+    
+    static ItemTableViewCell *cell;
+    if (!cell) {
+        cell = [[NSBundle mainBundle] loadNibNamed:ItemTableViewCell.ID owner:nil options:nil].firstObject;
+    }
 	cell.cellItem = item;
 	textViewHeigth = ceil([cell.itemTextView sizeThatFits:CGSizeMake(ScreenWidth - 32, MAXFLOAT)].height);
 
