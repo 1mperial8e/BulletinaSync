@@ -49,6 +49,7 @@ static NSString *const ItemNotificaionKey = @"ItemNotificaionKey";
 static NSString *const ItemIDNotificaionKey = @"ItemIDNotificaionKey";
 
 static NSString *const DeletedItemNotificaionName = @"DeletedItemNotificaionName";
+static NSString *const UpdatedItemNotificaionName = @"UpdatedItemNotificaionName";
 static NSString *const FavouritedItemNotificaionName = @"FavouritedItemNotificaionName";
 static NSString *const UnfavouritedItemNotificaionName = @"UnfavouritedItemNotificaionName";
 static NSString *const SettingsChangedNotificaionName = @"SettingsChangedNotificaionName";

@@ -37,6 +37,8 @@
 @property (strong, nonatomic) NSString *updatedAt;
 
 @property (assign, nonatomic) NSInteger userId;
+@property (assign, nonatomic) NSInteger customerTypeId;
+
 @property (strong, nonatomic) NSURL *userAvatarThumbUrl;
 @property (strong, nonatomic) NSString *userCompanyName;
 @property (strong, nonatomic) NSString *userFullname;

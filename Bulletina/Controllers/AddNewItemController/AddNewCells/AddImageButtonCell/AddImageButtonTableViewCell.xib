@@ -39,6 +39,9 @@
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.96078431369999995" green="0.6588235294" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="buttonLabel" destination="wxu-lw-e5R" id="oDC-G8-FdA"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

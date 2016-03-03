@@ -279,9 +279,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     CGFloat height = 0;
 	if (self.user.customerTypeId == BusinessAccount) {
 		height = [BusinessProfileLogoTableViewCell heightForBusinessLogoCellWithUser:self.user];
+	} else {
+		height = [IndividualProfileLogoTableViewCell heightForIndividualAvatarCellWithUser:self.user];
 	}
-	height = [IndividualProfileLogoTableViewCell heightForIndividualAvatarCellWithUser:self.user];
-    self.topCellHeight = height;
+	self.topCellHeight = height;
     return height;
 }
 

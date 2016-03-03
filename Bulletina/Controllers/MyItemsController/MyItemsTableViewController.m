@@ -76,8 +76,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     __weak typeof(self) weakSelf = self;
 	
     self.downloadTask =
-	[[APIClient sharedInstance] loadMyFavoriteItemsWithCompletion:
-//	[[APIClient sharedInstance] fetchItemsForUserId:self.user.userId page:self.currentPage withCompletion:
+//	[[APIClient sharedInstance] loadMyFavoriteItemsWithCompletion:
+	[[APIClient sharedInstance] fetchItemsForUserId:self.user.userId page:self.currentPage withCompletion:
 //	 [[APIClient sharedInstance]fetchAllItemsForPage:self.currentPage  withCompletion:
 						 ^(id response, NSError *error, NSInteger statusCode) {
         if ([weakSelf.refresh isRefreshing]) {
@@ -87,8 +87,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             [super failedToDownloadItemsWithError:error];
         } else {
             NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
-			NSArray *items = [ItemModel arrayWithFavoritreDictionariesArray:response];
-//			NSArray *items = [ItemModel arrayWithDictionariesArray:response];
+//			NSArray *items = [ItemModel arrayWithFavoritreDictionariesArray:response];
+			NSArray *items = [ItemModel arrayWithDictionariesArray:response];
             [super downloadedItems:items afterReload:reloadAll];
         }
     }];
@@ -196,8 +196,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     CGFloat height = 0;
 	if (self.user.customerTypeId == BusinessAccount) {
 		height = [BusinessProfileLogoTableViewCell heightForBusinessLogoCellWithUser:self.user];
+	} else {
+		height = [IndividualProfileLogoTableViewCell heightForIndividualAvatarCellWithUser:self.user];
 	}
-	height = [IndividualProfileLogoTableViewCell heightForIndividualAvatarCellWithUser:self.user];
     self.topCellHeight = height;
     return height;
 }

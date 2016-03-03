@@ -24,12 +24,13 @@
 		_login = item.userNickname;
 		_name = item.userFullname;
 		_companyName = item.userCompanyName;
+		_customerTypeId = item.customerTypeId;
 		
-		if (_companyName.length) {
-			_customerTypeId = BusinessAccount;
-		} else {
-			_customerTypeId = IndividualAccount;
-		}
+//		if (_companyName.length) {
+//			_customerTypeId = BusinessAccount;
+//		} else {
+//			_customerTypeId = IndividualAccount;
+//		}
 	}
 	return self;
 }

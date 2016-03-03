@@ -58,6 +58,7 @@
 	self.price = dictionary[@"price"];
 	self.updatedAt = dictionary[@"updated_at"];
 	self.userId = [dictionary[@"user_id"] integerValue];
+	self.customerTypeId = [dictionary[@"customer_type_id"] integerValue];
 	
 	self.adTypeName = dictionary[@"ad_type_name"];
 	self.countryName = dictionary[@"country_name"];

@@ -91,6 +91,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		}		
 	} else if (indexPath.row == TextCellIndex) {
 		return [self heightForTextCell];
+	} else if (indexPath.row == CameraButtonCellIndex && self.adItem) {
+		return 0.0;
 	}
 	return height;
 }
@@ -161,6 +163,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)publishNavBarAction:(id)sender
 {
+	__weak typeof(self) weakSelf = self;
 	if (![self.textCell.textView.text stringByReplacingOccurrencesOfString:@" " withString:@""].length) {
 		[Utils showWarningWithMessage:@"Description is requied"];	
 	} else if (![LocationManager sharedManager].currentLocation) {
@@ -176,11 +179,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 						[Utils showErrorForStatusCode:statusCode];
 					}
 				} else {
-					//ok message needed
+					//item added,  message needed
 				}
 			}];
 		} else {
-			[[APIClient sharedInstance] updateItemId:self.adItem.itemId withDescription:self.textCell.textView.text price:self.priceTextField.text adType:self.category.categoryId image:[Utils scaledImage:self.itemImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			[[APIClient sharedInstance] updateItemId:self.adItem.itemId withDescription:self.textCell.textView.text price:self.priceTextField.text adType:self.adItem.category.categoryId image:[Utils scaledImage:self.itemImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 				if (error) {
 					if (response[@"error_message"]) {
 						[Utils showErrorWithMessage:response[@"error_message"]];
@@ -188,7 +191,19 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 						[Utils showErrorForStatusCode:statusCode];
 					}
 				} else {
-					//ok message needed
+					NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server (update item)");
+					ItemModel *updatedItem = [ItemModel modelWithDictionary:response];
+					
+					//temp
+					updatedItem.userNickname = weakSelf.adItem.userNickname;
+					updatedItem.userAvatarThumbUrl = weakSelf.adItem.userAvatarThumbUrl;
+					updatedItem.userCompanyName = weakSelf.adItem.userCompanyName;
+					updatedItem.userFullname = weakSelf.adItem.userFullname;
+					updatedItem.userUserAvatarUrl = weakSelf.adItem.userUserAvatarUrl;
+					updatedItem.userId = weakSelf.adItem.userId;
+					//temp
+					
+					[[NSNotificationCenter defaultCenter] postNotificationName:UpdatedItemNotificaionName object:nil userInfo:@{ItemNotificaionKey : updatedItem}];
 				}
 			}];
 		}
@@ -343,6 +358,5 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		
 	}
 }
-
 
 @end

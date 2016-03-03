@@ -57,18 +57,18 @@ NSInteger const ItemsPerPage = 10;
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	NSMutableDictionary *itemParameters = [NSMutableDictionary dictionary];
-	[itemParameters setValue:@(adType) forKey:@"ad_type_id"];
+//	[itemParameters setValue:@(adType) forKey:@"ad_type_id"];
 	[itemParameters setValue:price ? price : @"" forKey:@"price"];
 	[itemParameters setValue:description ? description : @"" forKey:@"description"];
-	[itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
-	[itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
-	[itemParameters setValue:@YES forKey:@"active"];
-	[itemParameters setValue:@(self.currentUser.userId) forKey:@"user_id"];
-	[itemParameters setValue:@(itemId) forKey:@"id"];
-	[itemParameters setValue:@"" forKey:@"name"];
-	[itemParameters setValue:@"" forKey:@"hashtags"];
-	[itemParameters setValue:@"" forKey:@"city"];
-	[itemParameters setValue:@"" forKey:@"active"];
+//	[itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
+//	[itemParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
+//	[itemParameters setValue:@YES forKey:@"active"];
+	[itemParameters setValue:@(self.currentUser.userId) forKey:@"user_id"];  
+//	[itemParameters setValue:@(itemId) forKey:@"id"];
+//	[itemParameters setValue:@"" forKey:@"name"];
+//	[itemParameters setValue:@"" forKey:@"hashtags"];
+//	[itemParameters setValue:@"" forKey:@"city"];
+//	[itemParameters setValue:@"" forKey:@"country_id"];
 
 	NSArray *dataArray;
 	if (image) {
@@ -76,7 +76,7 @@ NSInteger const ItemsPerPage = 10;
 	}
 
 	[parameters setValue:itemParameters forKey:@"item"];
-	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.html", itemId];
+	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.json", itemId];
 	
 	[self performPUT:query withParameters:parameters multipartData:dataArray response:completion];
 }
@@ -86,9 +86,9 @@ NSInteger const ItemsPerPage = 10;
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	[parameters setValue:@(userId) forKey:@"id"];
 	
-	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.json", userId];
+//	NSString *query = [NSString stringWithFormat:@"api/v1/items/%zd.json", userId];
 	
-	return [self performGET:query withParameters:parameters response:completion];
+	return [self performGET:@"api/v1/items.json" withParameters:parameters response:completion];
 }
 
 - (NSURLSessionTask *)fetchAllItemsForPage:(NSInteger)page withCompletion:(ResponseBlock)completion

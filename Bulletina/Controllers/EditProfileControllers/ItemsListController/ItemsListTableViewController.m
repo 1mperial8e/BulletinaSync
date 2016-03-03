@@ -192,6 +192,7 @@
 - (void)registerObservers
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletedItemNotification:) name:DeletedItemNotificaionName object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatedItemNotification:) name:UpdatedItemNotificaionName object:nil];
     if ([self isKindOfClass:[MainPageController class]]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChangedNotification:) name:SettingsChangedNotificaionName object:nil];
     }
@@ -271,6 +272,25 @@
         [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:itemIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView endUpdates];
     }
+}
+
+- (void)updatedItemNotification:(NSNotification *)notification
+{
+//	NSInteger itemId = [notification.userInfo[ItemIDNotificaionKey] integerValue];
+	ItemModel *updatedItem = notification.userInfo[ItemNotificaionKey] ;
+	NSParameterAssert(updatedItem);
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"itemId == %li", updatedItem.itemId];
+	NSArray *filteredArray = [self.itemsList filteredArrayUsingPredicate:predicate];
+	if (filteredArray.count) {
+		NSUInteger itemIndex = [self.itemsList indexOfObject:filteredArray.firstObject];
+		if ([self isKindOfClass:[MyItemsTableViewController class]]) {
+			itemIndex++; // first cell is profile cell
+		}
+		[self.tableView beginUpdates];
+		[self.itemsList replaceObjectAtIndex:[self.itemsList indexOfObject:filteredArray.firstObject] withObject:updatedItem];
+		[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:itemIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+		[self.tableView endUpdates];
+	}
 }
 
 - (void)settingsChangedNotification:(NSNotification *)notification

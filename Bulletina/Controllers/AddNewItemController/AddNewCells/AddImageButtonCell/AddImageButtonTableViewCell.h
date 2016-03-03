@@ -10,4 +10,6 @@
 
 @interface AddImageButtonTableViewCell : BaseTableViewCell
 
+@property (weak, nonatomic) IBOutlet	 UILabel *buttonLabel;
+
 @end
