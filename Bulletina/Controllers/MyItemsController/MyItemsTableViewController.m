@@ -69,6 +69,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)loadData:(BOOL)reloadAll
 {
     [self.downloadTask cancel];
+	self.currentPage++;
     if (reloadAll) {
         self.hasMore = YES;
         self.currentPage = 0;
@@ -77,8 +78,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
     self.downloadTask =
 //	[[APIClient sharedInstance] loadMyFavoriteItemsWithCompletion:
-	[[APIClient sharedInstance] fetchItemsForUserId:self.user.userId page:self.currentPage withCompletion:
-//	 [[APIClient sharedInstance]fetchAllItemsForPage:self.currentPage  withCompletion:
+//	[[APIClient sharedInstance] fetchItemsForUserId:self.user.userId page:self.currentPage withCompletion:
+	[[APIClient sharedInstance]fetchAllItemsForUserId:self.user.userId page:self.currentPage  withCompletion:
 						 ^(id response, NSError *error, NSInteger statusCode) {
         if ([weakSelf.refresh isRefreshing]) {
             [weakSelf.refresh endRefreshing];

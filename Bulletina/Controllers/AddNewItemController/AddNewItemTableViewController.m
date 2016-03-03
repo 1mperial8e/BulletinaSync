@@ -125,6 +125,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else {
 		cell.itemImageView.image = nil;
 	}
+//	cell.observerObject = self;
 //	[cell.itemImageView addObserver:self forKeyPath:@"image" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
 	return cell;
 }
@@ -350,13 +351,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return NO;
 }
 
-#pragma mark - Notifications
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-	if ([keyPath isEqual:@"image"]) {
-		
-	}
-}
+//#pragma mark - Notifications
+//
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//	if ([keyPath isEqual:@"image"]) {
+//		
+//	}
+//}
 
 @end

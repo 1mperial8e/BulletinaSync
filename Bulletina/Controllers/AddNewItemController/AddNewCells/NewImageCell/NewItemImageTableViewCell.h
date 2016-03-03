@@ -11,5 +11,6 @@
 @interface NewItemImageTableViewCell : BaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *itemImageView;
+//@property (weak, nonatomic) UIViewController *observerObject;
 
 @end

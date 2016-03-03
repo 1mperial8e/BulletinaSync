@@ -10,4 +10,11 @@
 
 @implementation NewItemImageTableViewCell
 
+//- (void)dealloc
+//{
+//	if (self.observerObject) {
+//		[self.itemImageView removeObserver:self.observerObject forKeyPath:@"image"];
+//	}
+//}
+
 @end

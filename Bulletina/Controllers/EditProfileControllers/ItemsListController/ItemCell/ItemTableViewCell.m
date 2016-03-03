@@ -81,7 +81,7 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 {
 	self.backgroundColor = [UIColor mainPageBGColor];
 	self.distanceLabel.text = self.cellItem.distance;
-	self.timeAgoLabel.text = [self stringWithTimeAgoForItem];
+	self.timeAgoLabel.text = self.cellItem.timeAgo; //[self stringWithTimeAgoForItem];
 	
 	if (self.cellItem.userCompanyName.length) {
 		self.usernameLabel.text = self.cellItem.userCompanyName;
@@ -213,25 +213,25 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 //	return distanceString;
 //}
 
-- (NSString *)stringWithTimeAgoForItem
-{
-	NSTimeInterval timeAgo = [self floatTimeAgo];
-	NSString *timeString;
-	if (timeAgo < 60) {
-		timeString = @"just now";
-	} else if (timeAgo < 3600) {
-		timeString = [NSString stringWithFormat:@"%.f min", timeAgo / 60];
-	} else if (timeAgo < 86400) {
-		timeString = [NSString stringWithFormat:@"%.f h", timeAgo / 3600];
-	} else if (timeAgo < 2592000) {
-		timeString = [NSString stringWithFormat:@"%.f d", timeAgo / 86400];
-	} else if (timeAgo < 31104000) {
-		timeString = [NSString stringWithFormat:@"%.f m", timeAgo / 2592000];
-	} else {
-		timeString = [NSString stringWithFormat:@"%.1f y", timeAgo / 2592000.0];
-	}
-	return timeString;
-}
+//- (NSString *)stringWithTimeAgoForItem
+//{
+//	NSTimeInterval timeAgo = [self floatTimeAgo];
+//	NSString *timeString;
+//	if (timeAgo < 60) {
+//		timeString = @"just now";
+//	} else if (timeAgo < 3600) {
+//		timeString = [NSString stringWithFormat:@"%.f min", timeAgo / 60];
+//	} else if (timeAgo < 86400) {
+//		timeString = [NSString stringWithFormat:@"%.f h", timeAgo / 3600];
+//	} else if (timeAgo < 2592000) {
+//		timeString = [NSString stringWithFormat:@"%.f d", timeAgo / 86400];
+//	} else if (timeAgo < 31104000) {
+//		timeString = [NSString stringWithFormat:@"%.f m", timeAgo / 2592000];
+//	} else {
+//		timeString = [NSString stringWithFormat:@"%.1f y", timeAgo / 2592000.0];
+//	}
+//	return timeString;
+//}
 
 - (NSTimeInterval)floatTimeAgo
 {
