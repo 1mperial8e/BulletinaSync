@@ -208,7 +208,7 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 			}
 		}];
 	} else {
-		self.downloadTask = [[APIClient sharedInstance] loadMyFavoriteItemsWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		self.downloadTask = [[APIClient sharedInstance] loadMyFavoriteItemsForPage:self.currentPage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if ([weakSelf.refresh isRefreshing]) {
 				[weakSelf.refresh endRefreshing];
 			}

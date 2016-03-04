@@ -171,10 +171,13 @@ NSInteger const ItemsPerPage = 10;
 	return [self performDELETE:query withParameters:parameters response:completion];
 }
 
-- (NSURLSessionDataTask *)loadMyFavoriteItemsWithCompletion:(ResponseBlock)completion
+- (NSURLSessionDataTask *)loadMyFavoriteItemsForPage:(NSInteger)page withCompletion:(ResponseBlock)completion
 {
 	NSParameterAssert(self.passtoken);
-	NSDictionary *parameters = @{@"passtoken" : self.passtoken};
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
+	[parameters setValue:@(page * ItemsPerPage) forKey:@"offset"];
+	//	[parameters setValue:@(page) forKey:@"page"];
+	[parameters setValue:@(ItemsPerPage) forKey:@"limit"];
 	return [self performGET:@"api/v1/favorites.json" withParameters:parameters response:completion];
 }
 
