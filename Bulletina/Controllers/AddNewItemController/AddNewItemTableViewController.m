@@ -202,6 +202,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 					updatedItem.userFullname = weakSelf.adItem.userFullname;
 					updatedItem.userUserAvatarUrl = weakSelf.adItem.userUserAvatarUrl;
 					updatedItem.userId = weakSelf.adItem.userId;
+					updatedItem.distance = weakSelf.adItem.distance;
+					updatedItem.timeAgo = weakSelf.adItem.timeAgo;
 					//temp
 					
 					[[NSNotificationCenter defaultCenter] postNotificationName:UpdatedItemNotificaionName object:nil userInfo:@{ItemNotificaionKey : updatedItem}];

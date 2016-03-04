@@ -66,7 +66,6 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 	self.itemStateButton.hidden = YES;
 	self.itemImageView.image = nil;
 	self.avatarImageView.image = [UIImage imageNamed:@"DefaultUserLogo"];
-//    self.avatarImageView.layer.cornerRadius = 0;
 }
 
 #pragma mark - Info

@@ -178,7 +178,26 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 
 - (void)segmentedControlSwitch:(UISegmentedControl *)sender
 {
-    [self loadData:YES];
+	__weak typeof(self) weakSelf = self;
+	if (sender.selectedSegmentIndex == FavoritesIndex) {
+
+		[UIView animateWithDuration:.3f animations:^{
+			[weakSelf.tableView setContentOffset:CGPointMake(0, -(weakSelf.topOffset - CGRectGetHeight(weakSelf.searchBar.frame)))];
+		} completion:^(BOOL finished) {
+			weakSelf.tableView.tableHeaderView = nil;
+			[weakSelf.tableView setContentOffset:CGPointMake(0, -weakSelf.topOffset)];
+			[weakSelf loadData:YES];
+		}];
+	} else {
+		[self.tableView setContentOffset:CGPointMake(0, -(self.topOffset - CGRectGetHeight(self.searchBar.frame)))];
+		self.tableView.tableHeaderView = self.searchBar;
+
+		[UIView animateWithDuration:.3f animations:^{
+			[weakSelf.tableView setContentOffset:CGPointMake(0, -weakSelf.topOffset)];
+		}completion:^(BOOL finished) {
+			[weakSelf loadData:YES];
+		}];
+	}
 }
 
 #pragma mark - Data
@@ -250,6 +269,11 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 			[Utils storeValue:response forKey:ReportReasonsListKey];
 		}
 	}];
+}
+
+- (CGFloat)topOffset
+{
+	return Application.statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height;
 }
 
 @end

@@ -59,7 +59,7 @@
         [self.itemsList removeAllObjects];
         [self.tableView deleteRowsAtIndexPaths:idPaths withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView endUpdates];
-        [self.tableView setContentOffset:CGPointMake(0, -64) animated:YES];
+//        [self.tableView setContentOffset:CGPointMake(0, -64) animated:YES];
     }
     
     if ((items.count && !afterReload) || [self isKindOfClass:[MyItemsTableViewController class]]) {
@@ -276,7 +276,6 @@
 
 - (void)updatedItemNotification:(NSNotification *)notification
 {
-//	NSInteger itemId = [notification.userInfo[ItemIDNotificaionKey] integerValue];
 	ItemModel *updatedItem = notification.userInfo[ItemNotificaionKey] ;
 	NSParameterAssert(updatedItem);
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"itemId == %li", updatedItem.itemId];
