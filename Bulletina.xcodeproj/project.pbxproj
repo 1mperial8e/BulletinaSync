@@ -81,6 +81,8 @@
 		30AC777A1C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30AC77781C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.m */; };
 		30AC777B1C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30AC77791C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.xib */; };
 		30ACB0911C5276D500A879D5 /* BulletinaLoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */; };
+		30B239001C8992C50016B462 /* BaseRegisterProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B238FE1C8992C50016B462 /* BaseRegisterProfileTableViewController.m */; };
+		30B239011C8992C50016B462 /* BaseRegisterProfileTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B238FF1C8992C50016B462 /* BaseRegisterProfileTableViewController.xib */; };
 		30B33EE71C6DD50000E178A6 /* ChangePasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B33EE31C6DD50000E178A6 /* ChangePasswordTableViewController.m */; };
 		30B33EE81C6DD50000E178A6 /* ChangePasswordTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B33EE41C6DD50000E178A6 /* ChangePasswordTableViewController.xib */; };
 		30B33EF31C6DEFA300E178A6 /* PHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B33EF21C6DEFA300E178A6 /* PHTextView.m */; };
@@ -294,6 +296,9 @@
 		30AC77791C6A1AC70035BC06 /* AnonymusProfileEditTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnonymusProfileEditTableViewController.xib; sourceTree = "<group>"; };
 		30ACB08F1C5276D500A879D5 /* BulletinaLoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletinaLoaderView.h; sourceTree = "<group>"; };
 		30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletinaLoaderView.m; sourceTree = "<group>"; };
+		30B238FD1C8992C50016B462 /* BaseRegisterProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRegisterProfileTableViewController.h; sourceTree = "<group>"; };
+		30B238FE1C8992C50016B462 /* BaseRegisterProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseRegisterProfileTableViewController.m; sourceTree = "<group>"; };
+		30B238FF1C8992C50016B462 /* BaseRegisterProfileTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseRegisterProfileTableViewController.xib; sourceTree = "<group>"; };
 		30B33EE21C6DD50000E178A6 /* ChangePasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordTableViewController.h; sourceTree = "<group>"; };
 		30B33EE31C6DD50000E178A6 /* ChangePasswordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordTableViewController.m; sourceTree = "<group>"; };
 		30B33EE41C6DD50000E178A6 /* ChangePasswordTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordTableViewController.xib; sourceTree = "<group>"; };
@@ -709,6 +714,7 @@
 		30928DDF1C465B8000041847 /* RegisterControllers */ = {
 			isa = PBXGroup;
 			children = (
+				30B238FC1C8992750016B462 /* RegisterBaseController */,
 				30928E051C4667D600041847 /* RegisterTypeSelectController */,
 				30928DE01C465B8000041847 /* BuisnessRegisterController */,
 				30928DE11C465B8000041847 /* PersonalRegisterController */,
@@ -959,6 +965,16 @@
 				30ACB0901C5276D500A879D5 /* BulletinaLoaderView.m */,
 			);
 			path = BulletinaLoader;
+			sourceTree = "<group>";
+		};
+		30B238FC1C8992750016B462 /* RegisterBaseController */ = {
+			isa = PBXGroup;
+			children = (
+				30B238FD1C8992C50016B462 /* BaseRegisterProfileTableViewController.h */,
+				30B238FE1C8992C50016B462 /* BaseRegisterProfileTableViewController.m */,
+				30B238FF1C8992C50016B462 /* BaseRegisterProfileTableViewController.xib */,
+			);
+			path = RegisterBaseController;
 			sourceTree = "<group>";
 		};
 		30B33EDD1C6DD39000E178A6 /* ChangePasswordController */ = {
@@ -1637,6 +1653,7 @@
 				30928DF51C465CA700041847 /* InputTableViewCell.xib in Resources */,
 				30A074DC1C4F96AD00BCE672 /* ForgotPasswordTableViewController.xib in Resources */,
 				307E2EDD1C4A59950007A7CC /* NewItemPriceTableViewCell.xib in Resources */,
+				30B239011C8992C50016B462 /* BaseRegisterProfileTableViewController.xib in Resources */,
 				4F52C9571C74BCEB001AF7B7 /* ItemTableViewCell.xib in Resources */,
 				4F49DDC71C50D82F002E2F24 /* SelectNewAdCategoryTableViewController.xib in Resources */,
 				3082B9AA1C48F00A00C4925D /* EditProfileAboutTableViewCell.xib in Resources */,
@@ -1746,6 +1763,7 @@
 				30928DE61C465BBC00041847 /* PersonalRegisterTableViewController.m in Sources */,
 				B2B5E0351C50C8C0000E5A4C /* MessageTableViewCell.m in Sources */,
 				3082B9B01C48F1B200C4925D /* IndividualProfileEditTableViewController.m in Sources */,
+				30B239001C8992C50016B462 /* BaseRegisterProfileTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

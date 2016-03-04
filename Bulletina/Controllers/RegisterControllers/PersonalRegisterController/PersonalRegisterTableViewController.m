@@ -8,28 +8,28 @@
 
 // Controllers
 #import "PersonalRegisterTableViewController.h"
-#import "ImageActionSheetController.h"
-#import "MainPageController.h"
-#import "LoginViewController.h"
+//#import "ImageActionSheetController.h"
+//#import "MainPageController.h"
+//#import "LoginViewController.h"
+//
+//// Cells
+//#import "AvatarTableViewCell.h"
+//#import "InputTableViewCell.h"
+//#import "ButtonTableViewCell.h"
+//
+//// Helpers
+//#import "TextInputNavigationCollection.h"
+//#import "BulletinaLoaderView.h"
+//
+//// Models
+//#import "APIClient+User.h"
 
-// Cells
-#import "AvatarTableViewCell.h"
-#import "InputTableViewCell.h"
-#import "ButtonTableViewCell.h"
-
-// Helpers
-#import "TextInputNavigationCollection.h"
-#import "BulletinaLoaderView.h"
-
-// Models
-#import "APIClient+User.h"
-
-static CGFloat const AvatarCellHeigth = 218;
-static CGFloat const InputCellHeigth = 48;
-static CGFloat const ButtonCellHeigth = 52;
+//static CGFloat const AvatarCellHeigth = 218;
+//static CGFloat const InputCellHeigth = 48;
+//static CGFloat const ButtonCellHeigth = 52;
 
 static NSInteger const CellsCount = 6;
-static CGFloat const AdditionalBottomInset = 36;
+//static CGFloat const AdditionalBottomInset = 36;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	AvatarCellIndex,
@@ -47,10 +47,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
-@property (strong,nonatomic) UIImage *logoImage;
-@property (strong, nonatomic) BulletinaLoaderView *loader;
-
-@property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
+//@property (strong,nonatomic) UIImage *logoImage;
+//@property (strong, nonatomic) BulletinaLoaderView *loader;
+//
+//@property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 
 @end
 
@@ -66,6 +66,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
+	
 	self.inputViewsCollection.textInputViews = @[self.emailTextfield, self.usernameTextfield, self.passwordTextfield , self.retypePasswordTextfield];
 }
 
@@ -124,20 +125,24 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.backgroundColor = [UIColor mainPageBGColor];
     cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == UsernameCellIndex) {
-		cell.inputTextField.placeholder = @"Nickname:";
+		cell.inputTextField.placeholder = TextFieldNicknamePlaceholder;
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
+		cell.inputTextField.text = self.tempUser.login;
 		self.usernameTextfield = cell.inputTextField;
 		cell.bottomInsetConstraint.constant = AdditionalBottomInset;
 	} else if (indexPath.item == EmailCellIndex) {
-		cell.inputTextField.placeholder = @"Email:";
+		cell.inputTextField.placeholder = TextFieldEmailPlaceholder;
 		cell.inputTextField.keyboardType = UIKeyboardTypeEmailAddress;
+		cell.inputTextField.text = self.tempUser.email;
 		self.emailTextfield = cell.inputTextField;
 	} else if (indexPath.item == PasswordCellIndex) {
-		cell.inputTextField.placeholder = @"Password:";
+		cell.inputTextField.placeholder = TextFieldPasswordPlaceholder;
+		cell.inputTextField.text = self.tempUser.password;
 		cell.inputTextField.secureTextEntry = YES;
 		self.passwordTextfield = cell.inputTextField;
 	} else if (indexPath.item == RetypePasswordCellIndex) {
-		cell.inputTextField.placeholder = @"Retype password:";
+		cell.inputTextField.placeholder = TextFieldRePasswordPlaceholder;
+		cell.inputTextField.text = self.tempUser.rePassword;
 		cell.inputTextField.secureTextEntry = YES;
 		cell.inputTextField.returnKeyType = UIReturnKeyDone;
 		self.retypePasswordTextfield = cell.inputTextField;
@@ -177,19 +182,19 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 }
 
-#pragma mark - UITextFieldDelegate
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-	[self.inputViewsCollection inputViewWillBecomeFirstResponder:textField];
-	return YES;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-	[self.inputViewsCollection next];
-	return YES;
-}
+//#pragma mark - UITextFieldDelegate
+//
+//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+//{
+//	[self.inputViewsCollection inputViewWillBecomeFirstResponder:textField];
+//	return YES;
+//}
+//
+//- (BOOL)textFieldShouldReturn:(UITextField *)textField
+//{
+//	[self.inputViewsCollection next];
+//	return YES;
+//}
 
 #pragma mark - Actions
 

@@ -6,6 +6,8 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-@interface PersonalRegisterTableViewController : UITableViewController
+#import "BaseRegisterProfileTableViewController.h"
+
+@interface PersonalRegisterTableViewController : BaseRegisterProfileTableViewController
 
 @end

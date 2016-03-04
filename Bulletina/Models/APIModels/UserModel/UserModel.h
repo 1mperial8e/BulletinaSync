@@ -41,6 +41,8 @@ typedef NS_ENUM(NSInteger, UserAccountType) {
 @property (strong, nonatomic) NSString *website;
 @property (strong, nonatomic) NSString *facebook;
 @property (strong, nonatomic) NSString *linkedin;
+@property (strong, nonatomic) NSString *password;
+@property (strong, nonatomic) NSString *rePassword;
 
 - (NSString *)title;
 

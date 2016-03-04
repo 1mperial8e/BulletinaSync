@@ -8,28 +8,29 @@
 
 // Controllers
 #import "BusinessRegisterTableViewController.h"
-#import "ImageActionSheetController.h"
-#import "MainPageController.h"
-#import "LoginViewController.h"
+//#import "ImageActionSheetController.h"
+//#import "MainPageController.h"
+//#import "LoginViewController.h"
+//
+//// Cells
+//#import "BusinessLogoTableViewCell.h"
+//#import "InputTableViewCell.h"
+//#import "ButtonTableViewCell.h"
+//
+//// Helpers
+//#import "TextInputNavigationCollection.h"
+//#import "BulletinaLoaderView.h"
+//
+//// Models
+//#import "APIClient+User.h"
 
-// Cells
-#import "BusinessLogoTableViewCell.h"
-#import "InputTableViewCell.h"
-#import "ButtonTableViewCell.h"
-
-// Helpers
-#import "TextInputNavigationCollection.h"
-#import "BulletinaLoaderView.h"
-
-// Models
-#import "APIClient+User.h"
-
-static CGFloat const LogoCellHeigth = 178;
-static CGFloat const InputCellHeigth = 48;
-static CGFloat const ButtonCellHeigth = 52;
+//static CGFloat const LogoCellHeigth = 178;
+//static CGFloat const InputCellHeigth = 48;
+//static CGFloat const ButtonCellHeigth = 52;
+//
+//static CGFloat const AdditionalBottomInset = 36;
 
 static NSInteger const CellsCount = 8;
-static CGFloat const AdditionalBottomInset = 36;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex,
@@ -51,11 +52,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
-@property (strong, nonatomic) UIImage *logoImage;
-@property (strong, nonatomic) BulletinaLoaderView *loader;
-
-
-@property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
+//@property (strong, nonatomic) UIImage *logoImage;
+//@property (strong, nonatomic) BulletinaLoaderView *loader;
+//
+//@property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 
 @end
 
@@ -76,6 +76,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
+	
 	self.inputViewsCollection.textInputViews = @[self.emailTextfield, self.companyNameTextfield, self.phoneTextfield, self.websiteTextfield, self.passwordTextfield , self.retypePasswordTextfield];
 }
 
@@ -136,26 +137,32 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.backgroundColor = [UIColor mainPageBGColor];
     cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == EmailCellIndex) {
-		cell.inputTextField.placeholder = @"Email:";
+		cell.inputTextField.placeholder = TextFieldEmailPlaceholder;//@"Email:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeEmailAddress;
+		cell.inputTextField.text = self.tempUser.email;
 		self.emailTextfield = cell.inputTextField;
 	} else if (indexPath.item == CompanyNameCellIndex) {
-		cell.inputTextField.placeholder = @"Company Name:";
+		cell.inputTextField.placeholder = TextFieldCompanyNamePlaceholder;//@"Company Name:";
+		cell.inputTextField.text = self.tempUser.companyName;
 		self.companyNameTextfield = cell.inputTextField;
 	} else if (indexPath.item == PhoneCellIndex) {
-		cell.inputTextField.placeholder = @"Phone:";
+		cell.inputTextField.placeholder = TextFieldPhonePlaceholder;//@"Phone:";
+		cell.inputTextField.text = self.tempUser.phone;
 		self.phoneTextfield = cell.inputTextField;
 		cell.inputTextField.keyboardType = UIKeyboardTypePhonePad;
 	} else if (indexPath.item == WebsiteCellIndex) {
-		cell.inputTextField.placeholder = @"Website:";
+		cell.inputTextField.placeholder = TextFieldWebsitePlaceholder; //@"Website:";
+		cell.inputTextField.text = self.tempUser.website;
 		self.websiteTextfield = cell.inputTextField;
 		cell.bottomInsetConstraint.constant = AdditionalBottomInset;
 	} else if (indexPath.item == PasswordCellIndex) {
-		cell.inputTextField.placeholder = @"Password:";
+		cell.inputTextField.placeholder = TextFieldPasswordPlaceholder;//@"Password:";
+		cell.inputTextField.text = self.tempUser.password;
 		cell.inputTextField.secureTextEntry = YES;
 		self.passwordTextfield = cell.inputTextField;
 	} else if (indexPath.item == RetypePasswordCellIndex) {
-		cell.inputTextField.placeholder = @"Confirm password:";
+		cell.inputTextField.placeholder = TextFieldRePasswordPlaceholder;//@"Confirm password:";
+		cell.inputTextField.text = self.tempUser.rePassword;
 		cell.inputTextField.secureTextEntry = YES;
 		cell.inputTextField.returnKeyType = UIReturnKeyDone;
 		self.retypePasswordTextfield = cell.inputTextField;
@@ -192,19 +199,19 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
 }
 
-#pragma mark - UITextFieldDelegate
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-	[self.inputViewsCollection inputViewWillBecomeFirstResponder:textField];
-	return YES;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-	[self.inputViewsCollection next];
-	return YES;
-}
+//#pragma mark - UITextFieldDelegate
+//
+//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+//{
+//	[self.inputViewsCollection inputViewWillBecomeFirstResponder:textField];
+//	return YES;
+//}
+//
+//- (BOOL)textFieldShouldReturn:(UITextField *)textField
+//{
+//	[self.inputViewsCollection next];
+//	return YES;
+//}
 
 #pragma mark - Actions
 
