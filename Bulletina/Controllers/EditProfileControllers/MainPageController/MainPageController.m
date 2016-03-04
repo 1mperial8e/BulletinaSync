@@ -9,6 +9,11 @@
 #import "MainPageController.h"
 #import "SelectNewAdCategoryTableViewController.h"
 
+typedef NS_ENUM(NSUInteger, SegmentIndexes) {
+	NearbyIndex,
+	FavoritesIndex
+};
+
 @interface MainPageController () <UISearchBarDelegate>
 
 @property (strong, nonatomic) UISearchBar *searchBar;
@@ -173,7 +178,7 @@
 
 - (void)segmentedControlSwitch:(UISegmentedControl *)sender
 {
-    //switch
+    [self loadData:YES];
 }
 
 #pragma mark - Data
@@ -188,18 +193,34 @@
         self.currentPage++;
     }
     __weak typeof(self) weakSelf = self;
-    self.downloadTask = [[APIClient sharedInstance] fetchItemsWithSearchText:self.searchString page:self.currentPage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-        if ([weakSelf.refresh isRefreshing]) {
-            [weakSelf.refresh endRefreshing];
-        }
-        if (error) {
-            [super failedToDownloadItemsWithError:error];
-        } else {
-            NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
-            NSArray *items = [ItemModel arrayWithDictionariesArray:response];
-            [super downloadedItems:items afterReload:reloadAll];
-        }
-    }];
+	
+	if (((UISegmentedControl *)self.navigationItem.titleView).selectedSegmentIndex == NearbyIndex) {
+		self.downloadTask = [[APIClient sharedInstance] fetchItemsWithSearchText:self.searchString page:self.currentPage withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			if ([weakSelf.refresh isRefreshing]) {
+				[weakSelf.refresh endRefreshing];
+			}
+			if (error) {
+				[super failedToDownloadItemsWithError:error];
+			} else {
+				NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
+				NSArray *items = [ItemModel arrayWithDictionariesArray:response];
+				[super downloadedItems:items afterReload:reloadAll];
+			}
+		}];
+	} else {
+		self.downloadTask = [[APIClient sharedInstance] loadMyFavoriteItemsWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			if ([weakSelf.refresh isRefreshing]) {
+				[weakSelf.refresh endRefreshing];
+			}
+			if (error) {
+				[super failedToDownloadItemsWithError:error];
+			} else {
+				NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
+				NSArray *items = [ItemModel arrayWithFavoritreDictionariesArray:response];
+				[super downloadedItems:items afterReload:reloadAll];
+			}
+		}];
+	}	
 }
 
 #pragma mark - Private
