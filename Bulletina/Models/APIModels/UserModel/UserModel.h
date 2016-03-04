@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, UserAccountType) {
 @interface UserModel : BaseModel <NSCopying>
 
 @property (strong, nonatomic) NSString *email;
-@property (strong, nonatomic) NSString *login;
+@property (strong, nonatomic) NSString *username;
 
 @property (assign, nonatomic) UserAccountType customerTypeId;
 @property (assign, nonatomic) NSInteger userId;

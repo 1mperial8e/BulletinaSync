@@ -6,30 +6,9 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-// Controllers
 #import "PersonalRegisterTableViewController.h"
-//#import "ImageActionSheetController.h"
-//#import "MainPageController.h"
-//#import "LoginViewController.h"
-//
-//// Cells
-//#import "AvatarTableViewCell.h"
-//#import "InputTableViewCell.h"
-//#import "ButtonTableViewCell.h"
-//
-//// Helpers
-//#import "TextInputNavigationCollection.h"
-//#import "BulletinaLoaderView.h"
-//
-//// Models
-//#import "APIClient+User.h"
-
-//static CGFloat const AvatarCellHeigth = 218;
-//static CGFloat const InputCellHeigth = 48;
-//static CGFloat const ButtonCellHeigth = 52;
 
 static NSInteger const CellsCount = 6;
-//static CGFloat const AdditionalBottomInset = 36;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	AvatarCellIndex,
@@ -47,11 +26,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
-//@property (strong,nonatomic) UIImage *logoImage;
-//@property (strong, nonatomic) BulletinaLoaderView *loader;
-//
-//@property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
-
 @end
 
 @implementation PersonalRegisterTableViewController
@@ -61,6 +35,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [super viewDidLoad];
 	[self tableViewSetup];
 	[self setupDefaults];
+	
+	self.title = @"Individual account";
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -127,7 +103,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (indexPath.item == UsernameCellIndex) {
 		cell.inputTextField.placeholder = TextFieldNicknamePlaceholder;
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
-		cell.inputTextField.text = self.tempUser.login;
+		cell.inputTextField.text = self.tempUser.username;
 		self.usernameTextfield = cell.inputTextField;
 		cell.bottomInsetConstraint.constant = AdditionalBottomInset;
 	} else if (indexPath.item == EmailCellIndex) {
@@ -151,66 +127,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return cell;
 }
 
-- (ButtonTableViewCell *)buttonCellForIndexPath:(NSIndexPath *)indexPath
-{
-	ButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ButtonTableViewCell.ID forIndexPath:indexPath];
-	cell.backgroundColor = [UIColor mainPageBGColor];
-	cell.saveButton.layer.cornerRadius = 5;
-	[cell.saveButton addTarget:self action:@selector(saveButtonTap:) forControlEvents:UIControlEventTouchUpInside];
-
-	return cell;
-}
-
-#pragma mark - Setup
-
-- (void)tableViewSetup
-{
-	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-	self.tableView.separatorColor = [UIColor clearColor];
-	
-	[self.tableView registerNib:AvatarTableViewCell.nib forCellReuseIdentifier:AvatarTableViewCell.ID];
-	[self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
-	[self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
-}
-
-- (void)setupDefaults
-{
-    self.title = @"Individual account";
-    self.view.backgroundColor = [UIColor mainPageBGColor];
-    
-	self.inputViewsCollection = [TextInputNavigationCollection new];
-	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
-}
-
-//#pragma mark - UITextFieldDelegate
-//
-//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-//{
-//	[self.inputViewsCollection inputViewWillBecomeFirstResponder:textField];
-//	return YES;
-//}
-//
-//- (BOOL)textFieldShouldReturn:(UITextField *)textField
-//{
-//	[self.inputViewsCollection next];
-//	return YES;
-//}
-
 #pragma mark - Actions
-
-- (void)selectImageButtonTap:(id)sender
-{
-	ImageActionSheetController *imageController = [ImageActionSheetController new];
-	imageController.delegate = self;
-	imageController.cancelButtonTintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
-	imageController.tintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
-	__weak typeof(self) weakSelf = self;
-	imageController.photoDidSelectImageInPreview = ^(UIImage *image) {
-		__strong typeof(weakSelf) strongSelf = weakSelf;
-		[strongSelf updateImage:image];
-	};
-	[self presentViewController:imageController animated:YES completion:nil];
-}
 
 - (void)saveButtonTap:(id)sender
 {
@@ -266,31 +183,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
         }
         [weakSelf.loader hide];
     }];
-}
-
-#pragma mark - ImageActionSheetControllerDelegate
-
-- (void)imageActionSheetControllerDidReceiveError:(NSError *)error
-{
-    DLog(@"%@", error);
-}
-
-- (void)imageActionSheetControllerDidSelectImageWithPicker:(UIImage *)image
-{
-    [self updateImage:image];
-}
-
-- (void)imageActionSheetControllerDidTakeImageWithPicker:(UIImage *)image
-{
-    [self updateImage:image];
-}
-
-#pragma mark - Utils
-
-- (void)updateImage:(UIImage *)image;
-{
-	self.logoImage = image;
-	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:AvatarCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

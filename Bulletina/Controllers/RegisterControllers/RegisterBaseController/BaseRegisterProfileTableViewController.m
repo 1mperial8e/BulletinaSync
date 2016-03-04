@@ -52,7 +52,7 @@
 		} else if (textField.placeholder == TextFieldCompanyNamePlaceholder) {
 			self.tempUser.companyName = newText;
 		} else if (textField.placeholder == TextFieldNicknamePlaceholder) {
-			self.tempUser.login = newText;
+			self.tempUser.username = newText;
 		} else if (textField.placeholder == TextFieldEmailPlaceholder) {
 			self.tempUser.email = newText;
 		}
@@ -60,6 +60,86 @@
 	} else {
 		return NO;
 	}
+}
+
+#pragma mark - ImageActionSheetControllerDelegate
+
+- (void)imageActionSheetControllerDidReceiveError:(NSError *)error
+{
+	DLog(@"%@", error);
+}
+
+- (void)imageActionSheetControllerDidSelectImageWithPicker:(UIImage *)image
+{
+	[self updateImage:image];
+}
+
+- (void)imageActionSheetControllerDidTakeImageWithPicker:(UIImage *)image
+{
+	[self updateImage:image];
+}
+
+#pragma mark - Utils
+
+- (void)updateImage:(UIImage *)image;
+{
+	self.logoImage = image;
+	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:LogoCellSharedIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark - Setup
+
+- (void)tableViewSetup
+{
+	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+	self.tableView.separatorColor = [UIColor clearColor];
+	
+	[self.tableView registerNib:AvatarTableViewCell.nib forCellReuseIdentifier:AvatarTableViewCell.ID];
+	[self.tableView registerNib:BusinessLogoTableViewCell.nib forCellReuseIdentifier:BusinessLogoTableViewCell.ID];
+	[self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
+	[self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
+	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
+}
+
+- (void)setupDefaults
+{
+	self.view.backgroundColor = [UIColor mainPageBGColor];
+	
+	self.inputViewsCollection = [TextInputNavigationCollection new];
+	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
+}
+
+#pragma mark - Actions
+
+- (void)selectImageButtonTap:(id)sender
+{
+	ImageActionSheetController *imageController = [ImageActionSheetController new];
+	imageController.delegate = self;
+	imageController.cancelButtonTintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
+	imageController.tintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
+	__weak typeof(self) weakSelf = self;
+	imageController.photoDidSelectImageInPreview = ^(UIImage *image) {
+		__strong typeof(weakSelf) strongSelf = weakSelf;
+		[strongSelf updateImage:image];
+	};
+	[self presentViewController:imageController animated:YES completion:nil];
+}
+
+- (void)saveButtonTap:(id)sender
+{
+	//implemented in subclasses
+}
+
+#pragma mark - Cells
+
+- (ButtonTableViewCell *)buttonCellForIndexPath:(NSIndexPath *)indexPath
+{
+	ButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ButtonTableViewCell.ID forIndexPath:indexPath];
+	cell.backgroundColor = [UIColor mainPageBGColor];
+	cell.saveButton.layer.cornerRadius = 5;
+	[cell.saveButton addTarget:self action:@selector(saveButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+	
+	return cell;
 }
 
 

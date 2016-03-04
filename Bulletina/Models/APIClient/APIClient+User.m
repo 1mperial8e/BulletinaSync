@@ -112,7 +112,7 @@
     if (email.length && ![email isEqualToString:me.email]) {
         [userParameters setObject:email forKey:@"email"];
     }
-    if (username.length && ![username isEqualToString:me.login]) {
+    if (username.length && ![username isEqualToString:me.username]) {
         [userParameters setObject:username forKey:@"nickname"];
     }
     if (fullname) {

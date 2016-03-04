@@ -40,6 +40,10 @@ static CGFloat const ButtonCellHeigth = 52;
 
 static CGFloat const AdditionalBottomInset = 36;
 
+typedef NS_ENUM(NSUInteger, SharedCellsIndexes) {
+	LogoCellSharedIndex
+};
+
 @interface BaseRegisterProfileTableViewController : UITableViewController <UITextFieldDelegate, ImageActionSheetControllerDelegate>
 
 @property (strong, nonatomic) UIImage *logoImage;
@@ -47,5 +51,22 @@ static CGFloat const AdditionalBottomInset = 36;
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 
 @property (strong, nonatomic) UserModel *tempUser;
+
+#pragma mark - Utils
+
+- (void)updateImage:(UIImage *)image;
+
+#pragma mark - Setup
+
+- (void)tableViewSetup;
+- (void)setupDefaults;
+
+#pragma mark - Actions
+
+- (void)selectImageButtonTap:(id)sender;
+
+#pragma mark - Cells
+
+- (ButtonTableViewCell *)buttonCellForIndexPath:(NSIndexPath *)indexPath;
 
 @end

@@ -6,29 +6,7 @@
 //  Copyright © 2016 AppMedia. All rights reserved.
 //
 
-// Controllers
 #import "BusinessRegisterTableViewController.h"
-//#import "ImageActionSheetController.h"
-//#import "MainPageController.h"
-//#import "LoginViewController.h"
-//
-//// Cells
-//#import "BusinessLogoTableViewCell.h"
-//#import "InputTableViewCell.h"
-//#import "ButtonTableViewCell.h"
-//
-//// Helpers
-//#import "TextInputNavigationCollection.h"
-//#import "BulletinaLoaderView.h"
-//
-//// Models
-//#import "APIClient+User.h"
-
-//static CGFloat const LogoCellHeigth = 178;
-//static CGFloat const InputCellHeigth = 48;
-//static CGFloat const ButtonCellHeigth = 52;
-//
-//static CGFloat const AdditionalBottomInset = 36;
 
 static NSInteger const CellsCount = 8;
 
@@ -52,11 +30,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
-//@property (strong, nonatomic) UIImage *logoImage;
-//@property (strong, nonatomic) BulletinaLoaderView *loader;
-//
-//@property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
-
 @end
 
 @implementation BusinessRegisterTableViewController
@@ -70,7 +43,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self setupDefaults];
 	
 	self.title = @"Business account";
-	self.view.backgroundColor = [UIColor mainPageBGColor];	
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -137,31 +109,31 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.backgroundColor = [UIColor mainPageBGColor];
     cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == EmailCellIndex) {
-		cell.inputTextField.placeholder = TextFieldEmailPlaceholder;//@"Email:";
+		cell.inputTextField.placeholder = TextFieldEmailPlaceholder;
 		cell.inputTextField.keyboardType = UIKeyboardTypeEmailAddress;
 		cell.inputTextField.text = self.tempUser.email;
 		self.emailTextfield = cell.inputTextField;
 	} else if (indexPath.item == CompanyNameCellIndex) {
-		cell.inputTextField.placeholder = TextFieldCompanyNamePlaceholder;//@"Company Name:";
+		cell.inputTextField.placeholder = TextFieldCompanyNamePlaceholder;
 		cell.inputTextField.text = self.tempUser.companyName;
 		self.companyNameTextfield = cell.inputTextField;
 	} else if (indexPath.item == PhoneCellIndex) {
-		cell.inputTextField.placeholder = TextFieldPhonePlaceholder;//@"Phone:";
+		cell.inputTextField.placeholder = TextFieldPhonePlaceholder;
 		cell.inputTextField.text = self.tempUser.phone;
 		self.phoneTextfield = cell.inputTextField;
 		cell.inputTextField.keyboardType = UIKeyboardTypePhonePad;
 	} else if (indexPath.item == WebsiteCellIndex) {
-		cell.inputTextField.placeholder = TextFieldWebsitePlaceholder; //@"Website:";
+		cell.inputTextField.placeholder = TextFieldWebsitePlaceholder;
 		cell.inputTextField.text = self.tempUser.website;
 		self.websiteTextfield = cell.inputTextField;
 		cell.bottomInsetConstraint.constant = AdditionalBottomInset;
 	} else if (indexPath.item == PasswordCellIndex) {
-		cell.inputTextField.placeholder = TextFieldPasswordPlaceholder;//@"Password:";
+		cell.inputTextField.placeholder = TextFieldPasswordPlaceholder;
 		cell.inputTextField.text = self.tempUser.password;
 		cell.inputTextField.secureTextEntry = YES;
 		self.passwordTextfield = cell.inputTextField;
 	} else if (indexPath.item == RetypePasswordCellIndex) {
-		cell.inputTextField.placeholder = TextFieldRePasswordPlaceholder;//@"Confirm password:";
+		cell.inputTextField.placeholder = TextFieldRePasswordPlaceholder;
 		cell.inputTextField.text = self.tempUser.rePassword;
 		cell.inputTextField.secureTextEntry = YES;
 		cell.inputTextField.returnKeyType = UIReturnKeyDone;
@@ -171,63 +143,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return cell;
 }
 
-- (ButtonTableViewCell *)buttonCellForIndexPath:(NSIndexPath *)indexPath
-{
-	ButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ButtonTableViewCell.ID forIndexPath:indexPath];
-	cell.backgroundColor = [UIColor mainPageBGColor];
-	cell.saveButton.layer.cornerRadius = 5;
-	[cell.saveButton addTarget:self action:@selector(saveButtonTap:) forControlEvents:UIControlEventTouchUpInside];
-	return cell;
-}
-
-#pragma mark - Setup
-
-- (void)tableViewSetup
-{
-	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-	self.tableView.separatorColor = [UIColor clearColor];
-	
-	[self.tableView registerNib:BusinessLogoTableViewCell.nib forCellReuseIdentifier:BusinessLogoTableViewCell.ID];
-	[self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
-	[self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
-	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
-}
-
-- (void)setupDefaults
-{
-	self.inputViewsCollection = [TextInputNavigationCollection new];
-	self.loader = [[BulletinaLoaderView alloc] initWithView:self.navigationController.view andText:nil];
-}
-
-//#pragma mark - UITextFieldDelegate
-//
-//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-//{
-//	[self.inputViewsCollection inputViewWillBecomeFirstResponder:textField];
-//	return YES;
-//}
-//
-//- (BOOL)textFieldShouldReturn:(UITextField *)textField
-//{
-//	[self.inputViewsCollection next];
-//	return YES;
-//}
-
 #pragma mark - Actions
-
-- (void)selectImageButtonTap:(id)sender
-{
-	ImageActionSheetController *imageController = [ImageActionSheetController new];
-	imageController.delegate = self;
-	imageController.cancelButtonTintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
-	imageController.tintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
-	__weak typeof(self) weakSelf = self;
-	imageController.photoDidSelectImageInPreview = ^(UIImage *image) {
-		__strong typeof(weakSelf) strongSelf = weakSelf;
-		[strongSelf updateImage:image];
-	};
-	[self presentViewController:imageController animated:YES completion:nil];
-}
 
 - (void)saveButtonTap:(id)sender
 {
@@ -281,31 +197,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
         }
         [weakSelf.loader hide];
     }];
-}
-
-#pragma mark - ImageActionSheetControllerDelegate
-
-- (void)imageActionSheetControllerDidReceiveError:(NSError *)error
-{
-    DLog(@"%@", error);
-}
-
-- (void)imageActionSheetControllerDidSelectImageWithPicker:(UIImage *)image
-{
-    [self updateImage:image];
-}
-
-- (void)imageActionSheetControllerDidTakeImageWithPicker:(UIImage *)image
-{
-    [self updateImage:image];
-}
-
-#pragma mark - Utils
-
-- (void)updateImage:(UIImage *)image;
-{
-	self.logoImage = image;
-	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:LogoCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

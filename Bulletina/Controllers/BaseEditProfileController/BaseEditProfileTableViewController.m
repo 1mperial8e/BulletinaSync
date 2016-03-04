@@ -218,7 +218,7 @@
 		} else if (textField.placeholder == TextFieldCompanyNamePlaceholder) {
 			self.tempUser.companyName = newText;
 		} else if (textField.placeholder == TextFieldNicknamePlaceholder) {
-			self.tempUser.login = newText;
+			self.tempUser.username = newText;
 		} else if (textField.placeholder == TextFieldEmailPlaceholder) {
 			self.tempUser.email = newText;
 		}

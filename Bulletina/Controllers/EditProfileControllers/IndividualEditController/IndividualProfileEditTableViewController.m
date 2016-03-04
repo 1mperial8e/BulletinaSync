@@ -90,7 +90,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == UsernameCellIndex) {
 		cell.inputTextField.placeholder = TextFieldNicknamePlaceholder;
-		cell.inputTextField.text = self.tempUser.login;
+		cell.inputTextField.text = self.tempUser.username;
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
 	} else if (indexPath.item == EmailCellIndex) {

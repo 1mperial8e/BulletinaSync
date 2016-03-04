@@ -21,7 +21,7 @@
 		_userId = item.userId;
 		_avatarUrl = item.userUserAvatarUrl;
 		_avatarUrlThumb = item.userAvatarThumbUrl;
-		_login = item.userNickname;
+		_username = item.userNickname;
 		_name = item.userFullname;
 		_companyName = item.userCompanyName;
 		_customerTypeId = item.customerTypeId;
@@ -40,7 +40,7 @@
     if (_companyName.length) {
         return _companyName;
     }
-    return _login;
+    return _username;
 }
 
 #pragma mark - Parse
@@ -58,7 +58,7 @@
 	self.userId = [userWithInfo[@"id"] integerValue];
 	
 	self.email = userWithInfo[@"email"];
-	self.login = userWithInfo[@"nickname"];
+	self.username = userWithInfo[@"nickname"];
 	
 	self.companyName = userWithInfo[@"company_name"];
 	self.name = userWithInfo[@"name"];
@@ -96,7 +96,7 @@
 	userCopy.userId = _userId;
 	
 	userCopy.email = [_email copy];
-	userCopy.login = [_login copy];
+	userCopy.username = [_username copy];
 	
 	userCopy.companyName = [_companyName copy];
 	userCopy.name = [_name copy];

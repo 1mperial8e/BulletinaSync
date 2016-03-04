@@ -43,7 +43,7 @@ static CGFloat const PersonalLogoCellHeigth = 205;
 		self.userFullNameLabel.text = @"Anonymous";
 	} else {
 		self.userFullNameLabel.text = self.user.name;
-		self.userNicknameLabel.text = self.user.login;
+		self.userNicknameLabel.text = self.user.username;
 		
 		self.aboutMeTextView.text = self.user.about;
 		self.aboutMeTextView.font = [UIFont systemFontOfSize:13];

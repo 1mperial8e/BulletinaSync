@@ -362,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/RegisterControllers/BuisnessRegisterController/BusinessRegisterTableViewController.m"
-            timestampString = "478780470.168783"
+            timestampString = "478790457.031573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
             landmarkName = "-registerAccount"
             landmarkType = "5">
          </BreakpointContent>
@@ -571,7 +571,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "91"
             endingLineNumber = "91"
-            landmarkName = "-createUserWithEmail:username:password:languageId:customerTypeId:companyname:website:phone:avatar:withCompletion:"
+            landmarkName = "-updateUserWithEmail:username:fullname:companyname:password:website:facebook:linkedin:phone:description:avatar:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
