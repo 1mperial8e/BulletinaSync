@@ -23,6 +23,8 @@
 	[self tableViewSetup];
 	[self setupDefaults];
 	[self setupUI];
+	
+	self.tempUser = [[APIClient sharedInstance].currentUser copy];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -177,7 +179,6 @@
 		height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 2.5);
 	}
 	return height + 5.f;
-
 }
 
 - (void)updateImage:(UIImage *)image;
@@ -197,6 +198,34 @@
 {
 	[self.inputViewsCollection next];
 	return NO;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+	NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+	CGSize textSize = [newText sizeWithAttributes:@{NSFontAttributeName:[textField font]}];
+	if ((textSize.width + 20) < CGRectGetWidth(textField.frame) || [string isEqualToString:@""]) {
+		if (textField.placeholder == TextFieldLinkedinPlaceholder) {
+			self.tempUser.linkedin = newText;
+		} else if (textField.placeholder == TextFieldFacebookPlaceholder) {
+			self.tempUser.facebook = newText;
+		} else if (textField.placeholder == TextFieldWebsitePlaceholder) {
+			self.tempUser.website = newText;
+		} else if (textField.placeholder == TextFieldPhonePlaceholder) {
+			self.tempUser.phone = newText;
+		} else if (textField.placeholder == TextFieldFullnamePlaceholder) {
+			self.tempUser.name = newText;
+		} else if (textField.placeholder == TextFieldCompanyNamePlaceholder) {
+			self.tempUser.companyName = newText;
+		} else if (textField.placeholder == TextFieldNicknamePlaceholder) {
+			self.tempUser.login = newText;
+		} else if (textField.placeholder == TextFieldEmailPlaceholder) {
+			self.tempUser.email = newText;
+		}
+		return YES;
+	} else {
+		return NO;
+	}
 }
 
 #pragma mark - UITextViewDelegate

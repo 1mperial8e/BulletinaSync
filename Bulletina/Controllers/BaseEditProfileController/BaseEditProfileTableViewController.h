@@ -29,12 +29,24 @@ static CGFloat const InputCellHeigth = 48;
 static CGFloat const ButtonCellHeigth = 52;
 static NSString *const TextViewPlaceholderText = @"About:";
 
+static NSString *const TextFieldEmailPlaceholder = @"Email:";
+static NSString *const TextFieldCompanyNamePlaceholder = @"Company Name:";
+static NSString *const TextFieldPhonePlaceholder = @"Phone:";
+static NSString *const TextFieldWebsitePlaceholder = @"Website:";
+static NSString *const TextFieldFacebookPlaceholder = @"Facebook:";
+static NSString *const TextFieldLinkedinPlaceholder = @"LinkedIn:";
+static NSString *const TextFieldNicknamePlaceholder = @"Nickname:";
+static NSString *const TextFieldFullnamePlaceholder = @"Fullname:";
+
+
 @interface BaseEditProfileTableViewController : UITableViewController <UITextFieldDelegate, UITextViewDelegate, ImageActionSheetControllerDelegate>
 
 @property (strong, nonatomic) TextInputNavigationCollection *inputViewsCollection;
 @property (strong, nonatomic) EditProfileAboutTableViewCell *aboutCell;
 @property (strong, nonatomic) UIImage *logoImage;
 @property (strong, nonatomic) BulletinaLoaderView *loader;
+
+@property (strong, nonatomic) UserModel *tempUser;
 
 #pragma mark - Setup
 
@@ -64,6 +76,7 @@ static NSString *const TextViewPlaceholderText = @"About:";
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
 
 #pragma mark - UITextViewDelegate
 

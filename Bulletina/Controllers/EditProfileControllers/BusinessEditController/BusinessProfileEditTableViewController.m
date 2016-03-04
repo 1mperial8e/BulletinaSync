@@ -11,6 +11,8 @@
 
 static NSInteger const CellsCount = 9;
 
+
+
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex,
 	UsernameCellIndex,
@@ -23,7 +25,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	SaveButtonCellIndex
 };
 
-@interface BusinessProfileEditTableViewController () <UITextFieldDelegate>
+@interface BusinessProfileEditTableViewController ()
 
 @property (weak, nonatomic) UITextField *emailTextfield;
 @property (weak, nonatomic) UITextField *companyNameTextfield;
@@ -78,36 +80,37 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (InputTableViewCell *)inputCellForIndexPath:(NSIndexPath *)indexPath
 {
 	InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
+	
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == UsernameCellIndex) {
-		cell.inputTextField.placeholder = @"Email:";
+		cell.inputTextField.placeholder = TextFieldEmailPlaceholder;
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.emailTextfield = cell.inputTextField;
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.email;
+		cell.inputTextField.text = self.tempUser.email;
         cell.inputTextField.enabled = NO;
 	} else if (indexPath.item == CompanyNameCellIndex) {
-		cell.inputTextField.placeholder = @"Company Name:";
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.companyName;
+		cell.inputTextField.placeholder = TextFieldCompanyNamePlaceholder;
+		cell.inputTextField.text = self.tempUser.companyName;
 		self.companyNameTextfield = cell.inputTextField;
 		cell.inputTextField.delegate = self;
 	} else if (indexPath.item == PhoneCellIndex) {
-		cell.inputTextField.placeholder = @"Phone:";
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.phone ?:@"";
+		cell.inputTextField.placeholder = TextFieldPhonePlaceholder;
+		cell.inputTextField.text = self.tempUser.phone ?:@"";
 		self.phoneTextfield = cell.inputTextField;
 		cell.inputTextField.keyboardType = UIKeyboardTypePhonePad;
 		cell.inputTextField.delegate = self;
 	} else if (indexPath.item == WebsiteCellIndex) {
-		cell.inputTextField.placeholder = @"Website:";
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.website;
+		cell.inputTextField.placeholder = TextFieldWebsitePlaceholder;
+		cell.inputTextField.text = self.tempUser.website;
 		self.websiteTextfield = cell.inputTextField;
 	} else if (indexPath.item == FacebookCellIndex) {
-		cell.inputTextField.placeholder = @"Facebook:";
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.facebook;
+		cell.inputTextField.placeholder = TextFieldFacebookPlaceholder;
+		cell.inputTextField.text = self.tempUser.facebook;
 		self.facebookTextfield = cell.inputTextField;
 	} else if (indexPath.item == LinkedInCellIndex) {
-		cell.inputTextField.placeholder = @"LinkedIn:";
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.linkedin;
+		cell.inputTextField.placeholder = TextFieldLinkedinPlaceholder;
+		cell.inputTextField.text = self.tempUser.linkedin;
 		self.linkedInTextfield = cell.inputTextField;
 	}
 	cell.inputTextField.delegate = self;
@@ -198,12 +201,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 			[weakSelf.loader hide];
 		}];
 	}
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-	NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
-	return newText.length < 30;
 }
 
 @end

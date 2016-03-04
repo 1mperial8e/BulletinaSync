@@ -89,18 +89,18 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == UsernameCellIndex) {
-		cell.inputTextField.placeholder = @"Nickname:";
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.login;
+		cell.inputTextField.placeholder = TextFieldNicknamePlaceholder;
+		cell.inputTextField.text = self.tempUser.login;
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
 	} else if (indexPath.item == EmailCellIndex) {
-		cell.inputTextField.placeholder = @"Email:";
+		cell.inputTextField.placeholder = TextFieldEmailPlaceholder;
 		self.emailTextfield = cell.inputTextField;
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.email;
+		cell.inputTextField.text = self.tempUser.email;
 		cell.inputTextField.enabled = NO;
 	} else if (indexPath.item == FullNameCellIndex) {
-		cell.inputTextField.placeholder = @"Fullname:";
-		cell.inputTextField.text = [APIClient sharedInstance].currentUser.name;
+		cell.inputTextField.placeholder = TextFieldFullnamePlaceholder;
+		cell.inputTextField.text = self.tempUser.name;
 		self.fullNameTextfield = cell.inputTextField;
 	}
 	cell.inputTextField.delegate = self;

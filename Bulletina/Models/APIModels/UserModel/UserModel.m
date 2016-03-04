@@ -79,4 +79,40 @@
     self.website = userWithInfo[@"website"];
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone
+{
+	UserModel *userCopy = [[UserModel allocWithZone:zone] init];
+	
+	userCopy.isActive = _isActive;
+	userCopy.isBanned = _isBanned;
+	userCopy.isDeleted = _isDeleted;
+	userCopy.ignoreReports = _ignoreReports;
+	userCopy.isAdmin = _isAdmin;
+	userCopy.isLocked = _isLocked;
+	
+	userCopy.customerTypeId = _customerTypeId;
+	userCopy.userId = _userId;
+	
+	userCopy.email = [_email copy];
+	userCopy.login = [_login copy];
+	
+	userCopy.companyName = [_companyName copy];
+	userCopy.name = [_name copy];
+	userCopy.phone = [_phone copy];
+	userCopy.about = [_about copy];
+	
+	userCopy.avatarUrl = [_avatarUrl copy];
+	userCopy.avatarUrlThumb = [_avatarUrlThumb copy];
+	
+	userCopy.facebook = [_facebook copy];
+	userCopy.homeLatitude = [_homeLatitude copy];
+	userCopy.homeLongitude = [_homeLongitude copy];
+	userCopy.linkedin = [_linkedin copy];
+	userCopy.website = [_website copy];
+	
+	return userCopy;
+}
+
 @end
