@@ -301,6 +301,9 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 - (void)setFavorite
 {
     [self.favouritesTask cancel];
+    if (!self.cellItem) {
+        return;
+    }
     __weak typeof(self) weakSelf = self;
     void (^completion)(BOOL) = ^(BOOL isFavourite) {
         UIImage *image = isFavourite ? [UIImage imageNamed:@"FavoriteActive"] : [UIImage imageNamed:@"FavoriteNotActive"];
