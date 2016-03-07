@@ -186,7 +186,7 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 			weakSelf.tableView.tableHeaderView = nil;
 			[weakSelf.tableView setContentOffset:CGPointMake(0, -weakSelf.topOffset)];
 			[weakSelf loadData:YES];
-			 [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+			 [weakSelf.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 		}];
 	} else {
 		[self.tableView setContentOffset:CGPointMake(0, -(self.topOffset - CGRectGetHeight(self.searchBar.frame)))];
@@ -194,7 +194,7 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 		[UIView animateWithDuration:.3f animations:^{
 			[weakSelf.tableView setContentOffset:CGPointMake(0, -weakSelf.topOffset)];
 		}completion:^(BOOL finished) {
-			[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+			[weakSelf.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 			[weakSelf loadData:YES];
 		}];
 	}
