@@ -234,7 +234,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[backgroundView addSubview:backgroundImageView];
 	backgroundView.backgroundColor = [UIColor mainPageBGColor];
 	backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-	
+	[backgroundImageView setClipsToBounds:YES];
+
 	self.topBackgroundImageView = backgroundImageView;
 	self.tableView.backgroundView = backgroundView;
 }
@@ -243,15 +244,17 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	if (scrollView.contentOffset.y > -self.topOffset) {
+	if (scrollView.contentOffset.y >= -self.topOffset) {
 		CGRect frame = self.topBackgroundImageView.frame;
 		frame.origin.y = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
+		frame.size.width = ScreenWidth;
+		frame.origin.x = 0;
 		self.topBackgroundImageView.frame = frame;
 	} else {
         if (self.topBackgroundImageView.transform.a < 1.01) {
             self.topBackgroundImageView.frame = CGRectMake(0, self.topOffset, ScreenWidth, self.topCellHeight);
         }
-        CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / (self.topCellHeight * 0.5)) : 0);
+        CGFloat scaleCoef = 1 + (scrollView.contentOffset.y <= -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / (self.topCellHeight * 0.5)) : 0);
         self.topBackgroundImageView.transform = CGAffineTransformMakeScale(scaleCoef, scaleCoef);
 	}
 }

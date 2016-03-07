@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) UserModel *user;
 @property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 
 + (CGFloat)heightForBusinessLogoCellWithUser:(UserModel *)user;
 

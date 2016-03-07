@@ -159,7 +159,6 @@
 		4FB667341C6B6A67005F758C /* CategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB667331C6B6A67005F758C /* CategoryModel.m */; };
 		4FB667381C6CAF6E005F758C /* HitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB667371C6CAF6E005F758C /* HitView.m */; };
 		6F5D9E156A2E789482FC2CB1 /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17EE9D5E55C6576903F9B10 /* BuddyBuildSDK.framework */; };
-		A3F1DCF0F06C9D28D40EFAE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010230394B40F87431694DD7 /* SystemConfiguration.framework */; };
 		B22AF4C61C53C821008D1708 /* ChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B22AF4C31C53C821008D1708 /* ChatMessageTableViewCell.m */; };
 		B23EC3C01C56181600C15B14 /* MessagePostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B23EC3BE1C56181600C15B14 /* MessagePostTableViewCell.m */; };
 		B23EC3C11C56181600C15B14 /* MessagePostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B23EC3BF1C56181600C15B14 /* MessagePostTableViewCell.xib */; };
@@ -480,7 +479,6 @@
 				4FA9E1351C722BB6006D9D4A /* AWSSNS.framework in Frameworks */,
 				4FA9E1361C722BB6006D9D4A /* AWSSQS.framework in Frameworks */,
 				4FA9E1321C722BB6006D9D4A /* AWSS3.framework in Frameworks */,
-				A3F1DCF0F06C9D28D40EFAE6 /* SystemConfiguration.framework in Frameworks */,
 				4FA9E1271C722BB6006D9D4A /* AWSAutoScaling.framework in Frameworks */,
 				4FA9E1311C722BB6006D9D4A /* AWSMobileAnalytics.framework in Frameworks */,
 			);

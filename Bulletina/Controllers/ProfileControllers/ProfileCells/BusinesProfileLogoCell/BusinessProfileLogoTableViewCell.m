@@ -9,12 +9,15 @@
 #import "BusinessProfileLogoTableViewCell.h"
 #import "UIImageView+AFNetworking.h"
 
-static CGFloat const BusinessLogoCellHeigth = 81;
-static CGFloat const BusinessLogoButtonsWidth = 73;
-static CGFloat const BusinessLogoHeight = 100;
-static CGFloat const BusinessLogoButtonSpace = 4;
+static CGFloat const BusinessLogoCellHeigth = 70;
+static CGFloat const BusinessLogoButtonsWidth = 76;
+static CGFloat const BusinessLogoHeight = 120;
+static CGFloat const BusinessLogoButtonSpace = 10;
 static CGFloat const BusinessLogoButtonsContainerHeight = 41;
 static CGFloat const BusinessLogoPhoneContainerHeight = 29;
+static CGFloat const BusinessAvatarContainerWidth = 110;
+static CGFloat const BusinessAvatarContainerHeight = 92;
+static CGFloat const BusinessCompanyNameHeight = 34;
 
 @interface BusinessProfileLogoTableViewCell ()
 
@@ -61,14 +64,19 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
     self.companyPhoneLabel.text = self.user.phone.length ? [NSString stringWithFormat:@"Phone:%@", self.user.phone] : @"";
     
     self.companyDescriptionTextView.text = self.user.about;
-    self.companyDescriptionTextView.font = [UIFont systemFontOfSize:13];
+    self.companyDescriptionTextView.font = [UIFont systemFontOfSize:14];
     self.companyDescriptionTextView.textColor = [UIColor whiteColor];
-    self.companyDescriptionTextView.textAlignment = NSTextAlignmentCenter;
+    self.companyDescriptionTextView.textAlignment = NSTextAlignmentLeft;
     [self.companyDescriptionTextView setTextContainerInset:UIEdgeInsetsZero];
+	self.companyDescriptionTextView.textContainer.lineFragmentPadding = 0;
     
     self.websiteWidthConstraint.constant = self.user.website.length ? BusinessLogoButtonsWidth : 0;
     self.facebookWidthConstraint.constant = self.user.facebook.length ? BusinessLogoButtonsWidth : 0;
     self.linkedinWidthConstraint.constant = self.user.linkedin.length ? BusinessLogoButtonsWidth : 0;
+	
+	self.avatarImageView.layer.cornerRadius = CGRectGetHeight(self.avatarImageView.frame) / 2;
+	self.avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+	self.avatarImageView.layer.borderWidth = 2.0f;
     
     if (!self.user.website.length && self.user.facebook.length && self.user.linkedin.length) {
         self.websiteTrailingConstraint.constant = 0.0;
@@ -116,33 +124,38 @@ static CGFloat const BusinessLogoPhoneContainerHeight = 29;
     }
 	cell.user = user;
 	cell.companyDescriptionTextView.text = cell.user.about;
-	cell.companyDescriptionTextView.font = [UIFont systemFontOfSize:13];
+	cell.companyDescriptionTextView.font = [UIFont systemFontOfSize:14];
 	cell.companyDescriptionTextView.textColor = [UIColor whiteColor];
-	cell.companyDescriptionTextView.textAlignment = NSTextAlignmentCenter;
 	[cell.companyDescriptionTextView setTextContainerInset:UIEdgeInsetsZero];
 	
 	CGSize size = CGSizeZero;
 	if (cell.companyDescriptionTextView.text.length) {
-		size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 60, MAXFLOAT)];
+		size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 30 - BusinessAvatarContainerWidth, MAXFLOAT)];
 	} else {
 		size = CGSizeMake(0, 0);
 	}
 	
-	CGFloat extraHeight = 0;
-	if (cell.user.website.length || cell.user.facebook.length || cell.user.linkedin.length) {
-		extraHeight += BusinessLogoButtonsContainerHeight;
-	}
+	CGFloat extraHeight = size.height;
+	
 	if (cell.user.phone.length) {
 		extraHeight += BusinessLogoPhoneContainerHeight;
 	}
-	return (size.height + BusinessLogoCellHeigth + extraHeight + BusinessLogoHeight * HeigthCoefficient);
+	
+	if (extraHeight + BusinessCompanyNameHeight < BusinessAvatarContainerHeight) {
+		extraHeight = BusinessAvatarContainerHeight - BusinessCompanyNameHeight;
+	}
+	
+	if (cell.user.website.length || cell.user.facebook.length || cell.user.linkedin.length) {
+		extraHeight += BusinessLogoButtonsContainerHeight;
+	}	
+	return (BusinessLogoCellHeigth + extraHeight + BusinessLogoHeight * HeigthCoefficient);
 }
 
 - (void)addCustomBorderToButton:(UIButton *)button
 {
     button.layer.borderColor = [UIColor whiteColor].CGColor;
     button.layer.borderWidth = 1.0f;
-    button.layer.cornerRadius = 5;
+    button.layer.cornerRadius = 4;
 }
 
 #pragma mark - Actions
