@@ -186,7 +186,7 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 			weakSelf.tableView.tableHeaderView = nil;
 			[weakSelf.tableView setContentOffset:CGPointMake(0, -weakSelf.topOffset)];
 			[weakSelf loadData:YES];
-			 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+			 [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 		}];
 	} else {
 		[self.tableView setContentOffset:CGPointMake(0, -(self.topOffset - CGRectGetHeight(self.searchBar.frame)))];
