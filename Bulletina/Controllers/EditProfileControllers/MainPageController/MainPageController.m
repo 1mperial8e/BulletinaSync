@@ -180,21 +180,21 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 {
 	__weak typeof(self) weakSelf = self;
 	if (sender.selectedSegmentIndex == FavoritesIndex) {
-
 		[UIView animateWithDuration:.3f animations:^{
 			[weakSelf.tableView setContentOffset:CGPointMake(0, -(weakSelf.topOffset - CGRectGetHeight(weakSelf.searchBar.frame)))];
 		} completion:^(BOOL finished) {
 			weakSelf.tableView.tableHeaderView = nil;
 			[weakSelf.tableView setContentOffset:CGPointMake(0, -weakSelf.topOffset)];
 			[weakSelf loadData:YES];
+			 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
 		}];
 	} else {
 		[self.tableView setContentOffset:CGPointMake(0, -(self.topOffset - CGRectGetHeight(self.searchBar.frame)))];
 		self.tableView.tableHeaderView = self.searchBar;
-
 		[UIView animateWithDuration:.3f animations:^{
 			[weakSelf.tableView setContentOffset:CGPointMake(0, -weakSelf.topOffset)];
 		}completion:^(BOOL finished) {
+			[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 			[weakSelf loadData:YES];
 		}];
 	}
