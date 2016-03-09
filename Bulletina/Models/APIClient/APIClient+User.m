@@ -40,6 +40,7 @@
                                       website:(NSString *)website
                                         phone:(NSString *)phone
                                        avatar:(UIImage *)avatar
+										logo:(UIImage *)logo
                                withCompletion:(ResponseBlock)completion
 {
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self deviceParameters]];
@@ -86,6 +87,9 @@
 	if (avatar) {
         dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(avatar, 1.0f) fileName:@"avatar.jpg" mimeType:@"image/jpeg" parameterName:@"user[avatar]"]];
 	}
+	
+	//send logo image
+	
 	return [self performPOST:@"api/v1/users.json" withParameters:parameters multipartData:dataArray response:completion];
 }
 

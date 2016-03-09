@@ -10,7 +10,9 @@
 
 @interface BusinessLogoTableViewCell : BaseTableViewCell
 
-@property (weak, nonatomic) IBOutlet UIButton *selectImageButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectLogoButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectAvatarButton;
 @property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 
 @end

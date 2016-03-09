@@ -15,7 +15,7 @@ static CGFloat const BusinessLogoHeight = 120;
 static CGFloat const BusinessLogoButtonSpace = 10;
 static CGFloat const BusinessLogoButtonsContainerHeight = 41;
 static CGFloat const BusinessLogoPhoneContainerHeight = 29;
-static CGFloat const BusinessAvatarContainerWidth = 110;
+static CGFloat const BusinessAvatarContainerWidth = 125;
 static CGFloat const BusinessAvatarContainerHeight = 92;
 static CGFloat const BusinessCompanyNameHeight = 34;
 
@@ -101,7 +101,8 @@ static CGFloat const BusinessCompanyNameHeight = 34;
 	}
 	
     if (self.user.avatarUrl) {
-        [self.logoImageView setImageWithURL:self.user.avatarUrl];;
+        [self.logoImageView setImageWithURL:self.user.avatarUrl];
+		self.logoImageView.layer.cornerRadius = 10;
     }
 	
 	self.logoHeightConstraint.constant = BusinessLogoHeight * HeigthCoefficient;
@@ -130,12 +131,12 @@ static CGFloat const BusinessCompanyNameHeight = 34;
 	
 	CGSize size = CGSizeZero;
 	if (cell.companyDescriptionTextView.text.length) {
-		size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 30 - BusinessAvatarContainerWidth, MAXFLOAT)];
+		size = [cell.companyDescriptionTextView sizeThatFits:CGSizeMake(ScreenWidth - 15 - BusinessAvatarContainerWidth, MAXFLOAT)];
 	} else {
 		size = CGSizeMake(0, 0);
 	}
 	
-	CGFloat extraHeight = size.height;
+	CGFloat extraHeight = size.height + 0.5;
 	
 	if (cell.user.phone.length) {
 		extraHeight += BusinessLogoPhoneContainerHeight;

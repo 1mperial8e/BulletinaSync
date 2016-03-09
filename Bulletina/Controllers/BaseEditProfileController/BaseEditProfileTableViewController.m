@@ -101,7 +101,7 @@
 	cell.logoImageView.layer.borderWidth = 2.0f;
 	cell.logoImageView.layer.cornerRadius = 10;
 	
-	[cell.selectImageButton addTarget:self action:@selector(selectImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+	[cell.selectLogoButton addTarget:self action:@selector(selectImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	return cell;
 }
 

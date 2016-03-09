@@ -11,6 +11,7 @@
 @interface InputTableViewCell : BaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextField *inputTextField;
+@property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomInsetConstraint;
 
 @end

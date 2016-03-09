@@ -294,7 +294,7 @@
 
 - (void)settingsChangedNotification:(NSNotification *)notification
 {
-    DLog(@"Reload data after changed settings");
+//    DLog(@"Reload data after changed settings");
     [self loadData:YES];
 }
 

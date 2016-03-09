@@ -8,15 +8,21 @@
 
 #import "PersonalRegisterTableViewController.h"
 
-static NSInteger const CellsCount = 6;
+//static NSInteger const CellsCount = 6;
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
-	AvatarCellIndex,
-	EmailCellIndex,
-	UsernameCellIndex,	
-	PasswordCellIndex,
-	RetypePasswordCellIndex,
-	SaveButtonCellIndex
+	AvatarCellIndex = 0,
+	UsernameCellIndex = 0,
+	EmailCellIndex = 1,
+	PasswordCellIndex = 0,
+	RetypePasswordCellIndex = 1,
+	SaveButtonCellIndex = 2
+};
+
+typedef NS_ENUM(NSUInteger, SectionsIndexes) {
+	LogoSectionIndex,
+	ProfileSectionIndex,	
+	PasswordSectionIndex
 };
 
 @interface PersonalRegisterTableViewController () <UITextFieldDelegate, ImageActionSheetControllerDelegate>
@@ -25,6 +31,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 @property (weak, nonatomic) UITextField *emailTextfield;
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
+
+@property (strong, nonatomic) NSArray *sectionTitles;
+@property (strong, nonatomic) NSArray *sectionCellsCount;
 
 @end
 
@@ -37,31 +46,46 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self setupDefaults];
 	
 	self.title = @"Individual account";
+	self.sectionTitles = @[@"",@"USERNAME / EMAIL",@"PASSWORD"];
+	self.sectionCellsCount = @[@1, @2, @3];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
 	
-	self.inputViewsCollection.textInputViews = @[self.emailTextfield, self.usernameTextfield, self.passwordTextfield , self.retypePasswordTextfield];
+	self.inputViewsCollection.textInputViews = @[self.usernameTextfield, self.emailTextfield, self.passwordTextfield , self.retypePasswordTextfield];
 }
 
 #pragma mark - Table view data source
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+	return self.sectionTitles.count;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return CellsCount;
+    return [self.sectionCellsCount[section] integerValue];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.item == AvatarCellIndex) {
+	if (indexPath.item == AvatarCellIndex && indexPath.section == LogoSectionIndex) {
         return [self avatarCellForIndexPath:indexPath];
-	} else if (indexPath.item == SaveButtonCellIndex) {
+	} else if (indexPath.item == SaveButtonCellIndex && indexPath.section == PasswordSectionIndex) {
 		return [self buttonCellForIndexPath:indexPath];
 	} else {
 		return [self inputCellForIndexPath:indexPath];
 	}
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+	CategoryHeaderView *view = [[CategoryHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 39)];
+	view.backgroundColor = [UIColor mainPageBGColor];
+	view.sectionTitleLabel.text = self.sectionTitles[section];
+	return view;
 }
 
 #pragma mark - UITableViewDelegate
@@ -69,14 +93,29 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	CGFloat height = InputCellHeigth * HeigthCoefficient;
-	if (indexPath.row == AvatarCellIndex) {
+	if (indexPath.row == AvatarCellIndex && indexPath.section == LogoSectionIndex) {
 		height = AvatarCellHeigth * HeigthCoefficient;
-	} else if (indexPath.row == SaveButtonCellIndex) {
+	} else if (indexPath.row == SaveButtonCellIndex && indexPath.section == PasswordSectionIndex) {
 		height = ButtonCellHeigth * HeigthCoefficient;
-	} else if (indexPath.row == UsernameCellIndex) {
-		height = (InputCellHeigth + AdditionalBottomInset) * HeigthCoefficient;
-	}
+	} 
 	return height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+	if(section == LogoSectionIndex)
+	{
+		return 0;
+	}
+	return 39.0f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if ( [[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[InputTableViewCell class]]) {
+		InputTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+		[cell.inputTextField becomeFirstResponder];
+	}
 }
 
 #pragma mark - Cells
@@ -85,44 +124,55 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	AvatarTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:AvatarTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
-	cell.avatarImageView.layer.borderColor = [UIColor grayColor].CGColor;
+	cell.avatarImageView.layer.borderColor = [UIColor colorWithRed:205 / 255.0f green:205 / 255.0f blue:205 / 255.0f alpha:1.0f].CGColor;
 	cell.avatarImageView.layer.borderWidth = 5.0f;
 	cell.avatarImageView.layer.cornerRadius = CGRectGetHeight(cell.avatarImageView.frame) / 2;
-	if (self.logoImage) {
-		cell.avatarImageView.image = self.logoImage;
+	if (self.avatarImage) {
+		cell.avatarImageView.image = self.avatarImage;
 	}
 	[cell.selectImageButton addTarget:self action:@selector(selectImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
 	return cell;
 }
 
 - (InputTableViewCell *)inputCellForIndexPath:(NSIndexPath *)indexPath
 {
 	InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
-	cell.backgroundColor = [UIColor mainPageBGColor];
+//	cell.backgroundColor = [UIColor mainPageBGColor];
     cell.inputTextField.returnKeyType = UIReturnKeyNext;
-	if (indexPath.item == UsernameCellIndex) {
-		cell.inputTextField.placeholder = TextFieldNicknamePlaceholder;
-		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
-		cell.inputTextField.text = self.tempUser.username;
-		self.usernameTextfield = cell.inputTextField;
-		cell.bottomInsetConstraint.constant = AdditionalBottomInset;
-	} else if (indexPath.item == EmailCellIndex) {
-		cell.inputTextField.placeholder = TextFieldEmailPlaceholder;
-		cell.inputTextField.keyboardType = UIKeyboardTypeEmailAddress;
-		cell.inputTextField.text = self.tempUser.email;
-		self.emailTextfield = cell.inputTextField;
-	} else if (indexPath.item == PasswordCellIndex) {
-		cell.inputTextField.placeholder = TextFieldPasswordPlaceholder;
-		cell.inputTextField.text = self.tempUser.password;
-		cell.inputTextField.secureTextEntry = YES;
-		self.passwordTextfield = cell.inputTextField;
-	} else if (indexPath.item == RetypePasswordCellIndex) {
-		cell.inputTextField.placeholder = TextFieldRePasswordPlaceholder;
-		cell.inputTextField.text = self.tempUser.rePassword;
-		cell.inputTextField.secureTextEntry = YES;
-		cell.inputTextField.returnKeyType = UIReturnKeyDone;
-		self.retypePasswordTextfield = cell.inputTextField;
+	if (indexPath.section == ProfileSectionIndex) {
+		if (indexPath.item == UsernameCellIndex) {
+			cell.inputTextField.placeholder = TextFieldNicknamePlaceholder;
+			cell.placeholderLabel.text = TextFieldNicknameLabel;
+			cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
+			cell.inputTextField.text = self.tempUser.username;
+			self.usernameTextfield = cell.inputTextField;
+		} else if (indexPath.item == EmailCellIndex) {
+			cell.placeholderLabel.text = TextFieldEmailLabel;
+			cell.inputTextField.placeholder = TextFieldEmailPlaceholder;
+			cell.inputTextField.keyboardType = UIKeyboardTypeEmailAddress;
+			cell.inputTextField.text = self.tempUser.email;
+			self.emailTextfield = cell.inputTextField;
+		}
+	} else if (indexPath.section == PasswordSectionIndex) {
+		if (indexPath.item == PasswordCellIndex) {
+			cell.inputTextField.placeholder = TextFieldPasswordPlaceholder;
+			cell.placeholderLabel.text = TextFieldPasswordLabel;
+			cell.inputTextField.text = self.tempUser.password;
+			cell.inputTextField.secureTextEntry = YES;
+			self.passwordTextfield = cell.inputTextField;
+		} else if (indexPath.item == RetypePasswordCellIndex) {
+			cell.inputTextField.placeholder = TextFieldRePasswordPlaceholder;
+			cell.placeholderLabel.text = TextFieldRePasswordLabel;
+			cell.inputTextField.text = self.tempUser.rePassword;
+			cell.inputTextField.secureTextEntry = YES;
+			cell.inputTextField.returnKeyType = UIReturnKeyDone;
+			self.retypePasswordTextfield = cell.inputTextField;
+		}
 	}
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
 	cell.inputTextField.delegate = self;
 	return cell;
 }
@@ -159,7 +209,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [self.tableView endEditing:YES];
     [self.loader show];
     __weak typeof(self) weakSelf = self;
-    [[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:self.usernameTextfield.text password:self.passwordTextfield.text languageId:@"" customerTypeId:IndividualAccount companyname:@"" website:@"" phone:@"" avatar:[Utils scaledImage:self.logoImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+	[[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:self.usernameTextfield.text password:self.passwordTextfield.text languageId:@"" customerTypeId:IndividualAccount companyname:@"" website:@"" phone:@"" avatar:[Utils scaledImage:self.avatarImage] logo:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
         if (error) {
             if (response[@"error_message"]) {
                 [Utils showErrorWithMessage:response[@"error_message"]];
