@@ -137,7 +137,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	BusinessProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessProfileLogoTableViewCell.ID forIndexPath:indexPath];
     cell.user = self.user;
     UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTap:)];
-    [cell.logoImageView addGestureRecognizer:imageTapGesture];
+
+	if (self.user.avatarUrl) {
+		[cell.avatarImageView addGestureRecognizer:imageTapGesture];
+	}
+	
+	if (self.user.logoUrl) {
+		[cell.logoImageView addGestureRecognizer:imageTapGesture];
+	}
+
 	return cell;
 }
 
@@ -166,10 +174,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)avatarTap:(UITapGestureRecognizer *)sender
 {
-    if (self.user.avatarUrl && ((UIImageView *)sender.view).image) {
+    if (((UIImageView *)sender.view).image) {
         CGRect cellFrame = [self.navigationController.view convertRect:sender.view.superview.superview.frame fromView:self.tableView];
         CGRect imageViewRect = sender.view.frame;
-        imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
+		imageViewRect.origin.x = imageViewRect.origin.x; //(ScreenWidth - imageViewRect.size.width) / 2;
         imageViewRect.origin.y += cellFrame.origin.y;
         
         FullScreenImageViewController *imageController = [FullScreenImageViewController new];

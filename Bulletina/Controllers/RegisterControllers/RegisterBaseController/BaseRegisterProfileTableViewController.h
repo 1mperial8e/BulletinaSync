@@ -73,6 +73,9 @@ typedef NS_ENUM(NSUInteger, imageIndexes) {
 
 @property (strong, nonatomic) UserModel *tempUser;
 
+@property (strong, nonatomic) NSArray *sectionTitles;
+@property (strong, nonatomic) NSArray *sectionCellsCount;
+
 #pragma mark - Utils
 
 - (void)updateImage:(UIImage *)image forImageIndex:(NSInteger)imageIndex;

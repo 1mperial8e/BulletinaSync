@@ -104,6 +104,7 @@
                                         phone:(NSString *)phone
                                   description:(NSString *)description
                                        avatar:(UIImage *)avatar
+									   logo:(UIImage *)logo
                                withCompletion:(ResponseBlock)completion
 {
 	NSMutableDictionary *updateParameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];

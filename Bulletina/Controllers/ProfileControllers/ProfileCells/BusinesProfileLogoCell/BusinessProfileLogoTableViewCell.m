@@ -101,8 +101,8 @@ static CGFloat const BusinessCompanyNameHeight = 34;
 	}
 	
     if (self.user.avatarUrl) {
-        [self.logoImageView setImageWithURL:self.user.avatarUrl];
-		self.logoImageView.layer.cornerRadius = 10;
+        [self.avatarImageView setImageWithURL:self.user.avatarUrl];
+		self.avatarImageView.layer.cornerRadius = CGRectGetHeight(self.avatarImageView.frame) / 2;
     }
 	
 	self.logoHeightConstraint.constant = BusinessLogoHeight * HeigthCoefficient;

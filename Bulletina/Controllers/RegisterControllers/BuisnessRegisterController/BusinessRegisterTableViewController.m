@@ -41,9 +41,6 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
-@property (strong, nonatomic) NSArray *sectionTitles;
-@property (strong, nonatomic) NSArray *sectionCellsCount;
-
 @end
 
 @implementation BusinessRegisterTableViewController
@@ -79,11 +76,6 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
 {
     return [self.sectionCellsCount[section] integerValue];
 }
-
-//- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//	return self.sectionTitles[section];
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -153,7 +145,7 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
 	
 	cell.avatarImageView.layer.borderColor = [UIColor colorWithRed:205 / 255.0f green:205 / 255.0f blue:205 / 255.0f alpha:1.0f].CGColor;
 	cell.avatarImageView.layer.borderWidth = 5.0f;
-	cell.avatarImageView.layer.cornerRadius = CGRectGetHeight(cell.logoImageView.frame) / 2;
+	cell.avatarImageView.layer.cornerRadius = CGRectGetHeight(cell.avatarImageView.frame) / 2;
 	cell.selectAvatarButton.tag = AvatarImageIndex;
 	
 	cell.logoImageView.layer.borderColor = [UIColor colorWithRed:205 / 255.0f green:205 / 255.0f blue:205 / 255.0f alpha:1.0f].CGColor;

@@ -9,17 +9,19 @@
 //Controllers
 #import "AnonymusProfileEditTableViewController.h"
 
-static NSInteger const CellsCount = 8;
-
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
-	AvatarCellIndex,
-	EmailCellIndex,
-	UsernameCellIndex,
-	FullNameCellIndex,
-	AboutMeCellIndex,
-	PasswordCellIndex,
-	RetypePasswordCellIndex,
-	SaveButtonCellIndex
+	AvatarCellIndex = 0,
+	UsernameCellIndex = 0,
+	EmailCellIndex = 1,
+	PasswordCellIndex = 0,
+	RetypePasswordCellIndex = 1,
+	SaveButtonCellIndex = 2
+};
+
+typedef NS_ENUM(NSUInteger, SectionsIndexes) {
+	LogoSectionIndex,
+	ProfileSectionIndex,
+	PasswordSectionIndex
 };
 
 @interface AnonymusProfileEditTableViewController () 
@@ -34,11 +36,25 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @implementation AnonymusProfileEditTableViewController
 
+#pragma mark - Lifecycle
+
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	self.sectionTitles = @[@"",@"USERNAME / EMAIL",@"PASSWORD"];
+	self.sectionCellsCount = @[@1, @2, @3];
+}
+
 #pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+	return self.sectionTitles.count;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return CellsCount;
+	return [self.sectionCellsCount[section] integerValue];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -47,9 +63,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	
 	if (indexPath.item == AvatarCellIndex) {
 		return [self avatarCellForIndexPath:indexPath];
-	} else if (indexPath.item == AboutMeCellIndex) {
-		return [self aboutCellForIndexPath:indexPath];
-	} else if (indexPath.item == SaveButtonCellIndex) {
+	}
+//	else if (indexPath.item == AboutCellIndex) {
+//		return [self aboutCellForIndexPath:indexPath];
+//	}
+	else if (indexPath.item == SaveButtonCellIndex) {
 		return [self buttonCellForIndexPath:indexPath];
 	} else {
 		return [self inputCellForIndexPath:indexPath];
@@ -65,9 +83,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		return AvatarCellHeigth * HeigthCoefficient;
 	} else if (indexPath.row == SaveButtonCellIndex) {
 		return ButtonCellHeigth * HeigthCoefficient;
-	} else if (indexPath.row == AboutMeCellIndex) {
-		return [self heightForAboutCell];
 	}
+//	else if (indexPath.row == AboutMeCellIndex) {
+//		return [self heightForAboutCell];
+//	}
 	return height;
 }
 
@@ -76,7 +95,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (InputTableViewCell *)inputCellForIndexPath:(NSIndexPath *)indexPath
 {
 	InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
-	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == EmailCellIndex) {
 		cell.inputTextField.placeholder = @"Email:";
@@ -86,11 +104,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		cell.inputTextField.placeholder = @"Nickname:";
 		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
 		self.usernameTextfield = cell.inputTextField;
-	} else if (indexPath.item == FullNameCellIndex) {
-		cell.inputTextField.placeholder = @"Fullname:";
-		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
-		self.fullNameTextfield = cell.inputTextField;
-	} else if (indexPath.item == PasswordCellIndex) {
+	}
+//	else if (indexPath.item == FullNameCellIndex) {
+//		cell.inputTextField.placeholder = @"Fullname:";
+//		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
+//		self.fullNameTextfield = cell.inputTextField;
+//	}
+	else if (indexPath.item == PasswordCellIndex) {
 		cell.inputTextField.placeholder = @"New password:";
 		cell.inputTextField.secureTextEntry = YES;
 		self.passwordTextfield = cell.inputTextField;
@@ -101,6 +121,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		self.retypePasswordTextfield = cell.inputTextField;
 	}
 	cell.inputTextField.delegate = self;
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	return cell;
 }
 
@@ -130,11 +151,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.inputViewsCollection.textInputViews =  views;
 }
 
-- (void)updateImage:(UIImage *)image;
-{
-	self.logoImage = image;
-	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:AvatarCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
+//- (void)updateImage:(UIImage *)image;
+//{
+//	self.logoImage = image;
+//	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:AvatarCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+//}
 
 #pragma mark - Actions
 
@@ -159,7 +180,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
 		NSString *aboutText = [self.aboutCell.aboutTextView.text isEqualToString:TextViewPlaceholderText] ? @"" : self.aboutCell.aboutTextView.text;
-        [[APIClient sharedInstance] updateUserWithEmail:self.emailTextfield.text username:self.usernameTextfield.text fullname:self.fullNameTextfield.text companyname:@"" password:self.passwordTextfield.text website:@"" facebook:@"" linkedin:@"" phone:@"" description:aboutText avatar:[Utils scaledImage:self.logoImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[[APIClient sharedInstance] updateUserWithEmail:self.emailTextfield.text username:self.usernameTextfield.text fullname:self.fullNameTextfield.text companyname:@"" password:self.passwordTextfield.text website:@"" facebook:@"" linkedin:@"" phone:@"" description:aboutText avatar:[Utils scaledImage:self.avatarImage] logo:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
 				if (response[@"error_message"]) {
 					[Utils showErrorWithMessage:response[@"error_message"]];

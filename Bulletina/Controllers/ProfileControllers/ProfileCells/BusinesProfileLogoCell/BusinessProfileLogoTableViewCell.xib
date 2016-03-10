@@ -139,7 +139,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2zT-nh-kO5" userLabel="AvatarContainer">
                                 <rect key="frame" x="0.0" y="0.0" width="123" height="99"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PersonalAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="fP1-IV-kxc">
+                                    <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PersonalAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="fP1-IV-kxc">
                                         <rect key="frame" x="17" y="11" width="81" height="81"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="81" id="l87-af-kGN"/>

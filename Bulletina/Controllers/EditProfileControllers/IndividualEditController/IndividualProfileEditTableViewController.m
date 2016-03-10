@@ -44,11 +44,25 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @implementation IndividualProfileEditTableViewController
 
+#pragma mark - Lifecycle
+
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	self.sectionTitles = @[@"",@"",@"ABOUT US"];
+	self.sectionCellsCount = @[@1, @1, @2];
+}
+
 #pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+	return self.sectionTitles.count;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return CellsCount;
+	return [self.sectionCellsCount[section] integerValue];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -86,7 +100,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (InputTableViewCell *)inputCellForIndexPath:(NSIndexPath *)indexPath
 {
 	InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
-	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.item == UsernameCellIndex) {
 		cell.inputTextField.placeholder = TextFieldNicknamePlaceholder;
@@ -104,6 +117,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		self.fullNameTextfield = cell.inputTextField;
 	}
 	cell.inputTextField.delegate = self;
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
 	return cell;
 }
 
@@ -124,11 +139,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.inputViewsCollection.textInputViews =  views;
 }
 
-- (void)updateImage:(UIImage *)image;
-{
-	self.logoImage = image;
-	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:AvatarCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
+//- (void)updateImage:(UIImage *)image;
+//{
+//	self.logoImage = image;
+//	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:AvatarCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+//}
 
 #pragma mark - Actions
 
@@ -143,7 +158,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
 		NSString *aboutText = [self.aboutCell.aboutTextView.text isEqualToString:TextViewPlaceholderText] ? @"" : self.aboutCell.aboutTextView.text;
-        [[APIClient sharedInstance] updateUserWithEmail:nil username:self.usernameTextfield.text fullname:self.fullNameTextfield.text companyname:@"" password:@"" website:@"" facebook:@"" linkedin:@"" phone:@"" description:aboutText avatar:[Utils scaledImage:self.logoImage] withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+        [[APIClient sharedInstance] updateUserWithEmail:nil username:self.usernameTextfield.text fullname:self.fullNameTextfield.text companyname:@"" password:@"" website:@"" facebook:@"" linkedin:@"" phone:@"" description:aboutText avatar:[Utils scaledImage:self.avatarImage] logo:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
 				if (response[@"error_message"]) {
 					[Utils showErrorWithMessage:response[@"error_message"]];

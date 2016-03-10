@@ -44,6 +44,7 @@
                                         phone:(NSString *)phone
                                   description:(NSString *)description
                                        avatar:(UIImage *)avatar
+										 logo:(UIImage *)logo
                                withCompletion:(ResponseBlock)completion;
 
 

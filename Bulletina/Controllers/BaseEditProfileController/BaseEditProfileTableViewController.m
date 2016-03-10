@@ -44,14 +44,13 @@
 - (void)tableViewSetup
 {
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-	self.tableView.separatorColor = [UIColor clearColor];
 	[self.tableView registerNib:AvatarTableViewCell.nib forCellReuseIdentifier:AvatarTableViewCell.ID];
 	[self.tableView registerNib:BusinessLogoTableViewCell.nib forCellReuseIdentifier:BusinessLogoTableViewCell.ID];
 	[self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
 	[self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
 	[self.tableView registerNib:EditProfileAboutTableViewCell.nib forCellReuseIdentifier:EditProfileAboutTableViewCell.ID];
-	
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 30, 0)];
+	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];	
 }
 
 - (void)setupDefaults
@@ -81,7 +80,9 @@
     } else {
         cell.avatarImageView.image = self.logoImage;
     }
-    
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+
 	[cell.selectImageButton addTarget:self action:@selector(selectImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 	return cell;
 }
@@ -90,32 +91,52 @@
 {
 	BusinessLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessLogoTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor mainPageBGColor];
-    if (!self.logoImage) {
+	
+    if (!self.avatarImage) {
         if ([APIClient sharedInstance].currentUser.avatarUrl) {
-            [cell.logoImageView setImageWithURL:[APIClient sharedInstance].currentUser.avatarUrl];
+            [cell.avatarImageView setImageWithURL:[APIClient sharedInstance].currentUser.avatarUrl];
         }
     } else {
-        cell.logoImageView.image = self.logoImage;
+        cell.avatarImageView.image = self.avatarImage;
     }
-	cell.logoImageView.layer.borderColor = [UIColor grayColor].CGColor;
-	cell.logoImageView.layer.borderWidth = 2.0f;
-	cell.logoImageView.layer.cornerRadius = 10;
+	
+	if (!self.logoImage) {
+		if ([APIClient sharedInstance].currentUser.logoUrl) {
+			[cell.logoImageView setImageWithURL:[APIClient sharedInstance].currentUser.logoUrl];
+		}
+	} else {
+		cell.logoImageView.image = self.logoImage;
+	}
+	
+	cell.avatarImageView.layer.borderColor = [UIColor colorWithRed:205 / 255.0f green:205 / 255.0f blue:205 / 255.0f alpha:1.0f].CGColor;
+	cell.avatarImageView.layer.borderWidth = 5.0f;
+	cell.avatarImageView.layer.cornerRadius = CGRectGetHeight(cell.avatarImageView.frame) / 2;
+	cell.selectAvatarButton.tag = AvatarImageIndex;
+	
+	cell.logoImageView.layer.borderColor = [UIColor colorWithRed:205 / 255.0f green:205 / 255.0f blue:205 / 255.0f alpha:1.0f].CGColor;
+	cell.logoImageView.layer.borderWidth = 1.0f;
+	cell.logoImageView.layer.cornerRadius = 13;
+	cell.selectLogoButton.tag = LogoImageIndex;
 	
 	[cell.selectLogoButton addTarget:self action:@selector(selectImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+	[cell.selectAvatarButton addTarget:self action:@selector(selectImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	return cell;
 }
 
 - (EditProfileAboutTableViewCell *)aboutCellForIndexPath:(NSIndexPath *)indexPath
 {
 	self.aboutCell = [self.tableView dequeueReusableCellWithIdentifier:EditProfileAboutTableViewCell.ID forIndexPath:indexPath];
-	self.aboutCell .backgroundColor = [UIColor mainPageBGColor];
-	self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyNext;
+	
 	self.aboutCell.aboutTextView.delegate = self;
-	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(10, 5, 10, 5)];
-	self.aboutCell.aboutTextView.layer.borderColor = [UIColor colorWithRed:225 / 255.0f green:225 / 255.0f  blue:225 / 255.0f  alpha:1].CGColor;
-	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
-	self.aboutCell.aboutTextView.layer.cornerRadius = 5;
-	self.aboutCell.aboutTextView.textColor = [UIColor blackColor];
+	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(20, 0, 15, 0)];
+	self.aboutCell.aboutTextView.textContainer.lineFragmentPadding = 0;
+
+//	self.aboutCell.aboutTextView.layer.borderColor = [UIColor colorWithRed:225 / 255.0f green:225 / 255.0f  blue:225 / 255.0f  alpha:1].CGColor;
+//	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
+//	self.aboutCell.aboutTextView.layer.cornerRadius = 5;
+	self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:155 / 255.0f green:155 / 255.0f  blue:155 / 255.0f  alpha:1];
 	self.aboutCell.aboutTextView.placeholder = TextViewPlaceholderText;
 
 	if (!self.aboutCell.aboutTextView.text.length && !self.aboutCell.isEdited) {
@@ -124,6 +145,10 @@
 	if ([APIClient sharedInstance].currentUser.customerTypeId != AnonymousAccount) {
         self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyDone;
 	}
+	self.aboutCell.selectionStyle = UITableViewCellSelectionStyleNone;
+//	self.aboutCell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+
+
 	return self.aboutCell ;
 }
 
@@ -133,13 +158,17 @@
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.saveButton.layer.cornerRadius = 5;
 	[cell.saveButton addTarget:self action:@selector(saveButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+
 	return cell;
 }
 
 #pragma mark - Actions
 
-- (void)selectImageButtonTap:(id)sender
+- (void)selectImageButtonTap:(UIButton *)sender
 {
+	self.currentImageIndex = sender.tag;
 	ImageActionSheetController *imageController = [ImageActionSheetController new];
 	imageController.delegate = self;
 	imageController.cancelButtonTintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
@@ -147,7 +176,7 @@
 	__weak typeof(self) weakSelf = self;
 	imageController.photoDidSelectImageInPreview = ^(UIImage *image) {
 		__strong typeof(weakSelf) strongSelf = weakSelf;
-		[strongSelf updateImage:image];
+		[strongSelf updateImage:image forImageIndex:self.currentImageIndex];
 	};
 	[self presentViewController:imageController animated:YES completion:nil];
 }
@@ -164,7 +193,7 @@
 	if (!self.aboutCell) {
 		self.aboutCell = [[NSBundle mainBundle] loadNibNamed:EditProfileAboutTableViewCell.ID owner:nil options:nil].firstObject;
 	}
-	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(10, 5, 10, 5)];
+	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(20, 0, 15, 0)];
 	
 	if (!self.aboutCell.aboutTextView.text.length && !self.aboutCell.isEdited) {
 		self.aboutCell.aboutTextView.text = [APIClient sharedInstance].currentUser.about.length ? [APIClient sharedInstance].currentUser.about : @"";
@@ -173,17 +202,23 @@
 	CGFloat height;
 	if (!self.aboutCell.aboutTextView.text.length) {
 		self.aboutCell.aboutTextView.text = TextViewPlaceholderText;
-		height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 0.5);
+		height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 30, MAXFLOAT)].height + 0.5);
 		self.aboutCell.aboutTextView.text = @"";
 	} else {
-		height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 34, MAXFLOAT)].height + 2.5);
+		height = ceil([self.aboutCell.aboutTextView sizeThatFits:CGSizeMake(ScreenWidth - 30, MAXFLOAT)].height + 2.5);
 	}
 	return height + 5.f;
 }
 
-- (void)updateImage:(UIImage *)image;
+- (void)updateImage:(UIImage *)image forImageIndex:(NSInteger)imageIndex
 {
-	DLog(@"Not implemented");
+	if (imageIndex == LogoImageIndex) {
+		self.logoImage = image;
+	} else {
+		self.avatarImage = image;
+	}
+	
+	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:LogoCellSharedIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -253,9 +288,9 @@
 		[self.tableView beginUpdates];
 		[self.tableView endUpdates];
 	
-		CGRect textViewRect = [self.tableView convertRect:textView.frame fromView:textView.superview];
-		textViewRect.origin.y += 5;
-		[self.tableView scrollRectToVisible:textViewRect animated:YES];
+//		CGRect textViewRect = [self.tableView convertRect:textView.frame fromView:textView.superview];
+//		textViewRect.origin.y += 5;
+//		[self.tableView scrollRectToVisible:textViewRect animated:YES];
 	}
 }
 
@@ -268,12 +303,12 @@
 
 - (void)imageActionSheetControllerDidSelectImageWithPicker:(UIImage *)image
 {
-    [self updateImage:image];
+	[self updateImage:image forImageIndex:self.currentImageIndex];
 }
 
 - (void)imageActionSheetControllerDidTakeImageWithPicker:(UIImage *)image
 {
-    [self updateImage:image];
+	[self updateImage:image forImageIndex:self.currentImageIndex];
 }
 
 @end

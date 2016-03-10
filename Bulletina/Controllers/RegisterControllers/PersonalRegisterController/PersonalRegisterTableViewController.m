@@ -32,9 +32,6 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
 @property (weak, nonatomic) UITextField *passwordTextfield;
 @property (weak, nonatomic) UITextField *retypePasswordTextfield;
 
-@property (strong, nonatomic) NSArray *sectionTitles;
-@property (strong, nonatomic) NSArray *sectionCellsCount;
-
 @end
 
 @implementation PersonalRegisterTableViewController
