@@ -24,7 +24,7 @@
 //Models
 #import "APIClient+User.h"
 
-static NSString *const TextViewPlaceholderText = @"About:";
+static NSString *const TextViewPlaceholderText = @"description";
 
 static NSString *const TextFieldEmailPlaceholder = @"post@domain.com";
 static NSString *const TextFieldCompanyNamePlaceholder = @"CompanyName Inc";
@@ -48,7 +48,7 @@ static NSString *const TextFieldRePasswordLabel = @"Repeat password:";
 static NSString *const TextFieldNicknameLabel = @"Nickname:";
 static NSString *const TextFieldFullnameLabel = @"Fullname:";
 
-static CGFloat const AvatarCellHeigth = 218;
+static CGFloat const AvatarCellHeigth = 200;
 static CGFloat const BusinessHeaderCellHeigth = 168;
 static CGFloat const LogoCellHeigth = 178;
 static CGFloat const InputCellHeigth = 44;

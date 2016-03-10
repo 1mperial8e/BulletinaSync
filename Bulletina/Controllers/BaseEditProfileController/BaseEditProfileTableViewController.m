@@ -73,12 +73,12 @@
 	cell.avatarImageView.layer.borderColor = [UIColor grayColor].CGColor;
 	cell.avatarImageView.layer.borderWidth = 5.0f;
 	cell.avatarImageView.layer.cornerRadius = CGRectGetHeight(cell.avatarImageView.frame) / 2;
-	if (!self.logoImage) {
+	if (!self.avatarImage) {
         if ([APIClient sharedInstance].currentUser.avatarUrl) {
             [cell.avatarImageView setImageWithURL:[APIClient sharedInstance].currentUser.avatarUrl];
         }
     } else {
-        cell.avatarImageView.image = self.logoImage;
+        cell.avatarImageView.image = self.avatarImage;
     }
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);

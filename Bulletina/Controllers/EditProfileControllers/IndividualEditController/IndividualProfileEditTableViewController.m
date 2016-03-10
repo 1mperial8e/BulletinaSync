@@ -23,15 +23,19 @@
 //Models
 #import "APIClient+User.h"
 
-static NSInteger const CellsCount = 6;
-
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
-	AvatarCellIndex,
-	EmailCellIndex,
-	UsernameCellIndex,
-	FullNameCellIndex,
-	AboutMeCellIndex,
-	SaveButtonCellIndex
+	AvatarCellIndex = 0,
+	EmailCellIndex = 0,
+	UsernameCellIndex = 1,
+	FullNameCellIndex = 2,
+	AboutMeCellIndex = 0,
+	SaveButtonCellIndex = 1
+};
+
+typedef NS_ENUM(NSUInteger, SectionsIndexes) {
+	LogoSectionIndex,
+	ProfileSectionIndex,
+	AboutSectionIndex
 };
 
 @interface IndividualProfileEditTableViewController () 
@@ -49,8 +53,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	self.sectionTitles = @[@"",@"",@"ABOUT US"];
-	self.sectionCellsCount = @[@1, @1, @2];
+	self.sectionTitles = @[@"",@"PROFILE",@"ABOUT US"];
+	self.sectionCellsCount = @[@1, @3, @2];
 }
 
 #pragma mark - Table view data source
@@ -69,15 +73,23 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	[self refreshInputViews];
 	
-	if (indexPath.item == AvatarCellIndex) {
+	if (indexPath.item == AvatarCellIndex && indexPath.section == LogoSectionIndex) {
 		return [self avatarCellForIndexPath:indexPath];
-	} else if (indexPath.item == AboutMeCellIndex) {
+	} else if (indexPath.item == AboutMeCellIndex && indexPath.section == AboutSectionIndex) {
 		return [self aboutCellForIndexPath:indexPath];
-	} else if (indexPath.item == SaveButtonCellIndex) {
+	} else if (indexPath.item == SaveButtonCellIndex && indexPath.section == AboutSectionIndex) {
 		return [self buttonCellForIndexPath:indexPath];
 	} else {
 		return [self inputCellForIndexPath:indexPath];
 	}
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+	CategoryHeaderView *view = [[CategoryHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 39)];
+	view.backgroundColor = [UIColor mainPageBGColor];
+	view.sectionTitleLabel.text = self.sectionTitles[section];
+	return view;
 }
 
 #pragma mark - UITableViewDelegate
@@ -85,14 +97,31 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	CGFloat height = InputCellHeigth * HeigthCoefficient;
-	if (indexPath.row == AvatarCellIndex) {
+	if (indexPath.row == AvatarCellIndex && indexPath.section == LogoSectionIndex) {
 		return AvatarCellHeigth * HeigthCoefficient;
-	} else if (indexPath.row == SaveButtonCellIndex) {
+	} else if (indexPath.row == SaveButtonCellIndex && indexPath.section == AboutSectionIndex) {
 		return ButtonCellHeigth * HeigthCoefficient;
-	} else if (indexPath.row == AboutMeCellIndex) {
+	} else if (indexPath.row == AboutMeCellIndex && indexPath.section == AboutSectionIndex) {
 		return [self heightForAboutCell];
 	}
 	return height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+	if(section == LogoSectionIndex)
+	{
+		return 0;
+	}
+	return 39.0f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if ( [[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[InputTableViewCell class]]) {
+		InputTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+		[cell.inputTextField becomeFirstResponder];
+	}
 }
 
 #pragma mark - Cells
@@ -101,22 +130,27 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
 	cell.inputTextField.returnKeyType = UIReturnKeyNext;
-	if (indexPath.item == UsernameCellIndex) {
-		cell.inputTextField.placeholder = TextFieldNicknamePlaceholder;
-		cell.inputTextField.text = self.tempUser.username;
-		cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
-		self.usernameTextfield = cell.inputTextField;
-	} else if (indexPath.item == EmailCellIndex) {
-		cell.inputTextField.placeholder = TextFieldEmailPlaceholder;
-		self.emailTextfield = cell.inputTextField;
-		cell.inputTextField.text = self.tempUser.email;
-		cell.inputTextField.enabled = NO;
-	} else if (indexPath.item == FullNameCellIndex) {
-		cell.inputTextField.placeholder = TextFieldFullnamePlaceholder;
-		cell.inputTextField.text = self.tempUser.name;
-		self.fullNameTextfield = cell.inputTextField;
+	if (indexPath.section == ProfileSectionIndex) {
+		if (indexPath.item == UsernameCellIndex) {
+			cell.inputTextField.placeholder = TextFieldNicknamePlaceholder;
+			cell.placeholderLabel.text = TextFieldNicknameLabel;
+			cell.inputTextField.text = self.tempUser.username;
+			cell.inputTextField.keyboardType = UIKeyboardTypeASCIICapable;
+			self.usernameTextfield = cell.inputTextField;
+		} else if (indexPath.item == EmailCellIndex) {
+			cell.inputTextField.placeholder = TextFieldEmailPlaceholder;
+			cell.placeholderLabel.text = TextFieldEmailLabel;
+			self.emailTextfield = cell.inputTextField;
+			cell.inputTextField.text = self.tempUser.email;
+			cell.inputTextField.enabled = NO;
+		} else if (indexPath.item == FullNameCellIndex) {
+			cell.inputTextField.placeholder = TextFieldFullnamePlaceholder;
+			cell.placeholderLabel.text = TextFieldFullnameLabel;
+			cell.inputTextField.text = self.tempUser.name;
+			self.fullNameTextfield = cell.inputTextField;
+		}
 	}
-	cell.inputTextField.delegate = self;
+		cell.inputTextField.delegate = self;
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
 	return cell;

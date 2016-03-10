@@ -11,10 +11,10 @@
 
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	LogoCellIndex = 0,
-	NicknameCellIndex = 0,
-	CompanyNameCellIndex = 1,
-	PhoneCellIndex = 2,
-	EmailCellIndex = 3,
+	EmailCellIndex = 0,
+	NicknameCellIndex = 1,
+	CompanyNameCellIndex = 2,
+	PhoneCellIndex = 3,
 	WebsiteCellIndex = 0,
 	FacebookCellIndex = 1,
 	LinkedinCellIndex = 2,
@@ -189,6 +189,9 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
 {
 	NSMutableArray *views = [[NSMutableArray alloc] init];
 	
+	if (self.emailTextfield) {
+		[views addObject:self.emailTextfield];
+	}
 	if (self.nicknameTextfield) {
 		[views addObject:self.nicknameTextfield];
 	}
@@ -197,9 +200,6 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
 	}
 	if (self.phoneTextfield) {
 		[views addObject:self.phoneTextfield];
-	}
-	if (self.emailTextfield) {
-		[views addObject:self.emailTextfield];
 	}
 	if (self.websiteTextfield) {
 		[views addObject:self.websiteTextfield];

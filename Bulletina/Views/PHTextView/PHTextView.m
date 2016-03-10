@@ -57,7 +57,7 @@
 {
 	CGFloat labelWidth = CGRectGetWidth(self.frame) - self.textContainerInset.left - self.textContainerInset.right - 5;
 	CGFloat labelHeight = CGRectGetHeight(self.frame) - self.textContainerInset.top - self.textContainerInset.bottom;
-	CGRect labelFrame = CGRectMake(self.textContainerInset.left + 5, self.textContainerInset.top, labelWidth, labelHeight);
+	CGRect labelFrame = CGRectMake(self.textContainerInset.left, self.textContainerInset.top, labelWidth, labelHeight);
 	return labelFrame;
 }
 
