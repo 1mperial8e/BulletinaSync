@@ -12,5 +12,6 @@
 @interface APIClient (Message)
 
 - (NSURLSessionTask *)fetchMyMessagesWithPage:(NSInteger)page withCompletion:(ResponseBlock)completion;
+- (NSURLSessionTask *)fetchMyUnreadMessagesCountWithCompletion:(ResponseBlock)completion;
 
 @end

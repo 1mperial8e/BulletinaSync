@@ -52,6 +52,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @property (strong, nonatomic) BulletinaLoaderView *loader;
 @property (assign, nonatomic) CGFloat topCellHeight;
+@property (assign, nonatomic) NSInteger unreadMessagesCount;
 
 @end
 
@@ -69,6 +70,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self tableViewSetup];
 	[self setupNavBar];
     [self reloadUser];
+	[self performSelector:@selector(checkMessages) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -148,6 +150,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == MessagesCellIndex) {
 		cell.label.text = @"Messages";
 		cell.iconImageView.image = [UIImage imageNamed:@"Messages"];
+		if (self.unreadMessagesCount) {
+			cell.messagesBadge.hidden = NO;
+			cell.messagesBadge.text = [NSString stringWithFormat:@"%li", self.unreadMessagesCount];
+			cell.messagesBadge.layer.cornerRadius = CGRectGetHeight(cell.messagesBadge.frame) / 2;
+		} else {
+			cell.messagesBadge.hidden = YES;
+		}
 	} else if (indexPath.item == SearchSettingsCellIndex) {
 		cell.label.text = @"Search settings";
 		cell.iconImageView.image = [UIImage imageNamed:@"SearchSettings"];
@@ -321,6 +330,19 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 			}
 		}];
 	}
+}
+
+- (void)checkMessages
+{
+	[[APIClient sharedInstance] fetchMyUnreadMessagesCountWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		if (error) {
+			[Utils showErrorForStatusCode:statusCode];
+		} else {
+			NSParameterAssert([response isKindOfClass:[NSDictionary class]]);
+			self.unreadMessagesCount = [response[@"count"] integerValue];
+			[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:MessagesCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+		}
+	}];
 }
 
 #pragma mark - Setup

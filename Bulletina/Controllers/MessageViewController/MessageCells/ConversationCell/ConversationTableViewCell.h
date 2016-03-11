@@ -1,5 +1,5 @@
 //
-//  MessageTableViewCell.h
+//  ConversationTableViewCell.h
 //  Bulletina
 //
 //  Created by Stas Volskyi on 1/21/16.
@@ -8,6 +8,6 @@
 
 #import "BaseTableViewCell.h"
 
-@interface MessageTableViewCell : BaseTableViewCell
+@interface ConversationTableViewCell : BaseTableViewCell
 
 @end

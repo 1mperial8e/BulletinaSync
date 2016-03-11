@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="KGk-i7-Jjw" customClass="ItemInfoTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="342" height="64"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26t-XC-9OL">
+                        <rect key="frame" x="95" y="7" width="211" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ItemExample" translatesAutoresizingMaskIntoConstraints="NO" id="n9z-7H-dXD">
+                        <rect key="frame" x="16" y="7" width="67" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="7Pm-wr-gJ6"/>
+                            <constraint firstAttribute="width" constant="67" id="tJb-9A-53p"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="26t-XC-9OL" secondAttribute="trailing" constant="36" id="Bs1-fW-CG8"/>
+                    <constraint firstItem="n9z-7H-dXD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="S7h-TA-u1M"/>
+                    <constraint firstItem="26t-XC-9OL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="THW-5u-X5Z"/>
+                    <constraint firstItem="26t-XC-9OL" firstAttribute="leading" secondItem="n9z-7H-dXD" secondAttribute="trailing" constant="12" id="hYW-hS-mWU"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="26t-XC-9OL" secondAttribute="bottom" constant="7" id="iGw-R3-JAW"/>
+                    <constraint firstItem="n9z-7H-dXD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uHp-ha-6cy"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="itemImageView" destination="n9z-7H-dXD" id="1po-JH-090"/>
+                <outlet property="itemTextLabel" destination="26t-XC-9OL" id="Gvh-Cw-siE"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ItemExample" width="343" height="257"/>
+    </resources>
+</document>
