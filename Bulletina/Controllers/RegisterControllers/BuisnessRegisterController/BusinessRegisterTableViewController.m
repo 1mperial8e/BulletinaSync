@@ -62,7 +62,6 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
 {
 	[super viewDidAppear:animated];
 	[self refreshInputViews];
-//	self.inputViewsCollection.textInputViews = @[self.emailTextfield, self.companyNameTextfield, self.phoneTextfield, self.websiteTextfield, self.passwordTextfield , self.retypePasswordTextfield];
 }
 
 #pragma mark - Table view data source
@@ -163,7 +162,6 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
 - (InputTableViewCell *)inputCellForIndexPath:(NSIndexPath *)indexPath
 {
 	InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
-//	cell.backgroundColor = [UIColor mainPageBGColor];
     cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.section == ProfileSectionIndex) {
 		if (indexPath.item == EmailCellIndex) {

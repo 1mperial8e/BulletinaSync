@@ -216,12 +216,6 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
 	self.inputViewsCollection.textInputViews =  views;
 }
 
-//- (void)updateImage:(UIImage *)image;
-//{
-//	self.logoImage = image;
-//	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:LogoCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-//}
-
 #pragma mark - Actions
 
 - (void)saveButtonTap:(id)sender
@@ -232,7 +226,7 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
         [self.tableView endEditing:YES];
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
-		NSString *aboutText = [self.aboutCell.aboutTextView.text isEqualToString:TextViewPlaceholderText] ? @"" : self.aboutCell.aboutTextView.text;
+
 		[[APIClient sharedInstance] updateUserWithEmail:nil
                                                username:self.nicknameTextfield.text
                                                fullname:nil
@@ -242,7 +236,7 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
                                                facebook:self.facebookTextfield.text
                                                linkedin:self.linkedinTextfield.text
                                                   phone:self.phoneTextfield.text
-                                            description:aboutText
+                                            description:self.aboutCell.aboutTextView.text
                                                  avatar:[Utils scaledImage:self.avatarImage]
 												 logo:[Utils scaledImage:self.logoImage]
                                          withCompletion:^(id response, NSError *error, NSInteger statusCode) {

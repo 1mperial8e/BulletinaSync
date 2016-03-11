@@ -190,12 +190,6 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
 	self.inputViewsCollection.textInputViews =  views;
 }
 
-//- (void)updateImage:(UIImage *)image;
-//{
-//	self.logoImage = image;
-//	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:AvatarCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-//}
-
 #pragma mark - Actions
 
 - (void)saveButtonTap:(id)sender
@@ -218,8 +212,7 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
         [self.tableView endEditing:YES];
 		[self.loader show];
 		__weak typeof(self) weakSelf = self;
-		NSString *aboutText = [self.aboutCell.aboutTextView.text isEqualToString:TextViewPlaceholderText] ? @"" : self.aboutCell.aboutTextView.text;
-		[[APIClient sharedInstance] updateUserWithEmail:self.emailTextfield.text username:self.usernameTextfield.text fullname:self.fullNameTextfield.text companyname:@"" password:self.passwordTextfield.text website:@"" facebook:@"" linkedin:@"" phone:@"" description:aboutText avatar:[Utils scaledImage:self.avatarImage] logo:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		[[APIClient sharedInstance] updateUserWithEmail:self.emailTextfield.text username:self.usernameTextfield.text fullname:self.fullNameTextfield.text companyname:@"" password:self.passwordTextfield.text website:@"" facebook:@"" linkedin:@"" phone:@"" description:self.aboutCell.aboutTextView.text avatar:[Utils scaledImage:self.avatarImage] logo:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 			if (error) {
 				if (response[@"error_message"]) {
 					[Utils showErrorWithMessage:response[@"error_message"]];

@@ -8,8 +8,6 @@
 
 #import "PersonalRegisterTableViewController.h"
 
-//static NSInteger const CellsCount = 6;
-
 typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	AvatarCellIndex = 0,
 	UsernameCellIndex = 0,
@@ -136,7 +134,6 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
 - (InputTableViewCell *)inputCellForIndexPath:(NSIndexPath *)indexPath
 {
 	InputTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:InputTableViewCell.ID forIndexPath:indexPath];
-//	cell.backgroundColor = [UIColor mainPageBGColor];
     cell.inputTextField.returnKeyType = UIReturnKeyNext;
 	if (indexPath.section == ProfileSectionIndex) {
 		if (indexPath.item == UsernameCellIndex) {
@@ -209,7 +206,7 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
 	[[APIClient sharedInstance] createUserWithEmail:self.emailTextfield.text username:self.usernameTextfield.text password:self.passwordTextfield.text languageId:@"" customerTypeId:IndividualAccount companyname:@"" website:@"" phone:@"" avatar:[Utils scaledImage:self.avatarImage] logo:nil withCompletion:^(id response, NSError *error, NSInteger statusCode) {
         if (error) {
             if (response[@"error_message"]) {
-                [Utils showErrorWithMessage:response[@"error_message"]];
+                [Utils showErrorWithMessage:response[@"	error_message"]];
             } else {
                 [Utils showErrorForStatusCode:statusCode];
             }

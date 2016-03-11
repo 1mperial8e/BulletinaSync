@@ -132,10 +132,6 @@
 	self.aboutCell.aboutTextView.delegate = self;
 	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(20, 0, 15, 0)];
 	self.aboutCell.aboutTextView.textContainer.lineFragmentPadding = 0;
-
-//	self.aboutCell.aboutTextView.layer.borderColor = [UIColor colorWithRed:225 / 255.0f green:225 / 255.0f  blue:225 / 255.0f  alpha:1].CGColor;
-//	self.aboutCell.aboutTextView.layer.borderWidth = 1.0f;
-//	self.aboutCell.aboutTextView.layer.cornerRadius = 5;
 	self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:155 / 255.0f green:155 / 255.0f  blue:155 / 255.0f  alpha:1];
 	self.aboutCell.aboutTextView.placeholder = TextViewPlaceholderText;
 
@@ -146,8 +142,6 @@
         self.aboutCell.aboutTextView.returnKeyType = UIReturnKeyDone;
 	}
 	self.aboutCell.selectionStyle = UITableViewCellSelectionStyleNone;
-//	self.aboutCell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
-
 
 	return self.aboutCell ;
 }
@@ -287,10 +281,6 @@
 	if (textView.contentSize.height > height + 1 || textView.contentSize.height < height - 1 || !textView.text.length) {
 		[self.tableView beginUpdates];
 		[self.tableView endUpdates];
-	
-//		CGRect textViewRect = [self.tableView convertRect:textView.frame fromView:textView.superview];
-//		textViewRect.origin.y += 5;
-//		[self.tableView scrollRectToVisible:textViewRect animated:YES];
 	}
 }
 

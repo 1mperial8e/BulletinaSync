@@ -24,6 +24,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChangedNotificationRecieved:) name:UITextViewTextDidChangeNotification object:nil];
 	[self setClipsToBounds:YES];
 	[self setTextContainerInset:UIEdgeInsetsMake(10, 20, 10, 20)];
+	self.textContainer.lineFragmentPadding = 0;
 	[self addLabel];
 }
 
