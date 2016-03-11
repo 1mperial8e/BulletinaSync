@@ -132,7 +132,6 @@
 	self.aboutCell.aboutTextView.delegate = self;
 	[self.aboutCell.aboutTextView setTextContainerInset:UIEdgeInsetsMake(20, 0, 15, 0)];
 	self.aboutCell.aboutTextView.textContainer.lineFragmentPadding = 0;
-	self.aboutCell.aboutTextView.textColor = [UIColor colorWithRed:155 / 255.0f green:155 / 255.0f  blue:155 / 255.0f  alpha:1];
 	self.aboutCell.aboutTextView.placeholder = TextViewPlaceholderText;
 
 	if (!self.aboutCell.aboutTextView.text.length && !self.aboutCell.isEdited) {

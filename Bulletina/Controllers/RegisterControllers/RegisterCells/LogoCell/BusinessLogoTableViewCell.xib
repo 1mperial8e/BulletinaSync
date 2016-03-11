@@ -20,7 +20,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQy-qK-Ep8">
                                 <rect key="frame" x="160" y="0.0" width="100" height="130"/>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BusinessLogoPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="u4r-hG-Ln5">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BusinessLogoPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="u4r-hG-Ln5">
                                 <rect key="frame" x="160" y="0.0" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="d2V-LH-qEk"/>

@@ -88,25 +88,6 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddNew_navbarIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewButtonAction:)];
 
-//	UILabel *numberBadge = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 18, 18)];
-//	numberBadge.backgroundColor =[UIColor redColor];
-//	numberBadge.clipsToBounds = YES;
-//	numberBadge.layer.cornerRadius = CGRectGetHeight(numberBadge.frame) / 2;
-//	numberBadge.text =@"99";
-//	numberBadge.textColor = [UIColor whiteColor];
-//	numberBadge.font = [UIFont systemFontOfSize:13];
-//	numberBadge.textAlignment = NSTextAlignmentCenter;
-//	
-//	UIButton *profileButton = [UIButton  buttonWithType:UIButtonTypeCustom];
-//	profileButton.frame = CGRectMake(0, 0, 30, 30);
-//	profileButton.layer.cornerRadius = 8;
-//	[profileButton setImage:[UIImage imageNamed:@"Profile_navbarIcon"]  forState:UIControlStateNormal];
-//	[profileButton addTarget:self action:@selector(profileButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-//	[profileButton addSubview:numberBadge];
-//	
-//	UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:profileButton];
-//	self.navigationItem.leftBarButtonItem = barButton;
-	
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Profile_navbarIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(profileButtonAction:)];
 	
 	UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"Nearby", @"Favorites"]];
@@ -255,7 +236,7 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 				[super failedToDownloadItemsWithError:error];
 			} else {
 				NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
-				NSArray *items = [ItemModel arrayWithFavoritreDictionariesArray:response];
+				NSArray *items = [ItemModel arrayWithDictionariesArray:response];
 				[super downloadedItems:items afterReload:reloadAll];
 			}
 		}];
