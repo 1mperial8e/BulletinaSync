@@ -238,7 +238,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	if (((UIImageView *)sender.view).image) {
 		CGRect cellFrame = [self.navigationController.view convertRect:sender.view.superview.superview.frame fromView:self.tableView];
 		CGRect imageViewRect = sender.view.frame;
-		imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
         imageViewRect.origin.y += cellFrame.origin.y;
 		
 		FullScreenImageViewController *imageController = [FullScreenImageViewController new];
@@ -334,13 +333,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)checkMessages
 {
+    __weak typeof(self) weakSelf = self;
 	[[APIClient sharedInstance] fetchMyUnreadMessagesCountWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
 			[Utils showErrorForStatusCode:statusCode];
 		} else {
 			NSParameterAssert([response isKindOfClass:[NSDictionary class]]);
-			self.unreadMessagesCount = [response[@"count"] integerValue];
-			[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:MessagesCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+			weakSelf.unreadMessagesCount = [response[@"count"] integerValue];
+			[weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:MessagesCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 		}
 	}];
 }
