@@ -128,7 +128,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor appOrangeColor]}];
     [Application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 	[Application setStatusBarStyle:UIStatusBarStyleLightContent];
-    
+	self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];    
     self.passwordTextfield.text = nil;
     self.usernameTextfield.text = nil;
 }

@@ -178,6 +178,7 @@ static NSInteger const UserTypeSectionsIndex = 2;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
 	CategoryHeaderView *headerView = [[CategoryHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 39)];
+	headerView.backgroundColor = [UIColor mainPageBGColor];
 	if (section == SearchAreaSectionsIndex) {
 		headerView.sectionTitleLabel.text = @"SEARCH AREA";
 	} else if (section == CategoryFilterSectionsIndex) {

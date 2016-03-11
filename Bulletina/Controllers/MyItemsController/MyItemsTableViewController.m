@@ -76,10 +76,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     }
     __weak typeof(self) weakSelf = self;
 	
-    self.downloadTask =
-//	[[APIClient sharedInstance] loadMyFavoriteItemsWithCompletion:
-//	[[APIClient sharedInstance] fetchItemsForUserId:self.user.userId page:self.currentPage withCompletion:
-	[[APIClient sharedInstance]fetchAllItemsForUserId:self.user.userId page:self.currentPage  withCompletion:
+    self.downloadTask = [[APIClient sharedInstance]fetchAllItemsForUserId:self.user.userId page:self.currentPage  withCompletion:
 						 ^(id response, NSError *error, NSInteger statusCode) {
         if ([weakSelf.refresh isRefreshing]) {
             [weakSelf.refresh endRefreshing];
@@ -88,7 +85,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             [super failedToDownloadItemsWithError:error];
         } else {
             NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
-//			NSArray *items = [ItemModel arrayWithFavoritreDictionariesArray:response];
 			NSArray *items = [ItemModel arrayWithDictionariesArray:response];
             [super downloadedItems:items afterReload:reloadAll];
         }
@@ -137,7 +133,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	BusinessProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessProfileLogoTableViewCell.ID forIndexPath:indexPath];
     cell.user = self.user;
     UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTap:)];
-    [cell.logoImageView addGestureRecognizer:imageTapGesture];
+
+	if (self.user.avatarUrl) {
+		[cell.avatarImageView addGestureRecognizer:imageTapGesture];
+	}
+	
+	if (self.user.logoUrl) {
+		[cell.logoImageView addGestureRecognizer:imageTapGesture];
+	}
+
 	return cell;
 }
 
@@ -166,10 +170,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)avatarTap:(UITapGestureRecognizer *)sender
 {
-    if (self.user.avatarUrl && ((UIImageView *)sender.view).image) {
+    if (((UIImageView *)sender.view).image) {
         CGRect cellFrame = [self.navigationController.view convertRect:sender.view.superview.superview.frame fromView:self.tableView];
         CGRect imageViewRect = sender.view.frame;
-        imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
+		imageViewRect.origin.x = imageViewRect.origin.x; //(ScreenWidth - imageViewRect.size.width) / 2;
         imageViewRect.origin.y += cellFrame.origin.y;
         
         FullScreenImageViewController *imageController = [FullScreenImageViewController new];
@@ -234,7 +238,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[backgroundView addSubview:backgroundImageView];
 	backgroundView.backgroundColor = [UIColor mainPageBGColor];
 	backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-	
+	[backgroundImageView setClipsToBounds:YES];
+
 	self.topBackgroundImageView = backgroundImageView;
 	self.tableView.backgroundView = backgroundView;
 }
@@ -243,15 +248,17 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	if (scrollView.contentOffset.y > -self.topOffset) {
+	if (scrollView.contentOffset.y >= -self.topOffset) {
 		CGRect frame = self.topBackgroundImageView.frame;
 		frame.origin.y = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
+		frame.size.width = ScreenWidth;
+		frame.origin.x = 0;
 		self.topBackgroundImageView.frame = frame;
 	} else {
         if (self.topBackgroundImageView.transform.a < 1.01) {
             self.topBackgroundImageView.frame = CGRectMake(0, self.topOffset, ScreenWidth, self.topCellHeight);
         }
-        CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / (self.topCellHeight * 0.5)) : 0);
+        CGFloat scaleCoef = 1 + (scrollView.contentOffset.y <= -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / (self.topCellHeight * 0.5)) : 0);
         self.topBackgroundImageView.transform = CGAffineTransformMakeScale(scaleCoef, scaleCoef);
 	}
 }

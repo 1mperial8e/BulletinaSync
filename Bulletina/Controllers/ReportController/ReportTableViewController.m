@@ -114,6 +114,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	self.textCell.textView.delegate = self;
 	self.textCell.textView.textColor = [UIColor colorWithRed:74/255.0 green:74/255.0 blue:74/255.0 alpha:1];
 	[self.textCell.textView setTextContainerInset:UIEdgeInsetsZero];
+	self.textCell.textView.textContainer.lineFragmentPadding = 0;
 	self.textCell.textView.returnKeyType = UIReturnKeyDone;
 	self.textCell.selectionStyle = UITableViewCellSelectionStyleNone;
 	return self.textCell;

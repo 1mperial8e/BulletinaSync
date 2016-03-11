@@ -18,6 +18,7 @@
 // Models
 #import "APIClient+Item.h"
 #import "APIClient+User.h"
+#import "APIClient+Message.h"
 
 @interface ItemsListTableViewController : UITableViewController <ItemCellDelegate>
 

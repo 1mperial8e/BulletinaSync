@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -28,7 +28,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jRc-T0-pKF">
-                        <rect key="frame" x="0.0" y="122" width="375" height="188"/>
+                        <rect key="frame" x="0.0" y="122" width="375" height="187"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Full Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9d-N3-qH3">
                                 <rect key="frame" x="8" y="12" width="359" height="20"/>
@@ -43,7 +43,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="750" editable="NO" text="Lorem ipsum some text can be placed here" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOl-1S-C93">
-                                <rect key="frame" x="30" y="63" width="315" height="104"/>
+                                <rect key="frame" x="30" y="63" width="315" height="103"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -67,7 +67,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="jRc-T0-pKF" firstAttribute="top" secondItem="PKy-kc-odS" secondAttribute="bottom" constant="18" id="IMc-gH-j9V"/>
-                    <constraint firstAttribute="bottom" secondItem="jRc-T0-pKF" secondAttribute="bottom" constant="-1" id="KGx-8R-cqC"/>
+                    <constraint firstAttribute="bottom" secondItem="jRc-T0-pKF" secondAttribute="bottom" id="KGx-8R-cqC"/>
                     <constraint firstItem="jRc-T0-pKF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="eZM-Aj-aSx"/>
                     <constraint firstItem="PKy-kc-odS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="hZZ-Zw-iiN"/>
                     <constraint firstAttribute="trailing" secondItem="jRc-T0-pKF" secondAttribute="trailing" id="pDX-HE-QDl"/>

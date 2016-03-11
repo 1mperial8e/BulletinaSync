@@ -19,4 +19,17 @@
 	return [self performGET:@"api/v1/messages.json" withParameters:parameters response:completion];
 }
 
+- (NSURLSessionTask *)fetchMyUnreadMessagesCountWithCompletion:(ResponseBlock)completion
+{
+//	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
+	
+	//fake
+	NSDictionary *response = @{@"count":@"8"};
+	completion(response,nil,200);
+	return nil;
+	//fake
+	
+//	return [self performGET:@"api/v1/messages.json" withParameters:parameters response:completion];
+}
+
 @end

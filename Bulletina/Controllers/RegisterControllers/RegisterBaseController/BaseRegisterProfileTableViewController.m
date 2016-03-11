@@ -38,7 +38,7 @@
 {
 	NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
 	CGSize textSize = [newText sizeWithAttributes:@{NSFontAttributeName:[textField font]}];
-	if ((textSize.width + 20) < CGRectGetWidth(textField.frame) || [string isEqualToString:@""]) {
+	if ((textSize.width + 5) < CGRectGetWidth(textField.frame) || [string isEqualToString:@""]) {
 		if (textField.placeholder == TextFieldPasswordPlaceholder) {
 			self.tempUser.password = newText;
 		} else if (textField.placeholder == TextFieldRePasswordPlaceholder) {
@@ -71,19 +71,24 @@
 
 - (void)imageActionSheetControllerDidSelectImageWithPicker:(UIImage *)image
 {
-	[self updateImage:image];
+	[self updateImage:image forImageIndex:self.currentImageIndex];
 }
 
 - (void)imageActionSheetControllerDidTakeImageWithPicker:(UIImage *)image
 {
-	[self updateImage:image];
+	[self updateImage:image forImageIndex:self.currentImageIndex];
 }
 
 #pragma mark - Utils
 
-- (void)updateImage:(UIImage *)image;
+- (void)updateImage:(UIImage *)image forImageIndex:(NSInteger)imageIndex
 {
-	self.logoImage = image;
+	if (imageIndex == LogoImageIndex) {
+		self.logoImage = image;
+	} else {
+		self.avatarImage = image;
+	}
+	
 	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:LogoCellSharedIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
@@ -92,13 +97,13 @@
 - (void)tableViewSetup
 {
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-	self.tableView.separatorColor = [UIColor clearColor];
 	
 	[self.tableView registerNib:AvatarTableViewCell.nib forCellReuseIdentifier:AvatarTableViewCell.ID];
 	[self.tableView registerNib:BusinessLogoTableViewCell.nib forCellReuseIdentifier:BusinessLogoTableViewCell.ID];
 	[self.tableView registerNib:InputTableViewCell.nib forCellReuseIdentifier:InputTableViewCell.ID];
 	[self.tableView registerNib:ButtonTableViewCell.nib forCellReuseIdentifier:ButtonTableViewCell.ID];
 	[self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
+	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)setupDefaults
@@ -111,8 +116,9 @@
 
 #pragma mark - Actions
 
-- (void)selectImageButtonTap:(id)sender
+- (void)selectImageButtonTap:(UIButton *)sender
 {
+	self.currentImageIndex = sender.tag;
 	ImageActionSheetController *imageController = [ImageActionSheetController new];
 	imageController.delegate = self;
 	imageController.cancelButtonTintColor = [UIColor colorWithRed:0 green:122/255.0 blue:1 alpha:1];
@@ -120,7 +126,7 @@
 	__weak typeof(self) weakSelf = self;
 	imageController.photoDidSelectImageInPreview = ^(UIImage *image) {
 		__strong typeof(weakSelf) strongSelf = weakSelf;
-		[strongSelf updateImage:image];
+		[strongSelf updateImage:image forImageIndex:self.currentImageIndex];
 	};
 	[self presentViewController:imageController animated:YES completion:nil];
 }
@@ -138,7 +144,9 @@
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.saveButton.layer.cornerRadius = 5;
 	[cell.saveButton addTarget:self action:@selector(saveButtonTap:) forControlEvents:UIControlEventTouchUpInside];
-	
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+
 	return cell;
 }
 

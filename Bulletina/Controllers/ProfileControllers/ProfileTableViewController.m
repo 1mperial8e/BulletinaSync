@@ -52,6 +52,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @property (strong, nonatomic) BulletinaLoaderView *loader;
 @property (assign, nonatomic) CGFloat topCellHeight;
+@property (assign, nonatomic) NSInteger unreadMessagesCount;
 
 @end
 
@@ -69,6 +70,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self tableViewSetup];
 	[self setupNavBar];
     [self reloadUser];
+	[self performSelector:@selector(checkMessages) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -110,7 +112,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     BusinessProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BusinessProfileLogoTableViewCell.ID forIndexPath:indexPath];
     cell.user = self.user;
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTap:)];
-	[cell.logoImageView addGestureRecognizer:imageTapGesture];
+	
+	if (self.user.avatarUrl) {
+		[cell.avatarImageView addGestureRecognizer:imageTapGesture];
+	}
+	
+	if (self.user.logoUrl) {
+		[cell.logoImageView addGestureRecognizer:imageTapGesture];
+	}
+	
     return cell;
 }
 
@@ -119,7 +129,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     IndividualProfileLogoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:IndividualProfileLogoTableViewCell.ID forIndexPath:indexPath];
 	cell.user = self.user;
 	UITapGestureRecognizer *imageTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTap:)];
-	[cell.logoImageView addGestureRecognizer:imageTapGesture];
+
+	if (self.user.avatarUrl) {
+		[cell.logoImageView addGestureRecognizer:imageTapGesture];
+	}
     return cell;
 }
 
@@ -137,6 +150,13 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else if (indexPath.item == MessagesCellIndex) {
 		cell.label.text = @"Messages";
 		cell.iconImageView.image = [UIImage imageNamed:@"Messages"];
+		if (self.unreadMessagesCount) {
+			cell.messagesBadge.hidden = NO;
+			cell.messagesBadge.text = [NSString stringWithFormat:@"%li", self.unreadMessagesCount];
+			cell.messagesBadge.layer.cornerRadius = CGRectGetHeight(cell.messagesBadge.frame) / 2;
+		} else {
+			cell.messagesBadge.hidden = YES;
+		}
 	} else if (indexPath.item == SearchSettingsCellIndex) {
 		cell.label.text = @"Search settings";
 		cell.iconImageView.image = [UIImage imageNamed:@"SearchSettings"];
@@ -215,10 +235,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (void)avatarTap:(UITapGestureRecognizer *)sender
 {
-	if (self.user.avatarUrl && ((UIImageView *)sender.view).image) {
+	if (((UIImageView *)sender.view).image) {
 		CGRect cellFrame = [self.navigationController.view convertRect:sender.view.superview.superview.frame fromView:self.tableView];
 		CGRect imageViewRect = sender.view.frame;
-		imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
         imageViewRect.origin.y += cellFrame.origin.y;
 		
 		FullScreenImageViewController *imageController = [FullScreenImageViewController new];
@@ -312,6 +331,20 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	}
 }
 
+- (void)checkMessages
+{
+    __weak typeof(self) weakSelf = self;
+	[[APIClient sharedInstance] fetchMyUnreadMessagesCountWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		if (error) {
+			[Utils showErrorForStatusCode:statusCode];
+		} else {
+			NSParameterAssert([response isKindOfClass:[NSDictionary class]]);
+			weakSelf.unreadMessagesCount = [response[@"count"] integerValue];
+			[weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:MessagesCellIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+		}
+	}];
+}
+
 #pragma mark - Setup
 
 - (void)setupNavBar
@@ -343,7 +376,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     [backgroundView addSubview:backgroundImageView];
     backgroundView.backgroundColor = [UIColor mainPageBGColor];
     backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-    
+	[backgroundImageView setClipsToBounds:YES];
     self.topBackgroundImageView = backgroundImageView;
     self.tableView.backgroundView = backgroundView;
 }
@@ -355,12 +388,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     if (scrollView.contentOffset.y >= -self.topOffset) {
         CGRect frame = self.topBackgroundImageView.frame;
         frame.origin.y = scrollView.contentOffset.y < 0 ? fabs(scrollView.contentOffset.y) : -scrollView.contentOffset.y;
+		frame.size.width = ScreenWidth;
+		frame.origin.x = 0;
         self.topBackgroundImageView.frame = frame;
 	} else {
         if (self.topBackgroundImageView.transform.a < 1.01) {
             self.topBackgroundImageView.frame = CGRectMake(0, self.topOffset, ScreenWidth, self.topCellHeight);
         }
-		CGFloat scaleCoef = 1 + (scrollView.contentOffset.y < -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / (self.topCellHeight * 0.5)) : 0);
+		CGFloat scaleCoef = 1 + (scrollView.contentOffset.y <= -self.topOffset ? (fabs(scrollView.contentOffset.y + self.topOffset) / (self.topCellHeight * 0.5)) : 0);
         self.topBackgroundImageView.transform = CGAffineTransformMakeScale(scaleCoef, scaleCoef);
 	}
 }

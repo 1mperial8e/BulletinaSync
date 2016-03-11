@@ -14,7 +14,7 @@
 
 #import "APIClient+Message.h"
 
-static CGFloat const DefaultTableViewCellHeight = 50.f;
+static CGFloat const DefaultTableViewCellHeight = 55.f;
 static NSString *const ViewControllerTitle = @"Messages";
 
 @interface MessageTableViewController ()
@@ -53,11 +53,6 @@ static NSString *const ViewControllerTitle = @"Messages";
     return self.dataSource.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return DefaultTableViewCellHeight;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MessageTableViewCell.ID forIndexPath:indexPath];
@@ -66,6 +61,11 @@ static NSString *const ViewControllerTitle = @"Messages";
 }
 
 #pragma mark - Table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return DefaultTableViewCellHeight;
+}
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {

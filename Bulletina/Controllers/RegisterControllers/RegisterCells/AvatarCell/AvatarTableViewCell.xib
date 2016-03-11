@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,9 +15,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dp8-Lt-x7Q">
-                        <rect key="frame" x="135" y="23" width="105" height="171"/>
+                        <rect key="frame" x="135" y="34" width="105" height="149"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PersonalAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="MPr-yJ-QkL">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BusinessAvatarPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="MPr-yJ-QkL">
                                 <rect key="frame" x="0.0" y="0.0" width="105" height="105"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -35,7 +35,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nv0-Ug-x3I" userLabel="AvatarButton">
-                                <rect key="frame" x="0.0" y="0.0" width="105" height="171"/>
+                                <rect key="frame" x="0.0" y="0.0" width="105" height="149"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -47,7 +47,7 @@
                             <constraint firstAttribute="width" constant="105" id="UTi-Y4-dES"/>
                             <constraint firstItem="ub7-sO-tez" firstAttribute="top" secondItem="MPr-yJ-QkL" secondAttribute="bottom" constant="22" id="WD4-hm-gf8"/>
                             <constraint firstItem="MPr-yJ-QkL" firstAttribute="leading" secondItem="Dp8-Lt-x7Q" secondAttribute="leading" id="ZXU-Wl-ucK"/>
-                            <constraint firstAttribute="height" constant="171" id="ffk-hS-6E1"/>
+                            <constraint firstAttribute="height" constant="149" id="ffk-hS-6E1"/>
                             <constraint firstItem="Nv0-Ug-x3I" firstAttribute="top" secondItem="Dp8-Lt-x7Q" secondAttribute="top" id="fuH-f1-I6D"/>
                             <constraint firstAttribute="bottom" secondItem="Nv0-Ug-x3I" secondAttribute="bottom" id="ovn-od-hwz"/>
                             <constraint firstItem="Nv0-Ug-x3I" firstAttribute="leading" secondItem="Dp8-Lt-x7Q" secondAttribute="leading" id="rgq-zD-6Nj"/>
@@ -68,6 +68,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="PersonalAvatar" width="94" height="94"/>
+        <image name="BusinessAvatarPlaceholder" width="94" height="94"/>
     </resources>
 </document>

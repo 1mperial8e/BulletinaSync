@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ProfileControllers/ProfileTableViewController.m"
-            timestampString = "478013696.928703"
+            timestampString = "479386215.360723"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "274"
-            endingLineNumber = "274"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "@implementation ProfileTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/MyItemsController/MyItemsTableViewController.m"
-            timestampString = "478713847.50477"
+            timestampString = "479400746.130908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/MyItemsController/MyItemsTableViewController.m"
-            timestampString = "478713847.50477"
+            timestampString = "479400746.130908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "-individualLogoCellForIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/MyItemsController/MyItemsTableViewController.m"
-            timestampString = "478713847.50477"
+            timestampString = "479400746.130908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "-logoCellForIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,28 +218,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+User.m"
-            timestampString = "477488892.311087"
+            timestampString = "479303116.596335"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "-updateUserWithEmail:username:fullname:companyname:password:website:facebook:linkedin:phone:description:avatar:withCompletion:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Bulletina/Controllers/ProfileControllers/ProfileTableViewController.m"
-            timestampString = "478710814.789407"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "353"
-            endingLineNumber = "353"
-            landmarkName = "-scrollViewDidScroll:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -266,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/EditProfileControllers/AnonymusEditController/AnonymusProfileEditTableViewController.m"
-            timestampString = "477489644.138456"
+            timestampString = "479308720.905097"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "-saveButtonTap:"
             landmarkType = "5">
          </BreakpointContent>
@@ -282,13 +266,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/EditProfileControllers/IndividualEditController/IndividualProfileEditTableViewController.m"
-            timestampString = "477489661.179072"
+            timestampString = "479308720.905097"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "-saveButtonTap:"
-            landmarkType = "5">
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "@implementation IndividualProfileEditTableViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -330,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ProfileControllers/ProfileTableViewController.m"
-            timestampString = "478013696.928703"
+            timestampString = "479386215.360723"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "-defaultCellForIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -346,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ProfileControllers/ProfileTableViewController.m"
-            timestampString = "478013696.928703"
+            timestampString = "479386052.78747"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "-businessLogoCellForIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -362,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/RegisterControllers/BuisnessRegisterController/BusinessRegisterTableViewController.m"
-            timestampString = "478790457.031573"
+            timestampString = "479375125.641165"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "-registerAccount"
             landmarkType = "5">
          </BreakpointContent>
@@ -394,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/EditProfileControllers/MainPageController/MainPageController.m"
-            timestampString = "479029437.0279"
+            timestampString = "479400746.130908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "243"
-            endingLineNumber = "243"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "-loadData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -442,11 +426,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+User.m"
-            timestampString = "477502978.873395"
+            timestampString = "479303116.596335"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
             landmarkName = "-forgotPasswordWithEmail:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
@@ -472,28 +456,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/BaseEditProfileController/BaseEditProfileTableViewController.m"
-            timestampString = "477573492.721596"
+            timestampString = "479401469.805689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "-heightForAboutCell"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Bulletina/Controllers/BaseEditProfileController/BaseEditProfileTableViewController.m"
-            timestampString = "477571715.762417"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "-aboutCellForIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -504,12 +472,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/BaseEditProfileController/BaseEditProfileTableViewController.m"
-            timestampString = "478776588.215068"
+            timestampString = "479401469.805689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
-            landmarkName = "-textViewDidChange:"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
+            landmarkName = "-textView:shouldChangeTextInRange:replacementText:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -520,11 +488,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/AddNewItemController/AddNewItemTableViewController.m"
-            timestampString = "478711841.722753"
+            timestampString = "479373854.335763"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "-publishNavBarAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -566,12 +534,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+User.m"
-            timestampString = "477820969.122808"
+            timestampString = "479234860.494524"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "-updateUserWithEmail:username:fullname:companyname:password:website:facebook:linkedin:phone:description:avatar:withCompletion:"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "-createUserWithEmail:username:password:languageId:customerTypeId:companyname:website:phone:avatar:logo:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -710,12 +678,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/BaseEditProfileController/BaseEditProfileTableViewController.m"
-            timestampString = "478776588.215068"
+            timestampString = "479401469.805689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
-            landmarkName = "-textView:shouldChangeTextInRange:replacementText:"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "-textViewShouldBeginEditing:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -726,12 +694,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/BaseEditProfileController/BaseEditProfileTableViewController.m"
-            timestampString = "478774837.140704"
+            timestampString = "479401469.805689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
-            landmarkName = "-textFieldShouldReturn:"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "-textFieldShouldBeginEditing:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -742,11 +710,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/EditProfileControllers/BusinessEditController/BusinessProfileEditTableViewController.m"
-            timestampString = "478776140.280739"
+            timestampString = "479308720.905097"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216">
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "-saveButtonTap:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -756,11 +726,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/MyItemsController/MyItemsTableViewController.m"
-            timestampString = "478713847.50477"
+            timestampString = "479400746.130908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275">
+            startingLineNumber = "282"
+            endingLineNumber = "282">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -776,22 +746,6 @@
             startingLineNumber = "140"
             endingLineNumber = "140"
             landmarkName = "-deleteItemWithId:withCompletion:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Bulletina/Controllers/EditProfileControllers/BusinessEditController/BusinessProfileEditTableViewController.m"
-            timestampString = "478774837.140704"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
-            landmarkName = "-saveButtonTap:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -866,11 +820,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/AddNewItemController/AddNewItemTableViewController.m"
-            timestampString = "478711841.722753"
+            timestampString = "479373854.335763"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
             landmarkName = "-publishNavBarAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -926,7 +880,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/MessageViewController/MessageTableViewController.m"
@@ -946,11 +900,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/EditProfileControllers/MainPageController/MainPageController.m"
-            timestampString = "479029437.0279"
+            timestampString = "479398959.974467"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
             landmarkName = "-loadData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -962,11 +916,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ChangePasswordController/ChangePasswordTableViewController.m"
-            timestampString = "478186828.194662"
+            timestampString = "479401469.805689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "-passwordChanged"
             landmarkType = "5">
          </BreakpointContent>
@@ -978,11 +932,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ChangePasswordController/ChangePasswordTableViewController.m"
-            timestampString = "478186894.966821"
+            timestampString = "479401469.805689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "@implementation ChangePasswordTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -994,11 +948,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ChangePasswordController/ChangePasswordTableViewController.m"
-            timestampString = "478186981.048819"
+            timestampString = "479401469.805689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
             landmarkName = "-refreshInputViews"
             landmarkType = "5">
          </BreakpointContent>
@@ -1006,7 +960,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Models/APIClient/APIClient+Item.m"
@@ -1022,7 +976,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/LoginController/LoginViewController.m"
@@ -1074,11 +1028,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/MyItemsController/MyItemsTableViewController.m"
-            timestampString = "478713847.50477"
+            timestampString = "479400746.130908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "-loadData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1106,11 +1060,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ProfileControllers/ProfileCells/BusinesProfileLogoCell/BusinessProfileLogoTableViewCell.m"
-            timestampString = "478710052.455137"
+            timestampString = "479203365.373344"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
             landmarkName = "-phoneTap:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1186,11 +1140,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/AddNewItemController/AddNewItemTableViewController.m"
-            timestampString = "478711841.722753"
+            timestampString = "479373854.335763"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "-publishNavBarAction:"
             landmarkType = "5">
             <Locations>
@@ -1202,11 +1156,11 @@
                   moduleName = "Bulletina"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Roman/Desktop/BulletinaSync/Bulletina/Controllers/AddNewItemController/AddNewItemTableViewController.m"
-                  timestampString = "478793228.447436"
+                  timestampString = "479400349.984138"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "187"
-                  endingLineNumber = "187"
+                  startingLineNumber = "188"
+                  endingLineNumber = "188"
                   offsetFromSymbolStart = "1630">
                </Location>
                <Location
@@ -1217,11 +1171,11 @@
                   moduleName = "Bulletina"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Roman/Desktop/BulletinaSync/Bulletina/Controllers/AddNewItemController/AddNewItemTableViewController.m"
-                  timestampString = "478793228.447839"
+                  timestampString = "479400349.984322"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "187"
-                  endingLineNumber = "187"
+                  startingLineNumber = "188"
+                  endingLineNumber = "188"
                   offsetFromSymbolStart = "97">
                </Location>
             </Locations>
@@ -1250,11 +1204,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/AddNewItemController/AddNewItemTableViewController.m"
-            timestampString = "478792156.241179"
+            timestampString = "479373854.335763"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
             landmarkName = "-publishNavBarAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1266,11 +1220,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/AddNewItemController/AddNewItemTableViewController.m"
-            timestampString = "478711841.722753"
+            timestampString = "479373854.335763"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
             landmarkName = "-publishNavBarAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1281,29 +1235,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Bulletina/Models/APIModels/UserModel/UserModel.m"
-            timestampString = "478708900.262033"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "-initWithItem:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/BaseEditProfileController/BaseEditProfileTableViewController.m"
-            timestampString = "478776588.215068"
+            timestampString = "479401469.805689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
-            landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
+            landmarkName = "-textFieldShouldReturn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1313,13 +1251,125 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Bulletina/Controllers/EditProfileControllers/ItemsListController/ItemsListTableViewController.m"
-            timestampString = "478801544.068659"
+            filePath = "Bulletina/Controllers/RegisterControllers/RegisterBaseController/BaseRegisterProfileTableViewController.m"
+            timestampString = "479234309.187065"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "-downloadedItems:afterReload:"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "-selectImageButtonTap:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bulletina/Controllers/RegisterControllers/RegisterBaseController/BaseRegisterProfileTableViewController.m"
+            timestampString = "479209732.170559"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "-updateImage:forImageIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bulletina/Controllers/RegisterControllers/BuisnessRegisterController/BusinessRegisterTableViewController.m"
+            timestampString = "479375125.641165"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "-logoCellForIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bulletina/Controllers/EditProfileControllers/AnonymusEditController/AnonymusProfileEditTableViewController.m"
+            timestampString = "479308226.963025"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "-refreshInputViews"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bulletina/Models/APIClient/APIClient+Message.m"
+            timestampString = "479375120.262789"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "-fetchMyMessagesWithPage:withCompletion:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bulletina/Controllers/EditProfileControllers/MainPageController/MainPageController.m"
+            timestampString = "479399095.449562"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
+            landmarkName = "-loadData:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bulletina/Controllers/EditProfileControllers/MainPageController/MainPageController.m"
+            timestampString = "479399100.0498"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "-loadData:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bulletina/Controllers/EditProfileControllers/MainPageController/MainPageController.m"
+            timestampString = "479400746.130908"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
+            landmarkName = "-loadData:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

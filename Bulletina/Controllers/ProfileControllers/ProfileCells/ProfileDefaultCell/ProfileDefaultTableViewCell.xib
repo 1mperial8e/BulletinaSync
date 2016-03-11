@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -27,18 +27,32 @@
                             <constraint firstAttribute="height" constant="23" id="l6N-4X-KHT"/>
                         </constraints>
                     </imageView>
+                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfb-ND-GA8">
+                        <rect key="frame" x="308" y="13" width="18" height="18"/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="2hS-Jc-Fh2"/>
+                            <constraint firstAttribute="height" constant="18" id="Mua-vP-mKU"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="UIa-mE-dGB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="4xa-7R-URi"/>
                     <constraint firstItem="UIa-mE-dGB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-1" id="6fM-Oe-uUP"/>
                     <constraint firstItem="2m6-55-6JS" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="RPX-CE-6Xy"/>
                     <constraint firstItem="2m6-55-6JS" firstAttribute="leading" secondItem="UIa-mE-dGB" secondAttribute="trailing" constant="21" id="XHn-Nd-Vlv"/>
+                    <constraint firstAttribute="trailing" secondItem="lfb-ND-GA8" secondAttribute="trailing" constant="16" id="mYx-XQ-Aau"/>
+                    <constraint firstItem="lfb-ND-GA8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="s7C-CI-kp4"/>
                     <constraint firstAttribute="trailing" secondItem="2m6-55-6JS" secondAttribute="trailing" constant="25" id="yhg-sH-IlH"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="iconImageView" destination="UIa-mE-dGB" id="VLc-nt-kOF"/>
                 <outlet property="label" destination="2m6-55-6JS" id="Nfj-D0-CT7"/>
+                <outlet property="messagesBadge" destination="lfb-ND-GA8" id="jsb-sq-SQs"/>
             </connections>
         </tableViewCell>
     </objects>

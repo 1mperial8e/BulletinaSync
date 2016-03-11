@@ -72,7 +72,11 @@
 	self.userFullname = dictionary[@"user_fullname"];
 	self.userNickname = dictionary[@"user_nickname"];
 	
-	self.distance = dictionary[@"distance"];
+	if ([dictionary[@"distance"] isKindOfClass:[NSNumber class]]) {
+		self.distance = [NSString stringWithFormat:@"%li km",[dictionary[@"distance"] integerValue]];
+	} else {
+		self.distance = dictionary[@"distance"];
+	}
 	self.timeAgo = dictionary[@"time_ago"];
 	self.imageHeight = [dictionary[@"image_height"] floatValue];
 	self.imageWidth = [dictionary[@"image_width"] floatValue];

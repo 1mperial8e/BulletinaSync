@@ -36,6 +36,7 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
     });
 	[self performSelector:@selector(loadCategories) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
 	[self performSelector:@selector(loadReportReasons) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
+	[self performSelector:@selector(checkMessages) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -86,7 +87,7 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 	[Application setStatusBarStyle:UIStatusBarStyleDefault];
 	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddNew_navbarIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewButtonAction:)];
-	
+
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Profile_navbarIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(profileButtonAction:)];
 	
 	UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"Nearby", @"Favorites"]];
@@ -235,7 +236,7 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 				[super failedToDownloadItemsWithError:error];
 			} else {
 				NSAssert([response isKindOfClass:[NSArray class]], @"Unknown response from server");
-				NSArray *items = [ItemModel arrayWithFavoritreDictionariesArray:response];
+				NSArray *items = [ItemModel arrayWithDictionariesArray:response];
 				[super downloadedItems:items afterReload:reloadAll];
 			}
 		}];
@@ -274,6 +275,40 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 - (CGFloat)topOffset
 {
 	return Application.statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height;
+}
+
+- (void)checkMessages
+{
+	[[APIClient sharedInstance] fetchMyUnreadMessagesCountWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		if (error) {
+			[Utils showErrorForStatusCode:statusCode];
+		} else {
+			NSParameterAssert([response isKindOfClass:[NSDictionary class]]);
+			[self addBadgeWithNumber:[response[@"count"] integerValue]];
+		}
+	}];
+}
+
+- (void)addBadgeWithNumber:(NSInteger)number
+{
+	UILabel *numberBadge = [[UILabel alloc] initWithFrame:CGRectMake(15, -5, 18, 18)];
+	numberBadge.backgroundColor =[UIColor redColor];
+	numberBadge.clipsToBounds = YES;
+	numberBadge.layer.cornerRadius = CGRectGetHeight(numberBadge.frame) / 2;
+	numberBadge.text =[NSString stringWithFormat:@"%li",number];
+	numberBadge.textColor = [UIColor whiteColor];
+	numberBadge.font = [UIFont systemFontOfSize:13];
+	numberBadge.textAlignment = NSTextAlignmentCenter;
+	
+	UIButton *profileButton = [UIButton  buttonWithType:UIButtonTypeSystem];
+	profileButton.frame = CGRectMake(0, 0, 22, 22);
+	profileButton.layer.cornerRadius = 8;
+	[profileButton setImage:[UIImage imageNamed:@"Profile_navbarIcon"]  forState:UIControlStateNormal];
+	[profileButton addTarget:self action:@selector(profileButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+	[profileButton addSubview:numberBadge];
+	
+	UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:profileButton];
+	self.navigationItem.leftBarButtonItem = barButton;
 }
 
 @end

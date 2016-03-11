@@ -28,6 +28,7 @@
 									  website:(NSString *)website
 										phone:(NSString *)phone
 									   avatar:(UIImage *)avatar
+										 logo:(UIImage *)logo
 							   withCompletion:(ResponseBlock)completion;
 
 #pragma mark - Edit profile (Update)
@@ -43,6 +44,7 @@
                                         phone:(NSString *)phone
                                   description:(NSString *)description
                                        avatar:(UIImage *)avatar
+										 logo:(UIImage *)logo
                                withCompletion:(ResponseBlock)completion;
 
 

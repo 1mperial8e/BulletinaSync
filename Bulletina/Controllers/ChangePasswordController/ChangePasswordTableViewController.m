@@ -76,6 +76,8 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     self.tableView.backgroundColor = [UIColor mainPageBGColor];
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     [self.tableView setContentInset:UIEdgeInsetsMake(20, 0, 30, 0)];
+	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
 }
 
 - (void)setupDefaults
@@ -112,17 +114,20 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     cell.inputTextField.secureTextEntry = YES;
     cell.inputTextField.returnKeyType = UIReturnKeyNext;
     if (indexPath.row == 0) {
-        cell.inputTextField.placeholder = @"Old password";
+        cell.inputTextField.placeholder = @"***************";
+		cell.placeholderLabel.text = @"Old password:";
         self.textFieldOldPassword = cell.inputTextField;
     } else if (indexPath.row == 1) {
-        cell.inputTextField.placeholder = @"New password";
+        cell.inputTextField.placeholder = @"***************";
+		cell.placeholderLabel.text = @"New password:";
         self.textFieldPassword = cell.inputTextField;
     } else if (indexPath.row == 2) {
-        cell.inputTextField.placeholder = @"Retype new password";
+        cell.inputTextField.placeholder = @"***************";
+		cell.placeholderLabel.text = @"Retype password:";
         self.textFieldRepassword = cell.inputTextField;
 		cell.inputTextField.returnKeyType = UIReturnKeyDone;
     }
-	cell.backgroundColor = [UIColor mainPageBGColor];
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -132,6 +137,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	cell.backgroundColor = [UIColor mainPageBGColor];
 	cell.saveButton.layer.cornerRadius = 5;
 	[cell.saveButton addTarget:self action:@selector(saveChangesAction:) forControlEvents:UIControlEventTouchUpInside];
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	cell.separatorInset = UIEdgeInsetsMake(0, ScreenWidth, 0, 0);
+
 	return cell;
 }
 
@@ -145,6 +153,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		return InputCellHeigth * HeigthCoefficient;
 	}
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if ( [[tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[InputTableViewCell class]]) {
+		InputTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+		[cell.inputTextField becomeFirstResponder];
+	}
+}
+
 
 #pragma mark - Actions
 
