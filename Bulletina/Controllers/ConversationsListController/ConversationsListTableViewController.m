@@ -65,6 +65,10 @@ static NSString *const ViewControllerTitle = @"Messages";
 	if (self.item.userAvatarThumbUrl) {
 		[cell.userAvatarImageView setImageWithURL:self.item.userAvatarThumbUrl];
 	}
+	
+	if (indexPath.item%2) {
+		cell.backgroundColor = [UIColor colorWithRed:255/255.0 green:249/255.0 blue:237/255.0 alpha:1.0f];
+	}
 	//temp
 	
 	return cell;
@@ -147,6 +151,13 @@ static NSString *const ViewControllerTitle = @"Messages";
 
 - (void)editTap:(id)sender {
 	[self.tableView setEditing: YES animated: YES];
+	
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneTap:)];
+}
+
+- (void)doneTap:(id)sender {
+	[self.tableView setEditing: NO animated: YES];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editTap:)];
 }
 
 @end

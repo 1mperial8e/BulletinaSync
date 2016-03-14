@@ -1332,11 +1332,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bulletina/Controllers/ConversationsListController/ConversationsListTableViewController.m"
-            timestampString = "479644503.574408"
+            timestampString = "479662675.17114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "-prepareDataSource"
             landmarkType = "5">
          </BreakpointContent>
