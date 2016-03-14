@@ -175,7 +175,7 @@ typedef NS_ENUM(NSUInteger, SectionType){
     self.title = ViewControllerTitle;
     self.view.backgroundColor = [UIColor mainPageBGColor];
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (void)prepareNavigationBar
@@ -192,7 +192,7 @@ typedef NS_ENUM(NSUInteger, SectionType){
 {
     //TODO: remove hardcoded data source
     
-    self.dataSource = @[@1, @1, @1, @1, @1, @1, @1, @1, @1, @1].mutableCopy;
+    self.dataSource = @[@1, @1, @1].mutableCopy;
     [self.tableView reloadData];
 }
 

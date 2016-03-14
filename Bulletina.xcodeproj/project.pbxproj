@@ -1359,9 +1359,9 @@
 				3099D47E1C4D2BE10080C05B /* FullScreenImageController */,
 				4F49DDC21C50D82F002E2F24 /* SelectNewItemCategoryController */,
 				30802F081C495BE3008D97EC /* AddNewItemController */,
-				B2B5E02B1C50C847000E5A4C /* MessageViewController */,
 				30B729911C96A015007E4310 /* ConversationsListController */,
 				B247CC9D1C520DE90064396E /* ChatController */,
+				B2B5E02B1C50C847000E5A4C /* MessageViewController */,
 				3082EE121C4E43DF004DAB08 /* SearchSettingsController */,
 			);
 			path = Controllers;

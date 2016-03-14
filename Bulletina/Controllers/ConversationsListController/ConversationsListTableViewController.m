@@ -70,6 +70,25 @@ static NSString *const ViewControllerTitle = @"Messages";
 	return cell;
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if (self.tableView.editing)
+	{
+		return UITableViewCellEditingStyleDelete;
+	}
+	
+	return UITableViewCellEditingStyleNone;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	[self.dataSource removeObjectAtIndex:indexPath.row];
+	
+	[self.tableView beginUpdates];
+	[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self.tableView endUpdates];
+}
+
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -100,7 +119,7 @@ static NSString *const ViewControllerTitle = @"Messages";
 {
 	[self.navigationController setNavigationBarHidden:NO animated:YES];
 	self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:nil action:nil];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editTap:)];
 }
 
 - (void)prepareTableView
@@ -120,10 +139,14 @@ static NSString *const ViewControllerTitle = @"Messages";
 			}
 		} else {
 			NSParameterAssert([response isKindOfClass:[NSArray class]]);
-			self.dataSource = response;
+			self.dataSource = [response mutableCopy];
 			[self.tableView reloadData];
 		}
 	}];
+}
+
+- (void)editTap:(id)sender {
+	[self.tableView setEditing: YES animated: YES];
 }
 
 @end

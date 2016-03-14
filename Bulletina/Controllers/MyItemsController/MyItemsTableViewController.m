@@ -200,7 +200,14 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - ItemCellDelegate
+
 - (void)showUserForItem:(ItemModel *)item
+{
+	//Do nothing
+}
+
+- (void)openMessagesForItem:(ItemModel *)item
 {
 	//Do nothing
 }

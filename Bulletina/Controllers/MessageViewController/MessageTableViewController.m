@@ -19,15 +19,19 @@
 
 //Categories
 #import "UIImageView+AFNetworking.h"
+#import "PHTextView.h"
 
 static CGFloat const DefaultTableViewCellHeight = 55.f;
 static CGFloat const ItemInfoTableViewCellHeight = 65.f;
 static NSUInteger const ItemInfoTableViewCellIndex = 0;
 static NSString *const ViewControllerTitle = @"Messages";
+static NSString *const TextViewPlaceholderText = @"Post a comment";
 
-@interface MessageTableViewController ()
+@interface MessageTableViewController () <UITextViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *dataSource;
+@property (weak, nonatomic) IBOutlet PHTextView *messageTextView;
+@property (weak, nonatomic) IBOutlet UIView *messageInputView;
 
 @end
 
@@ -41,6 +45,27 @@ static NSString *const ViewControllerTitle = @"Messages";
     [self prepareUI];
     [self prepareDataSource];
 
+}
+
+#pragma mark - UIResponder
+
+- (UIView *)inputAccessoryView
+{
+	self.messageTextView.placeholderLabel.textColor = [UIColor colorWithRed:122/255.0 green:121/255.0 blue:123/255.0 alpha:1.0];
+	[self.messageTextView setTextContainerInset:UIEdgeInsetsMake(5, 10, 5, 10)];
+	self.messageTextView.returnKeyType = UIReturnKeyDone;
+	self.messageTextView.placeholder = TextViewPlaceholderText;
+	self.messageTextView.layer.cornerRadius = 7;
+	self.messageTextView.delegate = self;
+	
+	self.messageInputView.backgroundColor = [UIColor mainPageBGColor];
+	
+	return self.messageInputView;
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+	return YES;
 }
 
 #pragma mark - UITableViewDataSource
@@ -100,9 +125,10 @@ static NSString *const ViewControllerTitle = @"Messages";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-	
+//
 	if (indexPath.item == ItemInfoTableViewCellIndex) {
 		MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
+
 		//temp
 		if (self.item) {
 			itemsTableViewController.user = [[UserModel alloc] initWithItem:self.item];
@@ -111,8 +137,28 @@ static NSString *const ViewControllerTitle = @"Messages";
 			itemsTableViewController.user = [APIClient sharedInstance].currentUser;
 		}
 		//temp
+		
 		[self.navigationController pushViewController:itemsTableViewController animated:YES];
 	}
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
+{
+	if ([string isEqualToString:@"\n"]) {
+		
+		self.messageTextView.text = @"";
+		[self.messageTextView resignFirstResponder];
+		[self.view endEditing:YES];
+
+		[self.dataSource insertObject:@5 atIndex:0];
+		[self.tableView beginUpdates];
+		[self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:1 inSection:0]]  withRowAnimation:UITableViewRowAnimationAutomatic];
+		[self.tableView endUpdates];
+		return  NO;
+	}
+	return YES;
 }
 
 #pragma mark - Private Methods
@@ -121,6 +167,7 @@ static NSString *const ViewControllerTitle = @"Messages";
 {
     self.title = ViewControllerTitle;
 	self.view.backgroundColor = [UIColor mainPageBGColor];
+	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
 
     [self prepareNavigationBar];
     [self prepareTableView];

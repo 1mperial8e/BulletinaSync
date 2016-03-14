@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MessageTableViewController">
             <connections>
+                <outlet property="messageInputView" destination="osu-hS-yQH" id="Gx5-C7-uYQ"/>
+                <outlet property="messageTextView" destination="Hpc-I2-eTf" id="q9I-Ad-Dp4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,5 +23,27 @@
                 <outlet property="delegate" destination="-1" id="9aC-8N-iBw"/>
             </connections>
         </tableView>
+        <view contentMode="scaleToFill" id="osu-hS-yQH">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Hpc-I2-eTf" customClass="PHTextView">
+                    <rect key="frame" x="20" y="13" width="335" height="30"/>
+                    <color key="backgroundColor" red="0.83137254901960789" green="0.80784313725490198" blue="0.77254901960784317" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Hpc-I2-eTf" firstAttribute="top" secondItem="osu-hS-yQH" secondAttribute="top" constant="13" id="VZm-KE-U8q"/>
+                <constraint firstAttribute="trailing" secondItem="Hpc-I2-eTf" secondAttribute="trailing" constant="20" id="Vjs-X9-55x"/>
+                <constraint firstAttribute="bottom" secondItem="Hpc-I2-eTf" secondAttribute="bottom" constant="7" id="f6h-c3-ou3"/>
+                <constraint firstItem="Hpc-I2-eTf" firstAttribute="leading" secondItem="osu-hS-yQH" secondAttribute="leading" constant="20" id="s1M-lp-TGT"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="192.5" y="-137"/>
+        </view>
     </objects>
 </document>

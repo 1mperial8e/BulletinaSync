@@ -10,8 +10,6 @@
 
 @interface PHTextView ()
 
-@property (strong, nonatomic) UILabel *placeholderLabel;
-
 @end
 
 @implementation PHTextView
@@ -23,7 +21,7 @@
 	[super awakeFromNib];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChangedNotificationRecieved:) name:UITextViewTextDidChangeNotification object:nil];
 	[self setClipsToBounds:YES];
-	[self setTextContainerInset:UIEdgeInsetsMake(10, 20, 10, 20)];
+	[self setTextContainerInset:UIEdgeInsetsZero];
 	self.textContainer.lineFragmentPadding = 0;
 	[self addLabel];
 }
