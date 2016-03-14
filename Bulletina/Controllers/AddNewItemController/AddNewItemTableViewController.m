@@ -39,7 +39,9 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 @property (strong, nonatomic) NewItemTextTableViewCell *textCell;
 @property (strong, nonatomic) UIImage *itemImage;
-@property (strong, nonatomic) UITextField *priceTextField;;
+@property (strong, nonatomic) UITextField *priceTextField;
+@property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UILabel *buttonLabel;;
 
 @end
 
@@ -53,6 +55,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	[self tableViewSetup];
 	[self setupUI];
 	
+}
+
+- (void)dealloc
+{
+	[self.imageView removeObserver:self forKeyPath:@"image"];
 }
 
 #pragma mark - Table view data source
@@ -111,12 +118,21 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {
 	AddImageButtonTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:AddImageButtonTableViewCell.ID forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor appOrangeColor];
+	self.buttonLabel = cell.buttonLabel;
 	return cell;
 }
 
 - (NewItemImageTableViewCell *)imageCellForIndexPath:(NSIndexPath *)indexPath
 {
 	NewItemImageTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NewItemImageTableViewCell.ID forIndexPath:indexPath];
+	
+	if (self.imageView) {
+		[self.imageView removeObserver:self forKeyPath:@"image"];
+		self.imageView = nil;
+	}
+	self.imageView = cell.itemImageView;
+	[self.imageView addObserver:self forKeyPath:@"image" options:(NSKeyValueObservingOptionNew) context:NULL];
+	
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	if (self.itemImage) {
 		cell.itemImageView.image = self.itemImage;
@@ -125,8 +141,6 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	} else {
 		cell.itemImageView.image = nil;
 	}
-//	cell.observerObject = self;
-//	[cell.itemImageView addObserver:self forKeyPath:@"image" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
 	return cell;
 }
 
@@ -196,7 +210,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 					NSAssert([response isKindOfClass:[NSDictionary class]], @"Unknown response from server (update item)");
 					ItemModel *updatedItem = [ItemModel modelWithDictionary:response];
 					
-					//temp
+					//temp until API is not proper
 					updatedItem.userNickname = weakSelf.adItem.userNickname;
 					updatedItem.userAvatarThumbUrl = weakSelf.adItem.userAvatarThumbUrl;
 					updatedItem.userCompanyName = weakSelf.adItem.userCompanyName;
@@ -354,13 +368,15 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 	return NO;
 }
 
-//#pragma mark - Notifications
-//
-//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-//{
-//	if ([keyPath isEqual:@"image"]) {
-//		
-//	}
-//}
+#pragma mark - Notifications
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if ([keyPath isEqual:@"image"]) {
+		if (change[NSKeyValueChangeNewKey] != NSNull.null) {
+			self.buttonLabel.text = @"Edit image";
+		}
+	}
+}
 
 @end
