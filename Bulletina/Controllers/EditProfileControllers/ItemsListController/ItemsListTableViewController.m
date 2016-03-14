@@ -237,6 +237,19 @@
 	[self presentViewController:actionSheet animated:YES completion:nil];
 }
 
+- (void)openMessagesForItem:(ItemModel *)item
+{
+	if ([APIClient sharedInstance].currentUser.userId == item.userId) {
+		ConversationsListTableViewController *conversationsListTableViewController = [ConversationsListTableViewController new];
+		conversationsListTableViewController.item = item;
+		[self.navigationController pushViewController:conversationsListTableViewController animated:YES];
+	} else {
+		MessageTableViewController *messageTableViewController = [MessageTableViewController new];
+		messageTableViewController.item = item;
+		[self.navigationController pushViewController:messageTableViewController animated:YES];
+	}
+}
+
 #pragma mark - API
 
 - (void)deleteItemWithId:(NSInteger)itemId

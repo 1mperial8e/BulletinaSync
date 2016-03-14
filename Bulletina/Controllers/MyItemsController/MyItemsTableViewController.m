@@ -37,13 +37,16 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     } else {
         self.navigationItem.title = self.user.title;
     }
-	
-	__weak typeof(self) weakSelf = self;
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([APIClient sharedInstance].requestStartDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		if (!weakSelf.downloadTask) {
-			[weakSelf loadData:YES];
-		}
-	});
+	if (!self.item) {
+		__weak typeof(self) weakSelf = self;
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([APIClient sharedInstance].requestStartDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+			if (!weakSelf.downloadTask) {
+				[weakSelf loadData:YES];
+			}
+		});
+	} else {
+		self.itemsList = [NSMutableArray arrayWithObjects:self.item, nil];
+	}
 }
 
 #pragma mark - API
@@ -95,13 +98,21 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+	if (!self.item) {
+		return 2;
+	} else {
+		return 1;
+	}
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (!section) {
-		return [super tableView:tableView numberOfRowsInSection:section] + 1; // plus profile cell
+		if (!self.item) {
+			return [super tableView:tableView numberOfRowsInSection:section] + 1; // plus profile cell
+		} else {
+			return 2;
+		}		
     }
     return [super tableView:tableView numberOfRowsInSection:section];
 }

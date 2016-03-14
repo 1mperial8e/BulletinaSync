@@ -11,6 +11,8 @@
 #import "SelectNewAdCategoryTableViewController.h"
 #import "FullScreenImageViewController.h"
 #import "ReasonSelectTableViewController.h"
+#import "MessageTableViewController.h"
+#import "ConversationsListTableViewController.h"
 
 // Views
 #import "ItemTableViewCell.h"

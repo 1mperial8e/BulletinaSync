@@ -54,4 +54,8 @@
 
 + (NSMutableArray *)arrayWithFavoritreDictionariesArray:(NSArray *)dictsArray;
 
+#pragma mark - Private
+
+- (ItemModel *)fakeItem;
+
 @end

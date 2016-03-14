@@ -12,6 +12,7 @@
 
 - (void)showActionSheetForItem:(id)item;
 - (void)showUserForItem:(id)item;
+- (void)openMessagesForItem:(id)item;
 
 @end
 

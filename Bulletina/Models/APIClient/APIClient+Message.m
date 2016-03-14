@@ -32,4 +32,17 @@
 //	return [self performGET:@"api/v1/messages.json" withParameters:parameters response:completion];
 }
 
+- (NSURLSessionTask *)fetchConversationsListWithCompletion:(ResponseBlock)completion
+{
+	//	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
+	
+	//fake
+	NSArray *response = @[@1,@2,@3,@4,@5];
+	completion(response,nil,200);
+	return nil;
+	//fake
+	
+	//	return [self performGET:@"api/v1/messages.json" withParameters:parameters response:completion];
+}
+
 @end

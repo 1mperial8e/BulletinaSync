@@ -81,6 +81,7 @@
 	self.imageHeight = [dictionary[@"image_height"] floatValue];
 	self.imageWidth = [dictionary[@"image_width"] floatValue];
 	self.isFavorite = [dictionary[@"is_favorite"] integerValue];
+	self.isChatActive = [dictionary[@"has_chat"] boolValue];
 	
 	NSString *userUserAvatarUrl = dictionary[@"user_user_avatar_url"];
 	if (userUserAvatarUrl.length) {
@@ -135,6 +136,45 @@
 	itemCopy.imageWidth = _imageWidth;
 	itemCopy.userUserAvatarUrl = [_userUserAvatarUrl copy];
 	itemCopy.category =[_category copy];
+	itemCopy.customerTypeId = _customerTypeId;
+	itemCopy.isChatActive = _isChatActive;
+	itemCopy.isFavorite = _isFavorite;
+	return itemCopy;
+}
+
+#pragma mark - Private
+
+- (ItemModel *)fakeItem
+{
+	ItemModel *itemCopy = [[ItemModel alloc] init];
+	
+	itemCopy.active = 1;
+	itemCopy.adTypeId = 1067915970;
+	itemCopy.createdAt = @"2016-03-09T08:43:34.742Z";
+	itemCopy.itemId = 369;
+	itemCopy.imageThumbUrl = [NSURL URLWithString:@"https://bt-images-prod.s3-eu-west-1.amazonaws.com/user_content/items/item_369.jpg"];
+	itemCopy.imagesUrl = [NSURL URLWithString:@"https://bt-images-prod.s3-eu-west-1.amazonaws.com/user_content/items/item_369.jpg"];
+	itemCopy.latitude = @"";
+	itemCopy.longitude = @"";
+	itemCopy.name = @"";
+	itemCopy.price = @"15";
+	itemCopy.updatedAt = @"";
+	itemCopy.userId = 1134;
+	itemCopy.adTypeName = @"Job request";
+	itemCopy.countryName =@"";
+	itemCopy.userAvatarThumbUrl = [NSURL URLWithString:@"https://bt-images-prod.s3-eu-west-1.amazonaws.com/user_content/avatars/avatar_thumb_1134_20160311090640.jpg"];
+	itemCopy.userCompanyName = @"post company";
+	itemCopy.userFullname = @"";
+	itemCopy.userNickname = @"";
+	itemCopy.distance = @"5 km";
+	itemCopy.timeAgo = @"2 days";
+	itemCopy.imageHeight = 480;
+	itemCopy.imageWidth = 640;
+	itemCopy.userUserAvatarUrl = [NSURL URLWithString:@"https://bt-images-prod.s3-eu-west-1.amazonaws.com/user_content/avatars/avatar_1134_20160311090640.jpg"];
+	itemCopy.category =[_category copy]; ///!!!
+	itemCopy.customerTypeId = 3;
+	itemCopy.isChatActive = 1;
+	itemCopy.isFavorite  = 1;
 	return itemCopy;
 }
 

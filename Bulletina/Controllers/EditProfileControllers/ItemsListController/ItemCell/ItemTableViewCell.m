@@ -181,6 +181,11 @@ typedef NS_ENUM(NSUInteger, iconCellsIndexes) {
 			cell.iconImageView.image = [UIImage imageNamed:@"ChatActive"];
 		}
 		self.cellItem.isChatActive = !self.cellItem.isChatActive;
+		
+		if ([self.delegate respondsToSelector:@selector(openMessagesForItem:)]) {
+			[self.delegate openMessagesForItem:self.cellItem];
+		}
+		
 	} else if (indexPath.item == ShareCellIndex) {
         [self shareItem];
     }

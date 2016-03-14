@@ -79,8 +79,6 @@
 		30A900C71C92E98B0081CF74 /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A900C51C92E98B0081CF74 /* MessageTableViewCell.xib */; };
 		30A900CB1C9302570081CF74 /* ItemInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A900C91C9302570081CF74 /* ItemInfoTableViewCell.m */; };
 		30A900CC1C9302570081CF74 /* ItemInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A900CA1C9302570081CF74 /* ItemInfoTableViewCell.xib */; };
-		30A900D01C9302730081CF74 /* ConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A900CE1C9302730081CF74 /* ConversationTableViewCell.m */; };
-		30A900D11C9302730081CF74 /* ConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A900CF1C9302730081CF74 /* ConversationTableViewCell.xib */; };
 		30ABDB301C86DEF500D6FD08 /* ReportReasonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ABDB2F1C86DEF500D6FD08 /* ReportReasonModel.m */; };
 		30ABDB351C86E36000D6FD08 /* ReasonSelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ABDB331C86E36000D6FD08 /* ReasonSelectTableViewController.m */; };
 		30ABDB361C86E36000D6FD08 /* ReasonSelectTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30ABDB341C86E36000D6FD08 /* ReasonSelectTableViewController.xib */; };
@@ -92,6 +90,10 @@
 		30B33EE71C6DD50000E178A6 /* ChangePasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B33EE31C6DD50000E178A6 /* ChangePasswordTableViewController.m */; };
 		30B33EE81C6DD50000E178A6 /* ChangePasswordTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B33EE41C6DD50000E178A6 /* ChangePasswordTableViewController.xib */; };
 		30B33EF31C6DEFA300E178A6 /* PHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B33EF21C6DEFA300E178A6 /* PHTextView.m */; };
+		30B729951C96A091007E4310 /* ConversationsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B729931C96A091007E4310 /* ConversationsListTableViewController.m */; };
+		30B729961C96A091007E4310 /* ConversationsListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B729941C96A091007E4310 /* ConversationsListTableViewController.xib */; };
+		30B7299B1C96A144007E4310 /* ConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B729991C96A144007E4310 /* ConversationTableViewCell.m */; };
+		30B7299C1C96A144007E4310 /* ConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B7299A1C96A144007E4310 /* ConversationTableViewCell.xib */; };
 		30BBACE41C43EB4D004F22D2 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */; };
 		30BBACEA1C43EDD4004F22D2 /* LogoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBACE81C43EDD4004F22D2 /* LogoTableViewCell.m */; };
 		30BBACEB1C43EDD4004F22D2 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBACE91C43EDD4004F22D2 /* LogoTableViewCell.xib */; };
@@ -295,9 +297,6 @@
 		30A900C81C9302570081CF74 /* ItemInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemInfoTableViewCell.h; sourceTree = "<group>"; };
 		30A900C91C9302570081CF74 /* ItemInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemInfoTableViewCell.m; sourceTree = "<group>"; };
 		30A900CA1C9302570081CF74 /* ItemInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemInfoTableViewCell.xib; sourceTree = "<group>"; };
-		30A900CD1C9302730081CF74 /* ConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableViewCell.h; sourceTree = "<group>"; };
-		30A900CE1C9302730081CF74 /* ConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTableViewCell.m; sourceTree = "<group>"; };
-		30A900CF1C9302730081CF74 /* ConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationTableViewCell.xib; sourceTree = "<group>"; };
 		30ABDB2E1C86DEF500D6FD08 /* ReportReasonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportReasonModel.h; sourceTree = "<group>"; };
 		30ABDB2F1C86DEF500D6FD08 /* ReportReasonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportReasonModel.m; sourceTree = "<group>"; };
 		30ABDB321C86E36000D6FD08 /* ReasonSelectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReasonSelectTableViewController.h; sourceTree = "<group>"; };
@@ -316,6 +315,12 @@
 		30B33EE41C6DD50000E178A6 /* ChangePasswordTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordTableViewController.xib; sourceTree = "<group>"; };
 		30B33EF11C6DEFA300E178A6 /* PHTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHTextView.h; sourceTree = "<group>"; };
 		30B33EF21C6DEFA300E178A6 /* PHTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHTextView.m; sourceTree = "<group>"; };
+		30B729921C96A091007E4310 /* ConversationsListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationsListTableViewController.h; sourceTree = "<group>"; };
+		30B729931C96A091007E4310 /* ConversationsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationsListTableViewController.m; sourceTree = "<group>"; };
+		30B729941C96A091007E4310 /* ConversationsListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationsListTableViewController.xib; sourceTree = "<group>"; };
+		30B729981C96A144007E4310 /* ConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableViewCell.h; sourceTree = "<group>"; };
+		30B729991C96A144007E4310 /* ConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTableViewCell.m; sourceTree = "<group>"; };
+		30B7299A1C96A144007E4310 /* ConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationTableViewCell.xib; sourceTree = "<group>"; };
 		30BBACE21C43EB4D004F22D2 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
 		30BBACE31C43EB4D004F22D2 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		30BBACE71C43EDD4004F22D2 /* LogoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoTableViewCell.h; sourceTree = "<group>"; };
@@ -940,21 +945,10 @@
 		30A900BF1C92E98B0081CF74 /* MessageCells */ = {
 			isa = PBXGroup;
 			children = (
-				30A900C01C92E98B0081CF74 /* ConversationCell */,
 				30A900C11C92E98B0081CF74 /* ItemInfoCell */,
 				30A900C21C92E98B0081CF74 /* MessageCell */,
 			);
 			path = MessageCells;
-			sourceTree = "<group>";
-		};
-		30A900C01C92E98B0081CF74 /* ConversationCell */ = {
-			isa = PBXGroup;
-			children = (
-				30A900CD1C9302730081CF74 /* ConversationTableViewCell.h */,
-				30A900CE1C9302730081CF74 /* ConversationTableViewCell.m */,
-				30A900CF1C9302730081CF74 /* ConversationTableViewCell.xib */,
-			);
-			path = ConversationCell;
 			sourceTree = "<group>";
 		};
 		30A900C11C92E98B0081CF74 /* ItemInfoCell */ = {
@@ -1042,6 +1036,27 @@
 				30B33EF21C6DEFA300E178A6 /* PHTextView.m */,
 			);
 			path = PHTextView;
+			sourceTree = "<group>";
+		};
+		30B729911C96A015007E4310 /* ConversationsListController */ = {
+			isa = PBXGroup;
+			children = (
+				30B729971C96A144007E4310 /* ConversationCell */,
+				30B729921C96A091007E4310 /* ConversationsListTableViewController.h */,
+				30B729931C96A091007E4310 /* ConversationsListTableViewController.m */,
+				30B729941C96A091007E4310 /* ConversationsListTableViewController.xib */,
+			);
+			path = ConversationsListController;
+			sourceTree = "<group>";
+		};
+		30B729971C96A144007E4310 /* ConversationCell */ = {
+			isa = PBXGroup;
+			children = (
+				30B729981C96A144007E4310 /* ConversationTableViewCell.h */,
+				30B729991C96A144007E4310 /* ConversationTableViewCell.m */,
+				30B7299A1C96A144007E4310 /* ConversationTableViewCell.xib */,
+			);
+			path = ConversationCell;
 			sourceTree = "<group>";
 		};
 		30BBACDC1C43EA64004F22D2 /* Views */ = {
@@ -1342,10 +1357,11 @@
 				4F79B9161C43DC2D0082740E /* LoginController */,
 				3099D4741C4CFDFE0080C05B /* ImageActionSheetController */,
 				3099D47E1C4D2BE10080C05B /* FullScreenImageController */,
-				B247CC9D1C520DE90064396E /* ChatController */,
 				4F49DDC21C50D82F002E2F24 /* SelectNewItemCategoryController */,
 				30802F081C495BE3008D97EC /* AddNewItemController */,
 				B2B5E02B1C50C847000E5A4C /* MessageViewController */,
+				30B729911C96A015007E4310 /* ConversationsListController */,
+				B247CC9D1C520DE90064396E /* ChatController */,
 				3082EE121C4E43DF004DAB08 /* SearchSettingsController */,
 			);
 			path = Controllers;
@@ -1652,6 +1668,7 @@
 				309F12B71C6B430400C4D1A3 /* BaseEditProfileTableViewController.xib in Resources */,
 				4F52C9591C74BCEB001AF7B7 /* ItemsListTableViewController.xib in Resources */,
 				30A074E31C4F986700BCE672 /* ResetPasswordTableViewCell.xib in Resources */,
+				30B7299C1C96A144007E4310 /* ConversationTableViewCell.xib in Resources */,
 				B247CCA21C520E060064396E /* ChatViewController.xib in Resources */,
 				307E2EE71C4A59E80007A7CC /* NewItemTextTableViewCell.xib in Resources */,
 				3099D48D1C4D4F080080C05B /* FullScreenImageViewController.xib in Resources */,
@@ -1666,6 +1683,7 @@
 				30B33EE81C6DD50000E178A6 /* ChangePasswordTableViewController.xib in Resources */,
 				B2B5E0301C50C876000E5A4C /* MessageTableViewController.xib in Resources */,
 				3082EE2A1C4E61AF004DAB08 /* DefaultSettingsTableViewCell.xib in Resources */,
+				30B729961C96A091007E4310 /* ConversationsListTableViewController.xib in Resources */,
 				30928DFA1C465CBA00041847 /* ButtonTableViewCell.xib in Resources */,
 				4F79B9231C43DC2D0082740E /* Assets.xcassets in Resources */,
 				B2F8DB291C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.xib in Resources */,
@@ -1690,7 +1708,6 @@
 				30928DE71C465BBC00041847 /* PersonalRegisterTableViewController.xib in Resources */,
 				30928DF51C465CA700041847 /* InputTableViewCell.xib in Resources */,
 				30A074DC1C4F96AD00BCE672 /* ForgotPasswordTableViewController.xib in Resources */,
-				30A900D11C9302730081CF74 /* ConversationTableViewCell.xib in Resources */,
 				307E2EDD1C4A59950007A7CC /* NewItemPriceTableViewCell.xib in Resources */,
 				30B239011C8992C50016B462 /* BaseRegisterProfileTableViewController.xib in Resources */,
 				4F52C9571C74BCEB001AF7B7 /* ItemTableViewCell.xib in Resources */,
@@ -1766,7 +1783,6 @@
 				B2F8DB2D1C4FBB390083FE1F /* AccountTypeTableViewCell.m in Sources */,
 				3043590D1C479F51007B6959 /* ProfileTableViewController.m in Sources */,
 				30C165A21C5E0F6000005525 /* UserModel.m in Sources */,
-				30A900D01C9302730081CF74 /* ConversationTableViewCell.m in Sources */,
 				B22AF4C61C53C821008D1708 /* ChatMessageTableViewCell.m in Sources */,
 				4F637BF61C464E2200DE7CCA /* TextInputNavigationCollection.m in Sources */,
 				B2B5E02F1C50C876000E5A4C /* MessageTableViewController.m in Sources */,
@@ -1796,6 +1812,7 @@
 				30BBACF91C43EEF9004F22D2 /* TryBeforeTableViewCell.m in Sources */,
 				30BBAD031C43EF24004F22D2 /* LoginButtonTableViewCell.m in Sources */,
 				30A900C61C92E98B0081CF74 /* MessageTableViewCell.m in Sources */,
+				30B7299B1C96A144007E4310 /* ConversationTableViewCell.m in Sources */,
 				3082EE1C1C4E4507004DAB08 /* SearchSettingsTableViewController.m in Sources */,
 				304359121C479F6F007B6959 /* ProfileDefaultTableViewCell.m in Sources */,
 				4F79B9221C43DC2D0082740E /* LoginViewController.m in Sources */,
@@ -1806,6 +1823,7 @@
 				30928DE61C465BBC00041847 /* PersonalRegisterTableViewController.m in Sources */,
 				3082B9B01C48F1B200C4925D /* IndividualProfileEditTableViewController.m in Sources */,
 				30B239001C8992C50016B462 /* BaseRegisterProfileTableViewController.m in Sources */,
+				30B729951C96A091007E4310 /* ConversationsListTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

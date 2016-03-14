@@ -36,28 +36,41 @@
                             <constraint firstAttribute="height" constant="27" id="gQW-fh-0ha"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="01.03.2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0B-SJ-OXd">
-                        <rect key="frame" x="196" y="7" width="65" height="14"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="01.03.2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0B-SJ-OXd">
+                        <rect key="frame" x="158" y="7" width="63" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.56078431370000004" green="0.5568627451" blue="0.58039215690000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHi-Uf-f9N">
-                        <rect key="frame" x="196" y="35" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Conversation cell example. Here must be a real text." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHi-Uf-f9N">
+                        <rect key="frame" x="158" y="23" width="176" height="29"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="C0B-SJ-OXd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="3Ud-Ym-RLn"/>
                     <constraint firstItem="cyd-eG-qtv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="BrJ-aQ-u1I"/>
+                    <constraint firstAttribute="trailing" secondItem="IHi-Uf-f9N" secondAttribute="trailing" constant="8" id="ITL-dD-6Gr"/>
+                    <constraint firstItem="IHi-Uf-f9N" firstAttribute="leading" secondItem="cyd-eG-qtv" secondAttribute="trailing" constant="10" id="N7a-uU-yoR"/>
                     <constraint firstItem="Pbq-kE-fS0" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="XqX-o6-oT0"/>
                     <constraint firstItem="cyd-eG-qtv" firstAttribute="leading" secondItem="Pbq-kE-fS0" secondAttribute="trailing" constant="8" id="YWh-5u-77c"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="IHi-Uf-f9N" secondAttribute="bottom" constant="5" id="cWZ-3d-Cn1"/>
+                    <constraint firstItem="IHi-Uf-f9N" firstAttribute="top" secondItem="C0B-SJ-OXd" secondAttribute="bottom" constant="1" id="e4Z-xQ-G9X"/>
                     <constraint firstItem="Pbq-kE-fS0" firstAttribute="leading" secondItem="Dc9-dT-ecs" secondAttribute="trailing" constant="17" id="geU-bb-saV"/>
                     <constraint firstItem="Dc9-dT-ecs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="lRy-dz-ssu"/>
                     <constraint firstItem="Dc9-dT-ecs" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="s5v-8d-IJe"/>
+                    <constraint firstItem="C0B-SJ-OXd" firstAttribute="leading" secondItem="cyd-eG-qtv" secondAttribute="trailing" constant="10" id="uZ0-JD-xfI"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="badgeView" destination="Dc9-dT-ecs" id="gIc-FM-g3d"/>
+                <outlet property="itemImageView" destination="Pbq-kE-fS0" id="h1B-jJ-whu"/>
+                <outlet property="messageCreateDateLabel" destination="C0B-SJ-OXd" id="aIy-Dq-5wG"/>
+                <outlet property="messageTextLabel" destination="IHi-Uf-f9N" id="sbn-X2-fEB"/>
+                <outlet property="userAvatarImageView" destination="cyd-eG-qtv" id="xRw-gT-pon"/>
+            </connections>
             <point key="canvasLocation" x="275.5" y="261.5"/>
         </tableViewCell>
     </objects>

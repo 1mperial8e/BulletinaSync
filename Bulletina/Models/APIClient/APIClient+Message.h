@@ -13,5 +13,6 @@
 
 - (NSURLSessionTask *)fetchMyMessagesWithPage:(NSInteger)page withCompletion:(ResponseBlock)completion;
 - (NSURLSessionTask *)fetchMyUnreadMessagesCountWithCompletion:(ResponseBlock)completion;
+- (NSURLSessionTask *)fetchConversationsListWithCompletion:(ResponseBlock)completion;
 
 @end

@@ -15,6 +15,7 @@
 #import "AnonymusProfileEditTableViewController.h"
 #import "ChangePasswordTableViewController.h"
 #import "SearchSettingsTableViewController.h"
+#import "ConversationsListTableViewController.h"
 
 // Cells
 #import "ProfileDefaultTableViewCell.h"
@@ -203,8 +204,11 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             break;
         }
         case MessagesCellIndex: {
-            MessageTableViewController *messageTableViewController = [MessageTableViewController new];
-            [self.navigationController pushViewController:messageTableViewController animated:YES];
+//            MessageTableViewController *messageTableViewController = [MessageTableViewController new];
+//            [self.navigationController pushViewController:messageTableViewController animated:YES];
+			
+			ConversationsListTableViewController *conversationsListTableViewController = [ConversationsListTableViewController new];
+			[self.navigationController pushViewController:conversationsListTableViewController animated:YES];
             break;
         }
         case SearchSettingsCellIndex: {
@@ -217,18 +221,29 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             [self.navigationController pushViewController:changePasswordController animated:YES];
             break;
         }
+		case MyItemsCellIndex: {
+			if ([APIClient sharedInstance].currentUser.customerTypeId == AnonymousAccount) {
+				[Utils showWarningWithMessage:@"Only registered users can post items. Please update your account."];
+			} else {
+				MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
+				itemsTableViewController.user = [APIClient sharedInstance].currentUser;
+				[self.navigationController pushViewController:itemsTableViewController animated:YES];
+			}
+			break;
+		}
         default:
             break;
     }
-    if (indexPath.item == MyItemsCellIndex) {
-        if ([APIClient sharedInstance].currentUser.customerTypeId == AnonymousAccount) {
-            [Utils showWarningWithMessage:@"Only registered users can post items. Please update your account."];
-        } else {
-            MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
-			itemsTableViewController.user = [APIClient sharedInstance].currentUser;
-            [self.navigationController pushViewController:itemsTableViewController animated:YES];
-        }
-    }
+	
+//    if (indexPath.item == MyItemsCellIndex) {
+//        if ([APIClient sharedInstance].currentUser.customerTypeId == AnonymousAccount) {
+//            [Utils showWarningWithMessage:@"Only registered users can post items. Please update your account."];
+//        } else {
+//            MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
+//			itemsTableViewController.user = [APIClient sharedInstance].currentUser;
+//            [self.navigationController pushViewController:itemsTableViewController animated:YES];
+//        }
+//    }
 }
 
 #pragma mark - Actions
