@@ -98,6 +98,8 @@ NSInteger const ItemsPerPage = 10;
 //	[parameters setValue:@(page) forKey:@"page"];
 	[parameters setValue:@(ItemsPerPage) forKey:@"limit"];
 	[parameters setValue:@(userId) forKey:@"user_id"];
+	[parameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
+	[parameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
 	
 	NSString *query = [NSString stringWithFormat:@"api/v1/items.json"];
 	
@@ -178,6 +180,8 @@ NSInteger const ItemsPerPage = 10;
 	[parameters setValue:@(page * ItemsPerPage) forKey:@"offset"];
 	//	[parameters setValue:@(page) forKey:@"page"];
 	[parameters setValue:@(ItemsPerPage) forKey:@"limit"];
+	[parameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
+	[parameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
 	return [self performGET:@"api/v1/favorites.json" withParameters:parameters response:completion];
 }
 

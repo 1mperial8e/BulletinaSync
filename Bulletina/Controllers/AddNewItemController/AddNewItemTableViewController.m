@@ -53,8 +53,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 {	
     [super viewDidLoad];
 	[self tableViewSetup];
-	[self setupUI];
-	
+	[self setupUI];	
 }
 
 - (void)dealloc

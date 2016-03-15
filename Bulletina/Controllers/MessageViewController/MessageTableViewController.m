@@ -188,6 +188,11 @@ static NSString *const TextViewPlaceholderText = @"Post a comment";
 
 - (void)prepareDataSource
 {
+//	DLog(@"passtoken:%@",[APIClient sharedInstance].passtoken);
+//	DLog(@"currentUserId:%li",[APIClient sharedInstance].currentUser.userId);
+//	DLog(@"ItemUserId:%li",self.item.userId);
+//	DLog(@"ItemId:%li",self.item.itemId);
+	
 	[[APIClient sharedInstance] fetchMyMessagesWithPage:0 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
 		if (error) {
 			if (response[@"error_message"]) {
@@ -196,7 +201,8 @@ static NSString *const TextViewPlaceholderText = @"Post a comment";
 				[Utils showErrorForStatusCode:statusCode];
 			}
 		} else {
-			//			[Utils showWarningWithMessage:@"Request succeeded. Need further implementation"];
+//			DLog(@"%@", response);
+			// [Utils showWarningWithMessage:@"Request succeeded. Need further implementation"];
 		}
 	}];
 	

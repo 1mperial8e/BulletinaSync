@@ -14,7 +14,7 @@
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{@"passtoken" : self.passtoken}];
 	[parameters setValue:@(page * ItemsPerPage) forKey:@"offset"];
-	[parameters setValue:@(ItemsPerPage) forKey:@"limit"];
+	[parameters setValue:@(ItemsPerPage) forKey:@"limit"];	
 	
 	return [self performGET:@"api/v1/messages.json" withParameters:parameters response:completion];
 }
