@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" text="Message text, message text, message text, message text, message text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFf-1B-pOw" userLabel="Message Label">
-                        <rect key="frame" x="91" y="5" width="206" height="43"/>
+                        <rect key="frame" x="94" y="5" width="203" height="43"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -36,15 +36,23 @@
                         <color key="textColor" red="0.5607843137254902" green="0.55686274509803924" blue="0.58039215686274503" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bT7-v1-RIy">
+                        <rect key="frame" x="0.0" y="0.0" width="94" height="54"/>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="bT7-v1-RIy" firstAttribute="centerY" secondItem="HeM-of-SPo" secondAttribute="centerY" id="3dx-xK-1hP"/>
                     <constraint firstItem="ulE-9L-n7F" firstAttribute="leading" secondItem="oFf-1B-pOw" secondAttribute="trailing" constant="5" id="Ah6-J7-56k"/>
+                    <constraint firstItem="bT7-v1-RIy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="BRi-68-czP"/>
+                    <constraint firstItem="bT7-v1-RIy" firstAttribute="centerX" secondItem="HeM-of-SPo" secondAttribute="centerX" id="L2E-Yd-yLz"/>
+                    <constraint firstItem="oFf-1B-pOw" firstAttribute="leading" secondItem="bT7-v1-RIy" secondAttribute="trailing" id="MCC-t3-8NB"/>
+                    <constraint firstAttribute="bottom" secondItem="bT7-v1-RIy" secondAttribute="bottom" id="Ma5-hv-OHd"/>
                     <constraint firstAttribute="trailing" secondItem="ulE-9L-n7F" secondAttribute="trailing" constant="8" id="U6Z-3N-oqk"/>
                     <constraint firstItem="oFf-1B-pOw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="auw-1s-q3e"/>
-                    <constraint firstItem="oFf-1B-pOw" firstAttribute="leading" secondItem="HeM-of-SPo" secondAttribute="trailing" constant="24" id="bEu-Bn-dtK"/>
                     <constraint firstItem="HeM-of-SPo" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cyT-8F-tgo"/>
                     <constraint firstItem="ulE-9L-n7F" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="kh6-eL-s4b"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="oFf-1B-pOw" secondAttribute="bottom" constant="4" id="mE5-4W-huG"/>
+                    <constraint firstItem="bT7-v1-RIy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="wzI-9m-PBK"/>
                     <constraint firstItem="HeM-of-SPo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="27" id="xpa-eb-Cjb"/>
                 </constraints>
             </tableViewCellContentView>
@@ -52,6 +60,7 @@
                 <outlet property="messageCreateDateLabel" destination="ulE-9L-n7F" id="Z0m-vz-2Rd"/>
                 <outlet property="messageTextLabel" destination="oFf-1B-pOw" id="Tdo-Mb-tcH"/>
                 <outlet property="userAvatarImageView" destination="HeM-of-SPo" id="huY-lk-Kau"/>
+                <outlet property="userButton" destination="bT7-v1-RIy" id="uJK-I0-i6y"/>
             </connections>
             <point key="canvasLocation" x="279.5" y="246.5"/>
         </tableViewCell>

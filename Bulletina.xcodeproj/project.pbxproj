@@ -104,6 +104,8 @@
 		30BBAD031C43EF24004F22D2 /* LoginButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BBAD011C43EF24004F22D2 /* LoginButtonTableViewCell.m */; };
 		30BBAD041C43EF24004F22D2 /* LoginButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BBAD021C43EF24004F22D2 /* LoginButtonTableViewCell.xib */; };
 		30C165A21C5E0F6000005525 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C165A11C5E0F6000005525 /* UserModel.m */; };
+		30D32A291C99540700D12DDC /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D32A281C99540700D12DDC /* MessageModel.m */; };
+		30D32A2C1C99542200D12DDC /* ConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D32A2B1C99542200D12DDC /* ConversationModel.m */; };
 		30D33A9D1C576BC7002AD94F /* APIClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D33A9C1C576BC7002AD94F /* APIClient+User.m */; };
 		30D33AA01C57796D002AD94F /* APIClient+Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D33A9F1C57796D002AD94F /* APIClient+Item.m */; };
 		30D644A81C567F43008F118B /* NSDictionary+Nonnull.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D644A71C567F43008F118B /* NSDictionary+Nonnull.m */; };
@@ -337,6 +339,10 @@
 		30BBAD021C43EF24004F22D2 /* LoginButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginButtonTableViewCell.xib; sourceTree = "<group>"; };
 		30C165A01C5E0F6000005525 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		30C165A11C5E0F6000005525 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		30D32A271C99540700D12DDC /* MessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageModel.h; sourceTree = "<group>"; };
+		30D32A281C99540700D12DDC /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
+		30D32A2A1C99542200D12DDC /* ConversationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationModel.h; sourceTree = "<group>"; };
+		30D32A2B1C99542200D12DDC /* ConversationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationModel.m; sourceTree = "<group>"; };
 		30D33A9B1C576BC7002AD94F /* APIClient+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "APIClient+User.h"; sourceTree = "<group>"; };
 		30D33A9C1C576BC7002AD94F /* APIClient+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "APIClient+User.m"; sourceTree = "<group>"; };
 		30D33A9E1C57796D002AD94F /* APIClient+Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "APIClient+Item.h"; sourceTree = "<group>"; };
@@ -1145,6 +1151,24 @@
 			path = UserModel;
 			sourceTree = "<group>";
 		};
+		30D32A251C9953C600D12DDC /* ConversationModel */ = {
+			isa = PBXGroup;
+			children = (
+				30D32A2A1C99542200D12DDC /* ConversationModel.h */,
+				30D32A2B1C99542200D12DDC /* ConversationModel.m */,
+			);
+			path = ConversationModel;
+			sourceTree = "<group>";
+		};
+		30D32A261C9953C600D12DDC /* MessageModel */ = {
+			isa = PBXGroup;
+			children = (
+				30D32A271C99540700D12DDC /* MessageModel.h */,
+				30D32A281C99540700D12DDC /* MessageModel.m */,
+			);
+			path = MessageModel;
+			sourceTree = "<group>";
+		};
 		30D644A51C567F1E008F118B /* NSDictionary+Nonnull */ = {
 			isa = PBXGroup;
 			children = (
@@ -1360,8 +1384,8 @@
 				4F49DDC21C50D82F002E2F24 /* SelectNewItemCategoryController */,
 				30802F081C495BE3008D97EC /* AddNewItemController */,
 				30B729911C96A015007E4310 /* ConversationsListController */,
-				B247CC9D1C520DE90064396E /* ChatController */,
 				B2B5E02B1C50C847000E5A4C /* MessageViewController */,
+				B247CC9D1C520DE90064396E /* ChatController */,
 				3082EE121C4E43DF004DAB08 /* SearchSettingsController */,
 			);
 			path = Controllers;
@@ -1389,6 +1413,8 @@
 		4F8607BC1C5769EF00EAAC9B /* APIModels */ = {
 			isa = PBXGroup;
 			children = (
+				30D32A251C9953C600D12DDC /* ConversationModel */,
+				30D32A261C9953C600D12DDC /* MessageModel */,
 				30ABDB2D1C86DEAC00D6FD08 /* ReportReasonModel */,
 				309A5C8D1C6B99FB009BA96D /* ItemModel */,
 				4FB667311C6B6A57005F758C /* CategoryModel */,
@@ -1746,6 +1772,7 @@
 				4F52C9581C74BCEB001AF7B7 /* ItemsListTableViewController.m in Sources */,
 				B2F8DB281C4FB8B00083FE1F /* RegisterTypeSelectTableViewController.m in Sources */,
 				30B33EE71C6DD50000E178A6 /* ChangePasswordTableViewController.m in Sources */,
+				30D32A2C1C99542200D12DDC /* ConversationModel.m in Sources */,
 				30ACB0911C5276D500A879D5 /* BulletinaLoaderView.m in Sources */,
 				4F637BFC1C46596F00DE7CCA /* Utils.m in Sources */,
 				4FA19C071C46828600140343 /* AFSecurityPolicy.m in Sources */,
@@ -1824,6 +1851,7 @@
 				3082B9B01C48F1B200C4925D /* IndividualProfileEditTableViewController.m in Sources */,
 				30B239001C8992C50016B462 /* BaseRegisterProfileTableViewController.m in Sources */,
 				30B729951C96A091007E4310 /* ConversationsListTableViewController.m in Sources */,
+				30D32A291C99540700D12DDC /* MessageModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -27,7 +27,7 @@ static NSUInteger const ItemInfoTableViewCellIndex = 0;
 static NSString *const ViewControllerTitle = @"Messages";
 static NSString *const TextViewPlaceholderText = @"Post a comment";
 
-@interface MessageTableViewController () <UITextViewDelegate>
+@interface MessageTableViewController () <UITextViewDelegate, MessageCellDelegate>
 
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (weak, nonatomic) IBOutlet PHTextView *messageTextView;
@@ -44,7 +44,6 @@ static NSString *const TextViewPlaceholderText = @"Post a comment";
     [super viewDidLoad];
     [self prepareUI];
     [self prepareDataSource];
-
 }
 
 #pragma mark - UIResponder
@@ -57,9 +56,7 @@ static NSString *const TextViewPlaceholderText = @"Post a comment";
 	self.messageTextView.placeholder = TextViewPlaceholderText;
 	self.messageTextView.layer.cornerRadius = 7;
 	self.messageTextView.delegate = self;
-	
 	self.messageInputView.backgroundColor = [UIColor mainPageBGColor];
-	
 	return self.messageInputView;
 }
 
@@ -92,11 +89,9 @@ static NSString *const TextViewPlaceholderText = @"Post a comment";
 	if (self.item.imagesUrl) {
 		[cell.itemImageView setImageWithURL:self.item.imagesUrl];
 	}
-	
 	if (self.item.text) {
 		cell.itemTextLabel.text = self.item.text;
 	}
-	
 	return cell;
 }
 
@@ -108,6 +103,10 @@ static NSString *const TextViewPlaceholderText = @"Post a comment";
 	if (self.item.userAvatarThumbUrl) {
 		[cell.userAvatarImageView setImageWithURL:self.item.userAvatarThumbUrl];
 	}
+	cell.delegate = self;
+	cell.message = [MessageModel new];
+	//temp
+	cell.message.relatedUser = [[UserModel alloc] initWithItem:self.item];
 	
 	return cell;
 }
@@ -151,7 +150,6 @@ static NSString *const TextViewPlaceholderText = @"Post a comment";
 		self.messageTextView.text = @"";
 		[self.messageTextView resignFirstResponder];
 		[self.view endEditing:YES];
-
 		[self.dataSource insertObject:@5 atIndex:0];
 		[self.tableView beginUpdates];
 		[self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:1 inSection:0]]  withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -168,7 +166,6 @@ static NSString *const TextViewPlaceholderText = @"Post a comment";
     self.title = ViewControllerTitle;
 	self.view.backgroundColor = [UIColor mainPageBGColor];
 	self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-
     [self prepareNavigationBar];
     [self prepareTableView];
 }
@@ -192,22 +189,30 @@ static NSString *const TextViewPlaceholderText = @"Post a comment";
 //	DLog(@"currentUserId:%li",[APIClient sharedInstance].currentUser.userId);
 //	DLog(@"ItemUserId:%li",self.item.userId);
 //	DLog(@"ItemId:%li",self.item.itemId);
-	
-	[[APIClient sharedInstance] fetchMyMessagesWithPage:0 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-		if (error) {
-			if (response[@"error_message"]) {
-				[Utils showErrorWithMessage:response[@"error_message"]];
-			} else {
-				[Utils showErrorForStatusCode:statusCode];
-			}
-		} else {
+//	
+//	[[APIClient sharedInstance] fetchMyMessagesWithPage:0 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+//		if (error) {
+//			if (response[@"error_message"]) {
+//				[Utils showErrorWithMessage:response[@"error_message"]];
+//			} else {
+//				[Utils showErrorForStatusCode:statusCode];
+//			}
+//		} else {
 //			DLog(@"%@", response);
-			// [Utils showWarningWithMessage:@"Request succeeded. Need further implementation"];
-		}
-	}];
+//		}
+//	}];
 	
     self.dataSource = [NSMutableArray arrayWithObjects:@1, @2, @3, nil];
     [self.tableView reloadData];
+}
+
+#pragma mark - MessageCellDelegate
+
+- (void)showUser:(UserModel *)user
+{
+	MyItemsTableViewController *itemsTableViewController = [MyItemsTableViewController new];
+	itemsTableViewController.user = user;
+	[self.navigationController pushViewController:itemsTableViewController animated:YES];
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import "MessageTableViewCell.h"
 
-@interface MessageTableViewCell ()
+@interface MessageTableViewCell () 
 
 @end
 
@@ -34,7 +34,17 @@
 - (void)prepareUI
 {
     self.userAvatarImageView.layer.cornerRadius = CGRectGetWidth(self.userAvatarImageView.bounds) / 2;
-    self.userAvatarImageView.layer.masksToBounds = YES;	
+    self.userAvatarImageView.layer.masksToBounds = YES;
+	[self.userButton addTarget:self action:@selector(userTap:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+#pragma mark - Actions
+
+- (void)userTap:(UITapGestureRecognizer *)sender
+{
+	if ([self.delegate respondsToSelector:@selector(showUser:)]) {
+		[self.delegate showUser:self.message.relatedUser];
+	}
 }
 
 @end
