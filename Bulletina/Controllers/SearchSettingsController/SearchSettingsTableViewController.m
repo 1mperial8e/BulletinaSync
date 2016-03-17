@@ -230,6 +230,12 @@ static NSInteger const UserTypeSectionsIndex = 2;
 		if (!self.showBusinessAdsSwitch.on && !self.showPersonalAdsSwitch.on) {
 			[sender setOn:YES animated:YES];
 		}
+		if (sender == self.showBusinessAdsSwitch) {
+			self.showBusinessAds = self.showBusinessAdsSwitch.on;
+		}
+		if (sender == self.showPersonalAdsSwitch) {
+			self.showPersonalAds = self.showPersonalAdsSwitch.on;
+		}
 	} else {
 		[self.categoriesSettings setValue:@(sender.on) forKey:@(sender.tag).stringValue];
 		NSInteger enabledCategoriesCount = 0;
