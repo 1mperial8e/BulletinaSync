@@ -28,15 +28,16 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 {
     [super viewDidLoad];
 	[self addSearchBar];
+	[self performSelector:@selector(loadCategories) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
+	[self performSelector:@selector(loadReportReasons) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
+	[self performSelector:@selector(checkMessages) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
+	
     __weak typeof(self) weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([APIClient sharedInstance].requestStartDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([APIClient sharedInstance].requestStartDelay + 0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (!weakSelf.downloadTask) {
             [weakSelf loadData:YES];
         }
     });
-	[self performSelector:@selector(loadCategories) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
-	[self performSelector:@selector(loadReportReasons) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
-	[self performSelector:@selector(checkMessages) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -258,6 +259,16 @@ typedef NS_ENUM(NSUInteger, SegmentIndexes) {
 		if (!error) {
 			NSParameterAssert([response isKindOfClass:[NSArray class]]);
 			[Utils storeValue:response forKey:CategoriesListKey];
+			
+			if (![Defaults objectForKey:CategoriesSettingsKey] && ![Defaults objectForKey:CategoriesListKey]) {
+				NSMutableDictionary *categoriesSettings = [NSMutableDictionary new];
+				
+				for (NSInteger i = 0; i < ((NSArray *)response).count; i++){
+					CategoryModel *currentCategory = [[CategoryModel alloc] initWithDictionary:response[i]];
+					[categoriesSettings setValue:@YES forKey:@(currentCategory.categoryId).stringValue];
+				}
+				[Utils storeValue:categoriesSettings forKey:CategoriesSettingsKey];
+			}
 		}
 	}];
 }

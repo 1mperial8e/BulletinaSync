@@ -185,22 +185,22 @@ static NSString *const TextViewPlaceholderText = @"Post a comment";
 
 - (void)prepareDataSource
 {
-//	DLog(@"passtoken:%@",[APIClient sharedInstance].passtoken);
-//	DLog(@"currentUserId:%li",[APIClient sharedInstance].currentUser.userId);
-//	DLog(@"ItemUserId:%li",self.item.userId);
-//	DLog(@"ItemId:%li",self.item.itemId);
-//	
-//	[[APIClient sharedInstance] fetchMyMessagesWithPage:0 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
-//		if (error) {
+	DLog(@"passtoken:%@",[APIClient sharedInstance].passtoken);
+	DLog(@"currentUserId:%li",[APIClient sharedInstance].currentUser.userId);
+	DLog(@"ItemUserId:%li",self.item.userId);
+	DLog(@"ItemId:%li",self.item.itemId);
+	
+	[[APIClient sharedInstance] fetchMyMessagesWithPage:0 withCompletion:^(id response, NSError *error, NSInteger statusCode) {
+		if (error) {
 //			if (response[@"error_message"]) {
 //				[Utils showErrorWithMessage:response[@"error_message"]];
 //			} else {
 //				[Utils showErrorForStatusCode:statusCode];
 //			}
-//		} else {
-//			DLog(@"%@", response);
-//		}
-//	}];
+		} else {
+			DLog(@"%@", response);
+		}
+	}];
 	
     self.dataSource = [NSMutableArray arrayWithObjects:@1, @2, @3, nil];
     [self.tableView reloadData];

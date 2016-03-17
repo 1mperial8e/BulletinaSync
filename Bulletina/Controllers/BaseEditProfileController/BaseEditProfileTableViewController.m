@@ -101,8 +101,8 @@
     }
 	
 	if (!self.logoImage) {
-		if ([APIClient sharedInstance].currentUser.logoUrl) {
-			[cell.logoImageView setImageWithURL:[APIClient sharedInstance].currentUser.logoUrl];
+		if ([APIClient sharedInstance].currentUser.companyLogoUrl) {
+			[cell.logoImageView setImageWithURL:[APIClient sharedInstance].currentUser.companyLogoUrl];
 		}
 	} else {
 		cell.logoImageView.image = self.logoImage;

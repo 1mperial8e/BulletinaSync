@@ -114,7 +114,7 @@
     if (![Defaults valueForKey:SearchAreaKey]) {
         [Defaults setValue:@(0.5) forKey:SearchAreaKey];
         [Defaults setValue:@YES forKey:ShowBusinessAdsKey];
-		[Defaults setValue:@YES forKey:ShowPersonaAdsKey];
+		[Defaults setValue:@YES forKey:ShowPersonalAdsKey];
     }
 }
 

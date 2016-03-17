@@ -35,7 +35,7 @@ static NSString *const CategoriesListKey = @"CategoriesListKey";
 static NSString *const ReportReasonsListKey = @"ReportReasonsListKey";
 
 static NSString *const SearchAreaKey = @"SearchAreaKey";
-static NSString *const ShowPersonaAdsKey = @"ShowPersonaAdsKey";
+static NSString *const ShowPersonalAdsKey = @"ShowPersonalAdsKey";
 static NSString *const ShowBusinessAdsKey = @"ShowBusinessAdsKey";
 static NSString *const CategoriesSettingsKey = @"CategoriesSettingsKey";
 

@@ -116,13 +116,57 @@ NSInteger const ItemsPerPage = 10;
     [searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"latitude"];
     [searchParameters setValue:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"longitude"];
     
-    CGFloat searchAreaPercentage = [Defaults floatForKey:SearchAreaKey];
+	CGFloat searchAreaPercentage = [Defaults floatForKey:SearchAreaKey]?:0.5f;
     [searchParameters setValue:@(MaxSearchArea * searchAreaPercentage) forKey:@"distance"];
     [searchParameters setValue:searchString ? searchString : @"" forKey:@"searchstring"];
+
+	NSString *adTypesIds = @"";
+	NSMutableDictionary *categoriesId = [NSMutableDictionary new];
+	
+	if ([Defaults objectForKey:CategoriesSettingsKey]) {
+		categoriesId = [[Defaults dictionaryForKey:CategoriesSettingsKey] mutableCopy];
+	} else if ([Defaults objectForKey:CategoriesListKey]) {
+		NSMutableArray *categoriesArray = [CategoryModel arrayWithDictionariesArray:[Defaults objectForKey:CategoriesListKey]];
+		for (NSInteger i = 0; i < categoriesArray.count; i++){
+			CategoryModel *currentCategory = categoriesArray[i];
+			[categoriesId setValue:@YES forKey:@(currentCategory.categoryId).stringValue];
+		}
+		[Utils storeValue:categoriesId forKey:CategoriesSettingsKey];
+		
+	} else {
+		
+		[[APIClient sharedInstance] categoriesListWithCompletion:^(id response, NSError *error, NSInteger statusCode) {
+			if (!error) {
+				NSParameterAssert([response isKindOfClass:[NSArray class]]);
+				[Utils storeValue:response forKey:CategoriesListKey];
+				
+				for (NSInteger i = 0; i < ((NSArray *)response).count; i++) {
+					CategoryModel *currentCategory = [[CategoryModel alloc] initWithDictionary:response[i]];
+					[categoriesId setValue:@YES forKey:@(currentCategory.categoryId).stringValue];
+				}
+				[Utils storeValue:categoriesId forKey:CategoriesSettingsKey];
+				[[NSNotificationCenter defaultCenter] postNotificationName:SettingsChangedNotificaionName object:nil];
+			}
+		}];
+	}
+	
+	NSString *key;
+	for (key in categoriesId){
+		if ([categoriesId[key] boolValue]) {
+			if (adTypesIds.length) {
+				adTypesIds = [adTypesIds stringByAppendingString:@","];
+			}
+			adTypesIds = [adTypesIds stringByAppendingString:key];
+		}
+	}
+	
+	[searchParameters setValue:adTypesIds forKey:@"ad_type_ids"];
+	
     [parameters setValue:searchParameters forKey:@"search"];
-    
+	
     return [self performGET:@"api/v1/search.json" withParameters:parameters response:completion];
 }
+
 
 - (void)reportItemWithId:(NSInteger)itemId andUserId:(NSInteger)userId description:(NSString *)text reasonId:(NSInteger)reasonId withCompletion:(ResponseBlock)completion
 {

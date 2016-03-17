@@ -64,7 +64,15 @@
 	self.name = userWithInfo[@"name"];
 	self.phone = userWithInfo[@"phone"];
 	self.about = userWithInfo[@"description"];
+	
+	NSString *logoUrl = userWithInfo[@"company_logo_url"];
+	//company_logo_url
+	if (logoUrl.length) {
+		self.companyLogoUrl = [NSURL URLWithString:logoUrl];
+	}
+	
     NSString *avatarUrl = userWithInfo[@"avatar_url"];
+	 //company_logo_url
     if (avatarUrl.length) {
         self.avatarUrl = [NSURL URLWithString:avatarUrl];
     }

@@ -70,7 +70,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
     
 	[self tableViewSetup];
 	[self setupNavBar];
-    [self reloadUser];
+//    [self reloadUser];
 	[self performSelector:@selector(checkMessages) withObject:nil afterDelay:[APIClient sharedInstance].requestStartDelay];
 }
 
@@ -118,7 +118,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[cell.avatarImageView addGestureRecognizer:imageTapGesture];
 	}
 	
-	if (self.user.logoUrl) {
+	if (self.user.companyLogoUrl) {
 		[cell.logoImageView addGestureRecognizer:imageTapGesture];
 	}
 	
@@ -279,6 +279,10 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
             [[APIClient sharedInstance] updatePasstoken:@""];
             [[APIClient sharedInstance] updateCurrentUser:nil];
             [Defaults removeObjectForKey:CurrentUserKey];
+			[Defaults removeObjectForKey:ShowPersonalAdsKey];
+			[Defaults removeObjectForKey:ShowBusinessAdsKey];
+			[Defaults removeObjectForKey:CategoriesSettingsKey];
+			[Defaults removeObjectForKey:SearchAreaKey];
             [Defaults synchronize];
             
             dispatch_async(dispatch_get_main_queue(), ^{

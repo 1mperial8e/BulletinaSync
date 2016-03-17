@@ -214,9 +214,9 @@ typedef NS_ENUM(NSUInteger, SectionsIndexes) {
 		} else if (indexPath.item == RetypePasswordCellIndex) {
 			cell.placeholderLabel.text = TextFieldRePasswordLabel;
 			cell.inputTextField.placeholder = TextFieldRePasswordPlaceholder;
-			cell.inputTextField.text = self.tempUser.rePassword;
 			cell.inputTextField.secureTextEntry = YES;
 			cell.inputTextField.returnKeyType = UIReturnKeyDone;
+			cell.inputTextField.text = self.tempUser.rePassword;
 			self.retypePasswordTextfield = cell.inputTextField;
 		}
 	}

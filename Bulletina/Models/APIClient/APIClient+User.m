@@ -83,9 +83,13 @@
 	}
     [parameters setValue:userParameters forKey:@"user"];
     
-	NSArray *dataArray;
+	NSMutableArray *dataArray = [NSMutableArray new];
 	if (avatar) {
-        dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(avatar, 1.0f) fileName:@"avatar.jpg" mimeType:@"image/jpeg" parameterName:@"user[avatar]"]];
+		[dataArray addObject:[self multipartFileWithContents:UIImageJPEGRepresentation(avatar, 1.0f) fileName:@"avatar.jpg" mimeType:@"image/jpeg" parameterName:@"user[avatar]"]];
+	}
+	
+	if (logo) {
+		[dataArray addObject:[self multipartFileWithContents:UIImageJPEGRepresentation(logo, 1.0f) fileName:@"logo.jpg" mimeType:@"image/jpeg" parameterName:@"user[company_logo]"]];
 	}
 	
 	//send logo image
@@ -150,10 +154,16 @@
     [userParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.latitude) forKey:@"home_latitude"];
     [userParameters setObject:@([LocationManager sharedManager].currentLocation.coordinate.longitude) forKey:@"home_longitude"];
     
-    NSArray *dataArray;
+    NSMutableArray *dataArray = [NSMutableArray new];
     if (avatar) {
-        dataArray = @[[self multipartFileWithContents:UIImageJPEGRepresentation(avatar, 1.0f) fileName:@"avatar.jpg" mimeType:@"image/jpeg" parameterName:@"user[avatar]"]];
-    }
+        [dataArray addObject:[self multipartFileWithContents:UIImageJPEGRepresentation(avatar, 1.0f) fileName:@"avatar.jpg" mimeType:@"image/jpeg" parameterName:@"user[avatar]"]];
+	}
+	
+	if (logo) {
+		 [dataArray addObject:[self multipartFileWithContents:UIImageJPEGRepresentation(logo, 1.0f) fileName:@"logo.jpg" mimeType:@"image/jpeg" parameterName:@"user[company_logo]"]];
+	}
+	
+//	user[company_logo]
     [updateParameters setValue:userParameters forKey:@"user"];
     
     NSString *query = [NSString stringWithFormat:@"api/v1/users/%li.json", self.currentUser.userId];

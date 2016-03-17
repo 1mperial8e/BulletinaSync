@@ -32,7 +32,7 @@ static NSString *const TextFieldWebsitePlaceholder = @"www.company.com";
 static NSString *const TextFieldFacebookPlaceholder = @"facebook_id";
 static NSString *const TextFieldLinkedinPlaceholder = @"linked_in";
 static NSString *const TextFieldPasswordPlaceholder = @"********************";
-static NSString *const TextFieldRePasswordPlaceholder = @"********************";
+static NSString *const TextFieldRePasswordPlaceholder = @"******************** ";
 static NSString *const TextFieldNicknamePlaceholder = @"mynickname";
 static NSString *const TextFieldFullnamePlaceholder = @"Full Name:";
 

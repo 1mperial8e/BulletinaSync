@@ -149,7 +149,7 @@ typedef NS_ENUM(NSUInteger, CellsIndexes) {
 		[cell.avatarImageView addGestureRecognizer:imageTapGesture];
 	}
 	
-	if (self.user.logoUrl) {
+	if (self.user.companyLogoUrl) {
 		[cell.logoImageView addGestureRecognizer:imageTapGesture];
 	}
 

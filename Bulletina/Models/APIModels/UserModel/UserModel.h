@@ -36,10 +36,11 @@ typedef NS_ENUM(NSInteger, UserAccountType) {
 @property (strong, nonatomic) NSString *companyName;
 @property (strong, nonatomic) NSString *homeLatitude;
 @property (strong, nonatomic) NSString *homeLongitude;
+@property (strong, nonatomic) NSURL *companyLogoUrl;
 @property (strong, nonatomic) NSURL *avatarUrl;
 @property (strong, nonatomic) NSURL *avatarUrlThumb;
-@property (strong, nonatomic) NSURL *logoUrl;
-@property (strong, nonatomic) NSURL *logoUrlThumb;
+//@property (strong, nonatomic) NSURL *logoUrl;
+//@property (strong, nonatomic) NSURL *logoUrlThumb;
 @property (strong, nonatomic) NSString *website;
 @property (strong, nonatomic) NSString *facebook;
 @property (strong, nonatomic) NSString *linkedin;

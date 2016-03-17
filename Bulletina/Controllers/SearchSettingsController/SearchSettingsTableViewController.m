@@ -62,8 +62,8 @@ static NSInteger const UserTypeSectionsIndex = 2;
 		self.showBusinessAds = YES;
 	}
 	
-	if ([defaults objectForKey:ShowPersonaAdsKey]) {
-		self.showPersonalAds = [defaults boolForKey:ShowPersonaAdsKey];
+	if ([defaults objectForKey:ShowPersonalAdsKey]) {
+		self.showPersonalAds = [defaults boolForKey:ShowPersonalAdsKey];
 	} else {
 		self.showPersonalAds = YES;
 	}
@@ -84,7 +84,7 @@ static NSInteger const UserTypeSectionsIndex = 2;
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
-	[Utils storeValue:@(self.showPersonalAdsSwitch.on) forKey:ShowPersonaAdsKey];
+	[Utils storeValue:@(self.showPersonalAdsSwitch.on) forKey:ShowPersonalAdsKey];
 	[Utils storeValue:@(self.showBusinessAdsSwitch.on) forKey:ShowBusinessAdsKey];
 	[Utils storeValue:@(self.searchArea) forKey:SearchAreaKey];
 	[Utils storeValue:self.categoriesSettings forKey:CategoriesSettingsKey];
